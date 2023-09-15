@@ -4,7 +4,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import Link from 'next/link'; 
-import { Menu } from 'antd';
+import { Menu, Input } from 'antd';
 
 const AppLayout = ({ children }) => {
   return (
@@ -16,6 +16,10 @@ const AppLayout = ({ children }) => {
         
 				<Menu.Item>
 					<Link href="/profile"><a>프로필</a></Link>
+				</Menu.Item>
+
+				<Menu.Item>
+					<Input.Search enterButton style={{ verticalAlign: 'middle' }} />
 				</Menu.Item>
 
 				<Menu.Item>
