@@ -4,7 +4,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import Link from 'next/link'; 
-import { Menu, Input } from 'antd';
+import { Menu, Input, Row, Col } from 'antd';
 
 const AppLayout = ({ children }) => {
   return (
@@ -26,7 +26,18 @@ const AppLayout = ({ children }) => {
 					<Link href="/signup"><a>회원가입</a></Link>
 				</Menu.Item>
       </Menu>
-      { children }
+
+			<Row>
+				<Col xs={24} md={6}>
+					왼쪽 메뉴
+				</Col>
+				<Col xs={24} md={12}>
+					{ children }
+				</Col>
+				<Col xs={24} md={6}>
+					오른쪽 메뉴
+				</Col>
+			</Row>
     </div>
   );
 };
