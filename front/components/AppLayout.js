@@ -29,13 +29,27 @@ const AppLayout = ({ children }) => {
 
 			<Row gutter={8}>
 				<Col xs={24} md={6}>
-					왼쪽 메뉴
+					<a
+						href="https://www.youtube.com/channel/UCApS8QVxNA7ngyzrudA5q-w"
+						target="_blank"
+						rel="noreferrer noopener"
+					>
+						YouTube 채널
+					</a>
 				</Col>
+
 				<Col xs={24} md={12}>
 					{ children }
 				</Col>
+				
 				<Col xs={24} md={6}>
-					오른쪽 메뉴
+					<a
+						href="https://blog.naver.com/dd300"
+						target="_blank"
+						rel="noreferrer noopener"
+					>
+						Naver 블로그
+					</a>
 				</Col>
 			</Row>
     </div>
