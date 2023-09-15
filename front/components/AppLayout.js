@@ -19,7 +19,12 @@ const AppLayout = ({ children }) => {
 				</Menu.Item>
 
 				<Menu.Item>
-					<Input.Search enterButton style={{ verticalAlign: 'middle' }} />
+					<Input.Search
+						enterButton style={{ verticalAlign: 'middle' }}
+						type="text"
+						name="메인 검색 창"
+						placeholder="검색"
+					/>
 				</Menu.Item>
 
 				<Menu.Item>
