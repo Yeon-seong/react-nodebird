@@ -2,10 +2,11 @@
 
 
 import React from 'react';
+import AppLayout from '../components/AppLayout';
 
 const Home = () => {
   return (
-    <div>홈페이지</div>
+    <AppLayout>홈페이지</AppLayout>
   );
 }
 
