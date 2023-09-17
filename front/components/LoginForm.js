@@ -1,11 +1,14 @@
 /* -------------------- 트위터 로그인 폼 -------------------- */
 
 
+// 외부 컴포넌트 불러오기
 import React, { useState, useCallback } from 'react';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link'; 
 
 
+
+// 로그인 폼 컴포넌트(사용자 정의 태그)
 const LoginForm = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +23,7 @@ const LoginForm = () => {
 
   return (
     <Form>
+      {/* 아이디 인풋 */}
       <div>
         <label htmlFor="user-id">아이디</label>
         <br />
@@ -31,6 +35,7 @@ const LoginForm = () => {
         />
       </div>
 
+      {/* 비밀번호 인풋 */}
       <div>
         <label htmlFor="user-password">비밀번호</label>
         <br />
@@ -43,7 +48,8 @@ const LoginForm = () => {
         />
       </div>
 
-      <div>
+      {/* 로그인 버튼 */}
+      <div style={{ marginTop: '10px' }}>
         <Button
           type="primary"
           htmlType="submit"
@@ -51,10 +57,17 @@ const LoginForm = () => {
         >
           로그인
         </Button>
-        <Link href="/signup"><a><Button>회원가입</Button></a></Link>
+
+        {/* 회원가입 버튼 */}
+        <Link href="/signup">
+          <a><Button>회원가입</Button></a>
+        </Link>
       </div>
     </Form>
   );
 }
 
+
+
+// 로그인 폼 컴포넌트 내보내기
 export default LoginForm;
