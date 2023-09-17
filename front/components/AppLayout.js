@@ -13,7 +13,7 @@ import UserProfile from '../components/UserProfile';
 import LoginForm from '../components/LoginForm';
 
 
-// 서치인풋 컴포넌트 : Input.Search 컴포넌트 커스텀 스타일링
+// 검색인풋 컴포넌트 : Input.Search 컴포넌트 커스텀 스타일링
 const SearchInput = styled(Input.Search)`
 	vertical-align: middle;
 `;
@@ -57,7 +57,7 @@ const AppLayout = ({ children }) => {
 			<Row gutter={8}>
 				<Col xs={24} md={6}>
 					{/* 로그인 되어있으면 사용자 프로필, 로그인이 안 되어있으면 로그인 폼을 보이기 */}
-					{isLoggedIn ? <UserProfile /> : <LoginForm />}
+					{isLoggedIn ? <UserProfile /> : <LoginForm setIsLoggedIn={setIsLoggedIn} />}
 				</Col>
 
 				<Col xs={24} md={12}>

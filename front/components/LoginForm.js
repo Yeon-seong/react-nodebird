@@ -16,22 +16,30 @@ const ButtonWrapper = styled.div`
 
 
 // 로그인 폼 컴포넌트(사용자 정의 태그)
-const LoginForm = () => {
+const LoginForm = ({ setIsLoggedIn }) => {
   /* 컴포넌트 상태 저장 : 리액트 Hooks useState 사용 */
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
+
   /* 컴포넌트의 속성(props)으로 넘겨주는 값들은 useCallback 사용 */
-  const onChangeId = useCallback((event) => {
-    setId(event.target.value);
+  const onChangeId = useCallback((e) => {
+    setId(e.target.value);
   }, []);
 
-  const onChangePassword = useCallback((event) => {
-    setPassword(event.target.value);
+  const onChangePassword = useCallback((e) => {
+    setPassword(e.target.value);
   }, []);
+
+
+  // 폼 제출
+  const onSubmitForm = useCallback(() => {
+    console.log(id, password);
+    setIsLoggedIn(true);
+  }, [id, password]);
 
   return (
-    <Form>
+    <Form onFinish={onSubmitForm}>
       {/* 아이디 인풋 */}
       <div>
         <label htmlFor="user-id">아이디</label>
