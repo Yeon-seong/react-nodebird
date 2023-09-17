@@ -2,13 +2,19 @@
 
 
 // 외부 컴포넌트 불러오기
-import React from 'react';
-import { Card, Avatar } from 'antd';
+import React, { useCallback } from 'react';
+import { Card, Avatar, Button } from 'antd';
 
 
 
 // 사용자 프로필 컴포넌트(사용자 정의 태그)
-const UserProfile = () => {
+const UserProfile = ({ setIsLoggedIn }) => {
+  
+  /* 더미 데이터 로그아웃 */
+  const onLogOut = useCallback(() => {
+    setIsLoggedIn(false);
+  }, []);
+
   return (
     <Card
       actions={[
@@ -21,6 +27,7 @@ const UserProfile = () => {
         avatar={<Avatar>YS</Avatar>}
         title="YeonSeong"
       />
+      <Button onClick={onLogOut}>로그아웃</Button>
     </Card>
   );
 };

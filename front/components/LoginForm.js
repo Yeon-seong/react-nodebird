@@ -14,6 +14,11 @@ const ButtonWrapper = styled.div`
   margin-top: 10px;
 `;
 
+// 폼래퍼 컴포넌트 : Form 컴포넌트 커스텀 스타일링
+const FormWrapper = styled(Form)`
+  padding: 10px;
+`;
+
 
 // 로그인 폼 컴포넌트(사용자 정의 태그)
 const LoginForm = ({ setIsLoggedIn }) => {
@@ -32,14 +37,14 @@ const LoginForm = ({ setIsLoggedIn }) => {
   }, []);
 
 
-  // 폼 제출
+  // 더미 데이터 로그인
   const onSubmitForm = useCallback(() => {
     console.log(id, password);
     setIsLoggedIn(true);
   }, [id, password]);
 
   return (
-    <Form onFinish={onSubmitForm}>
+    <FormWrapper onFinish={onSubmitForm}>
       {/* 아이디 인풋 */}
       <div>
         <label htmlFor="user-id">아이디</label>
@@ -81,7 +86,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
           <a><Button>회원가입</Button></a>
         </Link>
       </ButtonWrapper>
-    </Form>
+    </FormWrapper>
   );
 }
 
