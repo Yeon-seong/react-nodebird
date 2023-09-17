@@ -15,6 +15,7 @@ import LoginForm from '../components/LoginForm';
 
 // 앱 레이아웃 컴포넌트(사용자 정의 태그)
 const AppLayout = ({ children }) => {
+	/* 컴포넌트 상태 저장 : 리액트 Hooks useState 사용 */
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div>
@@ -49,6 +50,7 @@ const AppLayout = ({ children }) => {
 			{/* 반응형 화면 분할 */}
 			<Row gutter={8}>
 				<Col xs={24} md={6}>
+					{/* 로그인 되어있으면 사용자 프로필, 로그인이 안 되어있으면 로그인 폼을 보이기 */}
 					{isLoggedIn ? <UserProfile /> : <LoginForm />}
 				</Col>
 
@@ -74,6 +76,7 @@ const AppLayout = ({ children }) => {
 
 // 앱 레이아웃 컴포넌트의 children props 데이터 타입 검사
 AppLayout.propTypes = {
+	/* Node 객체 필수 검사 */
   children: propTypes.node.isRequired,
 };
 

@@ -28,6 +28,7 @@ const NodeBird = ({ Component }) => {
 
 // 노드버드 컴포넌트의 Component props 데이터 타입 검사
 NodeBird.propTypes = {
+  /* props로 컴포넌트 이름을 집어넣을 때 필수 검사 */
   Component: propTypes.elementType.isRequired,
 }
 

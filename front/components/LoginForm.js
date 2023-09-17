@@ -10,9 +10,11 @@ import Link from 'next/link';
 
 // 로그인 폼 컴포넌트(사용자 정의 태그)
 const LoginForm = () => {
+  /* 컴포넌트 상태 저장 : 리액트 Hooks useState 사용 */
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
+  /* 컴포넌트의 속성(props)으로 넘겨주는 값들은 useCallback 사용 */
   const onChangeId = useCallback((event) => {
     setId(event.target.value);
   }, []);
@@ -48,12 +50,13 @@ const LoginForm = () => {
         />
       </div>
 
-      {/* 로그인 버튼 */}
+      {/* 로그인 버튼, 회원가입 버튼 */}
       <div style={{ marginTop: '10px' }}>
+        {/* 로그인 버튼 */}
         <Button
           type="primary"
           htmlType="submit"
-          loading={false}  
+          loading={false}
         >
           로그인
         </Button>
