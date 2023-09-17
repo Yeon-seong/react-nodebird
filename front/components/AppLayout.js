@@ -6,11 +6,17 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import Link from 'next/link'; 
 import { Menu, Input, Row, Col } from 'antd';
+import styled from 'styled-components';
 
 // 내부 컴포넌트 불러오기
 import UserProfile from '../components/UserProfile';
 import LoginForm from '../components/LoginForm';
 
+
+// 서치인풋 컴포넌트 : Input.Search 컴포넌트 커스텀 스타일링
+const SearchInput = styled(Input.Search)`
+	vertical-align: middle;
+`;
 
 
 // 앱 레이아웃 컴포넌트(사용자 정의 태그)
@@ -33,8 +39,8 @@ const AppLayout = ({ children }) => {
 
 				{/* 검색 창 */}
 				<Menu.Item>
-					<Input.Search
-						enterButton style={{ verticalAlign: 'middle' }}
+					<SearchInput
+						enterButton
 						type="text"
 						name="메인 검색 창"
 						placeholder="검색"

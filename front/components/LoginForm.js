@@ -5,7 +5,14 @@
 import React, { useState, useCallback } from 'react';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link'; 
+import styled from 'styled-components';
 
+
+
+// 버튼래퍼 컴포넌트 : 스타일이 이미 적용된 div 컴포넌트
+const ButtonWrapper = styled.div`
+  margin-top: 10px;
+`;
 
 
 // 로그인 폼 컴포넌트(사용자 정의 태그)
@@ -51,7 +58,7 @@ const LoginForm = () => {
       </div>
 
       {/* 로그인 버튼, 회원가입 버튼 */}
-      <div style={{ marginTop: '10px' }}>
+      <ButtonWrapper>
         {/* 로그인 버튼 */}
         <Button
           type="primary"
@@ -65,7 +72,7 @@ const LoginForm = () => {
         <Link href="/signup">
           <a><Button>회원가입</Button></a>
         </Link>
-      </div>
+      </ButtonWrapper>
     </Form>
   );
 }
