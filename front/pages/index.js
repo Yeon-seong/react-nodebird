@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <AppLayout>홈페이지</AppLayout>
   );
-}
+};
 
 
 

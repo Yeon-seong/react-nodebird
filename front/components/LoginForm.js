@@ -88,7 +88,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
       </ButtonWrapper>
     </FormWrapper>
   );
-}
+};
 
 
 

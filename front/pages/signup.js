@@ -20,7 +20,7 @@ const Signup = () => {
       <AppLayout>회원가입 페이지</AppLayout>
     </>
   );
-}
+};
 
 
 
