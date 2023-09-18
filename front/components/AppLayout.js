@@ -3,7 +3,7 @@
 
 // 외부 컴포넌트 불러오기
 import React, { useState } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Link from 'next/link'; 
 import { Menu, Input, Row, Col } from 'antd';
 import styled from 'styled-components';
@@ -85,7 +85,7 @@ const AppLayout = ({ children }) => {
 // 앱 레이아웃 컴포넌트의 children props 데이터 타입 검사
 AppLayout.propTypes = {
 	/* Node 객체 필수 검사 */
-  children: propTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 // 앱 레이아웃 컴포넌트 내보내기

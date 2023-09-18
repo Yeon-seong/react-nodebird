@@ -3,7 +3,7 @@
 
 // 외부 컴포넌트 불러오기
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 // antd CSS 불러오기
@@ -29,8 +29,8 @@ const NodeBird = ({ Component }) => {
 // 노드버드 컴포넌트의 Component props 데이터 타입 검사
 NodeBird.propTypes = {
   /* props로 컴포넌트 이름을 집어넣을 때 필수 검사 */
-  Component: propTypes.elementType.isRequired,
-}
+  Component: PropTypes.elementType.isRequired,
+};
 
 // 노드버드 컴포넌트 내보내기
 export default NodeBird;
