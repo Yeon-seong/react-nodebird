@@ -16,8 +16,8 @@ import FollowList from '../components/FollowList';
 const Profile = () => {
 
   /* 팔로잉 목록, 팔로우 목록 더미 데이터 */
-  const followingList = [ { nickname: '토끼' }, { nickname: '오리' }, { nickname: '물범' } ];
-  const followerList = [ { nickname: '개구리' }, { nickname: '강아지' }, { nickname: '고양이' } ];
+  const followingList = [{ nickname: '토끼' }, { nickname: '오리' }, { nickname: '물범' }];
+  const followerList = [{ nickname: '개구리' }, { nickname: '강아지' }, { nickname: '고양이' }];
 
   return (
     <>
