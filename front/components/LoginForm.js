@@ -2,11 +2,14 @@
 
 
 // 외부 컴포넌트 불러오기
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link'; 
 import styled from 'styled-components';
+
+// 내부 컴포넌트 불러오기
+import useInput from '../hooks/useInput';
 
 
 
@@ -23,19 +26,8 @@ const FormWrapper = styled(Form)`
 
 // 로그인 폼 컴포넌트(사용자 정의 태그)
 const LoginForm = ({ setIsLoggedIn }) => {
-  /* 컴포넌트 상태 저장 : 리액트 Hooks useState 사용 */
-  const [id, setId] = useState('');
-  const onChangeId = useCallback((e) => {
-    setId(e.target.value);
-  }, []);
-
-  
- /* 컴포넌트의 속성(props)으로 넘겨주는 값들은 useCallback 사용 */
-  const [password, setPassword] = useState('');
-  const onChangePassword = useCallback((e) => {
-    setPassword(e.target.value);
-  }, []);
-
+  const [id, onChangeId] = useInput('');
+  const [password, onChangePassword] = useInput('');
 
   // 더미 데이터 로그인
   const onSubmitForm = useCallback(() => {
@@ -45,7 +37,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
 
   return (
     <FormWrapper onFinish={onSubmitForm}>
-      {/* 아이디 인풋 */}
+      {/* ---------- 아이디 인풋 ---------- */}
       <div>
         <label htmlFor="user-id">아이디</label>
         <br />
@@ -57,7 +49,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
         />
       </div>
 
-      {/* 비밀번호 인풋 */}
+      {/* ---------- 비밀번호 인풋 ---------- */}
       <div>
         <label htmlFor="user-password">비밀번호</label>
         <br />
@@ -70,7 +62,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
         />
       </div>
 
-      {/* 로그인 버튼, 회원가입 버튼 */}
+      {/* ----------로그인 버튼, 회원가입 버튼 ---------- */}
       <ButtonWrapper>
         {/* 로그인 버튼 */}
         <Button
