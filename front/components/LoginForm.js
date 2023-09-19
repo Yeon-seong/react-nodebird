@@ -3,6 +3,7 @@
 
 // 외부 컴포넌트 불러오기
 import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link'; 
 import styled from 'styled-components';
@@ -24,14 +25,13 @@ const FormWrapper = styled(Form)`
 const LoginForm = ({ setIsLoggedIn }) => {
   /* 컴포넌트 상태 저장 : 리액트 Hooks useState 사용 */
   const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-
-
-  /* 컴포넌트의 속성(props)으로 넘겨주는 값들은 useCallback 사용 */
   const onChangeId = useCallback((e) => {
     setId(e.target.value);
   }, []);
 
+  
+ /* 컴포넌트의 속성(props)으로 넘겨주는 값들은 useCallback 사용 */
+  const [password, setPassword] = useState('');
   const onChangePassword = useCallback((e) => {
     setPassword(e.target.value);
   }, []);
@@ -91,6 +91,12 @@ const LoginForm = ({ setIsLoggedIn }) => {
 };
 
 
+
+// 로그인 폼 컴포넌트의 setIsLoggedIn props 데이터 타입 검사
+LoginForm.propTypes = {
+  /* Fucntion 객체 필수 검사 */
+  setIsLoggedIn: PropTypes.func.isRequired,
+};
 
 // 로그인 폼 컴포넌트 내보내기
 export default LoginForm;
