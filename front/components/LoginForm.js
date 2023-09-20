@@ -39,10 +39,11 @@ const LoginForm = ({ setIsLoggedIn }) => {
     <FormWrapper onFinish={onSubmitForm}>
       {/* ---------- 아이디 인풋 ---------- */}
       <div>
-        <label htmlFor="user-id">아이디</label>
+        <label htmlFor="user-main-id">아이디</label>
         <br />
         <Input
-          id="user-id"
+          id="user-main-id"
+          name="user-id"
           value={id}
           onChange={onChangeId}
           required
@@ -51,10 +52,11 @@ const LoginForm = ({ setIsLoggedIn }) => {
 
       {/* ---------- 비밀번호 인풋 ---------- */}
       <div>
-        <label htmlFor="user-password">비밀번호</label>
+        <label htmlFor="user-main-password">비밀번호</label>
         <br />
         <Input
-          id="user-password"
+          id="user-main-password"
+          name="user-password"
           type="password"
           value={password}
           onChange={onChangePassword}
@@ -66,6 +68,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
       <ButtonWrapper>
         {/* 로그인 버튼 */}
         <Button
+          name="login-btn"
           type="primary"
           htmlType="submit"
           loading={false}
