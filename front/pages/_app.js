@@ -9,6 +9,9 @@ import Head from 'next/head';
 // antd CSS 불러오기
 import 'antd/dist/antd.css';
 
+// wrapper 불러오기
+import wrapper from '../store/configureStore';
+
 
 
 // 노드버드 컴포넌트(사용자 정의 태그)
@@ -33,4 +36,5 @@ NodeBird.propTypes = {
 };
 
 // 노드버드 컴포넌트 내보내기
-export default NodeBird;
+// export할 컴포넌트에 고차 컴포넌트(HOC) 적용
+export default wrapper.withRedux(NodeBird);
