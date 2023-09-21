@@ -23,7 +23,7 @@ const configureStore = () => {
 
 // 래퍼
 const wrapper = createWrapper(configureStore, {
-  debug: process.env.NODE_ENV === !develoment
+  debug: process.env.NODE_ENV === 'development',
 });
 
 
