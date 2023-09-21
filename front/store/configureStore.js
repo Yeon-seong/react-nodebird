@@ -3,10 +3,22 @@
 
 // 불러오기
 import { createWrapper } from 'next-redux-wrapper';
+import { createStore } from 'redux';
+
+// rootReducer 불러오기
+import reducer from '../reducers';
 
 
 
-const configureStore = () => {};
+// 액션 객체를 디스패치(dispatch)
+const configureStore = () => {
+  const store = createStore(reducer);
+  store.dispach({
+    type: 'CHANGE_NICKNAME',
+    data: 'heart',
+  })
+  return store;
+};
 
 
 // 래퍼
