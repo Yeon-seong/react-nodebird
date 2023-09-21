@@ -10,10 +10,10 @@ import reducer from '../reducers';
 
 
 
-// 액션 객체를 디스패치(dispatch)
+// 액션 객체 디스패치(dispatch)
 const configureStore = () => {
   const store = createStore(reducer);
-  store.dispach({
+  store.dispatch({
     type: 'CHANGE_NICKNAME',
     data: 'heart',
   })
