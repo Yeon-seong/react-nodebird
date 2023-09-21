@@ -27,7 +27,7 @@ const FormWrapper = styled(Form)`
 
 // 로그인 폼 컴포넌트(사용자 정의 태그)
 const LoginForm = () => {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const [id, onChangeId] = useInput('');
   const [password, onChangePassword] = useInput('');
 
