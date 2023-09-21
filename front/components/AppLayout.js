@@ -22,7 +22,7 @@ const SearchInput = styled(Input.Search)`
 
 // 앱 레이아웃 컴포넌트(사용자 정의 태그)
 const AppLayout = ({ children }) => {
-	/* react-redux useSelector 사용 */
+	/* 중앙 데이터 저장소 기본 state에서 user 데이터의 isLoggedIn을 받아오기  */
 	const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   return (
