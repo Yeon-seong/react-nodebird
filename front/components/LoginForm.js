@@ -3,13 +3,14 @@
 
 // 외부 컴포넌트 불러오기
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link'; 
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 // 내부 컴포넌트 불러오기
 import useInput from '../hooks/useInput';
+import { loginAction } from '../reducers';
 
 
 
@@ -25,14 +26,15 @@ const FormWrapper = styled(Form)`
 
 
 // 로그인 폼 컴포넌트(사용자 정의 태그)
-const LoginForm = ({ setIsLoggedIn }) => {
+const LoginForm = () => {
+  const dispatch = useDispatch;
   const [id, onChangeId] = useInput('');
   const [password, onChangePassword] = useInput('');
 
   // 더미 데이터 로그인
   const onSubmitForm = useCallback(() => {
     console.log(id, password);
-    setIsLoggedIn(true);
+    dispatch(loginAction(id, password));
   }, [id, password]);
 
   return (
@@ -86,12 +88,6 @@ const LoginForm = ({ setIsLoggedIn }) => {
 };
 
 
-
-// 로그인 폼 컴포넌트의 setIsLoggedIn props 데이터 타입 검사
-LoginForm.propTypes = {
-  /* Fucntion 객체 필수 검사 */
-  setIsLoggedIn: PropTypes.func.isRequired,
-};
 
 // 로그인 폼 컴포넌트 내보내기
 export default LoginForm;

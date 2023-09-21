@@ -2,11 +2,12 @@
 
 
 // 외부 컴포넌트 불러오기
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link'; 
 import { Menu, Input, Row, Col } from 'antd';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 // 내부 컴포넌트 불러오기
 import UserProfile from '../components/UserProfile';
@@ -21,8 +22,9 @@ const SearchInput = styled(Input.Search)`
 
 // 앱 레이아웃 컴포넌트(사용자 정의 태그)
 const AppLayout = ({ children }) => {
-	/* 컴포넌트 상태 저장 : 리액트 Hooks useState 사용 */
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	/* react-redux useSelector 사용 */
+	const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+
   return (
     <div>
       <Menu mode="horizontal">
@@ -58,8 +60,8 @@ const AppLayout = ({ children }) => {
 				<Col xs={24} md={6}>
 					{/* 로그인 되어있으면 사용자 프로필, 로그인이 안 되어있으면 로그인 폼을 보이기 */}
 					{isLoggedIn
-						? <UserProfile setIsLoggedIn={setIsLoggedIn} />
-						: <LoginForm setIsLoggedIn={setIsLoggedIn} />}
+						? <UserProfile />
+						: <LoginForm />}
 				</Col>
 
 				<Col xs={24} md={12}>

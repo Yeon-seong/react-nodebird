@@ -3,16 +3,20 @@
 
 // 외부 컴포넌트 불러오기
 import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { Card, Avatar, Button } from 'antd';
 
+// 내부 컴포넌트 불러오기
+import { logoutAction } from '../reducers';
 
 
 // 사용자 프로필 컴포넌트(사용자 정의 태그)
-const UserProfile = ({ setIsLoggedIn }) => {
-  
+const UserProfile = () => {
+  const dispatch = useDispatch();
+
   /* 더미 데이터 로그아웃 */
   const onLogOut = useCallback(() => {
-    setIsLoggedIn(false);
+    dispatch(logoutAction());
   }, []);
 
   return (
