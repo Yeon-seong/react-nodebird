@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Card, Avatar, Button } from 'antd';
 
 // 내부 컴포넌트 불러오기
-import { logoutAction } from '../reducers';
+import { logoutAction } from '../reducers/user';
 
 
 // 사용자 프로필 컴포넌트(사용자 정의 태그)

@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 
 // 내부 컴포넌트 불러오기
 import useInput from '../hooks/useInput';
-import { loginAction } from '../reducers';
+import { loginAction } from '../reducers/user';
 
 
 
