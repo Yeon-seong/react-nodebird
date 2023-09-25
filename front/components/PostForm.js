@@ -4,18 +4,22 @@
 // 외부 컴포넌트 불러오기
 import React, { useCallback, useState } from 'react';
 import { Form, Input, Button } from 'antd';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { addPost } from '../reducers/post';
 
 
 // 포스트 폼 컴포넌트(사용자 정의 태그)
 const PostForm = () => {
   const { imagePaths } = useSelector((state) => state.post);
+  const dispatch = useDispatch();
   const [text, setText] = useState('');
   const onChangeText = useCallback((e) => {
     setText(e.target.value);
   }, []);
-  const onSubmit = useCallback(() => {}, []);
+  /* ----- 포스트 폼 제출 시 포스트 카드 추가 ----- */
+  const onSubmit = useCallback(() => {
+    dispatch(addPost);
+  }, []);
   
   return (
     <Form
