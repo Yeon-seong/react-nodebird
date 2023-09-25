@@ -12,7 +12,7 @@ export const initialState = {
       nickname: 'yeonseong',
     },
     content: '첫 번째 게시글 #해시태그 #익스프레스',
-    Image: [{
+    Images: [{
       // 이미지 주소1,
       src: 'https://ibb.co/HHdLL6X',
     }, {
@@ -43,9 +43,34 @@ export const initialState = {
 }
 
 
+// 포스트 추가 액션
+const ADD_POST = 'ADD_POST';
+export const addPost = {
+  type: ADD_POST,
+}
+// 포스트 더미 데이터
+const dummyPost = {
+  id: 2,
+  content: '더미데이터 입니다.',
+  User: {
+    id: 1,
+    nickname: 'yeonseong',
+  },
+  Images: [],
+  Comments: [],
+};
+
+
 // 리듀서(reducer) : (이전 상태, 액션) => 다음 상태
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    /* ----- 포스트 추가 리듀서 ----- */
+    case ADD_POST:
+      return {
+        ...state,
+        mainPosts: [dummyPost, ...state.mainPosts],
+        postAdded: true,
+      };
     default:
       return state;
   }
