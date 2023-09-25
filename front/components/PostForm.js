@@ -11,7 +11,10 @@ import { useSelector } from 'react-redux';
 // 포스트 폼 컴포넌트(사용자 정의 태그)
 const PostForm = () => {
   const { imagePaths } = useSelector((state) => state.post);
-  const [text, onChangeText] = useState('');
+  const [text, setText] = useState('');
+  const onChangeText = useCallback((e) => {
+    setText(e.target.value);
+  }, []);
   const onSubmit = useCallback(() => {}, []);
   
   return (
