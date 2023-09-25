@@ -2,7 +2,7 @@
 
 
 // 외부 컴포넌트 불러오기
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import { Form, Input, Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from '../reducers/post';
@@ -12,15 +12,22 @@ import { addPost } from '../reducers/post';
 const PostForm = () => {
   const { imagePaths } = useSelector((state) => state.post);
   const dispatch = useDispatch();
+  const imageInput = useRef();
   const [text, setText] = useState('');
   const onChangeText = useCallback((e) => {
     setText(e.target.value);
   }, []);
+
   /* ----- 포스트 폼 제출 시 포스트 카드 추가 ----- */
   const onSubmit = useCallback(() => {
     dispatch(addPost);
   }, []);
-  
+
+  /* ----- 이미지 업로드 버튼 클릭 시 파일 업로드 창 띄우기 ----- */
+  const onClickImageUpload = useCallback(() => {
+    imageInput.current.click();
+  }, [imageInput.current]);
+
   return (
     <Form
       style={{ margin: '10px 0px 20px' }}
@@ -40,9 +47,10 @@ const PostForm = () => {
           id="file-upload"
           type="file"
           multiple hidden
+          ref={imageInput}
         />
         {/* ---------- 이미지 업로드 버튼 ---------- */}
-        <Button>
+        <Button onClick={onClickImageUpload}>
           이미지 업로드
         </Button>
         {/* ---------- 포스트 작성 버튼 ---------- */}
