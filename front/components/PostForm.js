@@ -21,6 +21,7 @@ const PostForm = () => {
   /* ----- 포스트 폼 제출 시 포스트 카드 추가 ----- */
   const onSubmit = useCallback(() => {
     dispatch(addPost);
+    setText('');
   }, []);
 
   /* ----- 이미지 업로드 버튼 클릭 시 파일 업로드 창 띄우기 ----- */
