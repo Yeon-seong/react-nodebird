@@ -4,15 +4,24 @@
 // 외부 컴포넌트 불러오기
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Popover, Button } from 'antd';
+import { useSelector } from 'react-redux';
+import { Card, Popover, Space, Button, Avatar } from 'antd';
+
 import { RetweetOutlined, HeartOutlined,
          MessageOutlined, EllipsisOutlined }
          from '@ant-design/icons';
+         
+// 내부 컴포넌트 불러오기
+import PostImages from './PostImages';
 
 
 
 // 포스트 카드 컴포넌트(사용자 정의 태그)
 const PostCard = ({ post }) => {
+  /* 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용 */
+  const id = useSelector((state) =>
+    state.user.me?.id
+  );
   return (
     <div>
       <Card
@@ -29,17 +38,22 @@ const PostCard = ({ post }) => {
           /* ----- 더보기 버튼 ----- */
           <Popover key="more"
             content={(
-              <>
-                {/* ----- 수정 버튼 ----- */}
-                <Button>수정</Button>
-                {/* ----- 삭제 버튼 ----- */}
-                <Button type="danger">삭제</Button>
-                {/* ----- 신고 버튼 ----- */}
-                <Button>신고</Button>
-              </>
-            )}>
+              <Space>
+                {/* 나의 id와 포스트 작성자의 id가 같으면 더보기 버튼에 수정 삭제 버튼 표시 */}
+                {id && post.User.id === id
+                  ? (
+                    <>
+                      <Button>수정</Button>
+                      <Button type="danger">삭제</Button>
+                    </>
+                  )
+                  /* 나의 id와 포스트 작성자의 id가 다르면 더보기 버튼에 신고 버튼 표시 */
+                  : <Button>신고</Button>}
+              </Space>
+            )}
+          >
             <EllipsisOutlined />
-          </Popover>
+          </Popover>,
         ]}
       >
       </Card>
