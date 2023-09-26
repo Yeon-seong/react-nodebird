@@ -56,6 +56,15 @@ const PostCard = ({ post }) => {
           </Popover>,
         ]}
       >
+        {/* ---------- 포스트 ---------- */}
+        <Card.Meta
+          // mainPosts 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시
+          avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
+          // mainPosts 포스트 작성자 이름 
+          title={post.User.nickname}
+          // mainPosts 포스트 콘텐츠
+          description={post.content}
+        />
       </Card>
     </div>
   );
