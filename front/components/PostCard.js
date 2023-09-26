@@ -3,6 +3,7 @@
 
 // 외부 컴포넌트 불러오기
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, Popover, Button } from 'antd';
 import { RetweetOutlined, HeartOutlined,
          MessageOutlined, EllipsisOutlined }
@@ -16,7 +17,7 @@ const PostCard = ({ post }) => {
     <div>
       <Card
         /* ---------- 이미지 ---------- */
-        // cover={post.Images[0] && <PostImages images={post.Images} />}
+        cover={post.Images[0] && <PostImages images={post.Images} />}
         /* ---------- 액션 버튼 ---------- */
         actions={[
           /* ----- 리트윗 버튼 ----- */
@@ -47,6 +48,22 @@ const PostCard = ({ post }) => {
 };
 
 
+
+// 포스트 카드 컴포넌트의 post props 데이터 타입 검사
+PostCard.propTypes = {
+	/* ----- 구체적으로 post Object를 필수 검사 ----- */
+  post: PropTypes.shape({
+    id: PropTypes.number,
+    User: PropTypes.shape({
+      id: PropTypes.number,
+      nickname: PropTypes.string,
+    }),
+    content: PropTypes.string,
+    createdAt: PropTypes.object,
+    Comments: PropTypes.arrayOf(PropTypes.object),
+    Images: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+};
 
 // 포스트 카드 컴포넌트 내보내기
 export default PostCard;
