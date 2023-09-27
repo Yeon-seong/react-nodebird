@@ -2,12 +2,12 @@
 
 
 // 외부 컴포넌트 불러오기
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Card, Popover, Space, Button, Avatar } from 'antd';
 
-import { RetweetOutlined, HeartOutlined,
+import { RetweetOutlined, HeartOutlined, HeartTwoTone,
          MessageOutlined, EllipsisOutlined }
          from '@ant-design/icons';
          
@@ -18,23 +18,50 @@ import PostImages from './PostImages';
 
 // 포스트 카드 컴포넌트(사용자 정의 태그)
 const PostCard = ({ post }) => {
+  const [liked, setLiked] = useState(false);
+  const [commentFormOpened, setCommentFormOpened] = useState(false);
+
+  /* ----- '좋아요'와 답글 버튼 토글 ----- */
+  const onToggleLike = useCallback(() => {
+    setLiked((prev) => !prev);
+  }, []);
+  const onToggleComment = useCallback(() => {
+    setCommentFormOpened((prev) => !prev);
+  }, []);
+
   /* 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용 */
   const id = useSelector((state) =>
     state.user.me?.id
   );
+
   return (
-    <div>
+    <div style={{ marginBottom: '20px' }}>
       <Card
         /* ---------- 이미지 ---------- */
-        cover={post.Images[0] && <PostImages images={post.Images} />}
+        cover={post.Images[0]
+        && <PostImages images={post.Images} />}
         /* ---------- 액션 버튼 ---------- */
         actions={[
           /* ----- 리트윗 버튼 ----- */
           <RetweetOutlined key="retweet" />,
           /* ----- 좋아요 버튼 ----- */
-          <HeartOutlined key="heart" />,
+          liked
+            // '좋아요'가 눌러진 상태
+            ? <HeartTwoTone
+                twoToneColor="#eb2f96"
+                key="heart"
+                onClick={onToggleLike}
+              />
+            // '좋아요'가 안 눌러진 상태
+            : <HeartOutlined
+                key="heart"
+                onClick={onToggleLike}
+              />,
           /* ----- 답글 버튼 ----- */
-          <MessageOutlined key="comment" />,
+          <MessageOutlined
+            key="comment"
+            onClick={onToggleComment}
+          />,
           /* ----- 더보기 버튼 ----- */
           <Popover key="more"
             content={(
@@ -66,6 +93,12 @@ const PostCard = ({ post }) => {
           description={post.content}
         />
       </Card>
+      {/* ---------- 답글 창 ---------- */}
+      {commentFormOpened && (
+        <div>
+          댓글 부분
+        </div>
+      )}
     </div>
   );
 };
