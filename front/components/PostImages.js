@@ -22,6 +22,10 @@ const PostImages = ({ images }) => {
       <>
         <img
           role="presentation"
+          /* 최대 높이 */
+          style={{
+            maxHeight: '300px'
+          }}
           src={images[0].src}
           alt={images[0].src}
           onClick={onZoom}
@@ -35,14 +39,20 @@ const PostImages = ({ images }) => {
       <>
         <img
           role="presentation"
-          width="50%"
+          style={{
+            width: '50%',
+            display: 'inline-block'
+          }}
           src={images[0].src}
           alt={images[0].src}
           onClick={onZoom}
         />
         <img
           role="presentation"
-          width="50%"
+          style={{
+            width: '50%',
+            display: 'inline-block'
+          }}
           src={images[1].src}
           alt={images[1].src}
           onClick={onZoom}
@@ -58,7 +68,9 @@ const PostImages = ({ images }) => {
           {/* 첫 번째 이미지 */}
           <img
             role="presentation"
-            width="50%"
+            style={{
+              width: '50%'
+            }}
             src={images[0].src}
             alt={images[0].src}
             onClick={onZoom}
