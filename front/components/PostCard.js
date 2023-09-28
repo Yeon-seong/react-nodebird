@@ -5,7 +5,7 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { Card, Popover, Space, Button, Avatar } from 'antd';
+import { Card, Popover, Space, Button, Avatar, List, Comment } from 'antd';
 
 import { RetweetOutlined, HeartOutlined, HeartTwoTone,
          MessageOutlined, EllipsisOutlined }
@@ -13,6 +13,7 @@ import { RetweetOutlined, HeartOutlined, HeartTwoTone,
          
 // 내부 컴포넌트 불러오기
 import PostImages from './PostImages';
+import CommentForm from './CommentForm';
 
 
 
@@ -96,7 +97,28 @@ const PostCard = ({ post }) => {
       {/* ---------- 답글 창 ---------- */}
       {commentFormOpened && (
         <div>
-          댓글 부분
+          {/* ----- 답글 작성 정보 ----- */}
+          <CommentForm post={post} />
+          <List
+            /* ----- 답글 개수 ----- */
+            header={`${post.Comments.length}개의 답글`}
+            /* ----- 항목 레이아웃 ----- */
+            itemLayout="horizontal"
+            /* ----- 목록용 데이터소스 배열 ----- */
+            dataSource={post.Comments}
+            /* ----- 사용할 때 목록 항목을 사용자 정의 ----- */
+            renderItem={(item) => (
+              <li>
+                <Comment
+                  /* ----- 답글 작성자 ----- */
+                  author={item.User.nickname}
+                  /* 답글 작성자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
+                  avatar={<Avatar>{item.User.nickname[0]}</Avatar>}
+                  content={item.content}
+                />
+              </li>
+            )}
+          />
         </div>
       )}
     </div>
