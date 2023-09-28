@@ -14,13 +14,13 @@ export const initialState = {
     content: '첫 번째 게시글 #해시태그 #익스프레스',
     Images: [{
       // 이미지 주소1,
-      src: 'https://ibb.co/HHdLL6X',
+      src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
     }, {
       // 이미지 주소2,
-      src: 'https://ibb.co/8mFP9Y8',
+      src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
     }, {
       // 이미지 주소3,
-      src: 'https://ibb.co/sQxgmbX',
+      src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
     }],
     Comments: [{
       /* ----- 사용자1 : 닉네임, 답글 ----- */
