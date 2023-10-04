@@ -36,7 +36,14 @@ const ImagesZoom = ({ images, onClose }) => {
           slidesToShow={1}
           /* 한 번에 이미지 하나씩만 넘기기 */
           slidesToScroll={1}
-        />
+        >
+          {/* ---------- 이미지 캐러셀 ---------- */}
+          {images.map((v) => (
+            <div key={v.src}>
+              <img src={v.src} alt={v.src} />
+            </div>
+          ))}
+        </Slick>
       </div>
 
     </div>
