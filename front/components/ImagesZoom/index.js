@@ -44,6 +44,24 @@ const Header = styled.header`
   }
 `;
 
+// 슬릭래퍼 컴포넌트 : 스타일이 이미 적용된 div 컴포넌트
+const SlickWrapper = styled.div`
+  height: calc(100% - 44px);
+  background: #090909;
+`;
+
+// 이미지래퍼 컴포넌트 : 스타일이 이미 적용된 div 컴포넌트
+const ImgWrapper = styled.div`
+  padding: 32px;
+  text-align: center;
+
+  & img {
+    margin: 0px auto;
+    max-height: 750px;
+  }
+`;
+
+
 // 이미지 줌 컴포넌트(사용자 정의 태그)
 const ImagesZoom = ({ images, onClose }) => {
   /* 현재 슬라이드 상태 저장 */
@@ -57,31 +75,32 @@ const ImagesZoom = ({ images, onClose }) => {
         <button onClick={onClose}>X</button>
       </Header>
 
-      {/* ---------- 슬랙 컴포넌트 ---------- */}
-      <div>
-        <Slick
-          /* 첫 번째 이미지를 0번째로 하기 */
-          initialSlide={0}
-          /* 현재 슬라이드에서 이미지를 넘기면 다음 이미지 나오기 */
-          afterChange={(slide) => setCurrentSlide(slide)}
-          /* 무한 반복 : 마지막 이미지를 넘기면 첫 번째 이미지 나오기 */
-          infinite
-          /* 슬라이드 화살표 지우기 */
-          arrows={false}
-          /* 한 번에 하나의 이미지만 보이기 */
-          slidesToShow={1}
-          /* 한 번에 이미지 하나씩만 넘기기 */
-          slidesToScroll={1}
-        >
-          {/* ---------- 이미지 캐러셀 ---------- */}
-          {images.map((v) => (
-            <div key={v.src}>
-              <img src={v.src} alt={v.src} />
-            </div>
-          ))}
-        </Slick>
-      </div>
-
+      {/* ---------- 슬릭 컴포넌트 ---------- */}
+      <SlickWrapper>
+        <div>
+          <Slick
+            /* 첫 번째 이미지를 0번째로 하기 */
+            initialSlide={0}
+            /* 현재 슬라이드에서 이미지를 넘기면 다음 이미지 나오기 */
+            afterChange={(slide) => setCurrentSlide(slide)}
+            /* 무한 반복 : 마지막 이미지를 넘기면 첫 번째 이미지 나오기 */
+            infinite
+            /* 슬라이드 화살표 지우기 */
+            arrows={false}
+            /* 한 번에 하나의 이미지만 보이기 */
+            slidesToShow={1}
+            /* 한 번에 이미지 하나씩만 넘기기 */
+            slidesToScroll={1}
+          >
+            {/* ---------- 이미지 캐러셀 ---------- */}
+            {images.map((v) => (
+              <ImgWrapper key={v.src}>
+                <img src={v.src} alt={v.src} />
+              </ImgWrapper>
+            ))}
+          </Slick>
+        </div>
+      </SlickWrapper>
     </Overlay>
   );
 };
