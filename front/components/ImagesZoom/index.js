@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Slick from 'react-slick';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 
 
@@ -29,7 +29,7 @@ const Header = styled.header`
 
   & h1 {
     margin: 0px;
-    font-size: 17px;
+    font-size: 15px;
     color: #333;
     line-height: 44px;
   }
@@ -39,7 +39,7 @@ const Header = styled.header`
     right: 0px;
     top: 0px;
     padding: 15px;
-    line-height: 14px;
+    line-height: 12px;
     cursor: pointer;
   }
 `;
@@ -61,6 +61,13 @@ const ImgWrapper = styled.div`
   }
 `;
 
+// 글로벌 컴포넌트 : 전역 스타일 정의
+const Global = createGlobalStyle`
+  .slick-slide {
+    display: inline-block;
+  }
+`;
+
 
 // 이미지 줌 컴포넌트(사용자 정의 태그)
 const ImagesZoom = ({ images, onClose }) => {
@@ -69,6 +76,7 @@ const ImagesZoom = ({ images, onClose }) => {
 
   return (
     <Overlay>
+      <Global />
       {/* ---------- 상세 이미지 헤더 ---------- */}
       <Header>
         <h1>상세 이미지</h1>
