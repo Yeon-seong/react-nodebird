@@ -27,7 +27,7 @@ const ImagesZoom = ({ images, onClose }) => {
           /* 첫 번째 이미지를 0번째로 하기 */
           initialSlide={0}
           /* 현재 슬라이드에서 이미지를 넘기면 다음 이미지 나오기 */
-          afterChange={(slide) => setCurrentSlide}
+          afterChange={(slide) => setCurrentSlide(slide)}
           /* 무한 반복 : 마지막 이미지를 넘기면 첫 번째 이미지 나오기 */
           infinite
           /* 슬라이드 화살표 지우기 */
