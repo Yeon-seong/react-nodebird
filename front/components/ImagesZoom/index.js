@@ -5,8 +5,44 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Slick from 'react-slick';
+import styled from 'styled-components';
 
 
+
+// 오버레이 컴포넌트 : 스타일이 이미 적용된 div 컴포넌트
+const Overlay = styled.div`
+  position: fixed;
+  z-index: 5000;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+`;
+
+// 상세 이미지 헤더 컴포넌트 : 스타일이 이미 적용된 header 컴포넌트
+const Header = styled.header`
+  height: 44px;
+  background: white;
+  position: relative;
+  padding: 0px;
+  text-align: center;
+
+  & h1 {
+    margin: 0px;
+    font-size: 17px;
+    color: #333;
+    line-height: 44px;
+  }
+
+  & button {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 15px;
+    line-height: 14px;
+    cursor: pointer;
+  }
+`;
 
 // 이미지 줌 컴포넌트(사용자 정의 태그)
 const ImagesZoom = ({ images, onClose }) => {
@@ -14,12 +50,12 @@ const ImagesZoom = ({ images, onClose }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
-    <div>
+    <Overlay>
       {/* ---------- 상세 이미지 헤더 ---------- */}
-      <header>
+      <Header>
         <h1>상세 이미지</h1>
         <button onClick={onClose}>X</button>
-      </header>
+      </Header>
 
       {/* ---------- 슬랙 컴포넌트 ---------- */}
       <div>
@@ -46,7 +82,7 @@ const ImagesZoom = ({ images, onClose }) => {
         </Slick>
       </div>
 
-    </div>
+    </Overlay>
   );
 };
 
