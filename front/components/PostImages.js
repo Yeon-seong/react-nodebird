@@ -6,14 +6,23 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { PlusOutlined } from '@ant-design/icons';
 
+// 내부 컴포넌트 불러오기
+import ImagesZoom from './ImagesZoom';
+
 
 
 // 포스트 이미지 컴포넌트(사용자 정의 태그)
 const PostImages = ({ images }) => {
   const [showImagesZoom, setShowImagesZoom] = useState(false);
 
+  /* 이미지를 클릭했을 때 onZoom이 실행되면 이미지 확대 보이기 */
   const onZoom = useCallback(() => {
     setShowImagesZoom(true);
+  }, []);
+
+  /* 이미지를 클릭했을 때 onClose이 실행되면 이미지 확대 */
+  const onClose = useCallback(() => {
+    setShowImagesZoom(false);
   }, []);
 
   /* ----- 이미지가 1개라면 화면 100% 차지 ----- */
@@ -30,6 +39,7 @@ const PostImages = ({ images }) => {
           alt={images[0].src}
           onClick={onZoom}
         />
+        {showImagesZoom && <ImagesZoom images={images} onClose={onClose} />}
       </>
     );
   };
@@ -57,6 +67,7 @@ const PostImages = ({ images }) => {
           alt={images[1].src}
           onClick={onZoom}
         />
+        {showImagesZoom && <ImagesZoom images={images} onClose={onClose} />}
       </>
     );
   };
@@ -92,6 +103,7 @@ const PostImages = ({ images }) => {
               개의 사진 더보기
           </div>
         </div>
+        {showImagesZoom && <ImagesZoom images={images} onClose={onClose} />}
       </>
     );
   };
