@@ -66,6 +66,10 @@ const Global = createGlobalStyle`
   .slick-slide {
     display: inline-block;
   }
+  
+  .antd-card-cover {
+    transform: none !important;
+  }
 `;
 
 
