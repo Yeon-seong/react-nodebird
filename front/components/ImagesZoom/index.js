@@ -63,6 +63,23 @@ const ImgWrapper = styled.div`
   }
 `;
 
+// 인디케이터 컴포넌트 : 스타일이 이미 적용된 div 컴포넌트
+const Indicator = styled.div`
+  text-align: center;
+
+  & > div {
+    width: 75px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+    background: #313131;
+    display: inline-block;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+  }
+`;
+
 // 글로벌 컴포넌트 : 전역 스타일 정의
 const Global = createGlobalStyle`
   .slick-slide {
@@ -113,6 +130,16 @@ const ImagesZoom = ({ images, onClose }) => {
               </ImgWrapper>
             ))}
           </Slick>
+
+          {/* ----- 현재 몇 번째 슬라이드를 보고 있는지 표시 ----- */}
+          <Indicator>
+            <div>
+              {currentSlide + 1}
+              {''}
+              /
+              {images.length}
+            </div>
+          </Indicator>
         </div>
       </SlickWrapper>
     </Overlay>
