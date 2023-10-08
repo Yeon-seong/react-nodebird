@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Slick from 'react-slick';
 import styled, { createGlobalStyle } from 'styled-components';
+import { CloseOutlined } from '@ant-design/icons';
 
 
 
@@ -33,15 +34,16 @@ const Header = styled.header`
     color: #333;
     line-height: 44px;
   }
+`;
 
-  & button {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    padding: 15px;
-    line-height: 12px;
-    cursor: pointer;
-  }
+// 닫기 버튼 컴포넌트 : CloseOutlined 아이콘이 적용된 컴포넌트
+const CloseButton = styled(CloseOutlined)`
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 15px;
+  line-height: 12px;
+  cursor: pointer;
 `;
 
 // 슬릭래퍼 컴포넌트 : 스타일이 이미 적용된 div 컴포넌트
@@ -84,7 +86,7 @@ const ImagesZoom = ({ images, onClose }) => {
       {/* ---------- 상세 이미지 헤더 ---------- */}
       <Header>
         <h1>상세 이미지</h1>
-        <button onClick={onClose}>X</button>
+        <CloseButton onClick={onClose}>X</CloseButton>
       </Header>
 
       {/* ---------- 슬릭 컴포넌트 ---------- */}
