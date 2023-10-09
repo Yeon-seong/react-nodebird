@@ -34,7 +34,7 @@ const ImagesZoom = ({ images, onClose }) => {
             /* 첫 번째 이미지를 0번째로 하기 */
             initialSlide={0}
             /* 현재 슬라이드에서 이미지를 넘기면 다음 이미지 나오기 */
-            afterChange={(slide) => setCurrentSlide(slide)}
+            beforeChange={(slide, newSlide) => setCurrentSlide(newSlide)}
             /* 무한 반복 : 마지막 이미지를 넘기면 첫 번째 이미지 나오기 */
             infinite
             /* 슬라이드 화살표 지우기 */
@@ -72,7 +72,10 @@ const ImagesZoom = ({ images, onClose }) => {
 // 이미지 줌 컴포넌트의 images props, onClose props 데이터 타입 검사
 ImagesZoom.propTypes = {
   /* PropTypes으로 구성된 객체들의 배열 필수 검사 */
-  images: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // images: PropTypes.arrayOf(PropTypes.object).isRequired,
+  images: PropTypes.arrayOf(PropTypes.shape({
+    src: PropTypes.string,
+  })).isRequired,
   /* PropTypes으로 구성된 함수 필수 검사 */
   onClose: PropTypes.func.isRequired,
 };
