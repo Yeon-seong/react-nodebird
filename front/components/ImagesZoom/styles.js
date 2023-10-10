@@ -7,6 +7,18 @@ import { CloseOutlined } from '@ant-design/icons';
 
 
 
+// 글로벌 컴포넌트 : 전역 스타일 정의
+export const Global = createGlobalStyle`
+  .slick-slide {
+    display: inline-block;
+  }
+  
+  .antd-card-cover {
+    transform: none !important;
+  }
+`;
+
+
 // 오버레이 컴포넌트 : 스타일이 이미 적용된 div 컴포넌트
 export const Overlay = styled.div`
   position: fixed;
@@ -79,17 +91,5 @@ export const Indicator = styled.div`
     text-align: center;
     color: white;
     font-size: 15px;
-  }
-`;
-
-
-// 글로벌 컴포넌트 : 전역 스타일 정의
-export const Global = createGlobalStyle`
-  .slick-slide {
-    display: inline-block;
-  }
-  
-  .antd-card-cover {
-    transform: none !important;
   }
 `;
