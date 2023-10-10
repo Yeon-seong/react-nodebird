@@ -5,7 +5,9 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { Card, Popover, Space, Button, Avatar, List, Comment } from 'antd';
+import { Card, Popover, Space, Button,
+         Avatar, List, Comment }
+         from 'antd';
 
 import { RetweetOutlined, HeartOutlined, HeartTwoTone,
          MessageOutlined, EllipsisOutlined }
@@ -14,6 +16,7 @@ import { RetweetOutlined, HeartOutlined, HeartTwoTone,
 // 내부 컴포넌트 불러오기
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
+import PostCardContent from './PostCardContent';
 
 
 
@@ -91,7 +94,7 @@ const PostCard = ({ post }) => {
           // mainPosts 포스트 작성자 이름 
           title={post.User.nickname}
           // mainPosts 포스트 콘텐츠
-          description={post.content}
+          description={<PostCardContent postData={post.content} />}
         />
       </Card>
       {/* ---------- 답글 창 ---------- */}

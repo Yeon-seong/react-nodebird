@@ -8,12 +8,22 @@ import PropTypes from 'prop-types';
 
 
 
-// 포스트 카드 콘텐츠 컴포넌트(사용자 정의 태그)
-const PostCardContent = ({ postData }) => {
+// 포스트 카드 콘텐츠 컴포넌트(사용자 정의 태그) : 해시태그 추출 컴포넌트
+const PostCardContent = ({ postData }) => (
+  // 첫 번째 게시글 #해시태그 #익스프레스
   <div>
-    {}
+    {postData.split(/(#[^\s#]+)/g).map((v, i) => {
+      if (v.match(/(#[^\s#]+)/)) {
+        /* ----- 해시태그 : Link로 감싸서 반환 ----- */
+        return <Link href={`/hashtag/${v.slice(1)}`} key={i}>
+          <a>{v}</a>
+        </Link>
+      }
+      /* ----- 일반 텍스트 : 그대로 반환 ----- */
+      return v;
+    })}
   </div>
-};
+);
 
 
 
