@@ -6,6 +6,18 @@ import axios from 'axios';
 
 
 
+// logIn 실행 시 서버에 logInAPI 요청
+function logInAPI() {
+  return axios.post('/api/login')
+}
+
+
+// LOG_IN_REQUEST 액션이 실행되면 logIn 실행
+function* logIn() {
+  yield call(logInAPI)
+}
+
+
 // 로그인 액션
 function* watchLogin() {
   yield take('LOG_IN_REQUEST', logIn)
