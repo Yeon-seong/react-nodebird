@@ -14,7 +14,12 @@ function logInAPI() {
 
 // LOG_IN_REQUEST 액션이 실행되면 logIn 실행
 function* logIn() {
-  yield call(logInAPI)
+  const result = yield call(logInAPI)
+  /* ----- 요청 성공 ----- */
+  yield put({
+    type: 'LOG_IN_SUCCESS',
+    data: result.data     // 성공 결과
+  });
 }
 
 
