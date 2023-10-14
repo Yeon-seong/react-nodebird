@@ -7,14 +7,13 @@ import axios from 'axios';
 
 
 // logIn 실행 시 서버에 logInAPI 요청
-function logInAPI() {
-  return axios.post('/api/login')
+function logInAPI(data) {
+  return axios.post('/api/login', data)
 }
-
 // LOG_IN_REQUEST 액션이 실행되면 logIn 함수 실행
-function* logIn() {
+function* logIn(action) {
   try {
-    const result = yield call(logInAPI)
+    const result = yield call(logInAPI, action.data);
     /* ----- 요청 성공 시 LOG_IN_SUCCESS 액션 디스패치 ----- */
     yield put({
       type: 'LOG_IN_SUCCESS',
@@ -34,11 +33,10 @@ function* logIn() {
 function logOutAPI() {
   return axios.post('/api/logout')
 }
-
 // LOG_OUT_REQUEST 액션이 실행되면 logOut 함수 실행
 function* logOut() {
   try {
-    const result = yield call(logOutAPI)
+    const result = yield call(logOutAPI);
     /* ----- 요청 성공 시 LOG_OUT_SUCCESS 액션 디스패치 ----- */
     yield put({
       type: 'LOG_OUT_SUCCESS',
@@ -55,14 +53,13 @@ function* logOut() {
 
 
 // addPost 실행 시 서버에 addPostAPI 요청
-function addPostAPI() {
-  return axios.post('/api/post')
+function addPostAPI(data) {
+  return axios.post('/api/post', data)
 }
-
-// LOG_OUT_REQUEST 액션이 실행되면 addPost 함수 실행
-function* logOut() {
+// ADD_POST_REQUEST 액션이 실행되면 addPost 함수 실행
+function* addPost(action) {
   try {
-    const result = yield call(addPostAPI)
+    const result = yield call(addPostAPI, action.data);
     /* ----- 요청 성공 시 ADD_POST_SUCCESS 액션 디스패치 ----- */
     yield put({
       type: 'ADD_POST_SUCCESS',
