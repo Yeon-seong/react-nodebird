@@ -54,6 +54,30 @@ function* logOut() {
 }
 
 
+// addPost 실행 시 서버에 addPostAPI 요청
+function addPostAPI() {
+  return axios.post('/api/post')
+}
+
+// LOG_OUT_REQUEST 액션이 실행되면 addPost 함수 실행
+function* logOut() {
+  try {
+    const result = yield call(addPostAPI)
+    /* ----- 요청 성공 시 ADD_POST_SUCCESS 액션 디스패치 ----- */
+    yield put({
+      type: 'ADD_POST_SUCCESS',
+      data: result.data         // 성공 결과
+    })
+  } catch (err) {
+    /* ----- 요청 실패 시 ADD_POST_FATLURE 액션 디스패치 ----- */
+    yield put({
+      type: 'ADD_POST_FATLURE',
+      data: err.response.data,  // 실패 결과
+    });
+  }
+}
+
+
 // 로그인 액션
 function* watchLogin() {
   yield take('LOG_IN_REQUEST', logIn)
@@ -66,7 +90,7 @@ function* watchLogOut() {
 
 // 포스트 추가 액션
 function* watchAddPost() {
-  yield take('ADD_POST_REQUEST')
+  yield take('ADD_POST_REQUEST', addPost)
 }
 
 
