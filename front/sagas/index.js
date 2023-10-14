@@ -12,14 +12,22 @@ function logInAPI() {
 }
 
 
-// LOG_IN_REQUEST 액션이 실행되면 logIn 실행
+// LOG_IN_REQUEST 액션이 실행되면 logIn 함수 실행
 function* logIn() {
-  const result = yield call(logInAPI)
-  /* ----- 요청 성공 ----- */
-  yield put({
-    type: 'LOG_IN_SUCCESS',
-    data: result.data     // 성공 결과
-  });
+  try {
+    const result = yield call(logInAPI)
+    /* ----- 요청 성공 시 LOG_IN_SUCCESS 액션 디스패치 ----- */
+    yield put({
+      type: 'LOG_IN_SUCCESS',
+      data: result.data         // 성공 결과
+    })
+  } catch (err) {
+    /* ----- 요청 실패 시 LOG_IN_FATLURE 액션 디스패치 ----- */
+    yield put({
+      type: 'LOG_IN_FATLURE',
+      data: err.response.data,  // 실패 결과
+    });
+  }
 }
 
 
