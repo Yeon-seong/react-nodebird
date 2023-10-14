@@ -11,7 +11,6 @@ function logInAPI() {
   return axios.post('/api/login')
 }
 
-
 // LOG_IN_REQUEST 액션이 실행되면 logIn 함수 실행
 function* logIn() {
   try {
@@ -31,6 +30,30 @@ function* logIn() {
 }
 
 
+// logOut 실행 시 서버에 logOutAPI 요청
+function logOutAPI() {
+  return axios.post('/api/logout')
+}
+
+// LOG_OUT_REQUEST 액션이 실행되면 logOut 함수 실행
+function* logOut() {
+  try {
+    const result = yield call(logOutAPI)
+    /* ----- 요청 성공 시 LOG_OUT_SUCCESS 액션 디스패치 ----- */
+    yield put({
+      type: 'LOG_OUT_SUCCESS',
+      data: result.data         // 성공 결과
+    })
+  } catch (err) {
+    /* ----- 요청 실패 시 LOG_OUT_FATLURE 액션 디스패치 ----- */
+    yield put({
+      type: 'LOG_OUT_FATLURE',
+      data: err.response.data,  // 실패 결과
+    });
+  }
+}
+
+
 // 로그인 액션
 function* watchLogin() {
   yield take('LOG_IN_REQUEST', logIn)
@@ -38,7 +61,7 @@ function* watchLogin() {
 
 // 로그아웃 액션
 function* watchLogOut() {
-  yield take('LOG_OUT_REQUEST')
+  yield take('LOG_OUT_REQUEST', logOut)
 }
 
 // 포스트 추가 액션
