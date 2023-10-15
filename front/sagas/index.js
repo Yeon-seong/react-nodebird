@@ -1,5 +1,5 @@
 // Saga 이펙트 불러오기
-import { all, fork, call, take, put } from 'redux-saga/effects'
+import { all, fork, call, takeLates, put } from 'redux-saga/effects'
 
 // Axios 라이브러리 불러오기
 import axios from 'axios';
@@ -77,17 +77,17 @@ function* addPost(action) {
 
 // 로그인 액션
 function* watchLogin() {
-  yield take('LOG_IN_REQUEST', logIn)
+  yield takeLates('LOG_IN_REQUEST', logIn);
 }
 
 // 로그아웃 액션
 function* watchLogOut() {
-  yield take('LOG_OUT_REQUEST', logOut)
+  yield takeLates('LOG_OUT_REQUEST', logOut);
 }
 
 // 포스트 추가 액션
 function* watchAddPost() {
-  yield take('ADD_POST_REQUEST', addPost)
+  yield takeLates('ADD_POST_REQUEST', addPost);
 }
 
 
