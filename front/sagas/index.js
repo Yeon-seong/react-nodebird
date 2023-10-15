@@ -1,5 +1,5 @@
 // Saga 이펙트 불러오기
-import { all, fork, call, takeLates, put } from 'redux-saga/effects'
+import { all, fork, call, takeLates, put, delay } from 'redux-saga/effects'
 
 // Axios 라이브러리 불러오기
 import axios from 'axios';
@@ -13,7 +13,8 @@ function logInAPI(data) {
 // LOG_IN_REQUEST 액션이 실행되면 logIn 함수 실행
 function* logIn(action) {
   try {
-    const result = yield call(logInAPI, action.data);
+    // const result = yield call(logInAPI, action.data);
+    yield delay(1000);
     /* ----- 요청 성공 시 LOG_IN_SUCCESS 액션 디스패치 ----- */
     yield put({
       type: 'LOG_IN_SUCCESS',
@@ -36,7 +37,8 @@ function logOutAPI() {
 // LOG_OUT_REQUEST 액션이 실행되면 logOut 함수 실행
 function* logOut() {
   try {
-    const result = yield call(logOutAPI);
+    // const result = yield call(logOutAPI);
+    yield delay(1000);
     /* ----- 요청 성공 시 LOG_OUT_SUCCESS 액션 디스패치 ----- */
     yield put({
       type: 'LOG_OUT_SUCCESS',
@@ -59,7 +61,8 @@ function addPostAPI(data) {
 // ADD_POST_REQUEST 액션이 실행되면 addPost 함수 실행
 function* addPost(action) {
   try {
-    const result = yield call(addPostAPI, action.data);
+    // const result = yield call(addPostAPI, action.data);
+    yield delay(1000);
     /* ----- 요청 성공 시 ADD_POST_SUCCESS 액션 디스패치 ----- */
     yield put({
       type: 'ADD_POST_SUCCESS',
