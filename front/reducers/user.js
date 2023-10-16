@@ -11,18 +11,18 @@ export const initialState = {
 }
 
 
-// 로그인 액션 생성함수(action creator)
-export const loginAction = (data) => {
+// 로그인 요청 액션 생성함수(action creator)
+export const loginRequestAction = (data) => {
   return {
-    type: 'LOG_IN',
+    type: 'LOG_IN_REQUEST',
     data,
   }
 }
 
 // 로그아웃 액션 생성함수(action creator)
-export const logoutAction = () => {
+export const logoutRequestAction = () => {
   return {
-    type: 'LOG_OUT',
+    type: 'LOG_OUT_REQUEST',
   }
 }
 
@@ -31,14 +31,14 @@ export const logoutAction = () => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     /* ----- 로그인 리듀서 ----- */
-    case 'LOG_IN':
+    case 'LOG_IN_REQUEST':
       return {
         ...state,
         isLoggedIn: true,
         me: action.data,
       };
     /* ----- 로그아웃 리듀서 ----- */
-    case 'LOG_OUT':
+    case 'LOG_OUT_REQUEST':
       return {
         ...state,
         isLoggedIn: false,
