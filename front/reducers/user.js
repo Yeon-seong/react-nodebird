@@ -4,7 +4,9 @@
 
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
+  isLoggingIn: false,   // 로그인 시도 중
   isLoggedIn: false,
+  isLoggingOut: false,  // 로그아웃 시도 중
   me: null,
   signUpData: {},
   loginData: {},
@@ -61,13 +63,13 @@ const reducer = (state = initialState, action) => {
     case 'LOG_IN_REQUEST':
       return {
         ...state,
-        isLoggedIn: true,
-        me: action.data,
+        isLoggingIn: true,
       };
     /* ----- 로그인 성공 리듀서 ----- */
     case 'LOG_IN_SUCCESS':
       return {
         ...state,
+        isLoggingIn: false,
         isLoggedIn: true,
         me: action.data,
       };
@@ -75,20 +77,20 @@ const reducer = (state = initialState, action) => {
     case 'LOG_IN_FAILURE':
       return {
         ...state,
-        isLoggedIn: true,
-        me: action.data,
+        isLoggingIn: false,
+        isLoggedIn: false,
       };
     /* ----- 로그아웃 요청 리듀서 ----- */
     case 'LOG_OUT_REQUEST':
       return {
         ...state,
-        isLoggedIn: false,
-        me: null,
+        isLoggingOut: true,
       };
     /* ----- 로그아웃 성공 리듀서 ----- */
     case 'LOG_OUT_SUCCESS':
       return {
         ...state,
+        isLoggingOut: false,
         isLoggedIn: false,
         me: null,
       };
@@ -96,8 +98,7 @@ const reducer = (state = initialState, action) => {
     case 'LOG_OUT_FAILURE':
       return {
         ...state,
-        isLoggedIn: false,
-        me: null,
+        isLoggingOut: false,
       };
     default:
       return state;
