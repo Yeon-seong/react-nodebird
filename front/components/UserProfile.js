@@ -34,7 +34,12 @@ const UserProfile = () => {
         title={me.nickname}
       />
       {/* ---------- 로딩 중 버튼 ---------- */}
-      <Button onClick={isLoggingOut}>로그아웃</Button>
+      <Button
+        onClick={onLogOut}
+        loading={isLoggingOut}
+      >
+        로그아웃
+      </Button>
     </Card>
   );
 };
