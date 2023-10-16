@@ -3,20 +3,21 @@
 
 // 외부 컴포넌트 불러오기
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Card, Avatar, Button } from 'antd';
 
 // 내부 컴포넌트 불러오기
-import { logoutAction } from '../reducers/user';
+import { logoutRequestAction } from '../reducers/user';
 
 
 // 사용자 프로필 컴포넌트(사용자 정의 태그)
 const UserProfile = () => {
   const dispatch = useDispatch();
+  const { me, isLoggingOut } = useSelector((state) => state.user);
 
   /* 더미 데이터 로그아웃 */
   const onLogOut = useCallback(() => {
-    dispatch(logoutAction());
+    dispatch(logoutRequestAction());
   }, []);
 
   return (
@@ -28,10 +29,12 @@ const UserProfile = () => {
       ]}
     >
       <Card.Meta
-        avatar={<Avatar>YS</Avatar>}
-        title="YeonSeong"
+        /* 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
+        avatar={<Avatar>{me.nickname[0]}</Avatar>}
+        title={me.nickname}
       />
-      <Button onClick={onLogOut}>로그아웃</Button>
+      {/* ---------- 로딩 중 버튼 ---------- */}
+      <Button onClick={isLoggingOut}>로그아웃</Button>
     </Card>
   );
 };
