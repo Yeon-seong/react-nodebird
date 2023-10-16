@@ -26,9 +26,9 @@ function* addPost(action) {
       data: result.data         // 성공 결과
     })
   } catch (err) {
-    /* ----- 요청 실패 시 ADD_POST_FATLURE 액션 디스패치 ----- */
+    /* ----- 요청 실패 시 ADD_POST_FAILURE 액션 디스패치 ----- */
     yield put({
-      type: 'ADD_POST_FATLURE',
+      type: 'ADD_POST_FAILURE',
       data: err.response.data,  // 실패 결과
     });
   }

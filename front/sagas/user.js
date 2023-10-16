@@ -24,9 +24,9 @@ function* logIn(action) {
       data: result.data         // 성공 결과
     })
   } catch (err) {
-    /* ----- 요청 실패 시 LOG_IN_FATLURE 액션 디스패치 ----- */
+    /* ----- 요청 실패 시 LOG_IN_FAILURE 액션 디스패치 ----- */
     yield put({
-      type: 'LOG_IN_FATLURE',
+      type: 'LOG_IN_FAILURE',
       data: err.response.data,  // 실패 결과
     });
   }
@@ -48,9 +48,9 @@ function* logOut() {
       data: result.data         // 성공 결과
     })
   } catch (err) {
-    /* ----- 요청 실패 시 LOG_OUT_FATLURE 액션 디스패치 ----- */
+    /* ----- 요청 실패 시 LOG_OUT_FAILURE 액션 디스패치 ----- */
     yield put({
-      type: 'LOG_OUT_FATLURE',
+      type: 'LOG_OUT_FAILURE',
       data: err.response.data,  // 실패 결과
     });
   }
