@@ -6,11 +6,11 @@ import React, { useCallback } from 'react';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link'; 
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // 내부 컴포넌트 불러오기
 import useInput from '../hooks/useInput';
-import { loginAction } from '../reducers/user';
+import { loginRequestAction } from '../reducers/user';
 
 
 
@@ -28,13 +28,14 @@ const FormWrapper = styled(Form)`
 // 로그인 폼 컴포넌트(사용자 정의 태그)
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const { isLoggingIn } = useSelector((state) => state.user);
   const [id, onChangeId] = useInput('');
   const [password, onChangePassword] = useInput('');
 
   // 더미 데이터 로그인
   const onSubmitForm = useCallback(() => {
     console.log(id, password);
-    dispatch(loginAction(id, password));
+    dispatch(loginRequestAction(id, password));
   }, [id, password]);
 
   return (
@@ -73,7 +74,8 @@ const LoginForm = () => {
           name="login-btn"
           type="primary"
           htmlType="submit"
-          loading={false}
+          /* ----- 로딩 중 버튼 ----- */
+          loading={isLoggingIn}
         >
           로그인
         </Button>
