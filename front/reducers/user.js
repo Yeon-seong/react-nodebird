@@ -20,38 +20,12 @@ export const loginRequestAction = (data) => {
     data,
   }
 }
-// 로그인 성공 액션 생성함수(action creator)
-export const loginSuccessAction = (data) => {
-  return {
-    type: 'LOG_IN_SUCCESS',
-    data,
-  }
-}
-// 로그인 실패 액션 생성함수(action creator)
-export const loginFailureAction = (data) => {
-  return {
-    type: 'LOG_IN_FAILURE',
-    data,
-  }
-}
 
 
 // 로그아웃 액션 생성함수(action creator)
 export const logoutRequestAction = () => {
   return {
     type: 'LOG_OUT_REQUEST',
-  }
-}
-// 로그아웃 성공 액션 생성함수(action creator)
-export const logoutSuccessAction = () => {
-  return {
-    type: 'LOG_OUT_SUCCESS',
-  }
-}
-// 로그아웃 실패 액션 생성함수(action creator)
-export const logoutFailureAction = () => {
-  return {
-    type: 'LOG_OUT_FAILURE',
   }
 }
 
