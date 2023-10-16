@@ -45,7 +45,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         isLoggingIn: false,
         isLoggedIn: true,
-        me: action.data,
+        // 고정 닉네임
+        me: { ...action.data, nickname: 'yeonseong' },
       };
     /* ----- 로그인 실패 리듀서 ----- */
     case 'LOG_IN_FAILURE':
