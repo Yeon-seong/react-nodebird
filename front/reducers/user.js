@@ -18,7 +18,6 @@ export const loginRequestAction = (data) => {
     data,
   }
 }
-
 // 로그인 성공 액션 생성함수(action creator)
 export const loginSuccessAction = (data) => {
   return {
@@ -26,7 +25,6 @@ export const loginSuccessAction = (data) => {
     data,
   }
 }
-
 // 로그인 실패 액션 생성함수(action creator)
 export const loginFailureAction = (data) => {
   return {
@@ -42,14 +40,12 @@ export const logoutRequestAction = () => {
     type: 'LOG_OUT_REQUEST',
   }
 }
-
 // 로그아웃 성공 액션 생성함수(action creator)
 export const logoutSuccessAction = () => {
   return {
     type: 'LOG_OUT_SUCCESS',
   }
 }
-
 // 로그아웃 실패 액션 생성함수(action creator)
 export const logoutFailureAction = () => {
   return {
@@ -61,15 +57,43 @@ export const logoutFailureAction = () => {
 // 리듀서(reducer) : (이전 상태, 액션) => 다음 상태
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    /* ----- 로그인 리듀서 ----- */
+    /* ----- 로그인 요청 리듀서 ----- */
     case 'LOG_IN_REQUEST':
       return {
         ...state,
         isLoggedIn: true,
         me: action.data,
       };
-    /* ----- 로그아웃 리듀서 ----- */
+    /* ----- 로그인 성공 리듀서 ----- */
+    case 'LOG_IN_SUCCESS':
+      return {
+        ...state,
+        isLoggedIn: true,
+        me: action.data,
+      };
+    /* ----- 로그인 실패 리듀서 ----- */
+    case 'LOG_IN_FAILURE':
+      return {
+        ...state,
+        isLoggedIn: true,
+        me: action.data,
+      };
+    /* ----- 로그아웃 요청 리듀서 ----- */
     case 'LOG_OUT_REQUEST':
+      return {
+        ...state,
+        isLoggedIn: false,
+        me: null,
+      };
+    /* ----- 로그아웃 성공 리듀서 ----- */
+    case 'LOG_OUT_SUCCESS':
+      return {
+        ...state,
+        isLoggedIn: false,
+        me: null,
+      };
+    /* ----- 로그아웃 실패 리듀서 ----- */
+    case 'LOG_OUT_FAILURE':
       return {
         ...state,
         isLoggedIn: false,
