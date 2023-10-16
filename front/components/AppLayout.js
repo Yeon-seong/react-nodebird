@@ -77,10 +77,8 @@ const AppLayout = ({ children }) => {
 			{/* 반응형 화면 분할 */}
 			<Row gutter={8}>
 				<Col xs={24} md={6}>
-					{/* 로그인 되어있으면 사용자 프로필, 로그인이 안 되어있으면 로그인 폼을 보이기 */}
-					{isLoggedIn
-						? <UserProfile />
-						: <LoginForm />}
+					{/* 로그인 되어있으면 사용자 프로필, 로그인이 안 되어있으면 로그인 폼 보이기 */}
+					{isLoggedIn ? <UserProfile /> : <LoginForm />}
 				</Col>
 
 				<Col xs={24} md={12}>

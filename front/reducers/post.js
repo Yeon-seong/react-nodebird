@@ -11,7 +11,7 @@ export const initialState = {
       id: 1,
       nickname: 'YeonSeong',
     },
-    content: '첫 번째 게시글 #해시태그 #익스프레스',
+    content: '첫 번째 포스트 #해시태그 #익스프레스',
     Images: [{
       // 이미지 주소1,
       src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
