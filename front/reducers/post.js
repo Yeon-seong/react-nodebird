@@ -101,6 +101,28 @@ const reducer = (state = initialState, action) => {
         addPostLoading: false,
         addPostError: action.error,
       };
+
+    /* ----- 답글 추가 요청 리듀서 ----- */
+    case ADD_COMMENT_REQUEST:
+      return {
+        addCommentLoading: true,
+        addCommentDone: false,
+        addCommentError: null,
+      };
+    /* ----- 답글 추가 성공 리듀서 ----- */
+    case ADD_COMMENT_SUCCESS:
+      return {
+        ...state,
+        mainPosts: [dummyPost, ...state.mainPosts],
+        addCommentLoading: false,
+        addCommentDone: true,
+      };
+    /* ----- 답글 추가 실패 리듀서 ----- */
+    case ADD_COMMENT_FAILURE:
+      return {
+        addCommentLoading: false,
+        addCommentError: action.error,
+      };
     default:
       return state;
   }
