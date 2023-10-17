@@ -48,6 +48,16 @@ export const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS';
 export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
 
 
+// 사용자 더미 데이터
+const dummyUser = (data) => ({
+  ...data,  // 이메일과 비밀번호
+  nickname: '연성술사',
+  id: 1,
+  Posts: [],
+  Followings: [],
+  Followers: [],
+});
+
 
 // 로그인 요청 액션 생성함수(action creator)
 export const loginRequestAction = (data) => {
@@ -83,8 +93,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         logInLoading: false,
         loginDone: true,
-        // 고정 닉네임
-        me: { ...action.data, nickname: 'yeonseong' },
+        // 사용자 더미 데이터
+        me: dummyUser(action.data),
       };
     /* ----- 로그인 실패 리듀서 ----- */
     case LOG_IN_FAILURE:
