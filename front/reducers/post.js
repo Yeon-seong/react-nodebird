@@ -82,16 +82,25 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     /* ----- 포스트 추가 요청 리듀서 ----- */
     case ADD_POST_REQUEST:
+      return {
+        addPostLoading: true,
+        addPostDone: false,
+        addPostError: null,
+      };
     /* ----- 포스트 추가 성공 리듀서 ----- */
     case ADD_POST_SUCCESS:
       return {
         ...state,
         mainPosts: [dummyPost, ...state.mainPosts],
-        postAdded: true,
+        addPostLoading: false,
+        addPostDone: true,
       };
     /* ----- 포스트 추가 실패 리듀서 ----- */
     case ADD_POST_FAILURE:
-    
+      return {
+        addPostLoading: false,
+        addPostError: action.error,
+      };
     default:
       return state;
   }
