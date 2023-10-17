@@ -43,11 +43,15 @@ export const initialState = {
 }
 
 
-// 포스트 추가 액션
-const ADD_POST = 'ADD_POST';
-export const addPost = {
-  type: ADD_POST,
-}
+// 포스트 추가 액션 : 요청, 성공, 실패
+export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
+export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+export const addPost = (data) => ({
+  type: ADD_POST_REQUEST,
+  data,
+});
+
 // 포스트 더미 데이터
 const dummyPost = {
   id: 2,
@@ -64,13 +68,18 @@ const dummyPost = {
 // 리듀서(reducer) : (이전 상태, 액션) => 다음 상태
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    /* ----- 포스트 추가 리듀서 ----- */
-    case ADD_POST:
+    /* ----- 포스트 추가 요청 리듀서 ----- */
+    case ADD_POST_REQUEST:
+    /* ----- 포스트 추가 성공 리듀서 ----- */
+    case ADD_POST_SUCCESS:
       return {
         ...state,
         mainPosts: [dummyPost, ...state.mainPosts],
         postAdded: true,
       };
+    /* ----- 포스트 추가 실패 리듀서 ----- */
+    case ADD_POST_FAILURE:
+    
     default:
       return state;
   }
