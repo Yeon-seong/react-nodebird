@@ -4,10 +4,19 @@
 
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
-  isLoggingIn: false,   // 로그인 시도 중
-  isLoggedIn: false,
-  isLoggingOut: false,  // 로그아웃 시도 중
-  me: null,
+  logInLoading: false,  // 로그인 시도 중
+  loginDone: false,     // 로그인 완료
+  logInError: null,     // 로그인 에러
+
+  logOutLoading: false, // 로그아웃 시도 중
+  logOutDone: false,    // 로그아웃 완료
+  logOutError: null,    // 로그아웃 에러
+
+  signUpLoading: false, // 회원가입 시도 중
+  signUpDone: false,    // 회원가입 완료
+  signUpError: null,    // 회원가입 에러
+
+  me: null,             // 내(사용자) 데이터
   signUpData: {},
   loginData: {},
 }
@@ -64,14 +73,16 @@ const reducer = (state = initialState, action) => {
     case LOG_IN_REQUEST:
       return {
         ...state,
-        isLoggingIn: true,
+        logInLoading: true,
+        logInError: null,
+        loginDone: false,
       };
     /* ----- 로그인 성공 리듀서 ----- */
     case LOG_IN_SUCCESS:
       return {
         ...state,
-        isLoggingIn: false,
-        isLoggedIn: true,
+        logInLoading: false,
+        loginDone: true,
         // 고정 닉네임
         me: { ...action.data, nickname: 'yeonseong' },
       };
@@ -79,28 +90,31 @@ const reducer = (state = initialState, action) => {
     case LOG_IN_FAILURE:
       return {
         ...state,
-        isLoggingIn: false,
-        isLoggedIn: false,
+        logInLoading: false,
+        logInError: action.error,
       };
     /* ----- 로그아웃 요청 리듀서 ----- */
     case LOG_OUT_REQUEST:
       return {
         ...state,
-        isLoggingOut: true,
+        logOutLoading: true,
+        logOutDone: false,
+        logOutError: null,
       };
     /* ----- 로그아웃 성공 리듀서 ----- */
     case LOG_OUT_SUCCESS:
       return {
         ...state,
-        isLoggingOut: false,
-        isLoggedIn: false,
+        logOutLoading: false,
+        logOutDone: true,
         me: null,
       };
     /* ----- 로그아웃 실패 리듀서 ----- */
     case LOG_OUT_FAILURE:
       return {
         ...state,
-        isLoggingOut: false,
+        logOutLoading: false,
+        logOutError: action.error,
       };
     default:
       return state;
