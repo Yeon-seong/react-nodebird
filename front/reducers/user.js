@@ -1,7 +1,6 @@
 /* -------------------- 사용자 데이터 리듀서 -------------------- */
 
 
-
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
   logInLoading: false,  // 로그인 시도 중
@@ -22,27 +21,27 @@ export const initialState = {
 }
 
 
-// 로그인 : 요청, 성공, 실패
+// 로그인 요청, 성공, 실패 액션 내보내기
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
 
-// 로그아웃 : 요청, 성공, 실패
+// 로그아웃 요청, 성공, 실패 액션 내보내기
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
-// 회원가입 : 요청, 성공, 실패
+// 회원가입 요청, 성공, 실패 액션 내보내기
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 
-// 팔로우 : 요청, 성공, 실패
+// 팔로우 요청, 성공, 실패 액션 내보내기
 export const FOLLOW_REQUEST = 'FOLLOW_REQUEST';
 export const FOLLOW_SUCCESS = 'FOLLOW_SUCCESS';
 export const FOLLOW_FAILURE = 'FOLLOW_FAILURE';
 
-// 언팔로우 : 요청, 성공, 실패
+// 언팔로우 요청, 성공, 실패 액션 내보내기
 export const UNFOLLOW_REQUEST = 'UNFOLLOW_REQUEST';
 export const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS';
 export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
@@ -103,6 +102,7 @@ const reducer = (state = initialState, action) => {
         logInLoading: false,
         logInError: action.error,
       };
+
     /* ----- 로그아웃 요청 리듀서 ----- */
     case LOG_OUT_REQUEST:
       return {
@@ -125,6 +125,29 @@ const reducer = (state = initialState, action) => {
         ...state,
         logOutLoading: false,
         logOutError: action.error,
+      };
+
+    /* ----- 회원가입 요청 리듀서 ----- */
+    case SIGN_UP_REQUEST:
+      return {
+        ...state,
+        signUPLoading: true,
+        signUPDone: false,
+        signUPError: null,
+      };
+    /* ----- 회원가입 성공 리듀서 ----- */
+    case SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        signUPLoading: false,
+        signUPDone: true,
+      };
+    /* ----- 회원가입 실패 리듀서 ----- */
+    case SIGN_UP_FAILURE:
+      return {
+        ...state,
+        signUPLoading: false,
+        signUPError: action.error,
       };
     default:
       return state;
