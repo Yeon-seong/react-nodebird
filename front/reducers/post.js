@@ -1,7 +1,6 @@
 /* -------------------- 포스트 데이터 리듀서 -------------------- */
 
 
-
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
   /* ---------- 메인 포스트 더미 데이터 ---------- */
@@ -38,8 +37,10 @@ export const initialState = {
   }],
   /* ---------- 이미지 업로드 시 경로 저장 ---------- */
   imagePaths: [],
-  /* ---------- 포스트 추가 완료 시 true ---------- */
-  postAdded: false,
+  /* ---------- 포스트 추가 시도 중, 완료, 에러 ---------- */
+  addPostLoading: false,
+  addPostDone: false,
+  addPostError: false,
 }
 
 
@@ -47,6 +48,7 @@ export const initialState = {
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+
 export const addPost = (data) => ({
   type: ADD_POST_REQUEST,
   data,
