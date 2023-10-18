@@ -27,7 +27,7 @@ const SubmitButton = styled.div`
 // 회원가입 컴포넌트(사용자 정의 태그)
 const Signup = () => {
   /* ---------- 중복 체크 ---------- */
-  const [id, onChangeId] = useInput('');
+  const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
   const [password, onChangePassword] = useInput('');
 
@@ -60,8 +60,8 @@ const Signup = () => {
     if (!term) {
       return setTermError(true);
     };
-    console.log(id, nickname, password, term);
-  }, [id, password, passwordCheck, term]);
+    console.log(email, nickname, password, term);
+  }, [email, password, passwordCheck, term]);
 
 
   return (
@@ -70,15 +70,15 @@ const Signup = () => {
         <title>회원가입 | NodeBird</title>
       </Head>
       <Form onFinish={onSubmit}>
-        {/* ---------- 사용자 아이디 인풋 ---------- */}
+        {/* ---------- 사용자 이메일 인풋 ---------- */}
         <div>
-          <label htmlFor="user-sign-id">아이디</label>
+          <label htmlFor="user-sign-email">이메일</label>
           <br />
           <Input
-            id="user-sign-id"
-            name="user-id"
-            value={id}
-            onChange={onChangeId}
+            id="user-sign-email"
+            name="user-email"
+            value={email}
+            onChange={onChangeEmail}
             required
           />
         </div>

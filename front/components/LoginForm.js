@@ -29,26 +29,26 @@ const FormWrapper = styled(Form)`
 const LoginForm = () => {
   const dispatch = useDispatch();
   const { logInLoading } = useSelector((state) => state.user);
-  const [id, onChangeId] = useInput('');
+  const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
 
   // 더미 데이터 로그인
   const onSubmitForm = useCallback(() => {
-    console.log(id, password);
-    dispatch(loginRequestAction(id, password));
-  }, [id, password]);
+    console.log(email, password);
+    dispatch(loginRequestAction(email, password));
+  }, [email, password]);
 
   return (
     <FormWrapper onFinish={onSubmitForm}>
-      {/* ---------- 아이디 인풋 ---------- */}
+      {/* ---------- 이메일 인풋 ---------- */}
       <div>
-        <label htmlFor="user-main-id">아이디</label>
+        <label htmlFor="user-main-email">이메일</label>
         <br />
         <Input
-          id="user-main-id"
-          name="user-id"
-          value={id}
-          onChange={onChangeId}
+          id="user-main-email"
+          name="user-email"
+          value={email}
+          onChange={onChangeEmail}
           required
         />
       </div>
