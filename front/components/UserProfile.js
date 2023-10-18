@@ -13,7 +13,7 @@ import { logoutRequestAction } from '../reducers/user';
 // 사용자 프로필 컴포넌트(사용자 정의 태그)
 const UserProfile = () => {
   const dispatch = useDispatch();
-  const { me, isLoggingOut } = useSelector((state) => state.user);
+  const { me, logOutLoading } = useSelector((state) => state.user);
 
   /* 더미 데이터 로그아웃 */
   const onLogOut = useCallback(() => {
@@ -36,7 +36,7 @@ const UserProfile = () => {
       {/* ---------- 로딩 중 버튼 ---------- */}
       <Button
         onClick={onLogOut}
-        loading={isLoggingOut}
+        loading={logOutLoading}
       >
         로그아웃
       </Button>

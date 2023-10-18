@@ -15,7 +15,7 @@ export const initialState = {
   signUpDone: false,    // 회원가입 완료
   signUpError: null,    // 회원가입 에러
 
-  me: null,             // 내(사용자) 데이터
+  me: null,             // 로그인한 사용자 정보
   signUpData: {},
   loginData: {},
 }

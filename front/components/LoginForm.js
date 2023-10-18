@@ -28,7 +28,7 @@ const FormWrapper = styled(Form)`
 // 로그인 폼 컴포넌트(사용자 정의 태그)
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { isLoggingIn } = useSelector((state) => state.user);
+  const { logInLoading } = useSelector((state) => state.user);
   const [id, onChangeId] = useInput('');
   const [password, onChangePassword] = useInput('');
 
@@ -75,7 +75,7 @@ const LoginForm = () => {
           type="primary"
           htmlType="submit"
           /* ----- 로딩 중 버튼 ----- */
-          loading={isLoggingIn}
+          loading={logInLoading}
         >
           로그인
         </Button>
