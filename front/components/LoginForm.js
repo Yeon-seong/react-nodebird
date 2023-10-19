@@ -47,6 +47,7 @@ const LoginForm = () => {
         <Input
           id="user-main-email"
           name="user-email"
+          type="email"
           value={email}
           onChange={onChangeEmail}
           required

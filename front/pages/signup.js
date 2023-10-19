@@ -86,6 +86,7 @@ const Signup = () => {
           <Input
             id="user-sign-email"
             name="user-email"
+            type="email"
             value={email}
             onChange={onChangeEmail}
             required
