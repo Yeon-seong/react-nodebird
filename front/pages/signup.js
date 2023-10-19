@@ -3,6 +3,7 @@
 
 // 외부 컴포넌트 불러오기
 import React, { useCallback, useState, } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import { Form, Input, Checkbox, Button } from 'antd';
 import styled from 'styled-components';
@@ -10,6 +11,7 @@ import styled from 'styled-components';
 // 내부 컴포넌트 불러오기
 import AppLayout from '../components/AppLayout';
 import useInput from '../hooks/useInput';
+import { SIGN_UP_REQUEST } from '../reducers/user';
 
 
 
@@ -26,6 +28,9 @@ const SubmitButton = styled.div`
 
 // 회원가입 컴포넌트(사용자 정의 태그)
 const Signup = () => {
+  const dispatch = useDispatch();
+  const { signUpLoading } = useSelector((state) => state.user);
+
   /* ---------- 중복 체크 ---------- */
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
@@ -61,6 +66,10 @@ const Signup = () => {
       return setTermError(true);
     };
     console.log(email, nickname, password, term);
+    dispatch({
+      type: SIGN_UP_REQUEST,
+      data: { email, password, nickname },
+    });
   }, [email, password, passwordCheck, term]);
 
 
@@ -144,6 +153,7 @@ const Signup = () => {
               name="submit-btn"
               type="primary"
               htmlType="submit"
+              loading={signUpLoading}
             >
               가입하기
             </Button>
