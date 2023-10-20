@@ -21,7 +21,12 @@ const CommentForm = ({ post }) => {
   const [commentText, onChangeCommentText] = useInput('');
   const onSubmitComment = useCallback(() => {
     console.log(post.id, commentText);
-  }, [commentText]);
+    /* ----- 답글 폼 제출 시 답글 요청 액션 객체 디스패치 ----- */
+    dispatch({
+      type: ADD_COMMENT_REQUEST,
+      data: { content: commentText, postId: post.id, userId: id },
+    });
+  }, [commentText, id]);
 
   return (
     /* ---------- 답글 폼 ---------- */
