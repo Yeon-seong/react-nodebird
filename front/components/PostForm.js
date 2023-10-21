@@ -2,7 +2,7 @@
 
 
 // 외부 컴포넌트 불러오기
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from '../reducers/post';
@@ -10,19 +10,27 @@ import { addPost } from '../reducers/post';
 
 // 포스트 폼 컴포넌트(사용자 정의 태그)
 const PostForm = () => {
-  const { imagePaths } = useSelector((state) => state.post);
+  const { imagePaths, addPostDone } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const imageInput = useRef();
   const [text, setText] = useState('');
+
+  /* ----- 포스트 추가 완료 시 포스트 폼 글자 지우기 ----- */
+  useEffect(() => {
+    if (addPostDone) {
+      setText('');
+    }
+  }, [addPostDone]);
+
   const onChangeText = useCallback((e) => {
     setText(e.target.value);
   }, []);
 
   /* ----- 포스트 폼 제출 시 포스트 카드 추가 ----- */
   const onSubmit = useCallback(() => {
-    dispatch(addPost);
+    dispatch(addPost(text));
     setText('');
-  }, []);
+  }, [text]);
 
   /* ----- 이미지 업로드 버튼 클릭 시 파일 업로드 창 띄우기 ----- */
   const onClickImageUpload = useCallback(() => {
