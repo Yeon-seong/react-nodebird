@@ -14,7 +14,9 @@ export default function useInput(initialValue = null) {
   const handler = useCallback((e) => {
     setValue(e.target.value);
   }, []);
-  /* value에 들어가는 값 : id, nickname, password */
-  /* handler에 들어가는 값 : onChangeId, onChangeNickname, onChangePassword*/
-  return [value, handler];
+  return [value, handler, setValue];
 };
+
+  /* value에 들어가는 값 : id, nickname, password */
+  /* handler에 들어가는 값 : onChangeId, onChangeNickname, onChangePassword */
+  /* setValue에 들어가는 값 : setCommentText */
