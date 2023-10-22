@@ -5,7 +5,7 @@
 // 외부 컴포넌트 불러오기
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 
 // 내부 컴포넌트 불러오기
@@ -16,6 +16,7 @@ import { ADD_COMMENT_REQUEST } from '../reducers/post';
 
 // 코멘트 폼 컴포넌트(사용자 정의 태그)
 const CommentForm = ({ post }) => {
+  const dispatch = useDispatch();
   /* 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용 */
   const id = useSelector((state) => state.user.me?.id);
   const { addCommentDone } = useSelector((state) => state.post);
