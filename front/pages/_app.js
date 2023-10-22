@@ -1,6 +1,7 @@
 /* -------------------- 모든 페이지 공통 -------------------- */
 
 
+
 // 외부 컴포넌트 불러오기
 import React from 'react';
 import PropTypes from 'prop-types';
