@@ -1,6 +1,7 @@
 /* -------------------- 트위터 사용자 Saga -------------------- */
 
 
+
 // Saga 이펙트 불러오기
 import { all, fork, call, takeLatest, put, delay } from 'redux-saga/effects';
 
@@ -102,6 +103,7 @@ function* watchLogOut() {
 function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
+
 
 
 // 사용자 Saga 액션 등록

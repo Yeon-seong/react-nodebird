@@ -1,6 +1,7 @@
 /* -------------------- 트위터 포스트 Saga -------------------- */
 
 
+
 // Saga 이펙트 불러오기
 import { all, fork, call, takeLatest, put, delay } from 'redux-saga/effects';
 
@@ -73,6 +74,7 @@ function* watchAddPost() {
 function* watchAddComment() {
   yield takeLatest(ADD_COMMENT_REQUEST, addComment);
 }
+
 
 
 // 루트 포스트 Saga 액션 등록
