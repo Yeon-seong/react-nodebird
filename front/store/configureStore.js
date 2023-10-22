@@ -1,6 +1,7 @@
 /* -------------------- 트위터 스토어 설정 -------------------- */
 
 
+
 // 불러오기
 import { createWrapper } from 'next-redux-wrapper';
 import { createStore, compose, applyMiddleware } from 'redux';
