@@ -1,6 +1,7 @@
 /* -------------------- 사용자 데이터 리듀서 -------------------- */
 
 
+
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
   logInLoading: false,  // 로그인 시도 중
