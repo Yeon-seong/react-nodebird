@@ -1,6 +1,7 @@
 /* -------------------- 트위터 사용자 프로필 -------------------- */
 
 
+
 // 외부 컴포넌트 불러오기
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +9,7 @@ import { Card, Avatar, Button } from 'antd';
 
 // 내부 컴포넌트 불러오기
 import { logoutRequestAction } from '../reducers/user';
+
 
 
 // 사용자 프로필 컴포넌트(사용자 정의 태그)

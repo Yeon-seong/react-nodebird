@@ -1,6 +1,7 @@
 /* -------------------- 트위터 앱 레이아웃 -------------------- */
 
 
+
 // 외부 컴포넌트 불러오기
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -13,6 +14,7 @@ import { createGlobalStyle } from 'styled-components';
 // 내부 컴포넌트 불러오기
 import UserProfile from '../components/UserProfile';
 import LoginForm from '../components/LoginForm';
+
 
 
 // 글로벌 컴포넌트 : 전역 스타일 정의

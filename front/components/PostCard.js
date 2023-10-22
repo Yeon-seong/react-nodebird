@@ -1,10 +1,12 @@
 /* -------------------- 트위터 포스트 카드 -------------------- */
 
 
+
 // 외부 컴포넌트 불러오기
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+
 import { Card, Popover, Space, Button,
          Avatar, List, Comment }
          from 'antd';
