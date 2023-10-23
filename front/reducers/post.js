@@ -42,6 +42,10 @@ export const initialState = {
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
+  /* ---------- 답글 추가 시도 중, 완료, 에러 ---------- */
+  addCommentLoading: false,
+  addCommentDone: false,
+  addCommentError: null,
 }
 
 
