@@ -27,9 +27,15 @@ const Profile = () => {
         {/* ---------- 닉네임 수정 폼 ---------- */}
         <NicknameEditForm />
         {/* ---------- 팔로잉 목록 ---------- */}
-        <FollowList header="팔로잉" data={me.Followings} />
+        <FollowList
+          header="팔로잉"
+          data={me.Followings}
+        />
         {/* ---------- 팔로워 목록 ---------- */}
-        <FollowList header="팔로워" data={me.Followers} />
+        <FollowList
+          header="팔로워"
+          data={me.Followers}
+        />
       </AppLayout>
     </>
   );
