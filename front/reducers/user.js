@@ -16,6 +16,10 @@ export const initialState = {
   signUpDone: false,    // 회원가입 완료
   signUpError: null,    // 회원가입 에러
 
+  changeNicknameLoading: false, // 닉네임 변경 시도 중
+  changeNicknameDone: false,    // 닉네임 변경 완료
+  changeNicknameError: null,    // 닉네임 변경 에러
+
   me: null,             // 로그인한 사용자 정보
   signUpData: {},
   loginData: {},
@@ -36,6 +40,11 @@ export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+
+// 닉네임 변경 요청, 성공, 실패 액션 내보내기
+export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
+export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
+export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
 
 // 팔로우 요청, 성공, 실패 액션 내보내기
 export const FOLLOW_REQUEST = 'FOLLOW_REQUEST';
@@ -149,6 +158,29 @@ const reducer = (state = initialState, action) => {
         ...state,
         signUPLoading: false,
         signUPError: action.error,
+      };
+
+    /* ----- 닉네임 변경 요청 리듀서 ----- */
+    case CHANGE_NICKNAME_REQUEST:
+      return {
+        ...state,
+        changeNicknameLoading: true,
+        changeNicknameDone: false,
+        changeNicknameError: null,
+      };
+    /* ----- 닉네임 변경 성공 리듀서 ----- */
+    case CHANGE_NICKNAME_SUCCESS:
+      return {
+        ...state,
+        changeNicknameLoading: false,
+        changeNicknameDone: true,
+      };
+    /* ----- 닉네임 변경 실패 리듀서 ----- */
+    case CHANGE_NICKNAME_FAILURE:
+      return {
+        ...state,
+        changeNicknameLoading: false,
+        changeNicknameError: action.error,
       };
     default:
       return state;
