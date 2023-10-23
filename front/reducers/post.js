@@ -55,15 +55,20 @@ export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
+
+// 포스트 추가 요청 액션 생성함수(action creator)
 export const addPost = (data) => ({
   type: ADD_POST_REQUEST,
   data,
 });
 
+
+// 답글 추가 요청 액션 생성함수(action creator)
 export const addComment = (data) => ({
-  type: ADD_POST_REQUEST,
+  type: ADD_COMMENT_REQUEST,
   data,
 });
+
 
 // 포스트 더미 데이터
 const dummyPost = {
