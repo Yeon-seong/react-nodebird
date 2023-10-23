@@ -41,7 +41,7 @@ export const initialState = {
   /* ---------- 포스트 추가 시도 중, 완료, 에러 ---------- */
   addPostLoading: false,
   addPostDone: false,
-  addPostError: false,
+  addPostError: null,
 }
 
 
