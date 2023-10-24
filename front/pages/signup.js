@@ -58,15 +58,18 @@ const Signup = () => {
 
   /* 제출할 때 체크 */
   const onSubmit = useCallback(() => {
+
     // 만약에 비밀번호랑 비밀번호 체크랑 같지 않으면 에러 표시
     if (password !== passwordCheck) {
       return setPasswordError(true);
     };
+
     // 만약에 약관 동의에 체크하지 않으면 에러 표시
     if (!term) {
       return setTermError(true);
     };
     console.log(email, nickname, password, term);
+    
     /* ----- 가입하기 완료 시 가입 요청 액션 객체 디스패치 ----- */
     dispatch({
       type: SIGN_UP_REQUEST,
@@ -77,9 +80,11 @@ const Signup = () => {
 
   return (
     <AppLayout>
+
       <Head>
         <title>회원가입 | NodeBird</title>
       </Head>
+
       <Form onFinish={onSubmit}>
         {/* ---------- 사용자 이메일 인풋 ---------- */}
         <div>
@@ -94,6 +99,8 @@ const Signup = () => {
             required
           />
         </div>
+
+
         {/* ---------- 사용자 닉네임 인풋 ---------- */}
         <div>
           <label htmlFor="user-sign-nickname">닉네임</label>
@@ -106,6 +113,8 @@ const Signup = () => {
             required
           />
         </div>
+
+
         {/* ---------- 사용자 비밀번호 인풋 ---------- */}
         <div>
           <label htmlFor="user-sign-password">비밀번호</label>
@@ -119,6 +128,8 @@ const Signup = () => {
             required
           />
         </div>
+
+
         {/* ---------- 사용자 비밀번호 체크 인풋 ---------- */}
         <div>
           <label htmlFor="user-sign-password-check">비밀번호 체크</label>
@@ -136,6 +147,8 @@ const Signup = () => {
             && <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
           }
         </div>
+
+
         {/* ---------- 약관동의 체크박스 ---------- */}
         <div>
           <Checkbox
@@ -149,6 +162,8 @@ const Signup = () => {
             && <ErrorMessage>약관에 동의하셔야 합니다.</ErrorMessage>
           }
         </div>
+
+
         {/* ---------- 제출 버튼 ---------- */}
         <div>
           <SubmitButton>

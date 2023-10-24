@@ -8,8 +8,10 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 
-// 내부 컴포넌트 불러오기
+// 커스텀 Hooks 불러오기
 import useInput from '../hooks/useInput';
+
+// reducer 답글 추가 요청 액션 불러오기
 import { ADD_COMMENT_REQUEST } from '../reducers/post';
 
 
@@ -31,9 +33,8 @@ const CommentForm = ({ post }) => {
   }, [addCommentDone]);
 
 
+  /* ----- 답글 폼 제출 시 답글 요청 액션 객체 디스패치 ----- */
   const onSubmitComment = useCallback(() => {
-    console.log(post.id, commentText);
-    /* ----- 답글 폼 제출 시 답글 요청 액션 객체 디스패치 ----- */
     dispatch({
       type: ADD_COMMENT_REQUEST,
       data: { content: commentText, postId: post.id, userId: id },

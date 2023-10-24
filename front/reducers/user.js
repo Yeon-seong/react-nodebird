@@ -88,6 +88,7 @@ export const logoutRequestAction = () => {
 // 리듀서(reducer) : (이전 상태, 액션) => 다음 상태
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+  
     /* ----- 로그인 요청 리듀서 ----- */
     case LOG_IN_REQUEST:
       return {
@@ -113,6 +114,7 @@ const reducer = (state = initialState, action) => {
         logInError: action.error,
       };
 
+    
     /* ----- 로그아웃 요청 리듀서 ----- */
     case LOG_OUT_REQUEST:
       return {
@@ -137,6 +139,7 @@ const reducer = (state = initialState, action) => {
         logOutError: action.error,
       };
 
+    
     /* ----- 회원가입 요청 리듀서 ----- */
     case SIGN_UP_REQUEST:
       return {
@@ -160,6 +163,7 @@ const reducer = (state = initialState, action) => {
         signUPError: action.error,
       };
 
+    
     /* ----- 닉네임 변경 요청 리듀서 ----- */
     case CHANGE_NICKNAME_REQUEST:
       return {

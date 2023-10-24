@@ -44,6 +44,7 @@ const PostImages = ({ images }) => {
       </>
     );
   };
+  
   /* ----- 이미지가 2개라면 화면 50% 차지 ----- */
   if (images.length === 2) {
     return (
@@ -72,6 +73,7 @@ const PostImages = ({ images }) => {
       </>
     );
   };
+  
   /* ----- 이미지가 3개 이상이라면 첫 번째 이미지와 더보기 버튼 ----- */
   if (images.length >= 3) {
     return (

@@ -12,6 +12,7 @@ import { StopOutlined } from '@ant-design/icons';
 
 // 팔로우 리스트 컴포넌트(사용자 정의 태그)
 const FollowList = ({ header, data }) => {
+  
   return (
     <List
       style={{ marginBottom: '20px' }}
