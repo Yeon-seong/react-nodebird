@@ -15,13 +15,13 @@ import PostCard from '../components/PostCard';
 
 // 홈 컴포넌트(사용자 정의 태그)
 const Home = () => {
-  const { logInDone } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
   return (
     <AppLayout>
       {/* ----- 포스트 폼 ----- */}
-      {logInDone && <PostForm />}
+      {me && <PostForm />}
       {/* ----- 포스트 카드 ----- */}
       {mainPosts.map((post) => <PostCard key={post.id} post={post} />)}
     </AppLayout>
