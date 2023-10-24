@@ -23,17 +23,20 @@ const Profile = () => {
       <Head>
         <title>내 프로필 | NodeBird</title>
       </Head>
+      
       <AppLayout>
         {/* ---------- 닉네임 수정 폼 ---------- */}
         <NicknameEditForm />
+        
         {/* ---------- 팔로잉 목록 ---------- */}
         <FollowList
-          header="팔로잉"
+          header="팔로잉 목록"
           data={me.Followings}
         />
+
         {/* ---------- 팔로워 목록 ---------- */}
         <FollowList
-          header="팔로워"
+          header="팔로워 목록"
           data={me.Followers}
         />
       </AppLayout>
