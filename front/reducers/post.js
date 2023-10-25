@@ -75,16 +75,16 @@ export const addComment = (data) => ({
 
 
 // 포스트 더미 데이터
-const dummyPost = {
+const dummyPost = (data) => ({
   id: 2,
-  content: '더미데이터 입니다.',
+  content: data,
   User: {
     id: 1,
     nickname: 'Rose',
   },
   Images: [],
   Comments: [],
-};
+});
 
 
 // 리듀서(reducer) : (이전 상태, 액션) => 다음 상태
@@ -101,7 +101,7 @@ const reducer = (state = initialState, action) => {
     case ADD_POST_SUCCESS:
       return {
         ...state,
-        mainPosts: [dummyPost, ...state.mainPosts],
+        mainPosts: [dummyPost(action.data), ...state.mainPosts],
         addPostLoading: false,
         addPostDone: true,
       };
