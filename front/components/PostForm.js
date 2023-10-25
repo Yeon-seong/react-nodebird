@@ -6,13 +6,18 @@
 import React, { useCallback, useRef, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+
+// 커스텀 Hooks 불러오기
+import useInput from '../hooks/useInput';
+
+// reducer 포스트 추가 요청 액션 불러오기
 import { addPost } from '../reducers/post';
 
 
 
 // 포스트 폼 컴포넌트(사용자 정의 태그)
 const PostForm = () => {
-  const { imagePaths, addPostDone } = useSelector((state) => state.post);
+  const { imagePaths, addPostLoading, addPostDone } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const [text, onChangeText, setText] = useInput('');
 
@@ -28,7 +33,6 @@ const PostForm = () => {
   /* ----- 포스트 폼 제출 시 포스트 카드 추가 ----- */
   const onSubmit = useCallback(() => {
     dispatch(addPost(text));
-    setText('');
   }, [text]);
 
 
@@ -44,6 +48,8 @@ const PostForm = () => {
       encType="multipart/form-data"
       onFinish={onSubmit}
     >
+
+
       <Input.TextArea
         id="post-form"
         value={text}
@@ -51,6 +57,8 @@ const PostForm = () => {
         maxLength={140}
         placeholder="어떤 신기한 일이 있었나요?"
       />
+
+
       <div>
         {/* ---------- 파일 업로드 인풋 ---------- */}
         <input
@@ -68,10 +76,13 @@ const PostForm = () => {
           type="primary"
           style={{ float: 'right' }}
           htmlType="submit"
+          loading={addPostLoading}
         >
           트윗하기
         </Button>
       </div>
+
+
       <div>
         {/* ---------- 이미지 업로드 시 미리보기 ---------- */}
         {imagePaths.map((v) => {
