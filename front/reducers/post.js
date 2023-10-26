@@ -2,6 +2,11 @@
 
 
 
+// ShortId 라이브러리 불러오기
+import shortId from 'shortid';
+
+
+
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
   /* ---------- 메인 포스트 더미 데이터 ---------- */
@@ -31,7 +36,7 @@ export const initialState = {
     }, {
       /* ----- 사용자2 : 닉네임, 답글 ----- */
       User: {
-        nickname: '에델',
+        nickname: '라요',
       },
       content: '만나서 반가워요~',
     }]
@@ -76,11 +81,11 @@ export const addComment = (data) => ({
 
 // 포스트 더미 데이터
 const dummyPost = (data) => ({
-  id: 2,
+  id: shortId.generate(),
   content: data,
   User: {
     id: 1,
-    nickname: '연성술사',
+    nickname: '다랑',
   },
   Images: [],
   Comments: [],
@@ -104,6 +109,8 @@ const reducer = (state = initialState, action) => {
         mainPosts: [dummyPost(action.data), ...state.mainPosts],
         addPostLoading: false,
         addPostDone: true,
+        // 사용자 더미 데이터
+        me: dummyUser(action.data),
       };
     /* ----- 포스트 추가 실패 리듀서 ----- */
     case ADD_POST_FAILURE:
