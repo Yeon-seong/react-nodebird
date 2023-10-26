@@ -9,7 +9,7 @@ export const initialState = {
     id: 1,
     User: {
       id: 1,
-      nickname: 'YeonSeong',
+      nickname: '다랑',
     },
     content: '첫 번째 포스트 #해시태그 #익스프레스',
     Images: [{
@@ -25,13 +25,13 @@ export const initialState = {
     Comments: [{
       /* ----- 사용자1 : 닉네임, 답글 ----- */
       User: {
-        nickname: 'Aster',
+        nickname: '라나',
       },
       content: '안녕하세요!',
     }, {
       /* ----- 사용자2 : 닉네임, 답글 ----- */
       User: {
-        nickname: 'Dahlia',
+        nickname: '에델',
       },
       content: '만나서 반가워요~',
     }]
@@ -80,7 +80,7 @@ const dummyPost = (data) => ({
   content: data,
   User: {
     id: 1,
-    nickname: 'Rose',
+    nickname: '연성술사',
   },
   Images: [],
   Comments: [],

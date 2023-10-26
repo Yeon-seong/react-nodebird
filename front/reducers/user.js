@@ -60,7 +60,7 @@ export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
 // 사용자 더미 데이터
 const dummyUser = (data) => ({
   ...data,  // 이메일과 비밀번호
-  nickname: '연성술사',
+  nickname: '다랑',
   id: 1,
   Posts: [],
   Followings: [],
