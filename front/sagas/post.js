@@ -22,19 +22,20 @@ function addPostAPI(data) {
 }
 // ADD_POST_REQUEST 액션이 실행되면 addPost 함수 실행
 function* addPost(action) {
+  /* ----- 요청 성공 시 ADD_POST_SUCCESS 액션 디스패치 ----- */
   try {
     // const result = yield call(addPostAPI, action.data);
-    /* ----- 요청 성공 시 ADD_POST_SUCCESS 액션 디스패치 ----- */
     yield delay(1000);
     yield put({
       type: ADD_POST_SUCCESS,
       data: action.data,         // 성공 결과
     });
+  /* ----- 요청 실패 시 ADD_POST_FAILURE 액션 디스패치 ----- */
   } catch (err) {
-    /* ----- 요청 실패 시 ADD_POST_FAILURE 액션 디스패치 ----- */
+    console.error(err);
     yield put({
       type: ADD_POST_FAILURE,
-      error: err.response.data,  // 실패 결과
+      data: err.response.data,  // 실패 결과
     });
   }
 }
@@ -46,19 +47,19 @@ function addCommentAPI(data) {
 }
 // ADD_POST_REQUEST 액션이 실행되면 addComment 함수 실행
 function* addComment(action) {
+  /* ----- 요청 성공 시 ADD_COMMENT_SUCCESS 액션 디스패치 ----- */
   try {
     // const result = yield call(addCommentAPI, action.data);
-    /* ----- 요청 성공 시 ADD_COMMENT_SUCCESS 액션 디스패치 ----- */
     yield delay(1000);
     yield put({
       type: ADD_COMMENT_SUCCESS,
       data: action.data,         // 성공 결과
     })
+  /* ----- 요청 실패 시 ADD_COMMENT_FAILURE 액션 디스패치 ----- */
   } catch (err) {
-    /* ----- 요청 실패 시 ADD_COMMENT_FAILURE 액션 디스패치 ----- */
     yield put({
       type: ADD_COMMENT_FAILURE,
-      error: err.response.data,  // 실패 결과
+      data: err.response.data,  // 실패 결과
     });
   }
 }

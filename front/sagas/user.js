@@ -23,16 +23,17 @@ function logInAPI(data) {
 }
 // LOG_IN_REQUEST 액션이 실행되면 logIn 함수 실행
 function* logIn(action) {
+  /* ----- 요청 성공 시 LOG_IN_SUCCESS 액션 디스패치 ----- */
   try {
     // const result = yield call(logInAPI, action.data);
-    /* ----- 요청 성공 시 LOG_IN_SUCCESS 액션 디스패치 ----- */
     yield delay(1000);
     yield put({
       type: LOG_IN_SUCCESS,
       data: action.data         // 성공 결과
     })
+  /* ----- 요청 실패 시 LOG_IN_FAILURE 액션 디스패치 ----- */
   } catch (err) {
-    /* ----- 요청 실패 시 LOG_IN_FAILURE 액션 디스패치 ----- */
+    console.error(err);
     yield put({
       type: LOG_IN_FAILURE,
       error: err.response.data, // 실패 결과
@@ -47,15 +48,16 @@ function logOutAPI() {
 }
 // LOG_OUT_REQUEST 액션이 실행되면 logOut 함수 실행
 function* logOut() {
+  /* ----- 요청 성공 시 LOG_OUT_SUCCESS 액션 디스패치 ----- */
   try {
     // const result = yield call(logOutAPI);
-    /* ----- 요청 성공 시 LOG_OUT_SUCCESS 액션 디스패치 ----- */
     yield delay(1000);
     yield put({
       type: LOG_OUT_SUCCESS,    // 성공 결과
     })
+  /* ----- 요청 실패 시 LOG_OUT_FAILURE 액션 디스패치 ----- */
   } catch (err) {
-    /* ----- 요청 실패 시 LOG_OUT_FAILURE 액션 디스패치 ----- */
+    console.error(err);
     yield put({
       type: LOG_OUT_FAILURE,
       error: err.response.data, // 실패 결과
@@ -70,15 +72,16 @@ function signUpAPI() {
 }
 // SIGN_UP_REQUEST 액션이 실행되면 signUp 함수 실행
 function* signUp() {
+  /* ----- 요청 성공 시 SIGN_UP_SUCCESS 액션 디스패치 ----- */
   try {
     // const result = yield call(signUpAPI);
-    /* ----- 요청 성공 시 SIGN_UP_SUCCESS 액션 디스패치 ----- */
     yield delay(1000);
     yield put({
       type: SIGN_UP_SUCCESS,    // 성공 결과
     })
+  /* ----- 요청 실패 시 SIGN_UP_FAILURE 액션 디스패치 ----- */
   } catch (err) {
-    /* ----- 요청 실패 시 SIGN_UP_FAILURE 액션 디스패치 ----- */
+    console.error(err); 
     yield put({
       type: SIGN_UP_FAILURE,
       error: err.response.data, // 실패 결과
