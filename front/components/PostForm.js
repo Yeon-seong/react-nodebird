@@ -17,23 +17,23 @@ import { addPost } from '../reducers/post';
 
 // 포스트 폼 컴포넌트(사용자 정의 태그)
 const PostForm = () => {
-  const { imagePaths, addPostLoading, addPostDone } = useSelector((state) => state.post);
   const dispatch = useDispatch();
-  const [text, onChangeText, setText] = useInput('');
+  const [postText, onChangePostText, setPostText] = useInput('');
+  const { imagePaths, addPostLoading, addPostDone } = useSelector((state) => state.post);
 
 
   /* ----- 포스트 추가 완료 시 포스트 폼 글자 지우기 ----- */
   useEffect(() => {
     if (addPostDone) {
-      setText('');
+      setPostText('');
     }
   }, [addPostDone]);
 
 
   /* ----- 포스트 폼 제출 시 포스트 카드 추가 ----- */
-  const onSubmit = useCallback(() => {
-    dispatch(addPost(text));
-  }, [text]);
+  const onSubmitForm = useCallback(() => {
+    dispatch(addPost(postText));
+  }, [postText]);
 
 
   /* ----- 이미지 업로드 버튼 클릭 시 파일 업로드 창 띄우기 ----- */
@@ -41,23 +41,22 @@ const PostForm = () => {
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
   }, [imageInput.current]);
+  
 
   return (
     <Form
       style={{ margin: '10px 0px 20px' }}
       encType="multipart/form-data"
-      onFinish={onSubmit}
+      onFinish={onSubmitForm}
     >
-
 
       <Input.TextArea
         id="post-form"
-        value={text}
-        onChange={onChangeText}
+        value={postText}
+        onChange={onChangePostText}
         maxLength={140}
         placeholder="어떤 신기한 일이 있었나요?"
       />
-
 
       <div>
         {/* ---------- 파일 업로드 인풋 ---------- */}
@@ -67,10 +66,12 @@ const PostForm = () => {
           multiple hidden
           ref={imageInput}
         />
+
         {/* ---------- 이미지 업로드 버튼 ---------- */}
         <Button onClick={onClickImageUpload}>
           이미지 업로드
         </Button>
+
         {/* ---------- 포스트 작성 버튼 ---------- */}
         <Button
           type="primary"
@@ -85,7 +86,7 @@ const PostForm = () => {
 
       <div>
         {/* ---------- 이미지 업로드 시 미리보기 ---------- */}
-        {imagePaths.map((v) => {
+        {imagePaths?.map((v) => {
           <div key={v} style={{ display: 'inline-block' }}>
             <img src={v} style={{ width: '200px' }} alt={v} />
             <div>

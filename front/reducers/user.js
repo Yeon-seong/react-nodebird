@@ -103,7 +103,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         logInLoading: false,
         loginDone: true,
-        // 사용자 더미 데이터
+        // 로그인 성공했을 때 사용자 더미 데이터
         me: dummyUser(action.data),
       };
     /* ----- 로그인 실패 리듀서 ----- */
