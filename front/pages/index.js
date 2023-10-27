@@ -22,8 +22,11 @@ const Home = () => {
     <AppLayout>
       {/* ----- 포스트 폼 ----- */}
       {me && <PostForm />}
+      
       {/* ----- 포스트 카드 ----- */}
-      {mainPosts.map((post) => <PostCard key={post.id} post={post} />)}
+      {mainPosts?.map((post) =>
+        <PostCard key={post.id} post={post} />
+      )}
     </AppLayout>
   );
 };
