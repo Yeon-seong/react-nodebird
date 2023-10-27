@@ -2,11 +2,6 @@
 
 
 
-// ShortId 라이브러리 불러오기
-import shortId from 'shortid';
-
-
-
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
   /* ---------- 메인 포스트 더미 데이터 ---------- */
@@ -80,16 +75,16 @@ export const addComment = (data) => ({
 
 
 // 포스트 더미 데이터
-const dummyPost = (data) => ({
-  id: shortId.generate(),
-  content: data,
+const dummyPost = {
+  id: 2,
+  content: '더미데이터 입니다.',
   User: {
     id: 1,
     nickname: '다랑',
   },
   Images: [],
   Comments: [],
-});
+};
 
 
 // 리듀서(reducer) : (이전 상태, 액션) => 다음 상태
@@ -98,6 +93,7 @@ const reducer = (state = initialState, action) => {
     /* ----- 포스트 추가 요청 리듀서 ----- */
     case ADD_POST_REQUEST:
       return {
+        ...state,
         addPostLoading: true,
         addPostDone: false,
         addPostError: null,
@@ -106,15 +102,15 @@ const reducer = (state = initialState, action) => {
     case ADD_POST_SUCCESS:
       return {
         ...state,
-        mainPosts: [dummyPost(action.data), ...state.mainPosts],
+        mainPosts: [dummyPost, ...state.mainPosts],
+        // mainPosts: [dummyPost(action.data), ...state.mainPosts],
         addPostLoading: false,
         addPostDone: true,
-        // 사용자 더미 데이터
-        me: dummyUser(action.data),
       };
     /* ----- 포스트 추가 실패 리듀서 ----- */
     case ADD_POST_FAILURE:
       return {
+        ...state,
         addPostLoading: false,
         addPostError: action.error,
       };
@@ -123,6 +119,7 @@ const reducer = (state = initialState, action) => {
     /* ----- 답글 추가 요청 리듀서 ----- */
     case ADD_COMMENT_REQUEST:
       return {
+        ...state,
         addCommentLoading: true,
         addCommentDone: false,
         addCommentError: null,
@@ -138,6 +135,7 @@ const reducer = (state = initialState, action) => {
     /* ----- 답글 추가 실패 리듀서 ----- */
     case ADD_COMMENT_FAILURE:
       return {
+        ...state,
         addCommentLoading: false,
         addCommentError: action.error,
       };
