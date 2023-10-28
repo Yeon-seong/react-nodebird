@@ -2,6 +2,11 @@
 
 
 
+// ShortId 라이브러리 불러오기
+import shortId from 'shortid';
+
+
+
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
   /* ---------- 메인 포스트 더미 데이터 ---------- */
@@ -75,16 +80,16 @@ export const addComment = (data) => ({
 
 
 // 포스트 더미 데이터
-const dummyPost = {
-  id: 2,
-  content: '더미데이터 입니다.',
+const dummyPost = (data) => ({
+  id: shortId.generate(),
+  content: data,
   User: {
     id: 1,
     nickname: '다랑',
   },
   Images: [],
   Comments: [],
-};
+});
 
 
 // 리듀서(reducer) : (이전 상태, 액션) => 다음 상태
