@@ -44,8 +44,7 @@ const PostCard = ({ post }) => {
     <div style={{ marginBottom: '20px' }}>
       <Card
         /* ---------- 이미지 : 이미지는 1개 이상 ---------- */
-        cover={post.Images[0]
-        && <PostImages images={post.Images} />}
+        cover={post.Images[0] && <PostImages images={post.Images} />}
         /* ---------- 액션 버튼 ---------- */
         actions={[
           /* ----- 리트윗 버튼 ----- */
