@@ -92,6 +92,17 @@ const dummyPost = (data) => ({
 });
 
 
+// 답글 더미 데이터
+const dummyComment = (data) => ({
+  id: shortId.generate(),
+  content: data,
+  User: {
+    id: 1,
+    nickname: '다랑',
+  },
+});
+
+
 // 리듀서(reducer) : (이전 상태, 액션) => 다음 상태
 const reducer = (state = initialState, action) => {
   switch (action.type) {
