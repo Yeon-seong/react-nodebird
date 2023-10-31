@@ -54,7 +54,7 @@ const CommentForm = ({ post }) => {
         />
         {/* ----- 답글 작성 버튼 ----- */}
         <Button
-          style={{ position: 'absolute', right: 0, bottom: -40 }}
+          style={{ position: 'absolute', right: 0, bottom: -40, zIndex: 1 }}
           type="primary"
           htmlType="submit"
         >
