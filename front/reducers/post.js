@@ -129,13 +129,28 @@ const reducer = (state = initialState, action) => {
         addCommentError: null,
       };
     /* ----- 답글 추가 성공 리듀서 ----- */
-    case ADD_COMMENT_SUCCESS:
+    case ADD_COMMENT_SUCCESS: {
+
+      // index 찾기
+      const postIndex = state.mainPosts.findIndex((v) =>
+      v.id === action.data.postId);
+
+      // 새로운 post 변수 객체 생성
+      const post = { ...state.mainPosts[postIndex] };
+      post.Comments = [dummyComment(action.data.content), ...post.Comments];
+      
+      // 새로운 mainPosts 변수 배열 생성
+      const mainPosts = [ ...state.mainPosts];
+      mainPosts[postIndex] = post;
+
       return {
         ...state,
-        mainPosts: [dummyPost, ...state.mainPosts],
+        mainPosts,
         addCommentLoading: false,
         addCommentDone: true,
       };
+    };
+    
     /* ----- 답글 추가 실패 리듀서 ----- */
     case ADD_COMMENT_FAILURE:
       return {
