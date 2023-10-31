@@ -21,7 +21,7 @@ const CommentForm = ({ post }) => {
   const dispatch = useDispatch();
   /* 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용 */
   const id = useSelector((state) => state.user.me?.id);
-  const { addCommentDone } = useSelector((state) => state.post);
+  const { addCommentDone, addCommentLoading } = useSelector((state) => state.post);
   const [commentText, onChangeCommentText, setCommentText] = useInput('');
 
 
@@ -57,6 +57,7 @@ const CommentForm = ({ post }) => {
           style={{ position: 'absolute', right: 0, bottom: -40, zIndex: 1 }}
           type="primary"
           htmlType="submit"
+          loading={addCommentLoading}
         >
           게시하기
         </Button>
