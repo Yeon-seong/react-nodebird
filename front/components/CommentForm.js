@@ -3,7 +3,7 @@
 
 
 // 외부 컴포넌트 불러오기
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button } from 'antd';
