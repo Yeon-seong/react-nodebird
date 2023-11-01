@@ -8,10 +8,14 @@ import { all, fork, call, takeLatest, put, delay } from 'redux-saga/effects';
 // Axios 라이브러리 불러오기
 import axios from 'axios';
 
-// reducer 포스트 추가, 답글 추가 액션 불러오기
+// ShortId 라이브러리 불러오기
+import shortId from 'shortid';
+
+// reducer 포스트 추가, 답글 추가, 내가 작성한 포스트 액션 불러오기
 import {
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
+  ADD_POST_TO_ME
 } from '../reducers/post';
 
 
@@ -26,9 +30,18 @@ function* addPost(action) {
   try {
     // const result = yield call(addPostAPI, action.data);
     yield delay(1000);
+    const id = shortId.generate();
     yield put({
       type: ADD_POST_SUCCESS,
-      data: action.data,         // 성공 결과
+      data: {
+        id,
+        content: action.data,   // 성공 결과
+      },
+    });
+    /* ----- 요청 성공 시 ADD_POST_TO_ME 액션 디스패치 ----- */
+    yield put({
+      type: ADD_POST_TO_ME,
+      data: id,
     });
   /* ----- 요청 실패 시 ADD_POST_FAILURE 액션 디스패치 ----- */
   } catch (err) {
@@ -54,7 +67,7 @@ function* addComment(action) {
     yield put({
       type: ADD_COMMENT_SUCCESS,
       data: action.data,         // 성공 결과
-    })
+    });
   /* ----- 요청 실패 시 ADD_COMMENT_FAILURE 액션 디스패치 ----- */
   } catch (err) {
     yield put({

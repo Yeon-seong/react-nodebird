@@ -87,8 +87,8 @@ export const addComment = (data) => ({
 
 // 포스트 더미 데이터
 const dummyPost = (data) => ({
-  id: shortId.generate(),
-  content: data,
+  id: data.id,
+  content: data.content,
   User: {
     id: 1,
     nickname: '다랑',
