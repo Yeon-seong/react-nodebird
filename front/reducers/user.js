@@ -62,9 +62,9 @@ const dummyUser = (data) => ({
   ...data,  // 이메일과 비밀번호
   nickname: '다랑',
   id: 1,
-  Posts: [],
-  Followings: [],
-  Followers: [],
+  Posts: [{ id: 1 }],
+  Followings: [{ nickname: '라디' }, { nickname: '아샤' }, { nickname: '에델' }],
+  Followers: [{ nickname: '라디' }, { nickname: '아샤' }, { nickname: '에델' }],
 });
 
 
