@@ -19,24 +19,30 @@ export const initialState = {
     content: '첫 번째 포스트 #해시태그 #익스프레스',
     Images: [{
       // 이미지 주소1,
+      id: shortId.generate(),
       src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
     }, {
       // 이미지 주소2,
+      id: shortId.generate(),
       src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
     }, {
       // 이미지 주소3,
+      id: shortId.generate(),
       src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
     }],
     Comments: [{
+      id: shortId.generate(),
       /* ----- 사용자1 : 닉네임, 답글 ----- */
+      id: shortId.generate(),
       User: {
         nickname: '라나',
       },
       content: '안녕하세요!',
     }, {
       /* ----- 사용자2 : 닉네임, 답글 ----- */
+      id: shortId.generate(),
       User: {
-        nickname: '라요',
+        nickname: '뮤티',
       },
       content: '만나서 반가워요~',
     }]
