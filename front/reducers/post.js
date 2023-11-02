@@ -53,6 +53,10 @@ export const initialState = {
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
+  /* ---------- 포스트 삭제 시도 중, 완료, 에러 ---------- */
+  removePostLoading: false,
+  removePostDone: false,
+  removePostError: null,
   /* ---------- 답글 추가 시도 중, 완료, 에러 ---------- */
   addCommentLoading: false,
   addCommentDone: false,
@@ -64,6 +68,11 @@ export const initialState = {
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+
+// 포스트 삭제 액션 : 요청, 성공, 실패
+export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
+export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
+export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 
 // 답글 추가 액션 : 요청, 성공, 실패
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
@@ -135,6 +144,31 @@ const reducer = (state = initialState, action) => {
         addPostLoading: false,
         addPostError: action.error,
       };
+
+    /* ----- 포스트 삭제 요청 리듀서 ----- */
+    case REMOVE_POST_REQUEST:
+      return {
+        ...state,
+        removePostLoading: true,
+        removePostDone: false,
+        removePostError: null,
+      };
+    /* ----- 포스트 삭제 성공 리듀서 ----- */
+    case REMOVE_POST_SUCCESS:
+      return {
+        ...state,
+        mainPosts: state.mainPosts.filter((v) => v.id !== action.data),
+        removePostLoading: false,
+        removePostDone: true,
+      };
+    /* ----- 포스트 삭제 실패 리듀서 ----- */
+    case REMOVE_POST_FAILURE:
+      return {
+        ...state,
+        removePostLoading: false,
+        removePostError: action.error,
+      };
+
     /* ----- 답글 추가 요청 리듀서 ----- */
     case ADD_COMMENT_REQUEST:
       return {
@@ -165,7 +199,6 @@ const reducer = (state = initialState, action) => {
         addCommentDone: true,
       };
     };
-    
     /* ----- 답글 추가 실패 리듀서 ----- */
     case ADD_COMMENT_FAILURE:
       return {
