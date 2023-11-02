@@ -190,6 +190,15 @@ const reducer = (state = initialState, action) => {
         changeNicknameLoading: false,
         changeNicknameError: action.error,
       };
+    /* ----- 내가 작성한 포스트 리듀서 ----- */
+    case ADD_POST_TO_ME:
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Posts: [{ id: action.data }, ...state.me.Posts],
+        },
+      };
     default:
       return state;
   }
