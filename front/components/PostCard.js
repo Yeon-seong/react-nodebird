@@ -5,7 +5,7 @@
 // 외부 컴포넌트 불러오기
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Card, Popover, Space, Button,
          Avatar, List, Comment }
@@ -20,12 +20,18 @@ import PostImages from './PostImages';
 import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
 
+// 포스트 삭제 요청 액션 불러오기
+import { REMOVE_POST_REQUEST } from '../reducers/post';
+
 
 
 // 포스트 카드 컴포넌트(사용자 정의 태그)
 const PostCard = ({ post }) => {
+  const dispatch = useDispatch();
+  const { removePostLoading } = useSelector((state) => state.post);
   const [liked, setLiked] = useState(false);
   const [commentFormOpened, setCommentFormOpened] = useState(false);
+
 
   /* ----- '좋아요'와 답글 버튼 토글 ----- */
   const onToggleLike = useCallback(() => {
@@ -35,10 +41,21 @@ const PostCard = ({ post }) => {
     setCommentFormOpened((prev) => !prev);
   }, []);
 
+
+  /* ----- 포스트 삭제 액션 객체 디스패치 ----- */
+  const onRemovePost = useCallback(() => {
+    dispatch({
+      type: REMOVE_POST_REQUEST,
+      data: post.id,
+    });
+  }, []);
+  
+
   /* 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용 */
   const id = useSelector((state) =>
     state.user.me?.id
   );
+
 
   return (
     <div style={{ marginBottom: '20px' }}>
@@ -76,7 +93,11 @@ const PostCard = ({ post }) => {
                   ? (
                     <>
                       <Button>수정</Button>
-                      <Button type="danger">삭제</Button>
+                      <Button
+                        type="danger"
+                        loading={removePostLoading}
+                        onClick={onRemovePost}>삭제
+                      </Button>
                     </>
                   )
                   /* 나의 id와 포스트 작성자의 id가 다르면 더보기 버튼에 신고 버튼 표시 */
