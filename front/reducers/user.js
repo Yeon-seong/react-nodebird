@@ -190,6 +190,8 @@ const reducer = (state = initialState, action) => {
         changeNicknameLoading: false,
         changeNicknameError: action.error,
       };
+    
+    
     /* ----- 내가 작성한 포스트 리듀서 ----- */
     case ADD_POST_TO_ME:
       return {
@@ -197,6 +199,15 @@ const reducer = (state = initialState, action) => {
         me: {
           ...state.me,
           Posts: [{ id: action.data }, ...state.me.Posts],
+        },
+      };
+    /* ----- 내 포스트 삭제 리듀서 ----- */
+    case REMOVE_POST_OF_ME:
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Posts: state.me.Posts.filter((v) => v.id !== action.data),
         },
       };
     default:
