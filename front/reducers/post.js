@@ -135,8 +135,6 @@ const reducer = (state = initialState, action) => {
         addPostLoading: false,
         addPostError: action.error,
       };
-    
-
     /* ----- 답글 추가 요청 리듀서 ----- */
     case ADD_COMMENT_REQUEST:
       return {

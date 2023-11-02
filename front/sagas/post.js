@@ -11,12 +11,14 @@ import axios from 'axios';
 // ShortId 라이브러리 불러오기
 import shortId from 'shortid';
 
-// reducer 포스트 추가, 답글 추가, 내가 작성한 포스트 액션 불러오기
+// reducer 포스트 추가, 답글 추가 액션 불러오기
 import {
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
-  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
-  ADD_POST_TO_ME
+  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE
 } from '../reducers/post';
+
+// reducer 내가 작성한 포스트 액션 불러오기
+import { ADD_POST_TO_ME } from '../reducers/user';
 
 
 
