@@ -5,6 +5,9 @@
 // ShortId 라이브러리 불러오기
 import shortId from 'shortid';
 
+// Immer 라이브러리 불러오기
+import produce from 'immer';
+
 
 
 // 중앙 데이터 저장소(기본 state)
@@ -120,96 +123,75 @@ const dummyComment = (data) => ({
 
 // 리듀서(reducer) : (이전 상태, 액션) => 다음 상태
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    /* ----- 포스트 추가 요청 리듀서 ----- */
-    case ADD_POST_REQUEST:
-      return {
-        ...state,
-        addPostLoading: true,
-        addPostDone: false,
-        addPostError: null,
-      };
-    /* ----- 포스트 추가 성공 리듀서 ----- */
-    case ADD_POST_SUCCESS:
-      return {
-        ...state,
-        mainPosts: [dummyPost(action.data), ...state.mainPosts],
-        addPostLoading: false,
-        addPostDone: true,
-      };
-    /* ----- 포스트 추가 실패 리듀서 ----- */
-    case ADD_POST_FAILURE:
-      return {
-        ...state,
-        addPostLoading: false,
-        addPostError: action.error,
-      };
+  // immer가 draft를 보고, 불변성을 지켜서 다음 상태로 만들어낸다.
+  return produce(state, (draft) => {
+    switch (action.type) {
+      /* ---------- 포스트 추가 요청 리듀서 ---------- */
+      case ADD_POST_REQUEST:
+        draft.addPostLoading = true;
+        draft.addPostDone = false;
+        draft.addPostError = null;
+        break;
+      /* ---------- 포스트 추가 성공 리듀서 ---------- */
+      case ADD_POST_SUCCESS:
+        draft.addPostLoading = false;
+        draft.addPostDone = true;
+        draft.mainPosts.unshift(dummyPost(action.data));
+        break;
+      /* ---------- 포스트 추가 실패 리듀서 ---------- */
+      case ADD_POST_FAILURE:
+        draft.addPostLoading = false;
+        draft.addPostError = action.error;  // 포스트 추가 실패 확인
+        break;
 
-    /* ----- 포스트 삭제 요청 리듀서 ----- */
-    case REMOVE_POST_REQUEST:
-      return {
-        ...state,
-        removePostLoading: true,
-        removePostDone: false,
-        removePostError: null,
-      };
-    /* ----- 포스트 삭제 성공 리듀서 ----- */
-    case REMOVE_POST_SUCCESS:
-      return {
-        ...state,
-        mainPosts: state.mainPosts.filter((v) => v.id !== action.data),
-        removePostLoading: false,
-        removePostDone: true,
-      };
-    /* ----- 포스트 삭제 실패 리듀서 ----- */
-    case REMOVE_POST_FAILURE:
-      return {
-        ...state,
-        removePostLoading: false,
-        removePostError: action.error,
-      };
 
-    /* ----- 답글 추가 요청 리듀서 ----- */
-    case ADD_COMMENT_REQUEST:
-      return {
-        ...state,
-        addCommentLoading: true,
-        addCommentDone: false,
-        addCommentError: null,
-      };
-    /* ----- 답글 추가 성공 리듀서 ----- */
-    case ADD_COMMENT_SUCCESS: {
+      /* ---------- 포스트 삭제 요청 리듀서 ---------- */
+      case REMOVE_POST_REQUEST:
+        draft.removePostLoading = true;
+        draft.removePostDone = false;
+        draft.removePostError = null;
+        break;
+      /* ---------- 포스트 삭제 성공 리듀서 ---------- */
+      case REMOVE_POST_SUCCESS:
+        draft.removePostLoading = false;
+        draft.removePostDone = true;
+        draft.mainPosts = draft.mainPosts.filter((v) =>
+          v.id !== action.data);
+        break;
+      /* ---------- 포스트 삭제 실패 리듀서 ---------- */
+      case REMOVE_POST_FAILURE:
+        draft.removePostLoading = false;
+        draft.removePostError = action.error; // 포스트 삭제 실패 확인
+        break;
 
-      // index 찾기
-      const postIndex = state.mainPosts.findIndex((v) =>
-      v.id === action.data.postId);
 
-      // 새로운 post 변수 객체 생성
-      const post = { ...state.mainPosts[postIndex] };
-      post.Comments = [dummyComment(action.data.content), ...post.Comments];
-      
-      // 새로운 mainPosts 변수 배열 생성
-      const mainPosts = [ ...state.mainPosts];
-      mainPosts[postIndex] = post;
+      /* ---------- 답글 추가 요청 리듀서 ---------- */
+      case ADD_COMMENT_REQUEST:
+        draft.addCommentLoading = true;
+        draft.addCommentDone = false;
+        draft.addCommentError = null;
+        break;
+      /* ---------- 답글 추가 성공 리듀서 ---------- */
+      case ADD_COMMENT_SUCCESS:
+        // 메인 포스트 중 원하는 포스트 찾기
+        const post = draft.mainPosts.find((v) =>
+          v.id === action.data.postId);
+        // 해당 포스트의 맨 앞에 답글 더미(가짜 답글) 하나 넣기
+        post.Comments.unshift(dummyComment(action.content));
+        // 리듀서
+        draft.addCommentLoading = false;
+        draft.addCommentDone = true;
+        break;
+      /* ---------- 답글 추가 실패 리듀서 ---------- */
+      case ADD_COMMENT_FAILURE:
+        draft.addCommentLoading = false;
+        draft.addCommentError = action.error; // 답글 추가 실패 확인
+        break;
 
-      return {
-        ...state,
-        mainPosts,
-        addCommentLoading: false,
-        addCommentDone: true,
-      };
-    };
-    /* ----- 답글 추가 실패 리듀서 ----- */
-    case ADD_COMMENT_FAILURE:
-      return {
-        ...state,
-        addCommentLoading: false,
-        addCommentError: action.error,
-      };
-    
-    default:
-      return state;
-  }
+      default:
+        break;
+    }
+  });
 };
 
 
