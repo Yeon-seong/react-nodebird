@@ -2,10 +2,15 @@
 
 
 
+// Immer 라이브러리 불러오기
+import produce from 'immer';
+
+
+
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
   logInLoading: false,  // 로그인 시도 중
-  loginDone: false,     // 로그인 완료
+  logInDone: false,     // 로그인 완료
   logInError: null,     // 로그인 에러
 
   logOutLoading: false, // 로그아웃 시도 중
@@ -91,128 +96,100 @@ export const logoutRequestAction = () => {
 
 // 리듀서(reducer) : (이전 상태, 액션) => 다음 상태
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-  
-    /* ----- 로그인 요청 리듀서 ----- */
-    case LOG_IN_REQUEST:
-      return {
-        ...state,
-        logInLoading: true,
-        logInError: null,
-        loginDone: false,
-      };
-    /* ----- 로그인 성공 리듀서 ----- */
-    case LOG_IN_SUCCESS:
-      return {
-        ...state,
-        logInLoading: false,
-        loginDone: true,
+  // immer가 draft를 보고, 불변성을 지켜서 다음 상태로 만들어낸다.
+  return produce(state, (draft) => {
+    switch (action.type) {
+      /* ---------- 로그인 요청 리듀서 ---------- */
+      case LOG_IN_REQUEST:
+        draft.logInLoading = true;
+        draft.logInError = null;
+        draft.logInDone = false;
+        break;
+      /* ---------- 로그인 성공 리듀서 ---------- */
+      case LOG_IN_SUCCESS:
+        draft.logInLoading = false;
         // 로그인 성공했을 때 사용자 더미 데이터
-        me: dummyUser(action.data),
-      };
-    /* ----- 로그인 실패 리듀서 ----- */
-    case LOG_IN_FAILURE:
-      return {
-        ...state,
-        logInLoading: false,
-        logInError: action.error,
-      };
+        draft.me = dummyUser(action.data);
+        draft.logInDone = true;
+        break;
+      /* ---------- 로그인 실패 리듀서 ---------- */
+      case LOG_IN_FAILURE:
+        draft.logInLoading = false;
+        draft.logInError = action.error; // 로그인 실패 확인
+        break;
 
-    
-    /* ----- 로그아웃 요청 리듀서 ----- */
-    case LOG_OUT_REQUEST:
-      return {
-        ...state,
-        logOutLoading: true,
-        logOutDone: false,
-        logOutError: null,
-      };
-    /* ----- 로그아웃 성공 리듀서 ----- */
-    case LOG_OUT_SUCCESS:
-      return {
-        ...state,
-        logOutLoading: false,
-        logOutDone: true,
-        me: null,
-      };
-    /* ----- 로그아웃 실패 리듀서 ----- */
-    case LOG_OUT_FAILURE:
-      return {
-        ...state,
-        logOutLoading: false,
-        logOutError: action.error,
-      };
+      
+      /* ---------- 로그아웃 요청 리듀서 ---------- */
+      case LOG_OUT_REQUEST:
+        draft.logOutLoading = true;
+        draft.logOutDone = false;
+        draft.logOutError = null;
+        break;
+      /* ---------- 로그아웃 성공 리듀서 ---------- */
+      case LOG_OUT_SUCCESS:
+        draft.logOutLoading = false;
+        draft.logOutDone = true;
+        draft.me = null;
+        break;
+      /* ---------- 로그아웃 실패 리듀서 ---------- */
+      case LOG_OUT_FAILURE:
+        draft.logOutLoading = false;
+        draft.logOutError = action.error;  // 로그아웃 실패 확인
+        break;
 
-    
-    /* ----- 회원가입 요청 리듀서 ----- */
-    case SIGN_UP_REQUEST:
-      return {
-        ...state,
-        signUPLoading: true,
-        signUPDone: false,
-        signUPError: null,
-      };
-    /* ----- 회원가입 성공 리듀서 ----- */
-    case SIGN_UP_SUCCESS:
-      return {
-        ...state,
-        signUPLoading: false,
-        signUPDone: true,
-      };
-    /* ----- 회원가입 실패 리듀서 ----- */
-    case SIGN_UP_FAILURE:
-      return {
-        ...state,
-        signUPLoading: false,
-        signUPError: action.error,
-      };
+      
+      /* ---------- 회원가입 요청 리듀서 ---------- */
+      case SIGN_UP_REQUEST:
+        draft.signUPLoading = true;
+        draft.signUPDone = false;
+        draft.signUPError = null;
+        break;
+      /* ---------- 회원가입 성공 리듀서 ---------- */
+      case SIGN_UP_SUCCESS:
+        draft.signUPLoading = false;
+        draft.signUPDone = true;
+        break;
+      /* ---------- 회원가입 실패 리듀서 ---------- */
+      case SIGN_UP_FAILURE:
+        draft.signUPLoading = false;
+        draft.signUPError = action.error;  // 회원가입 실패 확인
+        break;
 
-    
-    /* ----- 닉네임 변경 요청 리듀서 ----- */
-    case CHANGE_NICKNAME_REQUEST:
-      return {
-        ...state,
-        changeNicknameLoading: true,
-        changeNicknameDone: false,
-        changeNicknameError: null,
-      };
-    /* ----- 닉네임 변경 성공 리듀서 ----- */
-    case CHANGE_NICKNAME_SUCCESS:
-      return {
-        ...state,
-        changeNicknameLoading: false,
-        changeNicknameDone: true,
-      };
-    /* ----- 닉네임 변경 실패 리듀서 ----- */
-    case CHANGE_NICKNAME_FAILURE:
-      return {
-        ...state,
-        changeNicknameLoading: false,
-        changeNicknameError: action.error,
-      };
-    
-    
-    /* ----- 내가 작성한 포스트 리듀서 ----- */
-    case ADD_POST_TO_ME:
-      return {
-        ...state,
-        me: {
-          ...state.me,
-          Posts: [{ id: action.data }, ...state.me.Posts],
-        },
-      };
-    /* ----- 내 포스트 삭제 리듀서 ----- */
-    case REMOVE_POST_OF_ME:
-      return {
-        ...state,
-        me: {
-          ...state.me,
-          Posts: state.me.Posts.filter((v) => v.id !== action.data),
-        },
-      };
-    default:
-      return state;
-  }
+      
+      /* ---------- 닉네임 변경 요청 리듀서 ---------- */
+      case CHANGE_NICKNAME_REQUEST:
+        draft.changeNicknameLoading = true;
+        draft.changeNicknameDone = false;
+        draft.changeNicknameError = null;
+        break;
+      /* ---------- 닉네임 변경 성공 리듀서 ---------- */
+      case CHANGE_NICKNAME_SUCCESS:
+        draft.changeNicknameLoading = false;
+        draft.changeNicknameDone = true;
+        break;
+      /* ---------- 닉네임 변경 실패 리듀서 ---------- */
+      case CHANGE_NICKNAME_FAILURE:
+        draft.changeNicknameLoading = false;
+        draft.changeNicknameError = action.error;  // 닉네임 변경 실패 확인
+        break;
+      
+      
+      /* ---------- 내가 작성한 포스트 리듀서 ---------- */
+      case ADD_POST_TO_ME:
+        draft.me.Posts.unshift({ id: action.data });
+        break;
+
+        
+      /* ---------- 내 포스트 삭제 리듀서 ---------- */
+      case REMOVE_POST_OF_ME:
+        draft.me.Posts
+        = draft.me.Posts.filter((v) => v.id !== action.data);
+        break;
+
+      default:
+        break;
+    }
+  });
 };
 
 
