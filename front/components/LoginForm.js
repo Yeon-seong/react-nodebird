@@ -33,7 +33,7 @@ const LoginForm = () => {
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
 
-  // 더미 데이터 로그인
+  // 더미데이터 로그인
   const onSubmitForm = useCallback(() => {
     console.log(email, password);
     dispatch(loginRequestAction(email, password));

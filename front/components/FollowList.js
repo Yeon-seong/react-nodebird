@@ -30,7 +30,7 @@ const FollowList = ({ header, data }) => {
       }
       /* 팔로잉 목록, 팔로워 목록 전체 테두리 */
       bordered
-      /* 목록용 데이터소스 : 팔로잉 목록, 팔로워 목록 더미 데이터 배열 전달 */
+      /* 목록용 데이터소스 : 팔로잉 목록, 팔로워 목록 더미데이터 배열 전달 */
       dataSource={data}
       renderItem={(item) => {
         <List.Item style={{ marginTop: '20px' }}>

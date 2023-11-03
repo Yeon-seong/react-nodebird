@@ -66,7 +66,7 @@ export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
 export const REMOVE_POST_OF_ME = 'REMOVE_POST_OF_ME';
 
 
-// 사용자 더미 데이터
+// 사용자 더미데이터
 const dummyUser = (data) => ({
   ...data,  // 이메일과 비밀번호
   nickname: '다랑',
@@ -108,7 +108,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 로그인 성공 리듀서 ---------- */
       case LOG_IN_SUCCESS:
         draft.logInLoading = false;
-        // 로그인 성공했을 때 사용자 더미 데이터
+        // 로그인 성공했을 때 사용자 더미데이터
         draft.me = dummyUser(action.data);
         draft.logInDone = true;
         break;

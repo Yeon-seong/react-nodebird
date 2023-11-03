@@ -18,7 +18,7 @@ const UserProfile = () => {
   const { me, logOutLoading } = useSelector((state) => state.user);
 
 
-  /* 더미 데이터 로그아웃 */
+  /* 더미데이터 로그아웃 */
   const onLogOut = useCallback(() => {
     dispatch(logoutRequestAction());
   }, []);

@@ -12,7 +12,7 @@ import produce from 'immer';
 
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
-  /* ---------- 메인 포스트 더미 데이터 ---------- */
+  /* ---------- 메인 포스트 더미데이터 ---------- */
   mainPosts: [{
     id: 1,
     User: {
@@ -97,7 +97,7 @@ export const addComment = (data) => ({
 });
 
 
-// 포스트 더미 데이터
+// 포스트 더미데이터
 const dummyPost = (data) => ({
   id: data.id,
   content: data.content,
@@ -110,7 +110,7 @@ const dummyPost = (data) => ({
 });
 
 
-// 답글 더미 데이터
+// 답글 더미데이터
 const dummyComment = (data) => ({
   id: shortId.generate(),
   content: data,
@@ -176,7 +176,7 @@ const reducer = (state = initialState, action) => {
         // 메인 포스트 중 원하는 포스트 찾기
         const post = draft.mainPosts.find((v) =>
           v.id === action.data.postId);
-        // 해당 포스트의 맨 앞에 답글 더미(가짜 답글) 하나 넣기
+        // 해당 포스트의 맨 앞에 답글 더미데이터(가짜 답글) 하나 넣기
         post.Comments.unshift(dummyComment(action.content));
         // 리듀서
         draft.addCommentLoading = false;
