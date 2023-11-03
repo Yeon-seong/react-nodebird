@@ -20,10 +20,10 @@ const Home = () => {
 
   return (
     <AppLayout>
-      {/* ----- 포스트 폼 ----- */}
+      {/* ---------- 게시글 폼 ---------- */}
       {me && <PostForm />}
       
-      {/* ----- 포스트 카드 ----- */}
+      {/* ---------- 게시글 카드 ---------- */}
       {mainPosts?.map((post) =>
         <PostCard key={post.id} post={post} />
       )}

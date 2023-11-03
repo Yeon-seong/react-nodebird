@@ -1,4 +1,4 @@
-/* -------------------- 트위터 포스트 폼 -------------------- */
+/* -------------------- 트위터 게시글 폼 -------------------- */
 
 
 
@@ -10,19 +10,19 @@ import { useSelector, useDispatch } from 'react-redux';
 // 커스텀 Hooks 불러오기
 import useInput from '../hooks/useInput';
 
-// reducer 포스트 추가 요청 액션 불러오기
+// 게시글 추가 요청 액션 생성함수 불러오기
 import { addPost } from '../reducers/post';
 
 
 
-// 포스트 폼 컴포넌트(사용자 정의 태그)
+// 게시글 폼 컴포넌트(사용자 정의 태그)
 const PostForm = () => {
   const dispatch = useDispatch();
   const [postText, onChangePostText, setPostText] = useInput('');
   const { imagePaths, addPostLoading, addPostDone } = useSelector((state) => state.post);
 
 
-  /* ----- 포스트 추가 완료 시 포스트 폼 글자 지우기 ----- */
+  /* ---------- 게시글 추가 완료 시 게시글 폼 글자 지우기 ---------- */
   useEffect(() => {
     if (addPostDone) {
       setPostText('');
@@ -30,13 +30,13 @@ const PostForm = () => {
   }, [addPostDone]);
 
 
-  /* ----- 포스트 폼 제출 시 포스트 카드 추가 ----- */
+  /* ---------- 게시글 폼 제출 시 게시글 카드 추가 ---------- */
   const onSubmitForm = useCallback(() => {
     dispatch(addPost(postText));
   }, [postText]);
 
 
-  /* ----- 이미지 업로드 버튼 클릭 시 파일 업로드 창 띄우기 ----- */
+  /* ---------- 이미지 업로드 버튼 클릭 시 파일 업로드 창 띄우기 ---------- */
   const imageInput = useRef();
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
@@ -72,7 +72,7 @@ const PostForm = () => {
           이미지 업로드
         </Button>
 
-        {/* ---------- 포스트 작성 버튼 ---------- */}
+        {/* ---------- 게시글 작성 버튼 ---------- */}
         <Button
           type="primary"
           style={{ float: 'right' }}
@@ -101,5 +101,5 @@ const PostForm = () => {
 
 
 
-// 포스트 폼 컴포넌트 내보내기
+// 게시글 폼 컴포넌트 내보내기
 export default PostForm;

@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // 내부 컴포넌트 불러오기
 import useInput from '../hooks/useInput';
+
+// 사용자 추가 요청 액션 생성함수 불러오기
 import { loginRequestAction } from '../reducers/user';
 
 
@@ -69,20 +71,20 @@ const LoginForm = () => {
         />
       </div>
 
-      {/* ----------로그인 버튼, 회원가입 버튼 ---------- */}
+      {/* ---------- 로그인 버튼, 회원가입 버튼 ---------- */}
       <ButtonWrapper>
         {/* 로그인 버튼 */}
         <Button
           name="login-btn"
           type="primary"
           htmlType="submit"
-          /* ----- 로딩 중 버튼 ----- */
+          /* ---------- 로딩 중 버튼 ---------- */
           loading={logInLoading}
         >
           로그인
         </Button>
 
-        {/* 회원가입 버튼 */}
+        {/* ---------- 회원가입 버튼 ---------- */}
         <Link href="/signup">
           <a><Button>회원가입</Button></a>
         </Link>

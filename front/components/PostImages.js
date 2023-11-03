@@ -1,4 +1,4 @@
-/* -------------------- 트위터 포스트 이미지 -------------------- */
+/* -------------------- 트위터 게시글 이미지 -------------------- */
 
 
 
@@ -12,7 +12,7 @@ import ImagesZoom from './ImagesZoom';
 
 
 
-// 포스트 이미지 컴포넌트(사용자 정의 태그)
+// 게시글 이미지 컴포넌트(사용자 정의 태그)
 const PostImages = ({ images }) => {
   const [showImagesZoom, setShowImagesZoom] = useState(false);
 
@@ -26,7 +26,7 @@ const PostImages = ({ images }) => {
     setShowImagesZoom(false);
   }, []);
 
-  /* ----- 이미지가 1개라면 화면 100% 차지 ----- */
+  /* ---------- 이미지가 1개라면 화면 100% 차지 ---------- */
   if (images.length === 1) {
     return (
       <>
@@ -45,7 +45,7 @@ const PostImages = ({ images }) => {
     );
   };
   
-  /* ----- 이미지가 2개라면 화면 50% 차지 ----- */
+  /* ---------- 이미지가 2개라면 화면 50% 차지 ---------- */
   if (images.length === 2) {
     return (
       <>
@@ -74,12 +74,12 @@ const PostImages = ({ images }) => {
     );
   };
   
-  /* ----- 이미지가 3개 이상이라면 첫 번째 이미지와 더보기 버튼 ----- */
+  /* ---------- 이미지가 3개 이상이라면 첫 번째 이미지와 더보기 버튼 ---------- */
   if (images.length >= 3) {
     return (
       <>
         <div>
-          {/* 첫 번째 이미지 */}
+          {/* ---------- 첫 번째 이미지 ---------- */}
           <img
             role="presentation"
             style={{
@@ -89,7 +89,7 @@ const PostImages = ({ images }) => {
             alt={images[0].src}
             onClick={onZoom}
           />
-          {/* 첫 번째 이미지 뒤의 이미지 */}
+          {/* ---------- 첫 번째 이미지 뒤의 이미지 ---------- */}
           <div
             role="presentation"
             style={{
@@ -118,11 +118,11 @@ const PostImages = ({ images }) => {
 
 
 
-// 포스트 이미지 컴포넌트의 images props 데이터 타입 검사
+// 게시글 이미지 컴포넌트의 images props 데이터 타입 검사
 PostImages.propTypes = {
   /* PropTypes으로 구성된 객체들의 배열 검사 */
   images: PropTypes.arrayOf(PropTypes.object),
 };
 
-// 포스트 이미지 컴포넌트 내보내기
+// 게시글 이미지 컴포넌트 내보내기
 export default PostImages;

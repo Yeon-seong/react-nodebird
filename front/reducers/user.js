@@ -61,7 +61,7 @@ export const UNFOLLOW_REQUEST = 'UNFOLLOW_REQUEST';
 export const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS';
 export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
 
-// 내가 작성한 포스트, 내 포스트 삭제 액션 내보내기
+// 내가 작성한 게시글, 내 게시글 삭제 액션 내보내기
 export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
 export const REMOVE_POST_OF_ME = 'REMOVE_POST_OF_ME';
 
@@ -94,7 +94,7 @@ export const logoutRequestAction = () => {
 }
 
 
-// 리듀서(reducer) : (이전 상태, 액션) => 다음 상태
+// 리듀서(Reducer) : 이전 상태를 액션을 통해 불변성 지키면서 다음 상태로 만들어내는 함수
 const reducer = (state = initialState, action) => {
   // immer가 draft를 보고, 불변성을 지켜서 다음 상태로 만들어낸다.
   return produce(state, (draft) => {
@@ -174,13 +174,13 @@ const reducer = (state = initialState, action) => {
         break;
       
       
-      /* ---------- 내가 작성한 포스트 리듀서 ---------- */
+      /* ---------- 내가 작성한 게시글 리듀서 ---------- */
       case ADD_POST_TO_ME:
         draft.me.Posts.unshift({ id: action.data });
         break;
 
         
-      /* ---------- 내 포스트 삭제 리듀서 ---------- */
+      /* ---------- 내 게시글 삭제 리듀서 ---------- */
       case REMOVE_POST_OF_ME:
         draft.me.Posts
         = draft.me.Posts.filter((v) => v.id !== action.data);

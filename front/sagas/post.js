@@ -1,4 +1,4 @@
-/* -------------------- 트위터 포스트 Saga -------------------- */
+/* -------------------- 트위터 게시글 Saga -------------------- */
 
 
 
@@ -11,14 +11,14 @@ import axios from 'axios';
 // ShortId 라이브러리 불러오기
 import shortId from 'shortid';
 
-// reducer 포스트 추가, 답글 추가, 포스트 삭제 액션 불러오기
+// 게시글 추가, 답글 추가, 게시글 삭제 액션 불러오기
 import {
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
   REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE
 } from '../reducers/post';
 
-// reducer 내가 작성한 포스트, 내 포스트 삭제 액션 불러오기
+// 내가 작성한 게시글, 내 게시글 삭제 액션 불러오기
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
 
 
@@ -29,7 +29,7 @@ function addPostAPI(data) {
 }
 // ADD_POST_REQUEST 액션이 실행되면 addPost 함수 실행
 function* addPost(action) {
-  /* ----- 요청 성공 시 ADD_POST_SUCCESS 액션 디스패치 ----- */
+  /* ---------- 요청 성공 시 ADD_POST_SUCCESS 액션 디스패치 ---------- */
   try {
     // const result = yield call(addPostAPI, action.data);
     yield delay(1000);
@@ -41,12 +41,12 @@ function* addPost(action) {
         content: action.data,   // 성공 결과
       },
     });
-    /* ----- 요청 성공 시 ADD_POST_TO_ME 액션 디스패치 ----- */
+    /* ---------- 요청 성공 시 ADD_POST_TO_ME 액션 디스패치 ---------- */
     yield put({
       type: ADD_POST_TO_ME,
       data: id,
     });
-  /* ----- 요청 실패 시 ADD_POST_FAILURE 액션 디스패치 ----- */
+  /* ---------- 요청 실패 시 ADD_POST_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     console.error(err);
     yield put({
@@ -63,7 +63,7 @@ function removePostAPI(data) {
 }
 // REMOVE_POST_REQUEST 액션이 실행되면 removePost 함수 실행
 function* removePost(action) {
-  /* ----- 요청 성공 시 REMOVE_POST_SUCCESS 액션 디스패치 ----- */
+  /* ---------- 요청 성공 시 REMOVE_POST_SUCCESS 액션 디스패치 ---------- */
   try {
     // const result = yield call(removePostAPI, action.data);
     yield delay(1000);
@@ -71,12 +71,12 @@ function* removePost(action) {
       type: REMOVE_POST_SUCCESS,
       data: action.data,        // 성공 결과
     }); // post 리듀서 조작 부분
-    /* ----- 요청 성공 시 REMOVE_POST_OF_ME 액션 디스패치 ----- */
+    /* ---------- 요청 성공 시 REMOVE_POST_OF_ME 액션 디스패치 ---------- */
     yield put({
       type: REMOVE_POST_OF_ME,
       data: action.data,
     }); // user 리듀서 조작 부분
-  /* ----- 요청 실패 시 REMOVE_POST_FAILURE 액션 디스패치 ----- */
+  /* ---------- 요청 실패 시 REMOVE_POST_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     console.error(err);
     yield put({
@@ -93,7 +93,7 @@ function addCommentAPI(data) {
 }
 // ADD_POST_REQUEST 액션이 실행되면 addComment 함수 실행
 function* addComment(action) {
-  /* ----- 요청 성공 시 ADD_COMMENT_SUCCESS 액션 디스패치 ----- */
+  /* ---------- 요청 성공 시 ADD_COMMENT_SUCCESS 액션 디스패치 ---------- */
   try {
     // const result = yield call(addCommentAPI, action.data);
     yield delay(1000);
@@ -101,7 +101,7 @@ function* addComment(action) {
       type: ADD_COMMENT_SUCCESS,
       data: action.data,         // 성공 결과
     });
-  /* ----- 요청 실패 시 ADD_COMMENT_FAILURE 액션 디스패치 ----- */
+  /* ---------- 요청 실패 시 ADD_COMMENT_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     yield put({
       type: ADD_COMMENT_FAILURE,
@@ -111,12 +111,12 @@ function* addComment(action) {
 }
 
 
-// 포스트 추가 액션
+// 게시글 추가 액션
 function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost);
 }
 
-// 포스트 삭제 액션
+// 게시글 삭제 액션
 function* watchRemovePost() {
   yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
@@ -128,9 +128,9 @@ function* watchAddComment() {
 
 
 
-// 루트 포스트 Saga 액션 등록
+// 루트 게시글 Saga 액션 등록
 export default function* postSaga() {
-  /* --- all 배열 안의 코드 동시 실행 --- */
+  /* all 배열 안의 코드 동시 실행 */
   yield all([
     fork(watchAddPost),
     fork(watchRemovePost),

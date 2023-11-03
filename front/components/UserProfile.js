@@ -7,7 +7,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Avatar, Button } from 'antd';
 
-// 내부 컴포넌트 불러오기
+// 로그아웃 액션 생성함수 불러오기
 import { logoutRequestAction } from '../reducers/user';
 
 
@@ -18,7 +18,7 @@ const UserProfile = () => {
   const { me, logOutLoading } = useSelector((state) => state.user);
 
 
-  /* 더미데이터 로그아웃 */
+  /* ---------- 더미데이터 로그아웃 ---------- */
   const onLogOut = useCallback(() => {
     dispatch(logoutRequestAction());
   }, []);

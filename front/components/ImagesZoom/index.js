@@ -15,7 +15,7 @@ import { Overlay, Global, Header, CloseButton,
 
 // 이미지 줌 컴포넌트(사용자 정의 태그)
 const ImagesZoom = ({ images, onClose }) => {
-  /* 현재 슬라이드 상태 저장 */
+  /* ---------- 현재 슬라이드 상태 저장 ---------- */
   const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
@@ -52,7 +52,7 @@ const ImagesZoom = ({ images, onClose }) => {
             ))}
           </Slick>
 
-          {/* ----- 현재 몇 번째 슬라이드를 보고 있는지 표시 ----- */}
+          {/* 현재 몇 번째 슬라이드를 보고 있는지 표시 */}
           <Indicator>
             <div>
               {currentSlide + 1}

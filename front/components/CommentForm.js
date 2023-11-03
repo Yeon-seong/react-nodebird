@@ -11,7 +11,7 @@ import { Form, Input, Button } from 'antd';
 // 커스텀 Hooks 불러오기
 import useInput from '../hooks/useInput';
 
-// reducer 답글 추가 요청 액션 불러오기
+// 답글 추가 요청 액션 불러오기
 import { ADD_COMMENT_REQUEST } from '../reducers/post';
 
 
@@ -25,7 +25,7 @@ const CommentForm = ({ post }) => {
   const [commentText, onChangeCommentText, setCommentText] = useInput('');
 
 
-  /* ----- 답글 추가 완료 시 답글 폼 글자 지우기 ----- */
+  /* ---------- 답글 추가 완료 시 답글 폼 글자 지우기 ---------- */
   useEffect(() => {
     if (addCommentDone) {
       setCommentText('');
@@ -33,7 +33,7 @@ const CommentForm = ({ post }) => {
   }, [addCommentDone]);
 
 
-  /* ----- 답글 폼 제출 시 답글 요청 액션 객체 디스패치 ----- */
+  /* ---------- 답글 폼 제출 시 답글 요청 액션 객체 디스패치 ---------- */
   const onSubmitComment = useCallback(() => {
     dispatch({
       type: ADD_COMMENT_REQUEST,
@@ -52,7 +52,7 @@ const CommentForm = ({ post }) => {
           rows={4}
           placeholder="무슨 일이 일어나고 있나요?"
         />
-        {/* ----- 답글 작성 버튼 ----- */}
+        {/* ---------- 답글 작성 버튼 ---------- */}
         <Button
           style={{ position: 'absolute', right: 0, bottom: -40, zIndex: 1 }}
           type="primary"

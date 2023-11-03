@@ -12,6 +12,8 @@ import styled from 'styled-components';
 // 내부 컴포넌트 불러오기
 import AppLayout from '../components/AppLayout';
 import useInput from '../hooks/useInput';
+
+// 회원가입 요청 액션 불러오기
 import { SIGN_UP_REQUEST } from '../reducers/user';
 
 
@@ -38,7 +40,7 @@ const Signup = () => {
   const [password, onChangePassword] = useInput('');
 
 
-  /* ----- 비밀번호와 비밀번호 확인의 일치 여부 체크 ----- */
+  /* ---------- 비밀번호와 비밀번호 확인의 일치 여부 체크 ---------- */
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const onChangePasswordCheck = useCallback((e) => {
@@ -70,7 +72,7 @@ const Signup = () => {
     };
     console.log(email, nickname, password, term);
     
-    /* ----- 가입하기 완료 시 가입 요청 액션 객체 디스패치 ----- */
+    // 가입하기 완료 시 가입 요청 액션 객체 디스패치
     dispatch({
       type: SIGN_UP_REQUEST,
       data: { email, password, nickname },

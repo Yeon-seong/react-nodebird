@@ -1,4 +1,4 @@
-/* -------------------- 트위터 포스트 카드 -------------------- */
+/* -------------------- 트위터 게시글 카드 -------------------- */
 
 
 
@@ -20,12 +20,12 @@ import PostImages from './PostImages';
 import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
 
-// 포스트 삭제 요청 액션 불러오기
+// 게시글 삭제 요청 액션 불러오기
 import { REMOVE_POST_REQUEST } from '../reducers/post';
 
 
 
-// 포스트 카드 컴포넌트(사용자 정의 태그)
+// 게시글 카드 컴포넌트(사용자 정의 태그)
 const PostCard = ({ post }) => {
   const dispatch = useDispatch();
   const { removePostLoading } = useSelector((state) => state.post);
@@ -33,7 +33,7 @@ const PostCard = ({ post }) => {
   const [commentFormOpened, setCommentFormOpened] = useState(false);
 
 
-  /* ----- '좋아요'와 답글 버튼 토글 ----- */
+  /* ---------- '좋아요'와 답글 버튼 토글 ---------- */
   const onToggleLike = useCallback(() => {
     setLiked((prev) => !prev);
   }, []);
@@ -42,7 +42,7 @@ const PostCard = ({ post }) => {
   }, []);
 
 
-  /* ----- 포스트 삭제 액션 객체 디스패치 ----- */
+  /* ---------- 게시글 삭제 액션 객체 디스패치 ---------- */
   const onRemovePost = useCallback(() => {
     dispatch({
       type: REMOVE_POST_REQUEST,
@@ -64,9 +64,9 @@ const PostCard = ({ post }) => {
         cover={post.Images[0] && <PostImages images={post.Images} />}
         /* ---------- 액션 버튼 ---------- */
         actions={[
-          /* ----- 리트윗 버튼 ----- */
+          /* ---------- 리트윗 버튼 ---------- */
           <RetweetOutlined key="retweet" />,
-          /* ----- 좋아요 버튼 ----- */
+          /* ---------- 좋아요 버튼 ---------- */
           liked
             // '좋아요'가 눌러진 상태
             ? <HeartTwoTone
@@ -79,16 +79,16 @@ const PostCard = ({ post }) => {
                 key="heart"
                 onClick={onToggleLike}
               />,
-          /* ----- 답글 버튼 ----- */
+          /* ---------- 답글 버튼 ---------- */
           <MessageOutlined
             key="comment"
             onClick={onToggleComment}
           />,
-          /* ----- 더보기 버튼 ----- */
+          /* ---------- 더보기 버튼 ---------- */
           <Popover key="more"
             content={(
               <Space>
-                {/* 나의 id와 포스트 작성자의 id가 같으면 더보기 버튼에 수정 삭제 버튼 표시 */}
+                {/* 나의 id와 게시글 작성자의 id가 같으면 더보기 버튼에 수정 삭제 버튼 표시 */}
                 {id && post.User.id === id
                   ? (
                     <>
@@ -100,7 +100,7 @@ const PostCard = ({ post }) => {
                       </Button>
                     </>
                   )
-                  /* 나의 id와 포스트 작성자의 id가 다르면 더보기 버튼에 신고 버튼 표시 */
+                  /* 나의 id와 게시글 작성자의 id가 다르면 더보기 버튼에 신고 버튼 표시 */
                   : <Button>신고</Button>}
               </Space>
             )}
@@ -109,33 +109,33 @@ const PostCard = ({ post }) => {
           </Popover>,
         ]}
       >
-        {/* ---------- 포스트 ---------- */}
+        {/* ---------- 게시글 ---------- */}
         <Card.Meta
           // mainPosts 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시
           avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
-          // mainPosts 포스트 작성자 이름 
+          // mainPosts 게시글 작성자 이름 
           title={post.User.nickname}
-          // mainPosts 포스트 콘텐츠
+          // mainPosts 게시글 콘텐츠
           description={<PostCardContent postData={post.content} />}
         />
       </Card>
       {/* ---------- 답글 창 ---------- */}
       {commentFormOpened && (
         <div>
-          {/* ----- 답글 작성 정보 ----- */}
+          {/* ---------- 답글 작성 정보 ---------- */}
           <CommentForm post={post} />
           <List
-            /* ----- 답글 개수 ----- */
+            /* ---------- 답글 개수 ---------- */
             header={`${post.Comments.length}개의 답글`}
-            /* ----- 항목 레이아웃 ----- */
+            /* ---------- 항목 레이아웃 ---------- */
             itemLayout="horizontal"
-            /* ----- 목록용 데이터소스 배열 ----- */
+            /* ---------- 목록용 데이터소스 배열 ---------- */
             dataSource={post.Comments}
-            /* ----- 사용할 때 목록 항목을 사용자 정의 ----- */
+            /* ---------- 사용할 때 목록 항목을 사용자 정의 ---------- */
             renderItem={(item) => (
               <li>
                 <Comment
-                  /* ----- 답글 작성자 ----- */
+                  /* ---------- 답글 작성자 ---------- */
                   author={item.User.nickname}
                   /* 답글 작성자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
                   avatar={<Avatar>{item.User.nickname[0]}</Avatar>}
@@ -152,9 +152,9 @@ const PostCard = ({ post }) => {
 
 
 
-// 포스트 카드 컴포넌트의 post props 데이터 타입 검사
+// 게시글 카드 컴포넌트의 post props 데이터 타입 검사
 PostCard.propTypes = {
-	/* ----- 구체적으로 post Object를 필수 검사 ----- */
+	/*  구체적으로 post Object를 필수 검사  */
   post: PropTypes.shape({
     id: PropTypes.number,
     User: PropTypes.shape({
@@ -168,5 +168,5 @@ PostCard.propTypes = {
   }).isRequired,
 };
 
-// 포스트 카드 컴포넌트 내보내기
+// 게시글 카드 컴포넌트 내보내기
 export default PostCard;
