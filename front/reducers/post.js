@@ -8,6 +8,9 @@ import shortId from 'shortid';
 // Immer 라이브러리 불러오기
 import produce from 'immer';
 
+// Faker 라이브러리 불러오기
+import faker from 'faker';
+
 
 
 // 중앙 데이터 저장소(기본 state)
@@ -65,6 +68,35 @@ export const initialState = {
   addCommentDone: false,
   addCommentError: null,
 }
+
+
+// Faker 더미포스트
+initialState.mainPosts = initialState.mainPosts.concat( 
+  Array(20).fill().map(() => ({
+    // 더미아이디
+    id: shortId.generate(),
+    /* ---------- 사용자 ---------- */
+    User: {
+      id: shortId.generate(),
+      nickname: faker.name.findName(),
+    },
+    // 더미콘텐츠 생성 : 임의의 텍스트와 단어 생성
+    content: faker.lorem.paragraph(),
+    /* ---------- 이미지 ---------- */
+    Images: [{
+      src: faker.image.imageUrl(),
+    }],
+    /* ---------- 답글 ---------- */
+    Comments: [{
+      User: {
+        id: shortId.generate(),
+        nickname: faker.name.findName(),
+      },
+      // 답글을 한 문장으로 생성
+      content: faker.lorem.sentence(),
+    }],
+  })),
+);
 
 
 // 게시글 추가 액션 : 요청, 성공, 실패
