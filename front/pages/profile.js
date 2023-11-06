@@ -4,8 +4,9 @@
 
 // 외부 컴포넌트 불러오기
 import React from 'react';
-import Head from 'next/head';
 import { useSelector } from 'react-redux';
+import Head from 'next/head';
+
 
 // 내부 컴포넌트 불러오기
 import AppLayout from '../components/AppLayout';
@@ -17,6 +18,13 @@ import FollowList from '../components/FollowList';
 // 프로필 컴포넌트(사용자 정의 태그)
 const Profile = () => {
   const { me } = useSelector((state) => state.user);
+
+  
+  // 로그인을 하지 않은 상태(me가 없을)때 프로필 페이지에 못 가게 하기
+  if (!me) {
+    return null;
+  }
+
 
   return (
     <>
