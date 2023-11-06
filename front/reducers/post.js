@@ -15,88 +15,56 @@ import faker from 'faker';
 
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
-  /* ---------- 메인 게시글 더미데이터 ---------- */
-  mainPosts: [{
-    id: 1,
-    User: {
-      id: 1,
-      nickname: '다랑',
-    },
-    content: '첫 번째 포스트 #해시태그 #익스프레스',
-    Images: [{
-      /* ---------- 이미지 주소1 ---------- */
-      id: shortId.generate(),
-      src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
-    }, {
-      /* ---------- 이미지 주소2 ---------- */
-      id: shortId.generate(),
-      src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
-    }, {
-      /* ---------- 이미지 주소3 ---------- */
-      id: shortId.generate(),
-      src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
-    }],
-    Comments: [{
-      id: shortId.generate(),
-      /* ---------- 사용자1 : 닉네임, 답글 ---------- */
-      id: shortId.generate(),
-      User: {
-        nickname: '라나',
-      },
-      content: '안녕하세요!',
-    }, {
-      /* ---------- 사용자2 : 닉네임, 답글 ---------- */
-      id: shortId.generate(),
-      User: {
-        nickname: '뮤티',
-      },
-      content: '만나서 반가워요~',
-    }]
-  }],
-  /* ---------- 이미지 업로드 시 경로 저장 ---------- */
+  /* 메인 게시글 더미데이터 */
+  mainPosts: [],
+  /* 이미지 업로드 시 경로 저장 */
   imagePaths: [],
-  /* ---------- 게시글 추가 시도 중, 완료, 에러 ---------- */
+  /* 게시글 추가 시도 중, 완료, 에러 */
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
-  /* ---------- 게시글 삭제 시도 중, 완료, 에러 ---------- */
+  /* 게시글 삭제 시도 중, 완료, 에러 */
   removePostLoading: false,
   removePostDone: false,
   removePostError: null,
-  /* ---------- 답글 추가 시도 중, 완료, 에러 ---------- */
+  /* 답글 추가 시도 중, 완료, 에러 */
   addCommentLoading: false,
   addCommentDone: false,
   addCommentError: null,
 }
 
 
-// Faker 더미포스트
-initialState.mainPosts = initialState.mainPosts.concat( 
-  Array(20).fill().map(() => ({
-    // 더미아이디
+// 게시글 더미데이터 내보내기
+export const generateDummyPost = (number) => 
+  Array(number).fill().map(() => ({
+  /* ---------- 더미아이디 ---------- */
+  id: shortId.generate(),
+  /* ---------- 사용자 ---------- */
+  User: {
     id: shortId.generate(),
-    /* ---------- 사용자 ---------- */
+    nickname: faker.name.findName(),
+  },
+  // 임의의 텍스트와 단어 생성
+  content: faker.lorem.paragraph(),
+  /* ---------- 이미지 ---------- */
+  Images: [{
+    src: faker.image.imageUrl(),
+  }],
+  /* ---------- 답글 ---------- */
+  Comments: [{
+    id: shortId.generate(),
     User: {
       id: shortId.generate(),
       nickname: faker.name.findName(),
     },
-    // 더미콘텐츠 생성 : 임의의 텍스트와 단어 생성
-    content: faker.lorem.paragraph(),
-    /* ---------- 이미지 ---------- */
-    Images: [{
-      src: faker.image.imageUrl(),
-    }],
-    /* ---------- 답글 ---------- */
-    Comments: [{
-      User: {
-        id: shortId.generate(),
-        nickname: faker.name.findName(),
-      },
-      // 답글을 한 문장으로 생성
-      content: faker.lorem.sentence(),
-    }],
-  })),
-);
+    // 답글을 한 문장으로 생성
+    content: faker.lorem.sentence(),
+  }],
+}));
+
+// initialState.mainPosts = initialState.mainPosts.concat(
+//   generateDummyPost(10)
+// );
 
 
 // 게시글 추가 액션 : 요청, 성공, 실패
