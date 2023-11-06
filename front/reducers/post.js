@@ -19,6 +19,10 @@ export const initialState = {
   mainPosts: [],
   /* 이미지 업로드 시 경로 저장 */
   imagePaths: [],
+  /* 게시글 불러오기 시도 중, 완료, 에러 */
+  loadPostsLoading: false,
+  loadPostsDone: false,
+  loadPostsError: null,
   /* 게시글 추가 시도 중, 완료, 에러 */
   addPostLoading: false,
   addPostDone: false,
