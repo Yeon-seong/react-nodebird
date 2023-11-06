@@ -3,18 +3,29 @@
 
 
 // 외부 컴포넌트 불러오기
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 // 내부 컴포넌트 불러오기
 import AppLayout from '../components/AppLayout';
 import PostForm from '../components/PostForm';
 import PostCard from '../components/PostCard';
 
+// 게시글 불러오기 요청 액션 불러오기
+import { LOAD_POSTS_REQUEST } from '../reducers/post';
+
 
 
 // 홈 컴포넌트(사용자 정의 태그)
 const Home = () => {
+  /* 처음에 화면을 로딩하면 게시글 불러오기 요청 액션 호출 */
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({
+      type: LOAD_POSTS_REQUEST,
+    });
+  }, []);
+  
   const { me } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
