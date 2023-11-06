@@ -48,7 +48,7 @@ export const generateDummyPost = (number) =>
   content: faker.lorem.paragraph(),
   /* ---------- 이미지 ---------- */
   Images: [{
-    src: faker.image.imageUrl(),
+    src: faker.image.image(),
   }],
   /* ---------- 답글 ---------- */
   Comments: [{
