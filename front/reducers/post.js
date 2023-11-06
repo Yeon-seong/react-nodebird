@@ -31,7 +31,7 @@ export const initialState = {
   addCommentLoading: false,
   addCommentDone: false,
   addCommentError: null,
-}
+};
 
 
 // 게시글 더미데이터 내보내기
@@ -66,6 +66,11 @@ export const generateDummyPost = (number) =>
 //   generateDummyPost(10)
 // );
 
+
+// 게시글 불러오기 액션 : 요청, 성공, 실패
+export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
+export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
+export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
 
 // 게시글 추가 액션 : 요청, 성공, 실패
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
