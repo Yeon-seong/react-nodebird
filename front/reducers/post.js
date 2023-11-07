@@ -135,6 +135,25 @@ const reducer = (state = initialState, action) => {
   // immer가 draft를 보고, 불변성을 지켜서 다음 상태로 만들어낸다.
   return produce(state, (draft) => {
     switch (action.type) {
+      /* ---------- 게시글 불러오기 요청 리듀서 ---------- */
+      case LOAD_POSTS_REQUEST:
+        draft.loadPostsLoading = true;
+        draft.loadPostsDone = false;
+        draft.loadPostsError = null;
+        break;
+      /* ---------- 게시글 불러오기 성공 리듀서 ---------- */
+      case LOAD_POSTS_SUCCESS:
+        draft.loadPostsLoading = false;
+        draft.loadPostsDone = true;
+        draft.mainPosts = action.data.concat(draft.mainPosts);  // 10개씩 데이터 불러옴
+        break;
+      /* ---------- 게시글 불러오기 실패 리듀서 ---------- */
+      case LOAD_POSTS_FAILURE:
+        draft.loadPostsLoading = false;
+        draft.loadPostsError = action.error;  // 게시글 불러오기 실패 확인
+        break;
+
+
       /* ---------- 게시글 추가 요청 리듀서 ---------- */
       case ADD_POST_REQUEST:
         draft.addPostLoading = true;
