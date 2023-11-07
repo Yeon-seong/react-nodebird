@@ -3,7 +3,7 @@
 
 
 // 외부 컴포넌트 불러오기
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Head from 'next/head';
 import Router from 'next/router';
@@ -21,9 +21,15 @@ const Profile = () => {
   const { me } = useSelector((state) => state.user);
 
 
-  // 로그인 하지 않은 상태일(me가 없을)때 프로필 화면이면 메인 화면으로 이동
+  // 프로필 페이지에서 로그아웃한 상태일(me가 없을 때)때 메인 화면으로 이동
+  useEffect(() => {
+    if (!(me && me.id)) {
+      Router.push('/');
+    } 
+  }, [me && me.id]);
+
+  // 로그인 하지 않은 상태일(me가 없을)때 프로필 페이지로 이동 막기
   if (!me) {
-    Router.push('/');
     return null;
   };
 
