@@ -19,6 +19,8 @@ export const initialState = {
   mainPosts: [],
   /* 이미지 업로드 시 경로 저장 */
   imagePaths: [],
+  /* 게시글 데이터 무조건 가져오기 */
+  hasMorePosts: true,
   /* 게시글 불러오기 시도 중, 완료, 에러 */
   loadPostsLoading: false,
   loadPostsDone: false,
@@ -40,7 +42,7 @@ export const initialState = {
 
 // 게시글 더미데이터 내보내기
 export const generateDummyPost = (number) => 
-  Array(number).fill().map(() => ({
+Array(number).fill().map(() => ({
   /* ---------- 더미아이디 ---------- */
   id: shortId.generate(),
   /* ---------- 사용자 ---------- */
@@ -66,9 +68,9 @@ export const generateDummyPost = (number) =>
   }],
 }));
 
-// initialState.mainPosts = initialState.mainPosts.concat(
-//   generateDummyPost(10)
-// );
+initialState.mainPosts = initialState.mainPosts.concat(
+  generateDummyPost(10)
+);
 
 
 // 게시글 불러오기 액션 : 요청, 성공, 실패
@@ -145,7 +147,10 @@ const reducer = (state = initialState, action) => {
       case LOAD_POSTS_SUCCESS:
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
-        draft.mainPosts = action.data.concat(draft.mainPosts);  // 10개씩 데이터 불러옴
+        // 
+        draft.mainPosts = action.data.concat(draft.mainPosts);
+        // 메인 게시글(mainPosts) 50개 까지 보기 제한
+        draft.hasMorePosts = draft.mainPosts.length < 50;
         break;
       /* ---------- 게시글 불러오기 실패 리듀서 ---------- */
       case LOAD_POSTS_FAILURE:
