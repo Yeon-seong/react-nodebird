@@ -20,7 +20,7 @@ import { LOAD_POSTS_REQUEST } from '../reducers/post';
 const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { mainPosts } = useSelector((state) => state.post);
+  const { mainPosts, hasMorePosts } = useSelector((state) => state.post);
 
 
   /* 처음에 화면을 로딩하면 게시글 불러오기 요청 액션 호출 */
@@ -31,7 +31,7 @@ const Home = () => {
   }, []);
 
 
-  // 스크롤을 끝까지 내렸을 때, 다시 로딩해서 게시글 더 불러오기
+  // Y축 스크롤 이동 값 + 현재 보고있는 화면 높이보다 스크롤을 내렸을 때 로딩 후 게시글 불러오기
   useEffect(() => {
     function onScroll() {
       console.log(
@@ -39,12 +39,15 @@ const Home = () => {
         document.documentElement.clientHeight,
         document.documentElement.scrollHeight
       );
-      /* Y축 스크롤 이동 값 + 현재 보고있는 화면 높이와 스크롤의 전체 높이가 같으면 */
-      if (window.scrollY + document.documentElement.clientHeight === document.documentElement.scrollHeight) {
-        /* 스크롤을 다 내리면 새로운 게시글 불러오기 액션 디스패치 */
-        dispatch({
-          type: LOAD_POSTS_REQUEST,
-        });
+      /* 전체 스크롤 길이에서 위로 300 픽셀만큼 올라간 것보다 스크롤을 더 내렸을 때 */
+      if (window.scrollY + document.documentElement.clientHeight
+      > document.documentElement.scrollHeight - 300) {
+        /* 게시글 불러오기 액션 디스패치 */
+        if (hasMorePosts) {
+          dispatch({
+            type: LOAD_POSTS_REQUEST,
+          });
+        }
       }
     }
     /* 스크롤 이벤트 리스너 */
@@ -52,7 +55,7 @@ const Home = () => {
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, []);
+  }, [hasMorePosts]);
   
 
   return (
