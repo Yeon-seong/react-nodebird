@@ -41,36 +41,31 @@ export const initialState = {
 
 
 // 게시글 더미데이터 내보내기
-export const generateDummyPost = (number) => 
-Array(number).fill().map(() => ({
-  /* ---------- 더미아이디 ---------- */
-  id: shortId.generate(),
-  /* ---------- 사용자 ---------- */
-  User: {
+export const generateDummyPost = (number) => Array(number).fill().map(() => ({
+    /* ---------- 더미아이디 ---------- */
     id: shortId.generate(),
-    nickname: faker.name.findName(),
-  },
-  // 임의의 텍스트와 단어 생성
-  content: faker.lorem.paragraph(),
-  /* ---------- 이미지 ---------- */
-  Images: [{
-    src: faker.image.image(),
-  }],
-  /* ---------- 답글 ---------- */
-  Comments: [{
-    id: shortId.generate(),
+    /* ---------- 사용자 ---------- */
     User: {
       id: shortId.generate(),
       nickname: faker.name.findName(),
     },
-    // 답글을 한 문장으로 생성
-    content: faker.lorem.sentence(),
-  }],
-}));
-
-initialState.mainPosts = initialState.mainPosts.concat(
-  generateDummyPost(10)
-);
+    // 임의의 텍스트와 단어 생성
+    content: faker.lorem.paragraph(),
+    /* ---------- 이미지 ---------- */
+    Images: [{
+      src: faker.image.image(),
+    }],
+    /* ---------- 답글 ---------- */
+    Comments: [{
+      id: shortId.generate(),
+      User: {
+        id: shortId.generate(),
+        nickname: faker.name.findName(),
+      },
+      // 답글을 한 문장으로 생성
+      content: faker.lorem.sentence(),
+    }],
+  }));
 
 
 // 게시글 불러오기 액션 : 요청, 성공, 실패
@@ -147,14 +142,14 @@ const reducer = (state = initialState, action) => {
       case LOAD_POSTS_SUCCESS:
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
-        // 
+        // 메인 게시글(mainPosts) 개수
         draft.mainPosts = action.data.concat(draft.mainPosts);
         // 메인 게시글(mainPosts) 50개 까지 보기 제한
         draft.hasMorePosts = draft.mainPosts.length < 50;
         break;
       /* ---------- 게시글 불러오기 실패 리듀서 ---------- */
       case LOAD_POSTS_FAILURE:
-        draft.loadPostsLoading = false;
+        draft.loadPostsLoading = true;
         draft.loadPostsError = action.error;  // 게시글 불러오기 실패 확인
         break;
 

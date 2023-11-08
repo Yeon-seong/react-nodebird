@@ -34,7 +34,11 @@ const Home = () => {
   // 스크롤을 끝까지 내렸을 때, 다시 로딩해서 게시글 더 불러오기
   useEffect(() => {
     function onScroll() {
-      console.log(window.scrollY, document.documentElement.clientHeight, document.documentElement.scrollHeight);
+      console.log(
+        window.scrollY,
+        document.documentElement.clientHeight,
+        document.documentElement.scrollHeight
+      );
       /* Y축 스크롤 이동 값 + 현재 보고있는 화면 높이와 스크롤의 전체 높이가 같으면 */
       if (window.scrollY + document.documentElement.clientHeight === document.documentElement.scrollHeight) {
         /* 스크롤을 다 내리면 새로운 게시글 불러오기 액션 디스패치 */

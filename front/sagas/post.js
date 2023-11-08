@@ -31,7 +31,7 @@ import { generateDummyPost } from '../reducers/post';
 function loadPostsAPI(data) {
   return axios.get('/api/posts', data);
 }
-// ADD_POST_REQUEST 액션이 실행되면 loadPosts 함수 실행
+// LOAD_POSTS_SUCCESS 액션이 실행되면 loadPosts 함수 실행
 function* loadPosts(action) {
   /* ---------- 요청 성공 시 LOAD_POSTS_SUCCESS 액션 디스패치 ---------- */
   try {
