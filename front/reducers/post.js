@@ -149,7 +149,7 @@ const reducer = (state = initialState, action) => {
         break;
       /* ---------- 게시글 불러오기 실패 리듀서 ---------- */
       case LOAD_POSTS_FAILURE:
-        draft.loadPostsLoading = true;
+        draft.loadPostsLoading = false;
         draft.loadPostsError = action.error;  // 게시글 불러오기 실패 확인
         break;
 
