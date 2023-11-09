@@ -3,7 +3,7 @@
 
 
 // Saga 이펙트 불러오기
-import { all, fork, call, takeLatest, put, delay } from 'redux-saga/effects';
+import { all, fork, call, takeLatest, put, delay, throttle } from 'redux-saga/effects';
 
 // Axios 라이브러리 불러오기
 import axios from 'axios';
@@ -143,7 +143,7 @@ function* addComment(action) {
 
 // 게시글 불러오기 액션
 function* watchLoadPosts() {
-  yield takeLatest(LOAD_POSTS_REQUEST, loadPosts);
+  yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
 
 // 게시글 추가 액션

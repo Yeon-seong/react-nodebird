@@ -20,7 +20,7 @@ import { LOAD_POSTS_REQUEST } from '../reducers/post';
 const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { mainPosts, hasMorePosts } = useSelector((state) => state.post);
+  const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
 
 
   /* 처음에 화면을 로딩하면 게시글 불러오기 요청 액션 호출 */
@@ -42,8 +42,9 @@ const Home = () => {
       /* 전체 스크롤 길이에서 위로 300 픽셀만큼 올라간 것보다 스크롤을 더 내렸을 때 */
       if (window.scrollY + document.documentElement.clientHeight
       > document.documentElement.scrollHeight - 300) {
-        /* 게시글 불러오기 액션 디스패치 */
-        if (hasMorePosts) {
+        /* 로딩이 아닐 때만 게시글 불러오기 액션 디스패치 실행 
+           이미 게시글을 다 불러온 상태에서 게시글을 불러오는 중이면 액션 제한 */
+        if (hasMorePosts && !loadPostsLoading) {
           dispatch({
             type: LOAD_POSTS_REQUEST,
           });
@@ -55,7 +56,7 @@ const Home = () => {
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, [hasMorePosts]);
+  }, [hasMorePosts, loadPostsLoading]);
   
 
   return (
