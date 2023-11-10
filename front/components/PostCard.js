@@ -59,9 +59,7 @@ const PostCard = ({ post }) => {
   
 
   /* 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용 */
-  const id = useSelector((state) =>
-    state.user.me?.id
-  );
+  const id = useSelector((state) => state.user.me?.id);
 
 
   return (
@@ -115,8 +113,8 @@ const PostCard = ({ post }) => {
             <EllipsisOutlined />
           </Popover>,
         ]}
-        /* 팔로우 버튼 */
-        extra={<FollowButton post={post} />}
+        /* 로그인했을 때만 팔로우 버튼 보여주기 */
+        extra={id && <FollowButton post={post} />}
       >
         {/* ---------- 게시글 ---------- */}
         <Card.Meta
