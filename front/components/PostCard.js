@@ -19,6 +19,7 @@ import { RetweetOutlined, HeartOutlined, HeartTwoTone,
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
+import FollowButton from './FollowButton';
 
 // 게시글 삭제 요청 액션 불러오기
 import { REMOVE_POST_REQUEST } from '../reducers/post';
@@ -108,6 +109,8 @@ const PostCard = ({ post }) => {
             <EllipsisOutlined />
           </Popover>,
         ]}
+        /* 팔로우 버튼 */
+        extra={<FollowButton post={post} />}
       >
         {/* ---------- 게시글 ---------- */}
         <Card.Meta
