@@ -5,10 +5,8 @@
 // Saga 이펙트 불러오기
 import { all, fork, call, takeLatest, put, delay, throttle } from 'redux-saga/effects';
 
-// Axios 라이브러리 불러오기
+// Axios, ShortId 라이브러리 불러오기
 import axios from 'axios';
-
-// ShortId 라이브러리 불러오기
 import shortId from 'shortid';
 
 // 게시글 불러오기, 게시글 추가, 답글 추가, 게시글 삭제 액션 불러오기

@@ -2,13 +2,19 @@
 
 
 
-// 외부 컴포넌트 불러오기
+// React 라이브러리 훅 불러오기
 import React, { useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
+
+// Redux 라이브러리 불러오기
 import { useSelector, useDispatch } from 'react-redux';
+
+// 데이터 유효성 타입 검사
+import PropTypes from 'prop-types';
+
+// 외부 컴포넌트 불러오기
 import { Form, Input, Button } from 'antd';
 
-// 커스텀 Hooks 불러오기
+// 커스텀 훅 불러오기
 import useInput from '../hooks/useInput';
 
 // 답글 추가 요청 액션 불러오기

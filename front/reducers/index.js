@@ -2,7 +2,7 @@
 
 
 
-// 외부 불러오기
+// 리덕스 불러오기
 import { HYDRATE } from 'next-redux-wrapper';
 import { combineReducers } from 'redux';
 

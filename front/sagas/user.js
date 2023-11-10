@@ -3,7 +3,9 @@
 
 
 // Saga 이펙트 불러오기
-import { all, fork, call, takeLatest, put, delay } from 'redux-saga/effects';
+import {
+  all, fork, call, takeLatest, put, delay
+} from 'redux-saga/effects';
 
 // Axios 라이브러리 불러오기
 import axios from 'axios';

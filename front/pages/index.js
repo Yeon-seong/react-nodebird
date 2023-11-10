@@ -2,8 +2,10 @@
 
 
 
-// 외부 컴포넌트 불러오기
+// React 라이브러리 훅 불러오기
 import React, { useEffect } from 'react';
+
+// Redux 라이브러리 불러오기
 import { useDispatch, useSelector } from 'react-redux';
 
 // 내부 컴포넌트 불러오기

@@ -2,9 +2,13 @@
 
 
 
-// 외부 컴포넌트 불러오기
+// React 라이브러리 훅 불러오기
 import React, { useCallback } from 'react';
+
+// Redux 라이브러리 불러오기
 import { useDispatch, useSelector } from 'react-redux';
+
+// 외부 컴포넌트 불러오기
 import { Card, Avatar, Button } from 'antd';
 
 // 로그아웃 액션 생성함수 불러오기

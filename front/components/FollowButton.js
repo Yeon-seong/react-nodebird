@@ -2,10 +2,14 @@
 
 
 
-// 외부 컴포넌트 불러오기
+// React 라이브러리 불러오기
 import React from 'react';
-import { Button } from 'antd';
+
+// 데이터 유효성 타입 검사
 import PropTypes from 'prop-types';
+
+// 외부 컴포넌트 불러오기
+import { Button } from 'antd';
 
 
 

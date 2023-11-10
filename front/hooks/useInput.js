@@ -2,7 +2,7 @@
 
 
 
-// 외부 컴포넌트 불러오기
+// React 라이브러리 훅 불러오기
 import { useState, useCallback } from 'react';
 
 

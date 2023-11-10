@@ -2,13 +2,9 @@
 
 
 
-// ShortId 라이브러리 불러오기
+// shortId, Immer, Faker 라이브러리 불러오기
 import shortId from 'shortid';
-
-// Immer 라이브러리 불러오기
 import produce from 'immer';
-
-// Faker 라이브러리 불러오기
 import faker from 'faker';
 
 

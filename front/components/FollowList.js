@@ -2,9 +2,13 @@
 
 
 
-// 외부 컴포넌트 불러오기
+// 리액트 불러오기
 import React from 'react';
+
+// 데이터 유효성 타입 검사
 import PropTypes from 'prop-types';
+
+// 외부 컴포넌트 불러오기
 import { List, Button, Card } from 'antd';
 import { StopOutlined } from '@ant-design/icons';
 

@@ -2,18 +2,24 @@
 
 
 
-// 외부 컴포넌트 불러오기
+// React 라이브러리 훅 불러오기
 import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
+
+// Redux 라이브러리 불러오기
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Card, Popover, Space, Button,
-         Avatar, List, Comment }
-         from 'antd';
+// 데이터 유효성 타입 검사
+import PropTypes from 'prop-types';
 
-import { RetweetOutlined, HeartOutlined, HeartTwoTone,
-         MessageOutlined, EllipsisOutlined }
-         from '@ant-design/icons';
+// 외부 컴포넌트 불러오기
+import {
+  Card, Popover, Space, Button, Avatar, List, Comment
+} from 'antd';
+
+import {
+  RetweetOutlined, HeartOutlined, HeartTwoTone,
+  MessageOutlined, EllipsisOutlined }
+from '@ant-design/icons';
          
 // 내부 컴포넌트 불러오기
 import PostImages from './PostImages';

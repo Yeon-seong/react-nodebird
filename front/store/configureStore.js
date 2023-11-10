@@ -2,7 +2,7 @@
 
 
 
-// 외부 불러오기
+// 리덕스 불러오기
 import { createWrapper } from 'next-redux-wrapper';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';

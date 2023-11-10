@@ -2,9 +2,13 @@
 
 
 
-// 외부 컴포넌트 불러오기
+// React 라이브러리 훅 불러오기
 import React, { useCallback, useState, } from 'react';
+
+// Redux 라이브러리 불러오기
 import { useDispatch, useSelector } from 'react-redux';
+
+// 외부 컴포넌트 불러오기
 import Head from 'next/head';
 import { Form, Input, Checkbox, Button } from 'antd';
 import styled from 'styled-components';

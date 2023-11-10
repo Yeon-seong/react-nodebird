@@ -1,10 +1,14 @@
 /* -------------------- 트위터 이미지 확대 화면 -------------------- */
 
 
-// 외부 컴포넌트 불러오기
+// React 라이브러리 훅 불러오기
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+
+// React Slick 라이브러리 불러오기
 import Slick from 'react-slick';
+
+// 데이터 유효성 타입 검사
+import PropTypes from 'prop-types';
 
 // 내부 스타일 컴포넌트 불러오기
 import { Overlay, Global, Header, CloseButton,
