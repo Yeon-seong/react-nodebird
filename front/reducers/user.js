@@ -25,6 +25,14 @@ export const initialState = {
   changeNicknameDone: false,    // 닉네임 변경 완료
   changeNicknameError: null,    // 닉네임 변경 에러
 
+  followLoading: false,   // 팔로우 시도 중
+  followDone: false,      // 팔로우 완료
+  followError: null,      // 팔로우 에러
+
+  unfollowLoading: false, // 언팔로우 시도 중
+  unfollowDone: false,    // 언팔로우 완료
+  unfollowError: null,    // 언팔로우 에러
+
   me: null,             // 로그인한 사용자 정보
   signUpData: {},
   loginData: {},
@@ -172,8 +180,47 @@ const reducer = (state = initialState, action) => {
         draft.changeNicknameLoading = false;
         draft.changeNicknameError = action.error;  // 닉네임 변경 실패 확인
         break;
-      
-      
+
+
+      /* ---------- 팔로우 요청 리듀서 ---------- */
+      case FOLLOW_REQUEST:
+        draft.followLoading = true;
+        draft.followError = null;
+        draft.followDone = false;
+        break;
+      /* ---------- 팔로우 성공 리듀서 ---------- */
+      case FOLLOW_SUCCESS:
+        draft.followLoading = false;
+        // 내가 팔로잉한 사람의 아이디(action.data)
+        draft.me.Followings.push({ id: action.data });
+        draft.followDone = true;
+        break;
+      /* ---------- 팔로우 실패 리듀서 ---------- */
+      case FOLLOW_FAILURE:
+        draft.followLoading = false;
+        draft.followError = action.error; // 팔로우 실패 확인
+
+
+      /* ---------- 언팔로우 요청 리듀서 ---------- */
+      case UNFOLLOW_REQUEST:
+        draft.unfollowLoading = true;
+        draft.unfollowError = null;
+        draft.unfollowDone = false;
+        break;
+      /* ---------- 언팔로우 성공 리듀서 ---------- */
+      case UNFOLLOW_SUCCESS:
+        draft.unfollowLoading = false;
+        // 내가 팔로잉한 사람(action.data) 중에서 팔로우 끊기
+        draft.me.Followings
+        = draft.me.Followings.filter((v) => v.id !== action.data);
+        draft.unfollowDone = true;
+        break;
+      /* ---------- 언팔로우 실패 리듀서 ---------- */
+      case UNFOLLOW_FAILURE:
+        draft.unfollowLoading = false;
+        draft.unfollowError = action.error; // 언팔로우 실패 확인
+
+
       /* ---------- 내가 작성한 게시글 리듀서 ---------- */
       case ADD_POST_TO_ME:
         draft.me.Posts.unshift({ id: action.data });
