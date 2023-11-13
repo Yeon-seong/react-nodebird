@@ -1,0 +1,11 @@
+{
+  "name": "react-nodebird-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": ""
+  },
+  "author": "YeonSeong",
+  "license": "ISC"
+}
