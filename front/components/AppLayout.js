@@ -57,12 +57,12 @@ const AppLayout = ({ children }) => {
 			<Global />
       <Menu mode="horizontal">
 
-				{/* 노드버드 메인화면 링크 */}
+				{/* 노드버드 메인 페이지 링크 */}
 				<Menu.Item>
 					<Link href="/"><a>노드버드</a></Link>
 				</Menu.Item>
         
-				{/* 프로필 화면 링크 */}
+				{/* 프로필 페이지 링크 */}
 				<Menu.Item>
 					<Link href="/profile"><a>프로필</a></Link>
 				</Menu.Item>
@@ -77,7 +77,7 @@ const AppLayout = ({ children }) => {
 					/>
 				</Menu.Item>
 
-				{/* 회원가입 화면 링크 */}
+				{/* 회원가입 페이지 링크 */}
 				<Menu.Item>
 					<Link href="/signup"><a>회원가입</a></Link>
 				</Menu.Item>

@@ -25,7 +25,7 @@ const Profile = () => {
   const { me } = useSelector((state) => state.user);
 
 
-  // 프로필 페이지에서 로그아웃한 상태일(me가 없을 때)때 메인 화면으로 이동
+  // 프로필 페이지에서 로그아웃한 상태일(me가 없을 때)때 메인 페이지로 이동
   useEffect(() => {
     if (!(me && me.id)) {
       Router.push('/');
