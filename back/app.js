@@ -23,6 +23,16 @@ app.get('/api', (req, res) => {
 });
 
 
+// 게시글 가져오기 API
+app.get('/api/posts', (req, res) => {
+  res.json([
+    { id: 1, content: 'hello1' },
+    { id: 2, content: 'hello2' },
+    { id: 3, content: 'hello3' },
+  ]);
+});
+
+
 
 // http://localhost:3000/ : 3000 포트로 서버 열기
 app.listen(3000, () => {
