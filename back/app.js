@@ -34,7 +34,7 @@ app.get('/api/posts', (req, res) => {
 
 
 
-// http://localhost:3000/ : 3000 포트로 서버 열기
-app.listen(3000, () => {
+// http://localhost:3065/ : 3065번 포트로 서버실행
+app.listen(3065, () => {
   console.log('서버 실행 중');
 });
