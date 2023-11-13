@@ -17,6 +17,12 @@ app.get('/', (req, res) => {
 });
 
 
+// API 페이지 가져오기
+app.get('/api', (req, res) => {
+  res.send('hello api');
+});
+
+
 
 // http://localhost:3000/ : 3000 포트로 서버 열기
 app.listen(3000, () => {
