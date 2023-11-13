@@ -33,8 +33,19 @@ app.get('/api/posts', (req, res) => {
 });
 
 
+// 게시글 작성하기 API
+app.post('/api/post', (req, res) => {
+  res.json({ id: 1, content: 'hello' });
+});
 
-// http://localhost:3065/ : 3065번 포트로 서버실행
+
+// 게시글 삭제하기 API
+app.delete('/api/post', (req, res) => {
+  res.json({ id: 1 });
+});
+
+
+// http://localhost:3065 : 3065번 포트로 서버실행
 app.listen(3065, () => {
   console.log('서버 실행 중');
 });
