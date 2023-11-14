@@ -2,8 +2,11 @@
 
 
 
-// Express 라이브러리 사용
+// Express 모듈 호출
 const express = require('express');
+
+// 분리한 router 불러오기
+const postRouter = require('./routers/post');
 
 
 
@@ -18,13 +21,13 @@ app.get('/', (req, res) => {
 
 
 // API 페이지 가져오기
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
   res.send('hello api');
 });
 
 
 // 게시글 가져오기 API
-app.get('/api/posts', (req, res) => {
+app.get('/posts', (req, res) => {
   res.json([
     { id: 1, content: 'hello1' },
     { id: 2, content: 'hello2' },
@@ -33,16 +36,9 @@ app.get('/api/posts', (req, res) => {
 });
 
 
-// 게시글 작성하기 API
-app.post('/api/post', (req, res) => {
-  res.json({ id: 1, content: 'hello' });
-});
+// 게시글 라우터 가져오기
+app.use('/post', postRouter);
 
-
-// 게시글 삭제하기 API
-app.delete('/api/post', (req, res) => {
-  res.json({ id: 1 });
-});
 
 
 // http://localhost:3065 : 3065번 포트로 서버실행
