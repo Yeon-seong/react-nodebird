@@ -33,7 +33,7 @@ const FollowButton = ({ post }) => {
   const isFollowing = me?.Followings.find((v) => v.id === post.User.id);
 
 
-  // 팔로우, 언팔로우 버튼 : 액션 실행 시, 게시글 작성자 아이디 정보 보내기
+  // 팔로우, 언팔로우 버튼 : 액션 실행 시 게시글 작성자 아이디 정보 보내기
   const onClickButton = useCallback(() => {
     /* 내가 팔로우 하고 있을 때, 버튼을 누르면 언팔로우 요청 액션 */
     if (isFollowing) {
