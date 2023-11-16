@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     collate: 'utf8mp4_general_ci',  // 한글, 이모티콘 저장
   });
   // 해시태그 모델 관계 설정
-  Hashtag.associate = (db) => {};
+  Hashtag.associate = (db) => {
+    /* ＠ : 하나의 해시태그(Hashtag)도 여러 개의 게시글(Post)에 있을 수 있다. */
+    db.Hashtag.belongsToMany(db.Post, { thrugh: 'PostHash' });
+  };
   return Hashtag;
 };
