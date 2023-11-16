@@ -31,6 +31,13 @@ module.exports = (sequelize, DataTypes) => {
     collate: 'utf8_general_ci',   // 한글 저장
   });
   // 사용자 모델 관계 설정
-  User.associate = (db) => {};
+  User.associate = (db) => {
+    /* O : 한 명의 사용자(User)는 여러 개의 게시글(Post)을 쓸 수 있다. */
+    db.User.hasMany(db.Post);
+    /* O : 한 명의 사용자(User)는 여러 개의 답글(Comment)을 쓸 수 있다. */
+    db.User.hasMany(db.Comment);
+    /* @ : 한 명의 사용자(User)도 여러 개의 게시글(Post)에 좋아요(Liked)를 할 수 있다. */
+    db.User.belongsToMany(db.Post, { thrugh: 'Like', as: 'Liked' });
+  };
   return User;
 };
