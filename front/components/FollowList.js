@@ -38,13 +38,9 @@ const FollowList = ({ header, data }) => {
       dataSource={data}
       renderItem={(item) => {
         <List.Item style={{ marginTop: '20px' }}>
-          <Card
-            actions={[
-              <StopOutlined
-                key="stop"
-                onClick={onCancel(item.id)}
-              />
-            ]}>
+          <Card actions={[
+            <StopOutlined key="stop" onClick={(item.id)} />
+          ]}>
             <Card.Meta description={item.nickname} />
           </Card>
         </List.Item>
