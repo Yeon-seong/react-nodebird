@@ -74,20 +74,13 @@ const PostCard = ({ post }) => {
           /* ---------- 좋아요 버튼 ---------- */
           liked
             // '좋아요'가 눌러진 상태
-            ? <HeartTwoTone
-                twoToneColor="#eb2f96"
-                key="heart"
-                onClick={onToggleLike}
+            ? <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onToggleLike}
               />
             // '좋아요'가 안 눌러진 상태
-            : <HeartOutlined
-                key="heart"
-                onClick={onToggleLike}
+            : <HeartOutlined key="heart" onClick={onToggleLike}
               />,
           /* ---------- 답글 버튼 ---------- */
-          <MessageOutlined
-            key="comment"
-            onClick={onToggleComment}
+          <MessageOutlined key="comment" onClick={onToggleComment}
           />,
           /* ---------- 더보기 버튼 ---------- */
           <Popover key="more"
