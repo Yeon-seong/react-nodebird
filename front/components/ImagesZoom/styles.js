@@ -1,6 +1,7 @@
 /* -------------------- 트위터 이미지 확대 화면 스타일 컴포넌트 -------------------- */
 
 
+
 // 외부 컴포넌트 불러오기
 import styled, { createGlobalStyle } from 'styled-components';
 import { CloseOutlined } from '@ant-design/icons';

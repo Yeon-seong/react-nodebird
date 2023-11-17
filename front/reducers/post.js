@@ -125,7 +125,7 @@ const dummyComment = (data) => ({
 
 // 리듀서(Reducer) : 이전 상태를 액션을 통해 불변성 지키면서 다음 상태로 만들어내는 함수
 const reducer = (state = initialState, action) => {
-  // immer가 draft를 보고, 불변성을 지켜서 다음 상태로 만들어낸다.
+  // immer가 draft를 보고, 불변성을 지켜서 다음 상태로 만들어냄.
   return produce(state, (draft) => {
     switch (action.type) {
       /* ---------- 게시글 불러오기 요청 리듀서 ---------- */

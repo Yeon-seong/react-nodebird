@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   const Hashtag = sequelize.define('Hashtag', { // MySQL에는 hashtags 테이블 생성
 
     /* ---------- 해시태그 모델 정보 ---------- */
-    // id: {},    // id가 기본적으로 들어있다.
+    // id: {},    // id가 기본적으로 들어있음
     // 이름 칼럼
     name: {
       type: DataTypes.STRING(30),   // 30글자 이내의 문자열

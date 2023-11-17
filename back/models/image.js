@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   const Image = sequelize.define('Image', { // MySQL에는 images 테이블 생성
 
     /* ---------- 이미지 모델 정보 ---------- */
-    // id: {},    // id가 기본적으로 들어있다.
+    // id: {},    // id가 기본적으로 들어있음.
     // 경로 소스 칼럼
     src: {
       type: DataTypes.STRING(300),  // 300글자 이내의 문자열

@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', { // MySQL에는 users 테이블 생성
 
     /* ---------- 사용자 모델 정보 ---------- */
-    // id: {},    // id가 기본적으로 들어있다.
+    // id: {},    // id가 기본적으로 들어있음.
     // 이메일 칼럼
     email: {
       type: DataTypes.STRING(30),   // 30글자 이내의 문자열
