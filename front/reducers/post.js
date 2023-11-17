@@ -2,10 +2,12 @@
 
 
 
-// shortId, Immer, Faker 라이브러리 불러오기
+// shortId, Immer 라이브러리 불러오기
 import shortId from 'shortid';
 import produce from 'immer';
-import faker from 'faker';
+
+// Faker 라이브러리 불러오기(8.2.0 버전)
+import { faker } from '@faker-js/faker';
 
 
 
@@ -43,20 +45,21 @@ export const generateDummyPost = (number) => Array(number).fill().map(() => ({
     /* ---------- 사용자 ---------- */
     User: {
       id: shortId.generate(),
-      nickname: faker.name.findName(),
+      nickname: faker.person.firstName(),
     },
     // 임의의 텍스트와 단어 생성
     content: faker.lorem.paragraph(),
     /* ---------- 이미지 ---------- */
     Images: [{
-      src: faker.image.image(),
+      id: shortId.generate(),
+      src: faker.image.urlLoremFlickr(),
     }],
     /* ---------- 답글 ---------- */
     Comments: [{
       id: shortId.generate(),
       User: {
         id: shortId.generate(),
-        nickname: faker.name.findName(),
+        nickname: faker.person.firstName(),
       },
       // 답글을 한 문장으로 생성
       content: faker.lorem.sentence(),
