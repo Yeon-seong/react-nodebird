@@ -29,7 +29,7 @@ const ImagesZoom = ({ images, onClose }) => {
       {/* ---------- 상세 이미지 헤더 ---------- */}
       <Header>
         <h1>상세 이미지</h1>
-        <CloseButton onClick={onClose}>X</CloseButton>
+        <CloseButton onClick={onClose} />
       </Header>
 
       {/* ---------- 슬릭 컴포넌트 ---------- */}
