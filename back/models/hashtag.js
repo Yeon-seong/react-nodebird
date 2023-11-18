@@ -23,6 +23,12 @@ module.exports = (sequelize, DataTypes) => {
 
 
   // 해시태그 모델 관계 설정
-  Hashtag.associate = (db) => {};
+  Hashtag.associate = (db) => {
+
+    /* (N:M 관계) : 하나의 해시태그(Hashtag)도 여러 게시글(Post)에 있을 수 있다. */
+    // 중간 테이블 이름 : 'PostHash'
+    db.Hashtag.belongsToMany(db.Post, { through: 'PostHash' });
+
+  };
   return Hashtag;
 };

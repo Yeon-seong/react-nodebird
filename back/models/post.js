@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
     /* (1:N 관계) : 하나의 게시글(Post)은 여러 이미지(Image)를 가질 수 있다. */
     db.Post.hasMany(db.Image);
 
+    /* (N:M 관계) : 하나의 게시글(Post)도 여러 해시태그(Hashtag)를 가질 수 있다. */
+    // 중간 테이블 이름 : 'PostHash'
+    db.Post.belongsToMany(db.Hashtag, { through: 'PostHash' });
+
   };
   return Post;
 };
