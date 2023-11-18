@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   // 사용자 모델(테이블)
   const User = sequelize.define('User', { // MySQL에는 users 테이블 생성
 
+
     /* ---------- 사용자 모델 정보 ---------- */
     // id: {},    // id가 기본적으로 들어있음.
     // 이메일 칼럼
@@ -30,27 +31,9 @@ module.exports = (sequelize, DataTypes) => {
     charset: 'utf8',              // MySQL에서 한글 사용 가능
     collate: 'utf8_general_ci',   // 한글 저장
   });
+
+
   // 사용자 모델 관계 설정
-  User.associate = (db) => {
-    /* O : 한 명의 사용자(User)는 여러 개의 게시글(Post)을 쓸 수 있다. */
-    db.User.hasMany(db.Post);
-    /* O : 한 명의 사용자(User)는 여러 개의 답글(Comment)을 쓸 수 있다. */
-    db.User.hasMany(db.Comment);
-
-
-    /* @ : 한 명의 사용자(User)도 여러 개의 게시글(Post)에 좋아요(Liked)를 할 수 있다. */
-    db.User.belongsToMany(db.Post, { thrugh: 'Like', as: 'Liked' });
-
-
-    /* @ : 한 명의 사용자(User)도 여러 명의 사용자(User)에게 팔로우(Follow)를 할 수 있다. */
-    db.User.belongsToMany(
-      // 중간 테이블 이름 : Follow, 칼럼의 아이디 : FollowingId */
-      db.User, { thrugh: 'Follow', as: 'Followers', foreignKey: 'FollowingId' }
-    );
-    db.User.belongsToMany(
-      // 중간 테이블 이름 : Follow, 칼럼의 아이디 : FollowerId */
-      db.User, { thrugh: 'Follow', as: 'Followings', foreignKey: 'FollowerId' }
-    );
-  };
+  User.associate = (db) => {};
   return User;
 };

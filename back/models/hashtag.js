@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   // 해시태그 모델(테이블)
   const Hashtag = sequelize.define('Hashtag', { // MySQL에는 hashtags 테이블 생성
 
+    
     /* ---------- 해시태그 모델 정보 ---------- */
     // id: {},    // id가 기본적으로 들어있음
     // 이름 칼럼
@@ -19,10 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     charset: 'utf8mp4',             // MySQL에서 한글, 이모티콘 사용 가능
     collate: 'utf8mp4_general_ci',  // 한글, 이모티콘 저장
   });
+
+
   // 해시태그 모델 관계 설정
-  Hashtag.associate = (db) => {
-    /* ＠ : 하나의 해시태그(Hashtag)도 여러 개의 게시글(Post)에 있을 수 있다. */
-    db.Hashtag.belongsToMany(db.Post, { thrugh: 'PostHash' });
-  };
+  Hashtag.associate = (db) => {};
   return Hashtag;
 };
