@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 
     /* ---------- belongsTo 메서드가 실제 칼럼 제작 ---------- */
     // UserId: {}
+    // PostId: {}
 
   }, {
     /* ---------- 답글 모델 세팅 ---------- */
@@ -30,6 +31,9 @@ module.exports = (sequelize, DataTypes) => {
 
     /* (1:N 관계) : 하나의 답글(Comment)은 작성자(User)가 한 명이다. */
     db.Comment.belongsTo(db.User);
+
+    /* (1:N 관계) : 하나의 답글(Comment)은 게시글(Post)이 하나다. */
+    db.Comment.belongsTo(db.Post);
 
   };
   return Comment;

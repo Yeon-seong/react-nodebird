@@ -31,6 +31,9 @@ module.exports = (sequelize, DataTypes) => {
     /* (1:N 관계) : 하나의 게시글(Post)은 작성자(User)가 한 명이다. */
     db.Post.belongsTo(db.User);
 
+    /* (1:N 관계) : 하나의 게시글(Post)은 여러 답글(Comment)을 가질 수 있다. */
+    db.Post.hasMany(db.Comment);
+
   };
   return Post;
 };
