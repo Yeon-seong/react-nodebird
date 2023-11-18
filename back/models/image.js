@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,             // 이미지 경로 소스 필수
     },
 
-
+    /* ---------- belongsTo 메서드가 실제 칼럼 제작 ---------- */
+    // PostId: {}
 
   }, {
     /* ---------- 이미지 모델 세팅 ---------- */
@@ -25,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
 
 
   // 이미지 모델 관계 설정
-  Image.associate = (db) => {};
+  Image.associate = (db) => {
+
+    /* (1:N 관계) : 하나의 이미지(Image)는 게시글(Post)이 하나다. */
+    db.Image.belongsTo(db.Post);
+    
+  };
   return Image;
 };

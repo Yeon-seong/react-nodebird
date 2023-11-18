@@ -34,6 +34,9 @@ module.exports = (sequelize, DataTypes) => {
     /* (1:N 관계) : 하나의 게시글(Post)은 여러 답글(Comment)을 가질 수 있다. */
     db.Post.hasMany(db.Comment);
 
+    /* (1:N 관계) : 하나의 게시글(Post)은 여러 이미지(Image)를 가질 수 있다. */
+    db.Post.hasMany(db.Image);
+
   };
   return Post;
 };
