@@ -39,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
     /* (1:N 관계) : 한 명의 사용자(User)는 여러 게시글(Post)을 가질 수 있다. */
     db.User.hasMany(db.Post);
 
+    /* (1:N 관계) : 한 명의 사용자(User)는 여러 답글(Comment)을 가질 수 있다. */
+    db.User.hasMany(db.Comment);
+
   };
   return User;
 };

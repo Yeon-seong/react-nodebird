@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,       // 답글 콘텐츠 필수
     },
 
-
+    /* ---------- belongsTo 메서드가 실제 칼럼 제작 ---------- */
+    // UserId: {}
 
   }, {
     /* ---------- 답글 모델 세팅 ---------- */
@@ -25,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
 
 
   // 답글 모델 관계 설정
-  Comment.associate = (db) => {};
+  Comment.associate = (db) => {
+
+    /* (1:N 관계) : 하나의 답글(Comment)은 작성자(User)가 한 명이다. */
+    db.Comment.belongsTo(db.User);
+
+  };
   return Comment;
 };
