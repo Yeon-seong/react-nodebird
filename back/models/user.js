@@ -34,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
 
 
   // 사용자 모델 관계 설정
-  User.associate = (db) => {};
+  User.associate = (db) => {
+
+    /* (1:N 관계) : 한 명의 사용자(User)는 여러 게시글(Post)을 가질 수 있다. */
+    db.User.hasMany(db.Post);
+
+  };
   return User;
 };
