@@ -41,6 +41,10 @@ module.exports = (sequelize, DataTypes) => {
     // 중간 테이블 이름 : 'PostHash'
     db.Post.belongsToMany(db.Hashtag, { through: 'PostHash' });
 
+    /* (N:M 관계) : 하나의 게시글(Post)도 여러 사용자(User)로부터 좋아요(Likers)를 받을 수 있다. */
+    // 중간 테이블 이름 : 'Like', 내가 좋아요를 누른 사용자 별칭 : 'Likers'
+    db.Post.belongsToMany(db.User, { through: 'Like', as: 'Likers' });
+
   };
   return Post;
 };
