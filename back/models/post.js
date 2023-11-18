@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 
     /* ---------- belongsTo 메서드가 실제 칼럼 제작 ---------- */
     // UserId: {}
+    // RetweetId: {}                // as로 PostId를 RetweetId로 이름을 바꾼다.
 
   }, {
     /* ---------- 게시글 모델 세팅 ---------- */
@@ -44,6 +45,10 @@ module.exports = (sequelize, DataTypes) => {
     /* (N:M 관계) : 하나의 게시글(Post)도 여러 사용자(User)로부터 좋아요(Likers)를 받을 수 있다. */
     // 중간 테이블 이름 : 'Like', 내가 좋아요를 누른 사용자 별칭 : 'Likers'
     db.Post.belongsToMany(db.User, { through: 'Like', as: 'Likers' });
+
+    /* (1:N 관계) : 하나의 게시글(Post)은 여러 게시글(Post)이 리트윗(Retweet)을 할 수 있다. */
+    // 중간 테이블 이름 : 'Retweet'
+    db.Post.belongsTo(db.Post, { as: 'Retweet' });
 
   };
   return Post;
