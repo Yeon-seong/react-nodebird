@@ -76,7 +76,7 @@ const Signup = () => {
     };
     console.log(email, nickname, password, term);
     
-    // 가입하기 완료 시 가입 요청 액션 객체 디스패치
+    // 가입하기 완료 시 회원가입 요청 액션 객체 디스패치
     dispatch({
       type: SIGN_UP_REQUEST,
       data: { email, password, nickname },

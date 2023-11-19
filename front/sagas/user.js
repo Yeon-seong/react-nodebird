@@ -23,7 +23,7 @@ import {
 
 // logIn 실행 시 서버에 logInAPI 요청
 function logInAPI(data) {
-  return axios.post('/api/login', data)
+  return axios.post('/api/login', data);
 }
 // LOG_IN_REQUEST 액션이 실행되면 logIn 함수 실행
 function* logIn(action) {
@@ -48,7 +48,7 @@ function* logIn(action) {
 
 // logOut 실행 시 서버에 logOutAPI 요청
 function logOutAPI() {
-  return axios.post('/api/logout')
+  return axios.post('/api/logout');
 }
 // LOG_OUT_REQUEST 액션이 실행되면 logOut 함수 실행
 function* logOut() {
@@ -72,7 +72,7 @@ function* logOut() {
 
 // signUp 실행 시 서버에 signUpAPI 요청
 function signUpAPI() {
-  return axios.post('/api/signup')
+  return axios.post('/api/signup');
 }
 // SIGN_UP_REQUEST 액션이 실행되면 signUp 함수 실행
 function* signUp() {
@@ -96,7 +96,7 @@ function* signUp() {
 
 // follow 실행 시 서버에 followAPI 요청
 function followAPI(data) {
-  return axios.post('/api/follow', data)
+  return axios.post('/api/follow', data);
 }
 // FOLLOW_REQUEST 액션이 실행되면 follow 함수 실행
 function* follow(action) {
@@ -121,7 +121,7 @@ function* follow(action) {
 
 // unfollow 실행 시 서버에 unfollowAPI 요청
 function unfollowAPI(data) {
-  return axios.post('/api/unfollow', data)
+  return axios.post('/api/unfollow', data);
 }
 // UNFOLLOW_REQUEST 액션이 실행되면 unfollow 함수 실행
 function* unfollow(action) {
