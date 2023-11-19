@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "next -p 3065"
+    "dev": "nodemon app"
   },
   "author": "YeonSeong",
   "license": "ISC",
