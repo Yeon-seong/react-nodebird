@@ -14,13 +14,15 @@ const router = express.Router();
 
 
 // 사용자 라우터
-router.post('/', (req, res) => {  // POST /user/
-  User.create({
+router.post('/', async (req, res) => {  // POST /user/
+  /* await : 실제로 데이터가 들어감, create : 테이블 안에 데이터를 넣음 */
+  await User.create({
     email: req.body.email,
     nickname:req.body.nickname,
     password: req.body.password,
   });
-  res.json();
+  // User.create() 비동기 함수가 실행되고 난 다음에 실행
+  res.send('ok');
 });
 
 
