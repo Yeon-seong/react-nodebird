@@ -7,11 +7,13 @@ const express = require('express');
 
 // 분리한 router 불러오기
 const postRouter = require('./routers/post');
+const userRouter = require('./routers/user');
 
 // 모델 불러오기
 const db = require('./models');
 
-// 반환된 값을 app에 넣는다.
+
+// express 서버 : 반환된 값을 app에 넣는다.
 const app = express();
 
 // 서버 실행 시 데이터베이스 시퀄라이즈 연결
@@ -44,6 +46,9 @@ app.get('/posts', (req, res) => {
 
 // 게시글 라우터 가져오기
 app.use('/post', postRouter);
+
+// 게시글 라우터 가져오기
+app.use('/user', userRouter);
 
 
 

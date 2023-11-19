@@ -40,4 +40,5 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+// 데이터베이스 객체 내보내기
 module.exports = db;

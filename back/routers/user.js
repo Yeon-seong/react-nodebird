@@ -5,14 +5,22 @@
 // Express 모듈 호출
 const express = require('express');
 
+// 사용자 모델 불러오기
+const { User } = require('../models');
+
 // 라우팅 모듈 호출
 const router = express.Router();
 
 
 
 // 사용자 라우터
-router.post('/', async (req, res) => {  // POST /user/
-  // 회원가입 요청을 하면 백엔드서버 라우터에서 받을 수 있도록 함
+router.post('/', (req, res) => {  // POST /user/
+  User.create({
+    email: req.body.email,
+    nickname:req.body.nickname,
+    password: req.body.password,
+  });
+  res.json();
 });
 
 

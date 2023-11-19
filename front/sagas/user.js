@@ -71,14 +71,14 @@ function* logOut() {
 
 
 // signUp 실행 시 브라우저에서 바로 백엔드 서버로 요청 보내기
-function signUpAPI() {
-  return axios.post('http://localhost:3065/user');
+function signUpAPI(data) {
+  return axios.post('http://localhost:3065/user', data);
 }
 // SIGN_UP_REQUEST 액션이 실행되면 signUp 함수 실행
-function* signUp() {
+function* signUp(action) {
   /* ---------- 요청 성공 시 SIGN_UP_SUCCESS 액션 디스패치 ---------- */
   try {
-    const result = yield call(signUpAPI);
+    const result = yield call(signUpAPI, action.data);
     console.log(result);
     yield put({
       type: SIGN_UP_SUCCESS,    // 성공 결과
