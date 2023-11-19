@@ -9,17 +9,18 @@ const express = require('express');
 const router = express.Router();
 
 
+
 // 게시글 작성하기 라우터
-router.post('/', (req, res) => {      // POST /post
+router.post('/', (req, res) => {    // POST /post
   res.json({ id: 1, content: 'hello' });
 });
 
 // 게시글 삭제하기 라우터
-router.delete('/', (req, res) => {    // DELETE /post
+router.delete('/', (req, res) => {  // DELETE /post
   res.json({ id: 1 });
 });
 
 
 
-// 내보내기
+// 라우터 내보내기
 module.exports = router;
