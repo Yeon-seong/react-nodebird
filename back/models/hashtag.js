@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {
     /* ---------- 해시태그 모델 세팅 ---------- */
-    charset: 'utf8mp4',             // MySQL에서 한글, 이모티콘 사용 가능
-    collate: 'utf8mp4_general_ci',  // 한글, 이모티콘 저장
+    charset: 'utf8mb4',             // MySQL에서 한글, 이모티콘 사용 가능
+    collate: 'utf8mb4_general_ci',  // 한글, 이모티콘 저장
   });
 
 
