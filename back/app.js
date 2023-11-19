@@ -25,6 +25,12 @@ db.sequelize.sync()
 
 
 
+// 미들웨어 연결 : 프론트에서 보낸 데이터를 req.body 안에 넣어주는 역할
+/* 프론트에서 보낸 json 형식의 데이터 */
+app.use(express.json());
+/* 폼을 제출했을 때 URL encoded 방식으로 넘어온 데이터 */
+app.use(express.urlencoded({ extended: true }));
+
 // 메인 페이지 가져오기
 app.get('/', (req, res) => {
   res.send('hello express');
