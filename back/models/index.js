@@ -14,12 +14,10 @@ const config = require('../config/config')[env];
 // 데이터베이스 객체
 const db = {};
 
+
 // 시퀄라이즈 객체에 연결 정보가 담김
 const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  config
+  config.database, config.username, config.password, config
 );
 
 
@@ -31,12 +29,14 @@ db.Hashtag = require('./hashtag')(sequelize, Sequelize);
 db.Image = require('./image')(sequelize, Sequelize);
 
 
+// 모델 관계 설정 실행
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
 });
 
+// db에 시퀄라이즈 넣기
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
