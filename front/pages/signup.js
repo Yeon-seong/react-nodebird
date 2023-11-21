@@ -3,13 +3,14 @@
 
 
 // React 라이브러리 훅 불러오기
-import React, { useCallback, useState, } from 'react';
+import React, { useCallback, useEffect, useState, } from 'react';
 
 // Redux 라이브러리 불러오기
 import { useDispatch, useSelector } from 'react-redux';
 
 // 외부 컴포넌트 불러오기
 import Head from 'next/head';
+import Router from 'next/router';
 import { Form, Input, Checkbox, Button } from 'antd';
 import styled from 'styled-components';
 
@@ -36,8 +37,16 @@ const SubmitButton = styled.div`
 // 회원가입 컴포넌트(사용자 정의 태그)
 const Signup = () => {
   const dispatch = useDispatch();
-  const { signUpLoading } = useSelector((state) => state.user);
+  const { signUpLoading, signUpDone } = useSelector((state) => state.user);
+  
+  // 회원가입이 완료되면 메인 페이지로 돌아가기
+  useEffect(() => {
+    if (signUpDone) {
+      Router.push('/');
+    }
+  }, [signUpDone]);
 
+  
   /* ---------- 중복 체크 ---------- */
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
