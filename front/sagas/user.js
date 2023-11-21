@@ -23,7 +23,7 @@ import {
 
 // logIn 실행 시 서버에 logInAPI 요청
 function logInAPI(data) {
-  return axios.post('/api/login', data);
+  return axios.post('/user/login', data);
 }
 // LOG_IN_REQUEST 액션이 실행되면 logIn 함수 실행
 function* logIn(action) {
@@ -48,7 +48,7 @@ function* logIn(action) {
 
 // logOut 실행 시 서버에 logOutAPI 요청
 function logOutAPI() {
-  return axios.post('/api/logout');
+  return axios.post('/user/logout');
 }
 // LOG_OUT_REQUEST 액션이 실행되면 logOut 함수 실행
 function* logOut() {
@@ -72,7 +72,7 @@ function* logOut() {
 
 // signUp 실행 시 브라우저에서 바로 백엔드 서버로 요청 보내기
 function signUpAPI(data) {
-  return axios.post('http://localhost:3065/user', data);
+  return axios.post('/user', data);
 }
 // SIGN_UP_REQUEST 액션이 실행되면 signUp 함수 실행
 function* signUp(action) {
