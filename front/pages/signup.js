@@ -37,7 +37,7 @@ const SubmitButton = styled.div`
 // 회원가입 컴포넌트(사용자 정의 태그)
 const Signup = () => {
   const dispatch = useDispatch();
-  const { signUpLoading, signUpDone } = useSelector((state) => state.user);
+  const { signUpLoading, signUpDone, signUpError } = useSelector((state) => state.user);
   
   // 회원가입이 완료되면 메인 페이지로 돌아가기
   useEffect(() => {
@@ -45,6 +45,13 @@ const Signup = () => {
       Router.push('/');
     }
   }, [signUpDone]);
+
+  // 회원가입에 실패하면 '이미 사용중인 아이디입니다.' alert 창 띄우기
+  useEffect(() => {
+    if (signUpError) {
+      alert(signUpError);
+    }
+  }, [signUpError]);
 
   
   /* ---------- 중복 체크 ---------- */
