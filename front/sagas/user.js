@@ -29,12 +29,11 @@ function logInAPI(data) {
 function* logIn(action) {
   /* ---------- 요청 성공 시 LOG_IN_SUCCESS 액션 디스패치 ---------- */
   try {
-    // const result = yield call(logInAPI, action.data);
-    yield delay(1000);
+    const result = yield call(logInAPI, action.data);
     yield put({
       type: LOG_IN_SUCCESS,
-      data: action.data         // 성공 결과
-    })
+      data: result.data,         // 성공 결과 : 서버로부터 사용자 정보를 받아옴
+    });
   /* ---------- 요청 실패 시 LOG_IN_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     console.error(err);
@@ -58,7 +57,7 @@ function* logOut() {
     yield delay(1000);
     yield put({
       type: LOG_OUT_SUCCESS,    // 성공 결과
-    })
+    });
   /* ---------- 요청 실패 시 LOG_OUT_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     console.error(err);
@@ -82,7 +81,7 @@ function* signUp(action) {
     console.log(result);
     yield put({
       type: SIGN_UP_SUCCESS,    // 성공 결과
-    })
+    });
   /* ---------- 요청 실패 시 SIGN_UP_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     console.error(err); 
@@ -107,7 +106,7 @@ function* follow(action) {
     yield put({
       type: FOLLOW_SUCCESS,
       data: action.data         // 성공 결과
-    })
+    });
   /* ---------- 요청 실패 시 FOLLOW_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     console.error(err);
@@ -132,7 +131,7 @@ function* unfollow(action) {
     yield put({
       type: UNFOLLOW_SUCCESS,
       data: action.data         // 성공 결과
-    })
+    });
   /* ---------- 요청 실패 시 UNFOLLOW_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     console.error(err);
