@@ -5,6 +5,9 @@
 // Express 모듈 호출
 const express = require('express');
 
+// CORS 미들웨어 호출
+const cors = require('cors');
+
 // 분리한 router 불러오기
 const postRouter = require('./routers/post');
 const userRouter = require('./routers/user');
@@ -25,10 +28,12 @@ db.sequelize.sync()
 
 
 
-// 미들웨어 연결 : 프론트에서 보낸 데이터를 req.body 안에 넣어주는 역할
-/* 프론트에서 보낸 json 형식의 데이터 */
+// 미들웨어 연결
+/* 요청을 보낸 주소의 요청만 허용 */
+app.use(cors({ origin: true }));
+/* 프론트에서 보낸 json 형식의 프론트에서 보낸 데이터를 req.body 안에 넣어줌 */
 app.use(express.json());
-/* 폼을 제출했을 때 URL encoded 방식으로 넘어온 데이터 */
+/* 폼을 제출했을 때 URL encoded 방식으로 넘어온 프론트에서 보낸 데이터를 req.body 안에 넣어줌 */
 app.use(express.urlencoded({ extended: true }));
 
 // 메인 페이지 가져오기

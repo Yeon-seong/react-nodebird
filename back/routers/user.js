@@ -46,6 +46,7 @@ router.post('/', async (req, res, next) => {  // POST /user/
       password: hashedPassword, // 암호화 된 비밀번호 저장
     });
     /* User.create() 비동기 함수가 실행되고 난 다음에 실행 */
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.status(201).send('ok'); // status 201
 
 
