@@ -148,19 +148,19 @@ const reducer = (state = initialState, action) => {
       
       /* ---------- 회원가입 요청 리듀서 ---------- */
       case SIGN_UP_REQUEST:
-        draft.signUPLoading = true;
-        draft.signUPDone = false;
-        draft.signUPError = null;
+        draft.signUpLoading = true;
+        draft.signUpDone = false;
+        draft.signUpError = null;
         break;
       /* ---------- 회원가입 성공 리듀서 ---------- */
       case SIGN_UP_SUCCESS:
-        draft.signUPLoading = false;
-        draft.signUPDone = true;
+        draft.signUpLoading = false;
+        draft.signUpDone = true;
         break;
       /* ---------- 회원가입 실패 리듀서 ---------- */
       case SIGN_UP_FAILURE:
-        draft.signUPLoading = false;
-        draft.signUPError = action.error;  // 회원가입 실패 확인
+        draft.signUpLoading = false;
+        draft.signUpError = action.error;  // 회원가입 실패 확인
         break;
 
       
