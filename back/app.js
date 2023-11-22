@@ -15,6 +15,10 @@ const userRouter = require('./routers/user');
 // 모델 불러오기
 const db = require('./models');
 
+// 패스포트에서 불러와 패스포트 설정 연결하기
+const passportConfig = require('./passport');
+
+
 
 // express 서버 : 반환된 값을 app에 넣는다.
 const app = express();
@@ -26,6 +30,8 @@ db.sequelize.sync()
   })
   .catch(console.err);
 
+// passport Strategy 사용
+passportConfig();
 
 
 // 미들웨어 연결
