@@ -8,12 +8,42 @@ const express = require('express');
 // 비밀번호 암호화 라이브러리
 const bcrypt = require('bcrypt');
 
+// Passport 미들웨어 호출
+const passport = require('passport');
+
 // 사용자 모델 불러오기
 const { User } = require('../models');
 
 // 라우팅 모듈 호출
 const router = express.Router();
 
+
+
+// 사용자 로그인 전략 실행
+router.post('/login', (req, res, next) => {
+  /* '로컬', (서버 에러, 성공 객체, 클라이언트 에러)가 전달 */
+  passport.authenticate('local', (err, user, info) => {
+    // done에서 넣은 값들이 순서대로 전달되는 곳
+    /* 서버 에러 */
+    if (err) {
+      console.error(err); // 콘솔 창을 통한 에러 메시지 출력
+      return next(err);
+    }
+    /* 클라이언트 에러 : 로그인하다 에러나면 클라이언트로 응답 보내기 */
+    if (info) {
+      return res.status(401).send(info.reason);
+    }
+    /* 로그인 성공 객체 */
+    return req.login(user, async (loginErr) => {
+      // 서비스 로그인이 끝난 후 패스포트 로그인 할 때 에러발생 시 처리
+      if (loginErr) {
+        console.err(loginErr);
+        return next(loginErr); 
+      }
+      return res.json(user); // user에서 사용자 정보를 프론트로 넘기기
+    });
+  })(req, res, next); // 미들웨어 커스터마이징
+});
 
 
 // 사용자 라우터
