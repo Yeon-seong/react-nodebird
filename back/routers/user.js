@@ -40,7 +40,8 @@ router.post('/login', (req, res, next) => {
         console.err(loginErr);
         return next(loginErr); 
       }
-      return res.json(user); // user에서 사용자 정보를 프론트로 넘기기
+      // user에서 사용자 정보를 프론트로 넘기기
+      return res.status(200).json(user);
     });
   })(req, res, next); // 미들웨어 커스터마이징
 });
