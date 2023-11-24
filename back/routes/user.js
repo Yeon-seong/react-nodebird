@@ -89,6 +89,16 @@ router.post('/', async (req, res, next) => {  // POST /user/
 });
 
 
+// 로그아웃 라우터
+router.post('/user/logout', (req, res, next) => {
+  req.logout();
+  /* 세션에 저장된 쿠키와 사용자 아이디 없애기 */
+  req.session.destroy();
+  /* 로그아웃 성공 */
+  res.send('ok');
+});
+
+
 
 // 라우터 내보내기
 module.exports = router;
