@@ -22,8 +22,8 @@ const dotenv = require('dotenv');
 
 
 // 분리한 router 불러오기
-const postRouter = require('./routers/post');
-const userRouter = require('./routers/user');
+const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
 
 // 모델 불러오기
 const db = require('./models');
