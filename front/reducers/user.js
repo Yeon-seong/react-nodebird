@@ -116,8 +116,8 @@ const reducer = (state = initialState, action) => {
       /* ---------- 로그인 성공 리듀서 ---------- */
       case LOG_IN_SUCCESS:
         draft.logInLoading = false;
-        // 로그인 성공했을 때 사용자 더미데이터
-        draft.me = dummyUser(action.data);
+        // 로그인 성공했을 때 실제 사용자 데이터
+        draft.me = action.data;
         draft.logInDone = true;
         break;
       /* ---------- 로그인 실패 리듀서 ---------- */
