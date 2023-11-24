@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 // .env 파일 안에 있는 정보 불러오기
 dotenv.config();
 
+// module.exports 객체
 module.exports = {
   "development": {
     "username": "root",

@@ -13,6 +13,7 @@ const { User } = require('../models');
 
 
 
+// module.exports 객체
 module.exports = () => {
   // 패스포트 설정1
   passport.serializeUser((user, done) => {
@@ -26,7 +27,7 @@ module.exports = () => {
     try {
       /* id를 통해 나머지 사용자 정보 복구 */
       const user = await User.findOne({ where: { id }});
-      done(null, user);
+      done(null, user); // 사용자 정보를 복구해 req.user에 넣는다.
     } catch (error) {
       console.error(error);
       done(error);

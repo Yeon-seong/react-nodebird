@@ -16,6 +16,7 @@ const { User } = require('../models');
 
 
 
+// module.exports 객체
 module.exports = () => {
   passport.use(new LocalStrategy({
     /* ---------- 객체 : req.body에 대한 설정 ---------- */

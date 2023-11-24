@@ -2,6 +2,7 @@
 
 
 
+// module.exports 객체
 module.exports = (sequelize, DataTypes) => {
   // 해시태그 모델(테이블)
   const Hashtag = sequelize.define('Hashtag', { // MySQL에는 hashtags 테이블 생성

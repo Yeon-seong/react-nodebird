@@ -2,6 +2,7 @@
 
 
 
+// module.exports 객체
 module.exports = (sequelize, DataTypes) => {
   // 이미지 모델(테이블)
   const Image = sequelize.define('Image', { // MySQL에는 images 테이블 생성

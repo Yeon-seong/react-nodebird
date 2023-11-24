@@ -2,6 +2,7 @@
 
 
 
+// module.exports 객체
 module.exports = (sequelize, DataTypes) => {
   // 게시글 모델(테이블)
   const Post = sequelize.define('Post', { // MySQL에는 posts 테이블 생성

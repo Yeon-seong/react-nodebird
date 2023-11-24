@@ -2,6 +2,7 @@
 
 
 
+// module.exports 객체
 module.exports = (sequelize, DataTypes) => {
   // 사용자 모델(테이블)
   const User = sequelize.define('User', { // MySQL에는 users 테이블 생성
