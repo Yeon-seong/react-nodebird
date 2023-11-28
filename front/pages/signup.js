@@ -37,8 +37,15 @@ const SubmitButton = styled.div`
 // 회원가입 컴포넌트(사용자 정의 태그)
 const Signup = () => {
   const dispatch = useDispatch();
-  const { signUpLoading, signUpDone, signUpError } = useSelector((state) => state.user);
+  const { signUpLoading, signUpDone, signUpError, loginDone } = useSelector((state) => state.user);
   
+  // 로그인 완료 시 메인 페이지로 나가기 및 이전 페이지 기록 삭제
+  useEffect(() => {
+    if (loginDone) {
+      Router.replace('/');
+    } 
+  }, [loginDone]);
+
   // 회원가입이 완료되면 메인 페이지로 돌아가기
   useEffect(() => {
     if (signUpDone) {
