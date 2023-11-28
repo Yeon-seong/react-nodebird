@@ -41,9 +41,13 @@ router.post('/login', (req, res, next) => {
         return next(loginErr); 
       }
 
-      // 모든 사용자 정보
+      // (비밀번호를 제외한) 모든 사용자 정보
       const fullUserWithOutPassword = await User.findOne({
         where: { id: user.id },
+        /* 전체 데이터 중에서 비밀번호만 제외하고 가져오기 */
+        attributes: {
+          exclude: ['password']
+        },
         // 모델 가져오기
         include: [{
           /* ---------- 나의 게시글 ---------- */
@@ -59,7 +63,7 @@ router.post('/login', (req, res, next) => {
         }]
       });
 
-      // 사용자 정보를 프론트로 넘기기
+      // (비밀번호를 제외한) 사용자 정보를 프론트로 넘기기
       return res.status(200).json(fullUserWithOutPassword);
     });
   })(req, res, next); // 미들웨어 커스터마이징
