@@ -12,7 +12,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 
 // 사용자 모델 불러오기
-const { User } = require('../models');
+const { User, Post } = require('../models');
 
 // 라우팅 모듈 호출
 const router = express.Router();
@@ -40,8 +40,27 @@ router.post('/login', (req, res, next) => {
         console.err(loginErr);
         return next(loginErr); 
       }
-      // user에서 사용자 정보를 프론트로 넘기기
-      return res.status(200).json(user);
+
+      // 모든 사용자 정보
+      const fullUserWithOutPassword = await User.findOne({
+        where: { id: user.id },
+        // 모델 가져오기
+        include: [{
+          /* ---------- 나의 게시글 ---------- */
+          model: Post,
+        }, {
+          /* ---------- 나의 팔로잉 ---------- */
+          model: User,
+          as: 'Followings',
+        }, {
+          /* ---------- 나의 팔로워 ---------- */
+          model: User,
+          as: 'Followers',
+        }]
+      });
+
+      // 사용자 정보를 프론트로 넘기기
+      return res.status(200).json(fullUserWithOutPassword);
     });
   })(req, res, next); // 미들웨어 커스터마이징
 });
