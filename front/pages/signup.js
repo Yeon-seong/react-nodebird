@@ -78,7 +78,7 @@ const Signup = () => {
   }, []);
 
 
-  /* 제출할 때 체크 */
+  /* 제출 시 체크 */
   const onSubmit = useCallback(() => {
 
     // 만약에 비밀번호랑 비밀번호 체크랑 같지 않으면 에러 표시
