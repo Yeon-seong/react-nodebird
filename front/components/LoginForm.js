@@ -3,7 +3,7 @@
 
 
 // React 라이브러리 훅 불러오기
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 // Redux 라이브러리 불러오기
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,9 +35,16 @@ const FormWrapper = styled(Form)`
 // 로그인 폼 컴포넌트(사용자 정의 태그)
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { logInLoading } = useSelector((state) => state.user);
+  const { logInLoading, logInError } = useSelector((state) => state.user);
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
+
+
+  // 로그인 실패 시 에러 메시지 전달
+  useEffect((logInError) => {
+    alert(logInError);
+  }, [logInError]);
+
 
   // 더미데이터 로그인
   const onSubmitForm = useCallback(() => {
