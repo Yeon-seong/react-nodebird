@@ -46,14 +46,14 @@ const Signup = () => {
     } 
   }, [loginDone]);
 
-  // 회원가입이 완료되면 메인 페이지로 돌아가기
+  // 회원가입 완료 시 메인 페이지로 나가기 및 이전 페이지 기록 삭제
   useEffect(() => {
     if (signUpDone) {
-      Router.push('/');
+      Router.replace('/');
     }
   }, [signUpDone]);
 
-  // 회원가입에 실패하면 '이미 사용중인 아이디입니다.' alert 창 띄우기
+  // 회원가입 실패 시 '이미 사용중인 아이디입니다.' alert 창 띄우기
   useEffect(() => {
     if (signUpError) {
       alert(signUpError);
