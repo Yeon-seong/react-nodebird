@@ -41,8 +41,10 @@ const LoginForm = () => {
 
 
   // 로그인 실패 시 에러 메시지 전달
-  useEffect((logInError) => {
-    alert(logInError);
+  useEffect(() => {
+    if (logInError) {
+      alert(logInError);
+    }
   }, [logInError]);
 
 
