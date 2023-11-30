@@ -37,8 +37,8 @@ router.post('/login', (req, res, next) => {
     return req.login(user, async (loginErr) => {
       // 서비스 로그인이 끝난 후 패스포트 로그인 할 때 에러발생 시 처리
       if (loginErr) {
-        console.err(loginErr);
-        return next(loginErr); 
+        console.error(loginErr);
+        return next(loginErr);
       }
 
       // (비밀번호를 제외한) 모든 사용자 정보
@@ -113,7 +113,7 @@ router.post('/', async (req, res, next) => {  // POST /user/
 
 
 // 로그아웃 라우터
-router.post('/user/logout', (req, res, next) => {
+router.post('/logout', (req, res) => {
   req.logout();
   /* 세션에 저장된 쿠키와 사용자 아이디 없애기 */
   req.session.destroy();

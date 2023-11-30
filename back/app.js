@@ -44,7 +44,7 @@ db.sequelize.sync()
   .then(() => {
     console.log('db 연결 성공'); 
   })
-  .catch(console.err);
+  .catch(console.error);
 
 // passport Strategy 사용
 passportConfig();
@@ -88,10 +88,10 @@ app.get('/posts', (req, res) => {
   ]);
 });
 
-// 게시글 라우터 가져오기
-app.use('/post', postRouter);
 
-// 게시글 라우터 가져오기
+// API는 다른 서비스가 내 서비스의 기능을 실행할 수 있게 열어둔 창구
+// app.use('/posts', postsRouter);
+app.use('/post', postRouter);
 app.use('/user', userRouter);
 
 

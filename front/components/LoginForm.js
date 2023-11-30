@@ -48,10 +48,10 @@ const LoginForm = () => {
   }, [logInError]);
 
 
-  // 더미데이터 로그인
+  // 사용자 로그인
   const onSubmitForm = useCallback(() => {
     console.log(email, password);
-    dispatch(loginRequestAction(email, password));
+    dispatch(loginRequestAction({ email, password }));
   }, [email, password]);
 
   return (

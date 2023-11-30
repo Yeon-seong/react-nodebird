@@ -34,7 +34,7 @@ module.exports = () => {
       };
 
       // DB에 저장된 비밀번호와 사용자가 입력한 비밀번호를 await으로 비교
-      const result = await bcrypt.compare(password, user.passport);
+      const result = await bcrypt.compare(password, user.password);
       /* 만약 이메일이 있고, 비밀번호가 일치하면 로그인 성공 */
       if (result) {
         return done(null, user);  // 성공 시 사용자 정보를 넘김
