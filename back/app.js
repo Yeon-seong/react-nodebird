@@ -95,6 +95,12 @@ app.use('/post', postRouter);
 app.use('/user', userRouter);
 
 
+/* 에러 처리 미들웨어가 app.use와 app.listen 사이에 존재한다. */
+// app.use((err, req, res, next) => {
+// 
+// });
+
+
 
 // http://localhost:3065 : 3065번 포트로 서버실행
 app.listen(3065, () => {

@@ -11,23 +11,27 @@ const bcrypt = require('bcrypt');
 // Passport 미들웨어 호출
 const passport = require('passport');
 
+
 // 사용자 모델 불러오기
 const { User, Post } = require('../models');
+
+// 로그인 유무를 검사하는 커스텀 미들웨어 불러오기
+const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
 // 라우팅 모듈 호출
 const router = express.Router();
 
 
 
-// 사용자 로그인 전략 실행
-router.post('/login', (req, res, next) => {
+// 로그인 라우터 : 사용자 로그인 전략 실행
+router.post('/login', isNotLoggedIn, (req, res, next) => {
   /* '로컬', (서버 에러, 성공 객체, 클라이언트 에러)가 전달 */
   passport.authenticate('local', (err, user, info) => {
     // done에서 넣은 값들이 순서대로 전달되는 곳
     /* 서버 에러 */
     if (err) {
       console.error(err); // 콘솔 창을 통한 에러 메시지 출력
-      return next(err);
+      return next(err);   // 에러 처리 미들웨어로 이동
     }
     /* 클라이언트 에러 : 로그인하다 에러나면 클라이언트로 응답 보내기 */
     if (info) {
@@ -70,8 +74,8 @@ router.post('/login', (req, res, next) => {
 });
 
 
-// 사용자 라우터
-router.post('/', async (req, res, next) => {  // POST /user/
+// 회원가입 라우터
+router.post('/', isNotLoggedIn, async (req, res, next) => {  // POST /user/
   try {
 
     /* 프론트에서 보낸 이메일과 같은 이메일을 쓰는 사용자가 있다면 exUser에 저장 */
@@ -113,7 +117,7 @@ router.post('/', async (req, res, next) => {  // POST /user/
 
 
 // 로그아웃 라우터
-router.post('/logout', (req, res) => {
+router.post('/logout', isLoggedIn, (req, res) => {
   req.logout();
   /* 세션에 저장된 쿠키와 사용자 아이디 없애기 */
   req.session.destroy();
