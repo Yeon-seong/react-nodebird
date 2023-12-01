@@ -180,7 +180,7 @@ const reducer = (state = initialState, action) => {
       case ADD_COMMENT_SUCCESS:
         // 메인 게시글 중 원하는 게시글 찾기
         const post = draft.mainPosts.find((v) =>
-          v.id === action.data.postId);
+          v.id === action.data.PostId);
         post.Comments.unshift(action.data); // 실제 답글 데이터
         // 리듀서
         draft.addCommentLoading = false;
