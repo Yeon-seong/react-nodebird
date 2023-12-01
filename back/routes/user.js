@@ -12,7 +12,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 
 
-// 사용자 모델 불러오기
+// 사용자, 게시글 모델 불러오기
 const { User, Post } = require('../models');
 
 // 로그인 유무를 검사하는 커스텀 미들웨어 불러오기
@@ -77,26 +77,20 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
 // 회원가입 라우터
 router.post('/', isNotLoggedIn, async (req, res, next) => {  // POST /user/
   try {
-
     /* 프론트에서 보낸 이메일과 같은 이메일을 쓰는 사용자가 있다면 exUser에 저장 */
     const exUser = await User.findOne({
       where: {
         email: req.body.email,
       }
     });
-    
-
     /* 만약 사용자 중에 이메일이 같은 사용자가 있다면? 400번대 에러 출력 */
     if (exUser) {
       return res.status(403).send('이미 사용중인 아이디입니다.'); // status 400
     }
 
-
     /* 사용자 중에 이메일이 같은 사용자가 없다면 DB에 저장해서 ok를 보낸다. */
     // 비밀번호 암호화(해시화)
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
-
-    
     /* await : 실제로 데이터가 들어감, create : 테이블 안에 데이터를 넣음 */
     await User.create({
       email: req.body.email,
@@ -106,7 +100,6 @@ router.post('/', isNotLoggedIn, async (req, res, next) => {  // POST /user/
     /* User.create() 비동기 함수가 실행되고 난 다음에 실행 */
     // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.status(201).send('ok'); // status 201
-
 
   /* 에러 캐치 */
   } catch (error) {

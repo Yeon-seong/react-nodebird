@@ -41,6 +41,7 @@ module.exports = () => {
       };
       /* ---------- 비밀번호가 일치하지 않으면 클라이언트 실패 ---------- */
       return done(null, false, { reason: '비밀번호가 틀렸습니다.' });
+      
     } catch (error) {
       /* ---------- 서버 에러가 난다면 ---------- */
       console.error(error);

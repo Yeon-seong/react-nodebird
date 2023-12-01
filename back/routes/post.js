@@ -25,6 +25,7 @@ router.post('/', isLoggedIn, async (req, res, next) => {  // POST /post
     });
     /* 게시글 작성 성공 시 프론트로 돌려주기 */
     res.status(201).json(post);
+    
   } catch (error) {
     console.error(error);
     next(error);
@@ -40,8 +41,10 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST 
       PostId: req.params.postId,  // 동적 게시글 아이디
       UserId: req.user.id,        // passport.deserializeUser로 사용자 정보 전달
     });
+
     /* 답글 작성 성공 시 프론트로 돌려주기 */
     res.status(201).json(comment);
+
   } catch (error) {
     console.error(error);
     next(error);

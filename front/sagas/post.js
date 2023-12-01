@@ -38,8 +38,8 @@ function* loadPosts(action) {
     yield put({
       type: LOAD_POSTS_SUCCESS,
       data: generateDummyPost(10),  // 성공 결과
-      
     });
+
   /* ---------- 요청 실패 시 LOAD_POSTS_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     console.error(err);
@@ -64,11 +64,13 @@ function* addPost(action) {
       type: ADD_POST_SUCCESS,
       data: result.data,      // 실제로 사용자가 작성한 게시글이 들어있다.
     });
+
     /* ---------- 요청 성공 시 ADD_POST_TO_ME 액션 디스패치 ---------- */
     yield put({
       type: ADD_POST_TO_ME,
       data: result.data.id,   // 게시글 id
     });
+    
   /* ---------- 요청 실패 시 ADD_POST_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     console.error(err);
@@ -94,11 +96,13 @@ function* removePost(action) {
       type: REMOVE_POST_SUCCESS,
       data: action.data,        // 성공 결과
     }); // post 리듀서 조작 부분
+
     /* ---------- 요청 성공 시 REMOVE_POST_OF_ME 액션 디스패치 ---------- */
     yield put({
       type: REMOVE_POST_OF_ME,
       data: action.data,
     }); // user 리듀서 조작 부분
+
   /* ---------- 요청 실패 시 REMOVE_POST_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     console.error(err);
@@ -123,6 +127,7 @@ function* addComment(action) {
       type: ADD_COMMENT_SUCCESS,
       data: result.data,      // 실제로 사용자가 작성한 답글이 들어있다.
     });
+    
   /* ---------- 요청 실패 시 ADD_COMMENT_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
     yield put({
