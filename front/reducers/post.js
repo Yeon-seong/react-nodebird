@@ -102,19 +102,6 @@ export const addComment = (data) => ({
 });
 
 
-// 게시글 더미데이터
-const dummyPost = (data) => ({
-  id: data.id,
-  content: data.content,
-  User: {
-    id: 1,
-    nickname: '다랑',
-  },
-  Images: [],
-  Comments: [],
-});
-
-
 // 답글 더미데이터
 const dummyComment = (data) => ({
   id: shortId.generate(),
@@ -165,7 +152,7 @@ const reducer = (state = initialState, action) => {
       case ADD_POST_SUCCESS:
         draft.addPostLoading = false;
         draft.addPostDone = true;
-        draft.mainPosts.unshift(dummyPost(action.data));
+        draft.mainPosts.unshift(action.data); // 실제 게시글 데이터
         break;
       /* ---------- 게시글 추가 실패 리듀서 ---------- */
       case ADD_POST_FAILURE:

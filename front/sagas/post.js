@@ -53,26 +53,21 @@ function* loadPosts(action) {
 
 // addPost 실행 시 서버에 addPostAPI 요청
 function addPostAPI(data) {
-  return axios.post('/api/post', data);
+  return axios.post('/post', { content: data });
 }
 // ADD_POST_REQUEST 액션이 실행되면 addPost 함수 실행
 function* addPost(action) {
   /* ---------- 요청 성공 시 ADD_POST_SUCCESS 액션 디스패치 ---------- */
   try {
-    // const result = yield call(addPostAPI, action.data);
-    yield delay(1000);          // 가짜 로딩시간
-    const id = shortId.generate();
+    const result = yield call(addPostAPI, action.data);
     yield put({
       type: ADD_POST_SUCCESS,
-      data: {
-        id,
-        content: action.data,   // 성공 결과
-      },
+      data: result.data,      // 실제로 사용자가 작성한 게시글이 들어있다.
     });
     /* ---------- 요청 성공 시 ADD_POST_TO_ME 액션 디스패치 ---------- */
     yield put({
       type: ADD_POST_TO_ME,
-      data: id,
+      data: result.data.id,   // 게시글 id
     });
   /* ---------- 요청 실패 시 ADD_POST_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
