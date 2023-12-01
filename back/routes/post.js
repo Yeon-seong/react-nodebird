@@ -8,13 +8,16 @@ const express = require('express');
 // 게시글 모델 불러오기
 const { Post } = require('../models');
 
+// 로그인 유무를 검사하는 커스텀 미들웨어 불러오기
+const { isLoggedIn } = require('./middlewares');
+
 // 라우팅 모듈 호출
 const router = express.Router();
 
 
 
 // 게시글 작성하기 라우터
-router.post('/', async (req, res, next) => {    // POST /post
+router.post('/', isLoggedIn, async (req, res, next) => {  // POST /post
   try {
     const post = await Post.create({
       content: req.body.content,  // addPost saga의 content: data
