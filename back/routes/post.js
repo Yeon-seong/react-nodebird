@@ -36,12 +36,21 @@ router.post('/', isLoggedIn, async (req, res, next) => {  // POST /post
 // 답글 작성하기 라우터
 router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST /post/동적 히든/comment
   try {
+    /* ---------- 함수 : 존재하지 않는 게시글이 있는지 검사 ---------- */
+    const post = await Post.findOne({
+      where: { id: req.params.postId },
+    });
+    /* ---------- 만약 존재하지 않는 게시글이 있다면 400번대 에러 출력 ---------- */
+    if (!post) {
+      return res.status(403).send('존재하지 않는 게시글입니다.');
+    };
+
+    /* await : 실제로 데이터가 들어감, create : 테이블 안에 데이터를 넣음 */
     const comment = await Comment.create({
       content: req.body.content,
       PostId: req.params.postId,  // 동적 게시글 아이디
       UserId: req.user.id,        // passport.deserializeUser로 사용자 정보 전달
     });
-
     /* 답글 작성 성공 시 프론트로 돌려주기 */
     res.status(201).json(comment);
 
