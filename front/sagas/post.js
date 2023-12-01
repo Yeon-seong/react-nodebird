@@ -112,17 +112,16 @@ function* removePost(action) {
 
 // addComment 실행 시 서버에 addCommentAPI 요청
 function addCommentAPI(data) {
-  return axios.post('/api/post/${data.postId}/comment', data);
+  return axios.post('/post/${data.postId}/comment', data);
 }
 // ADD_POST_REQUEST 액션이 실행되면 addComment 함수 실행
 function* addComment(action) {
   /* ---------- 요청 성공 시 ADD_COMMENT_SUCCESS 액션 디스패치 ---------- */
   try {
-    // const result = yield call(addCommentAPI, action.data);
-    yield delay(1000);          // 가짜 로딩시간
+    const result = yield call(addCommentAPI, action.data);
     yield put({
       type: ADD_COMMENT_SUCCESS,
-      data: action.data,         // 성공 결과
+      data: result.data,      // 실제로 사용자가 작성한 답글이 들어있다.
     });
   /* ---------- 요청 실패 시 ADD_COMMENT_FAILURE 액션 디스패치 ---------- */
   } catch (err) {

@@ -102,17 +102,6 @@ export const addComment = (data) => ({
 });
 
 
-// 답글 더미데이터
-const dummyComment = (data) => ({
-  id: shortId.generate(),
-  content: data,
-  User: {
-    id: 1,
-    nickname: '다랑',
-  },
-});
-
-
 // 리듀서(Reducer) : 이전 상태를 액션을 통해 불변성 지키면서 다음 상태로 만들어내는 함수
 const reducer = (state = initialState, action) => {
   // immer가 draft를 보고, 불변성을 지켜서 다음 상태로 만들어냄.
@@ -192,8 +181,7 @@ const reducer = (state = initialState, action) => {
         // 메인 게시글 중 원하는 게시글 찾기
         const post = draft.mainPosts.find((v) =>
           v.id === action.data.postId);
-        // 해당 게시글의 맨 앞에 답글 더미데이터(가짜 답글) 하나 넣기
-        post.Comments.unshift(dummyComment(action.content));
+        post.Comments.unshift(action.data); // 실제 답글 데이터
         // 리듀서
         draft.addCommentLoading = false;
         draft.addCommentDone = true;
