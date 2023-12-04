@@ -14,8 +14,11 @@ import userSaga from './user';
 
 
 
-// 모든 요청에 적용될 기본 URL
+// saga에서 보내는 모든 axios 요청에 적용될 공통 설정
+/* 기본 URL */
 axios.defaults.baseURL = 'http://localhost:3065';
+/* 쿠키 정보 공유 */
+axios.defaults.withCredentials = true;
 
 
 
