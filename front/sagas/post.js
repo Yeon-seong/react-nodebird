@@ -53,7 +53,9 @@ function* loadPosts(action) {
 
 // addPost 실행 시 서버에 addPostAPI 요청
 function addPostAPI(data) {
-  return axios.post('/post', { content: data });
+  return axios.post('/post', { content: data }, {
+    withCredentials: true,
+  });
 }
 // ADD_POST_REQUEST 액션이 실행되면 addPost 함수 실행
 function* addPost(action) {
@@ -84,7 +86,9 @@ function* addPost(action) {
 
 // removePost 실행 시 서버에 removePostAPI 요청
 function removePostAPI(data) {
-  return axios.delete('/api/post', data);
+  return axios.delete('/api/post', data, {
+    withCredentials: true,
+  });
 }
 // REMOVE_POST_REQUEST 액션이 실행되면 removePost 함수 실행
 function* removePost(action) {
