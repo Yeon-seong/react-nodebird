@@ -51,8 +51,10 @@ passportConfig();
 
 
 // 미들웨어 연결
-/* 요청을 보낸 주소의 요청만 허용 */
-app.use(cors({ origin: true }));
+app.use(cors({
+  origin: true,       // 요청을 보낸 주소의 요청만 허용
+  credentials: true,  // 사용자 인증이 필요한 쿠키 전달 허용
+}));
 /* 프론트에서 보낸 json 형식의 프론트에서 보낸 데이터를 req.body 안에 넣어줌 */
 app.use(express.json());
 /* 폼을 제출 시 URL encoded 방식으로 넘어온 프론트에서 보낸 데이터를 req.body 안에 넣어줌 */

@@ -116,7 +116,10 @@ function* removePost(action) {
 
 // addComment 실행 시 서버에 addCommentAPI 요청
 function addCommentAPI(data) {
-  return axios.post('/post/${data.postId}/comment', data);
+  return axios.post('/post/${data.postId}/comment', data, { // POST /post/동적 히든/comment
+    /* 클라이언트와 서버가 통신할때 쿠키와 같은 인증 정보 값을 공유 */
+    withCredentials: true,
+  });
 }
 // ADD_POST_REQUEST 액션이 실행되면 addComment 함수 실행
 function* addComment(action) {
