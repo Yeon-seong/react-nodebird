@@ -21,6 +21,10 @@ export const initialState = {
   signUpDone: false,    // 회원가입 완료
   signUpError: null,    // 회원가입 에러
 
+  loadMyInfoLoading: false,  // 사용자 정보 가져오기 시도 중
+  loadMyInfoDone: false,     // 사용자 정보 가져오기 완료
+  loadMyInfoError: null,     // 사용자 정보 가져오기 에러
+
   changeNicknameLoading: false, // 닉네임 변경 시도 중
   changeNicknameDone: false,    // 닉네임 변경 완료
   changeNicknameError: null,    // 닉네임 변경 에러
@@ -53,6 +57,11 @@ export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+
+// 사용자 정보 불러오기 요청, 성공, 실패 액션 내보내기
+export const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST';
+export const LOAD_MY_INFO_SUCCESS = 'LOAD_MY_INFO_SUCCESS';
+export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE';
 
 // 닉네임 변경 요청, 성공, 실패 액션 내보내기
 export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
@@ -133,8 +142,7 @@ const reducer = (state = initialState, action) => {
         draft.logOutLoading = false;
         draft.logOutError = action.error;  // 로그아웃 실패 확인
         break;
-
-      
+     
       /* ---------- 회원가입 요청 리듀서 ---------- */
       case SIGN_UP_REQUEST:
         draft.signUpLoading = true;
@@ -150,6 +158,26 @@ const reducer = (state = initialState, action) => {
       case SIGN_UP_FAILURE:
         draft.signUpLoading = false;
         draft.signUpError = action.error;  // 회원가입 실패 확인
+        break;
+
+
+      /* ---------- 사용자 정보 불러오기 요청 리듀서 ---------- */
+      case LOAD_MY_INFO_REQUEST:
+        draft.loadMyInfoLoading = true;
+        draft.loadMyInfoError = null;
+        draft.loadMyInfoDone = false;
+        break;
+      /* ---------- 사용자 정보 불러오기 성공 리듀서 ---------- */
+      case LOAD_MY_INFO_SUCCESS:
+        draft.loadMyInfoLoading = false;
+        // 사용자 정보 불러오기 성공 시 실제 사용자 데이터, 사용자 정보가 없으면 Null
+        draft.me = action.data;
+        draft.loadMyInfoDone = true;
+        break;
+      /* ---------- 사용자 정보 불러오기 실패 리듀서 ---------- */
+      case LOAD_MY_INFO_FAILURE:
+        draft.loadMyInfoLoading = false;
+        draft.loadMyInfoError = action.error; // 사용자 정보 불러오기 실패 확인
         break;
 
       
