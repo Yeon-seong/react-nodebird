@@ -16,6 +16,9 @@ import PostCard from '../components/PostCard';
 // 게시글 불러오기 요청 액션 불러오기
 import { LOAD_POSTS_REQUEST } from '../reducers/post';
 
+// 사용자 정보 불러오기 요청 액션 불러오기
+import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
+
 
 
 // 홈 컴포넌트(사용자 정의 태그)
@@ -25,8 +28,13 @@ const Home = () => {
   const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
 
 
-  /* 처음에 화면을 로딩하면 게시글 불러오기 요청 액션 호출 */
   useEffect(() => {
+    /* 처음에 화면을 로딩하면 사용자 정보 불러오기 요청 액션 호출 */
+    dispatch({
+      type: LOAD_MY_INFO_REQUEST,
+    });
+
+    /* 처음에 화면을 로딩하면 게시글 불러오기 요청 액션 호출 */
     dispatch({
       type: LOAD_POSTS_REQUEST,
     });
