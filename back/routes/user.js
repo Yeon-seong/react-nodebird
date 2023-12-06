@@ -23,6 +23,27 @@ const router = express.Router();
 
 
 
+// 브라우저 새로고침 시 사용자 정보 복구 라우터
+router.get('/', async (req, res, next) => { // GET /user
+  try {
+    /* ---------- (로그인해서) 사용자 정보가 있다면 ---------- */
+    if(req.user) {
+      const user = await User.findOne({
+        where: { id: req.user.id }
+      });
+      res.status(200).json(user);   // 200번대 에러 출력
+      
+    /* ---------- (로그아웃해서) 사용자 정보가 없다면 ---------- */
+    } else {
+      res.status(200).json(null);   // 아무것도 보내지 않기
+    }
+  } catch(error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+
 // 로그인 라우터 : 사용자 로그인 전략 실행
 router.post('/login', isNotLoggedIn, (req, res, next) => {
   /* '로컬', (서버 에러, 성공 객체, 클라이언트 에러)가 전달 */
