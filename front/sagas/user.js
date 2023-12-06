@@ -10,11 +10,13 @@ import {
 // Axios 라이브러리 불러오기
 import axios from 'axios';
 
-// 사용자 로그인, 로그아웃, 회원가입, 팔로우, 언팔로우 액션 불러오기
+// 사용자 로그인, 로그아웃, 회원가입,
+// 사용자 정보 불러오기, 팔로우, 언팔로우 액션 불러오기
 import {
   LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
   LOG_OUT_REQUEST, LOG_OUT_SUCCESS, LOG_OUT_FAILURE,
   SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE,
+  LOAD_MY_INFO_REQUEST, LOAD_MY_INFO_SUCCESS, LOAD_MY_INFO_FAILURE,
   FOLLOW_REQUEST, FOLLOW_SUCCESS, FOLLOW_FAILURE,
   UNFOLLOW_REQUEST, UNFOLLOW_SUCCESS, UNFOLLOW_FAILURE
 } from '../reducers/user';
@@ -96,6 +98,31 @@ function* signUp(action) {
 }
 
 
+// loadMyInfo 실행 시 서버에 loadMyInfoAPI 요청
+function loadMyInfoAPI() {
+  return axios.get('/user');
+}
+// LOG_IN_REQUEST 액션이 실행되면 loadMyInfo 함수 실행
+function* loadMyInfo(action) {
+  /* ---------- 요청 성공 시 LOAD_MY_INFO_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(loadMyInfoAPI, action.data);
+    yield put({
+      type: LOAD_MY_INFO_SUCCESS,
+      data: result.data,         // 성공 결과 : 서버로부터 사용자 정보를 받아옴
+    });
+
+  /* ---------- 요청 실패 시 LOAD_MY_INFO_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_MY_INFO_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
 // follow 실행 시 서버에 followAPI 요청
 function followAPI(data) {
   return axios.post('/api/follow', data);
@@ -167,6 +194,12 @@ function* watchSignUp() {
 }
 
 
+// 사용자 정보 불러오기 액션
+function* watchloadMyInfo() {
+  yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo);
+}
+
+
 // 팔로우 액션
 function* watchFollow() {
   yield takeLatest(FOLLOW_REQUEST, follow);
@@ -184,10 +217,11 @@ function* watchUnFollow() {
 export default function* userSaga() {
   /* ---------- all 배열 안의 코드 동시 실행 ---------- */
   yield all([
-    fork(watchFollow),
-    fork(watchUnFollow),
     fork(watchLogin),
     fork(watchLogOut),
     fork(watchSignUp),
+    fork(watchloadMyInfo),
+    fork(watchFollow),
+    fork(watchUnFollow),
   ]);
 }
