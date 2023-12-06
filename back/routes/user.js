@@ -28,14 +28,34 @@ router.get('/', async (req, res, next) => { // GET /user
   try {
     /* ---------- (로그인해서) 사용자 정보가 있다면 ---------- */
     if(req.user) {
-      const user = await User.findOne({
-        where: { id: req.user.id }
+      // (비밀번호를 제외한) 모든 사용자 정보
+      const fullUserWithOutPassword = await User.findOne({
+        where: { id: req.user.id },
+        /* 전체 데이터 중에서 비밀번호만 제외하고 가져오기 */
+        attributes: {
+          exclude: ['password']
+        },
+        // 모델 가져오기
+        include: [{
+          /* ---------- 나의 게시글 ---------- */
+          model: Post,
+        }, {
+          /* ---------- 나의 팔로잉 ---------- */
+          model: User,
+          as: 'Followings',
+        }, {
+          /* ---------- 나의 팔로워 ---------- */
+          model: User,
+          as: 'Followers',
+        }]
       });
-      res.status(200).json(user);   // 200번대 에러 출력
+      // 200번대 에러 출력
+      res.status(200).json(fullUserWithOutPassword);
       
     /* ---------- (로그아웃해서) 사용자 정보가 없다면 ---------- */
     } else {
-      res.status(200).json(null);   // 아무것도 보내지 않기
+      // 아무것도 보내지 않기
+      res.status(200).json(null);
     }
   } catch(error) {
     console.error(error);
@@ -87,7 +107,6 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
           as: 'Followers',
         }]
       });
-
       // (비밀번호를 제외한) 사용자 정보를 프론트로 넘기기
       return res.status(200).json(fullUserWithOutPassword);
     });
