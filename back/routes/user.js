@@ -39,14 +39,17 @@ router.get('/', async (req, res, next) => { // GET /user
         include: [{
           /* ---------- 나의 게시글 ---------- */
           model: Post,
+          attributes: ['id'], // id 데이터만 가져오기
         }, {
           /* ---------- 나의 팔로잉 ---------- */
           model: User,
           as: 'Followings',
+          attributes: ['id'], // id 데이터만 가져오기
         }, {
           /* ---------- 나의 팔로워 ---------- */
           model: User,
           as: 'Followers',
+          attributes: ['id'], // id 데이터만 가져오기
         }]
       });
       // 200번대 에러 출력
@@ -97,14 +100,17 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
         include: [{
           /* ---------- 나의 게시글 ---------- */
           model: Post,
+          attributes: ['id'], // id 데이터만 가져오기
         }, {
           /* ---------- 나의 팔로잉 ---------- */
           model: User,
           as: 'Followings',
+          attributes: ['id'], // id 데이터만 가져오기
         }, {
           /* ---------- 나의 팔로워 ---------- */
           model: User,
           as: 'Followers',
+          attributes: ['id'], // id 데이터만 가져오기
         }]
       });
       // (비밀번호를 제외한) 사용자 정보를 프론트로 넘기기
