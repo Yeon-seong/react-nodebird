@@ -83,6 +83,7 @@ app.get('/', (req, res) => {
 });
 
 // 게시글 가져오기 API
+app.use('/posts', postsRouter);
 app.get('/posts', (req, res) => {
   res.json([
     { id: 1, content: 'hello1' },
@@ -94,7 +95,6 @@ app.get('/posts', (req, res) => {
 
 // API : 다른 서비스가 내 서비스의 기능을 실행할 수 있게 열어둔 창구
 app.use('/post', postRouter);
-app.use('/posts', postsRouter);
 app.use('/user', userRouter);
 
 
