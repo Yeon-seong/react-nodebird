@@ -5,9 +5,8 @@
 // Saga 이펙트 불러오기
 import { all, fork, call, takeLatest, put, delay, throttle } from 'redux-saga/effects';
 
-// Axios, ShortId 라이브러리 불러오기
+// Axios 라이브러리 불러오기
 import axios from 'axios';
-import shortId from 'shortid';
 
 // 게시글 불러오기, 게시글 추가, 답글 추가, 게시글 삭제 액션 불러오기
 import {
@@ -19,9 +18,6 @@ import {
 
 // 내가 작성한 게시글, 내 게시글 삭제 액션 불러오기
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
-
-// 게시글 더미데이터 불러오기
-import { generateDummyPost } from '../reducers/post';
 
 
 

@@ -2,12 +2,8 @@
 
 
 
-// shortId, Immer 라이브러리 불러오기
-import shortId from 'shortid';
+// Immer 라이브러리 불러오기
 import produce from 'immer';
-
-// Faker 라이브러리 불러오기(8.2.0 버전)
-import { faker } from '@faker-js/faker';
 
 
 
@@ -38,34 +34,6 @@ export const initialState = {
 };
 
 
-// 게시글 더미데이터 내보내기
-export const generateDummyPost = (number) => Array(number).fill().map(() => ({
-    /* ---------- 더미아이디 ---------- */
-    id: shortId.generate(),
-    /* ---------- 사용자 ---------- */
-    User: {
-      id: shortId.generate(),
-      nickname: faker.person.firstName(),
-    },
-    // 임의의 텍스트와 단어 생성
-    content: faker.lorem.paragraph(),
-    /* ---------- 이미지 ---------- */
-    Images: [{
-      id: shortId.generate(),
-      src: faker.image.urlLoremFlickr(),
-    }],
-    /* ---------- 답글 ---------- */
-    Comments: [{
-      id: shortId.generate(),
-      User: {
-        id: shortId.generate(),
-        nickname: faker.person.firstName(),
-      },
-      // 답글을 한 문장으로 생성
-      content: faker.lorem.sentence(),
-    }],
-  }));
-
 
 // 게시글 불러오기 액션 : 요청, 성공, 실패
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
@@ -88,6 +56,7 @@ export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
 
+
 // 게시글 추가 요청 액션 생성함수(action creator)
 export const addPost = (data) => ({
   type: ADD_POST_REQUEST,
@@ -100,6 +69,7 @@ export const addComment = (data) => ({
   type: ADD_COMMENT_REQUEST,
   data,
 });
+
 
 
 // 리듀서(Reducer) : 이전 상태를 액션을 통해 불변성 지키면서 다음 상태로 만들어내는 함수

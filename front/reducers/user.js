@@ -83,6 +83,7 @@ export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
 export const REMOVE_POST_OF_ME = 'REMOVE_POST_OF_ME';
 
 
+
 // 로그인 요청 액션 생성함수(action creator)
 export const loginRequestAction = (data) => {
   return {
@@ -91,13 +92,13 @@ export const loginRequestAction = (data) => {
   }
 }
 
-
 // 로그아웃 액션 생성함수(action creator)
 export const logoutRequestAction = () => {
   return {
     type: LOG_OUT_REQUEST,
   }
 }
+
 
 
 // 리듀서(Reducer) : 이전 상태를 액션을 통해 불변성 지키면서 다음 상태로 만들어내는 함수
