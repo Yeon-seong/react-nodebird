@@ -22,8 +22,9 @@ const dotenv = require('dotenv');
 
 
 // 분리한 router 불러오기
-const postRouter = require('./routes/post');
-const userRouter = require('./routes/user');
+const postRouter = require('./routes/post');    // 게시글 라우터
+const postsRouter = require('./routes/posts');  // 게시글들 라우터
+const userRouter = require('./routes/user');    // 사용자 라우터
 
 // 모델 불러오기
 const db = require('./models');
@@ -91,9 +92,9 @@ app.get('/posts', (req, res) => {
 });
 
 
-// API는 다른 서비스가 내 서비스의 기능을 실행할 수 있게 열어둔 창구
-// app.use('/posts', postsRouter);
+// API : 다른 서비스가 내 서비스의 기능을 실행할 수 있게 열어둔 창구
 app.use('/post', postRouter);
+app.use('/posts', postsRouter);
 app.use('/user', userRouter);
 
 
