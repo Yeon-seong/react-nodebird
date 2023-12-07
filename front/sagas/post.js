@@ -27,17 +27,16 @@ import { generateDummyPost } from '../reducers/post';
 
 // loadPosts 실행 시 서버에 loadPostsAPI 요청
 function loadPostsAPI(data) {
-  return axios.get('/api/posts', data);
+  return axios.get('/posts', data);
 }
 // LOAD_POSTS_SUCCESS 액션이 실행되면 loadPosts 함수 실행
 function* loadPosts(action) {
   /* ---------- 요청 성공 시 LOAD_POSTS_SUCCESS 액션 디스패치 ---------- */
   try {
-    // const result = yield call(loadPostsAPI, action.data);
-    yield delay(1000);              // 가짜 로딩시간
+    const result = yield call(loadPostsAPI, action.data);
     yield put({
       type: LOAD_POSTS_SUCCESS,
-      data: generateDummyPost(10),  // 성공 결과
+      data: result.data,        // 성공 결과 : 실제 게시글 배열이 들어있다.
     });
 
   /* ---------- 요청 실패 시 LOAD_POSTS_FAILURE 액션 디스패치 ---------- */
@@ -45,7 +44,7 @@ function* loadPosts(action) {
     console.error(err);
     yield put({
       type: LOAD_POSTS_FAILURE,
-      data: err.response.data,      // 실패 결과
+      data: err.response.data,  // 실패 결과
     });
   }
 }
