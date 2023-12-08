@@ -113,7 +113,7 @@ function* removePost(action) {
 function addCommentAPI(data) {
   return axios.post('/post/${data.postId}/comment', data); // POST /post/동적 히든/comment
 }
-// ADD_POST_REQUEST 액션이 실행되면 addComment 함수 실행
+// ADD_COMMENT_REQUEST 액션이 실행되면 addComment 함수 실행
 function* addComment(action) {
   /* ---------- 요청 성공 시 ADD_COMMENT_SUCCESS 액션 디스패치 ---------- */
   try {
@@ -125,6 +125,7 @@ function* addComment(action) {
     
   /* ---------- 요청 실패 시 ADD_COMMENT_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
+    console.error(err);
     yield put({
       type: ADD_COMMENT_FAILURE,
       data: err.response.data,  // 실패 결과
