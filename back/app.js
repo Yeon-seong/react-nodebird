@@ -20,11 +20,17 @@ const passport = require('passport');
 // Dotenv 모듈 호출
 const dotenv = require('dotenv');
 
+// Morgan 미들웨어 호출
+const morgan = require('morgan');
+
+
 
 // 분리한 router 불러오기
 const postRouter = require('./routes/post');    // 게시글 라우터
 const postsRouter = require('./routes/posts');  // 게시글들 라우터
 const userRouter = require('./routes/user');    // 사용자 라우터
+
+
 
 // 모델 불러오기
 const db = require('./models');
@@ -32,13 +38,13 @@ const db = require('./models');
 // 패스포트에서 불러와 패스포트 설정 연결하기
 const passportConfig = require('./passport');
 
-
 // .env 파일 안에 있는 정보 불러오기
 dotenv.config();
 
-
 // express 서버 : 반환된 값을 app에 넣는다.
 const app = express();
+
+
 
 // 서버 실행 시 데이터베이스 시퀄라이즈 연결
 db.sequelize.sync()
@@ -51,7 +57,9 @@ db.sequelize.sync()
 passportConfig();
 
 
+
 // 미들웨어 연결
+app.use(morgan('dev')); // 백엔드 디버깅
 app.use(cors({
   origin: true,       // 요청을 보낸 주소의 요청만 허용
   credentials: true,  // 사용자 인증이 필요한 쿠키 전달 허용
@@ -60,6 +68,8 @@ app.use(cors({
 app.use(express.json());
 /* 폼을 제출 시 URL encoded 방식으로 넘어온 프론트에서 보낸 데이터를 req.body 안에 넣어줌 */
 app.use(express.urlencoded({ extended: true }));
+
+
 
 // 쿠키와 세션 미들웨어 연결
 app.use(cookieParser(process.env.COOKIE_SECRET)); // 환경변수 사용
@@ -77,10 +87,12 @@ app.get('/', (req, res) => {
   res.send('hello express');
 });
 
+
 // API 페이지 가져오기
 app.get('/', (req, res) => {
   res.send('hello api');
 });
+
 
 // 게시글 가져오기 API
 app.use('/posts', postsRouter);
