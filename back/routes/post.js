@@ -32,12 +32,18 @@ router.post('/', isLoggedIn, async (req, res, next) => {  // POST /post
       include: [{
         /* ---------- 게시글 작성자 ---------- */
         model: User,
+        attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
       }, {
         /* ---------- 게시글 이미지 ---------- */
         model: Image,
       }, {
         /* ---------- 게시글 답글 ---------- */
         model: Comment,
+        include: [{
+          /* ---------- 게시글 답글의 작성자 ---------- */
+          model: User,
+          attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+        }]
       }],
     });
     /* 게시글 작성 성공 시 모든 정보를 완성해서 프론트로 돌려주기 */
@@ -70,6 +76,16 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST 
       // passport.deserializeUser로 사용자 정보 전달
       UserId: req.user.id,
     });
+
+    // 
+    const fullComment = await Comment.findOne({
+      where: { id: comment.id },
+      include: [{
+        model: User,
+        attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+      }],
+    })
+
     /* 답글 작성 성공 시 프론트로 돌려주기 */
     res.status(201).json(comment);
 
