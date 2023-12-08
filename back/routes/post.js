@@ -65,8 +65,10 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST 
     /* await : 실제로 데이터가 들어감, create : 테이블 안에 데이터를 넣음 */
     const comment = await Comment.create({
       content: req.body.content,
-      PostId: req.params.postId,  // 동적 게시글 아이디
-      UserId: req.user.id,        // passport.deserializeUser로 사용자 정보 전달
+      // 동적 게시글 아이디, parseInt로 숫자로 바꾸기
+      PostId: parseInt(req.params.postId, 10),
+      // passport.deserializeUser로 사용자 정보 전달
+      UserId: req.user.id,
     });
     /* 답글 작성 성공 시 프론트로 돌려주기 */
     res.status(201).json(comment);
