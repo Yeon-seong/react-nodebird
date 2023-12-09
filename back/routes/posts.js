@@ -18,10 +18,14 @@ router.get('/', async (req, res, next) => { // GET /posts
   try {
     /* Post.findAll : 지금까지 작성한 모든 게시글을 가져오는 함수 */
     const posts = await Post.findAll({
-      /* 조건1 : 게시글 10개만 가져오기 */
+      /* 게시글 10개만 가져오기 */
       limit: 10,
-      /* 조건2 : 최신 게시글부터 가져오기(내림차순) */
-      order: [['createdAt', 'DESC']],
+      order:
+        /* order 첫 번째 요소 : 최신 게시글부터 내림차순으로 가져오기 */
+        [['createdAt', 'DESC'],
+        /* order 두 번째 요소 : 답글 내림차순 정렬 */
+        [Comment, 'createdAt', 'DESC']
+      ],
       // 모델 가져오기
       include: [{
         /* ---------- 게시글 작성자 ---------- */
