@@ -111,7 +111,7 @@ function* removePost(action) {
 
 // addComment 실행 시 서버에 addCommentAPI 요청
 function addCommentAPI(data) {
-  return axios.post('/post/${data.postId}/comment', data); // POST /post/동적 히든/comment
+  return axios.post(`/post/${data.postId}/comment`, data); // POST /post/동적 히든/comment
 }
 // ADD_COMMENT_REQUEST 액션이 실행되면 addComment 함수 실행
 function* addComment(action) {
