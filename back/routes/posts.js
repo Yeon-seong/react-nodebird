@@ -16,7 +16,7 @@ const router = express.Router();
 // 여러 개의 게시글을 가져오는 라우터
 router.get('/', async (req, res, next) => { // GET /posts
   try {
-    /* Post.findAll : 지금까지 작성한 모든 게시글 가져오기 */
+    /* Post.findAll : 지금까지 작성한 모든 게시글을 가져오는 함수 */
     const posts = await Post.findAll({
       /* 조건1 : 게시글 10개만 가져오기 */
       limit: 10,
@@ -33,6 +33,7 @@ router.get('/', async (req, res, next) => { // GET /posts
       }, {
         /* ---------- 게시글 답글 ---------- */
         model: Comment,
+        // 모델 가져오기
         include: [{
           /* ---------- 게시글 답글의 작성자 ---------- */
           model: User,
@@ -40,7 +41,10 @@ router.get('/', async (req, res, next) => { // GET /posts
         }]
       }],
     });
+    /* 게시글들 작성 성공 시 게시글들 정보를 프론트로 돌려주기 */
     res.status(200).json(posts);
+
+  /* ---------- 에러 캐치 ---------- */
   } catch (error) {
     console.error(error);
     next(error);

@@ -23,8 +23,8 @@ module.exports = () => {
     usernameField: 'email',     // req.body.email
     passwordField: 'password',  // req.body.password
   }, async (email, password, done) => {
-    /* ---------- 함수 : 로그인 할 때 입력한 이메일이 있는지 검사 ---------- */
     try {
+      /* 로그인 할 때 입력한 이메일이 있는지 검사하는 함수 */
       const user = await User.findOne({
         where: { email }
       });
@@ -42,6 +42,7 @@ module.exports = () => {
       /* ---------- 비밀번호가 일치하지 않으면 클라이언트 실패 ---------- */
       return done(null, false, { reason: '비밀번호가 틀렸습니다.' });
       
+    /* ---------- 에러 캐치 ---------- */
     } catch (error) {
       /* ---------- 서버 에러가 난다면 ---------- */
       console.error(error);

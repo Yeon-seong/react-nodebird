@@ -26,10 +26,11 @@ module.exports = () => {
   /* 복원하기 위해 id를 통해서 user.id 전달 */
   passport.deserializeUser(async (id, done) => {
     try {
-      /* id를 통해 나머지 사용자 정보 복구 */
+      /* id를 통해 나머지 사용자 정보를 복구하는 함수 */
       const user = await User.findOne({ where: { id }});
       done(null, user); // 사용자 정보를 복구해 req.user에 넣는다.
       
+    /* ---------- 에러 캐치 ---------- */
     } catch (error) {
       console.error(error);
       done(error);

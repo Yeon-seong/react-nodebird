@@ -28,13 +28,10 @@ router.get('/', async (req, res, next) => { // GET /user
   try {
     /* ---------- (로그인해서) 사용자 정보가 있다면 ---------- */
     if(req.user) {
-      // (비밀번호를 제외한) 모든 사용자 정보
+      /* (비밀번호를 제외한) 모든 사용자 정보를 가져오는 함수 */
       const fullUserWithOutPassword = await User.findOne({
         where: { id: req.user.id },
-        /* 전체 데이터 중에서 비밀번호만 제외하고 가져오기 */
-        attributes: {
-          exclude: ['password']
-        },
+        attributes: { exclude: ['password'] },
         // 모델 가져오기
         include: [{
           /* ---------- 나의 게시글 ---------- */
@@ -60,6 +57,7 @@ router.get('/', async (req, res, next) => { // GET /user
       // 아무것도 보내지 않기
       res.status(200).json(null);
     }
+    
   } catch(error) {
     console.error(error);
     next(error);
@@ -89,13 +87,10 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
         return next(loginErr);
       }
 
-      // (비밀번호를 제외한) 모든 사용자 정보
+      /* (비밀번호를 제외한) 모든 사용자 정보를 가져오는 함수 */
       const fullUserWithOutPassword = await User.findOne({
         where: { id: user.id },
-        /* 전체 데이터 중에서 비밀번호만 제외하고 가져오기 */
-        attributes: {
-          exclude: ['password']
-        },
+        attributes: { exclude: ['password'] }, // 전체 데이터에서 비밀번호만 제외
         // 모델 가져오기
         include: [{
           /* ---------- 나의 게시글 ---------- */
@@ -113,7 +108,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
           attributes: ['id'], // id 데이터만 가져오기
         }]
       });
-      // (비밀번호를 제외한) 사용자 정보를 프론트로 넘기기
+      /* (비밀번호를 제외한) 모든 사용자 정보를 프론트로 넘기기 */
       return res.status(200).json(fullUserWithOutPassword);
     });
   })(req, res, next); // 미들웨어 커스터마이징
@@ -123,11 +118,9 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
 // 회원가입 라우터
 router.post('/', isNotLoggedIn, async (req, res, next) => {  // POST /user/
   try {
-    /* 프론트에서 보낸 이메일과 같은 이메일을 쓰는 사용자가 있다면 exUser에 저장 */
+    /* 프론트에서 보낸 이메일과 같은 이메일을 쓰는 사용자가 있다면 exUser에 저장하는 함수 */
     const exUser = await User.findOne({
-      where: {
-        email: req.body.email,
-      }
+      where: { email: req.body.email },
     });
     /* 만약 사용자 중에 이메일이 같은 사용자가 있다면? 400번대 에러 출력 */
     if (exUser) {
@@ -147,7 +140,7 @@ router.post('/', isNotLoggedIn, async (req, res, next) => {  // POST /user/
     // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.status(201).send('ok'); // status 201
 
-  /* 에러 캐치 */
+  /* ---------- 에러 캐치 ---------- */
   } catch (error) {
     console.error(error); // 콘솔 창을 통한 에러 메시지 출력
     next(error);  // status 500 : express next를 통한 에러 처리 미들웨어로 에러 보내기
