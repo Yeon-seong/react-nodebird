@@ -40,7 +40,7 @@ function* loadPosts(action) {
     console.error(err);
     yield put({
       type: LOAD_POSTS_FAILURE,
-      data: err.response.data,  // 실패 결과
+      error: err.response.data, // 실패 결과
     });
   }
 }
@@ -71,7 +71,7 @@ function* addPost(action) {
     console.error(err);
     yield put({
       type: ADD_POST_FAILURE,
-      data: err.response.data,  // 실패 결과
+      error: err.response.data, // 실패 결과
     });
   }
 }
@@ -103,7 +103,7 @@ function* removePost(action) {
     console.error(err);
     yield put({
       type: REMOVE_POST_FAILURE,
-      data: err.response.data,  // 실패 결과
+      error: err.response.data, // 실패 결과
     });
   }
 }
@@ -128,7 +128,7 @@ function* addComment(action) {
     console.error(err);
     yield put({
       type: ADD_COMMENT_FAILURE,
-      data: err.response.data,  // 실패 결과
+      error: err.response.data, // 실패 결과
     });
   }
 }
