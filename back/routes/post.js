@@ -69,6 +69,7 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST 
     };
 
     /* await : 실제로 데이터가 들어감, create : 테이블 안에 데이터를 넣음 */
+    // 답글 기본 정보
     const comment = await Comment.create({
       content: req.body.content,
       // 동적 게시글 아이디, parseInt로 숫자로 바꾸기
@@ -76,16 +77,6 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST 
       // passport.deserializeUser로 사용자 정보 전달
       UserId: req.user.id,
     });
-
-    // 
-    const fullComment = await Comment.findOne({
-      where: { id: comment.id },
-      include: [{
-        model: User,
-        attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
-      }],
-    })
-
     /* 답글 작성 성공 시 프론트로 돌려주기 */
     res.status(201).json(comment);
 
