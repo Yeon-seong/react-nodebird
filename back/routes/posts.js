@@ -22,6 +22,23 @@ router.get('/', async (req, res, next) => { // GET /posts
       limit: 10,
       /* 조건2 : 최신 게시글부터 가져오기(내림차순) */
       order: [['createdAt', 'DESC']],
+      // 모델 가져오기
+      include: [{
+        /* ---------- 게시글 작성자 ---------- */
+        model: User,
+        attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+      }, {
+        /* ---------- 게시글 이미지 ---------- */
+        model: Image,
+      }, {
+        /* ---------- 게시글 답글 ---------- */
+        model: Comment,
+        include: [{
+          /* ---------- 게시글 답글의 작성자 ---------- */
+          model: User,
+          attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+        }]
+      }],
     });
     res.status(200).json(posts);
   } catch (error) {
