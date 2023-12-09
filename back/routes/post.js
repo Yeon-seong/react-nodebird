@@ -78,8 +78,19 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST 
       // passport.deserializeUser로 사용자 정보 전달
       UserId: req.user.id,
     });
-    /* 답글 작성 성공 시 답글 정보를 프론트로 돌려주기 */
-    res.status(201).json(comment);
+    
+    /* 답글 전체 정보를 가져오는 함수 */
+    const fullComment = await Comment.findOne({
+      where: { id: comment.id },
+      // 모델 가져오기
+      include: [{
+        /* ---------- 게시글 작성자 ---------- */
+        model: User,
+        attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+      }],
+    })
+    /* 답글 작성 성공 시 모든 답글 정보를 완성해서 프론트로 돌려주기 */
+    res.status(201).json(fullComment);
 
   /* ---------- 에러 캐치 ---------- */
   } catch (error) {
