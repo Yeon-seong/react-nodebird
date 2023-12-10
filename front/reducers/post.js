@@ -15,18 +15,22 @@ export const initialState = {
   imagePaths: [],
   /* 게시글 데이터 무조건 가져오기 */
   hasMorePosts: true,
-  /* 게시글 불러오기 시도 중, 완료, 에러 */
-  loadPostsLoading: false,
-  loadPostsDone: false,
-  loadPostsError: null,
+
   /* 게시글 추가 시도 중, 완료, 에러 */
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
+
   /* 게시글 삭제 시도 중, 완료, 에러 */
   removePostLoading: false,
   removePostDone: false,
   removePostError: null,
+  
+  /* 게시글 불러오기 시도 중, 완료, 에러 */
+  loadPostsLoading: false,
+  loadPostsDone: false,
+  loadPostsError: null,
+
   /* 답글 추가 시도 중, 완료, 에러 */
   addCommentLoading: false,
   addCommentDone: false,
@@ -34,11 +38,6 @@ export const initialState = {
 };
 
 
-
-// 게시글 불러오기 액션 : 요청, 성공, 실패
-export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
-export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
-export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
 
 // 게시글 추가 액션 : 요청, 성공, 실패
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -49,6 +48,11 @@ export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
 export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
 export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
+
+// 게시글 불러오기 액션 : 요청, 성공, 실패
+export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
+export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
+export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
 
 // 답글 추가 액션 : 요청, 성공, 실패
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
@@ -77,30 +81,6 @@ const reducer = (state = initialState, action) => {
   // immer가 draft를 보고, 불변성을 지켜서 다음 상태로 만들어냄.
   return produce(state, (draft) => {
     switch (action.type) {
-      /* ---------- 게시글 불러오기 요청 리듀서 ---------- */
-      case LOAD_POSTS_REQUEST:
-        draft.loadPostsLoading = true;
-        draft.loadPostsDone = false;
-        draft.loadPostsError = null;
-        break;
-      /* ---------- 게시글 불러오기 성공 리듀서 ---------- */
-      case LOAD_POSTS_SUCCESS:
-        draft.loadPostsLoading = false;
-        draft.loadPostsDone = true;
-        // 메인 게시글(mainPosts) 개수
-        draft.mainPosts = action.data.concat(draft.mainPosts);
-        // 메인 게시글(mainPosts) 개수 콘솔 출력
-        console.log('mainPosts.length', action.data.concat(draft.mainPosts).length);
-        // 메인 게시글(mainPosts) 50개 까지만 출력
-        draft.hasMorePosts = draft.mainPosts.length < 50;
-        break;
-      /* ---------- 게시글 불러오기 실패 리듀서 ---------- */
-      case LOAD_POSTS_FAILURE:
-        draft.loadPostsLoading = false;
-        draft.loadPostsError = action.error;  // 게시글 불러오기 실패 확인
-        break;
-
-
       /* ---------- 게시글 추가 요청 리듀서 ---------- */
       case ADD_POST_REQUEST:
         draft.addPostLoading = true;
@@ -139,6 +119,30 @@ const reducer = (state = initialState, action) => {
         draft.removePostError = action.error; // 게시글 삭제 실패 확인
         break;
 
+      
+      /* ---------- 게시글 불러오기 요청 리듀서 ---------- */
+      case LOAD_POSTS_REQUEST:
+        draft.loadPostsLoading = true;
+        draft.loadPostsDone = false;
+        draft.loadPostsError = null;
+        break;
+      /* ---------- 게시글 불러오기 성공 리듀서 ---------- */
+      case LOAD_POSTS_SUCCESS:
+        draft.loadPostsLoading = false;
+        draft.loadPostsDone = true;
+        // 메인 게시글(mainPosts) 개수
+        draft.mainPosts = action.data.concat(draft.mainPosts);
+        // 메인 게시글(mainPosts) 개수 콘솔 출력
+        console.log('mainPosts.length', action.data.concat(draft.mainPosts).length);
+        // 메인 게시글(mainPosts) 50개 까지만 출력
+        draft.hasMorePosts = draft.mainPosts.length < 50;
+        break;
+      /* ---------- 게시글 불러오기 실패 리듀서 ---------- */
+      case LOAD_POSTS_FAILURE:
+        draft.loadPostsLoading = false;
+        draft.loadPostsError = action.error;  // 게시글 불러오기 실패 확인
+        break;
+      
 
       /* ---------- 답글 추가 요청 리듀서 ---------- */
       case ADD_COMMENT_REQUEST:
