@@ -9,71 +9,83 @@ import produce from 'immer';
 
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
-  logInLoading: false,  // 로그인 시도 중
-  logInDone: false,     // 로그인 완료
-  logInError: null,     // 로그인 에러
+  /* 로그인 시도 중, 완료, 에러 */
+  logInLoading: false,
+  logInDone: false,
+  logInError: null,
 
-  logOutLoading: false, // 로그아웃 시도 중
-  logOutDone: false,    // 로그아웃 완료
-  logOutError: null,    // 로그아웃 에러
+  /* 로그아웃 시도 중, 완료, 에러 */
+  logOutLoading: false,
+  logOutDone: false,
+  logOutError: null,
 
-  signUpLoading: false, // 회원가입 시도 중
-  signUpDone: false,    // 회원가입 완료
-  signUpError: null,    // 회원가입 에러
+  /* 회원가입 시도 중, 완료, 에러 */
+  signUpLoading: false,
+  signUpDone: false,
+  signUpError: null,
 
-  loadMyInfoLoading: false,  // 사용자 정보 가져오기 시도 중
-  loadMyInfoDone: false,     // 사용자 정보 가져오기 완료
-  loadMyInfoError: null,     // 사용자 정보 가져오기 에러
+  /* 사용자 정보 가져오기 시도 중, 완료, 에러 */
+  loadMyInfoLoading: false,
+  loadMyInfoDone: false,
+  loadMyInfoError: null,
 
-  changeNicknameLoading: false, // 닉네임 변경 시도 중
-  changeNicknameDone: false,    // 닉네임 변경 완료
-  changeNicknameError: null,    // 닉네임 변경 에러
+  /* 닉네임 변경 시도 중, 완료, 에러 */
+  changeNicknameLoading: false,
+  changeNicknameDone: false,
+  changeNicknameError: null,
 
-  followLoading: false,   // 팔로우 시도 중
-  followDone: false,      // 팔로우 완료
-  followError: null,      // 팔로우 에러
+  /* 팔로우 시도 중, 완료, 에러 */
+  followLoading: false,
+  followDone: false,
+  followError: null,
 
-  unfollowLoading: false, // 언팔로우 시도 중
-  unfollowDone: false,    // 언팔로우 완료
-  unfollowError: null,    // 언팔로우 에러
+  /* 언팔로우 시도 중, 완료, 에러 */
+  unfollowLoading: false,
+  unfollowDone: false,
+  unfollowError: null,
 
-  me: null,             // 로그인한 사용자 정보
+  /* 로그인한 사용자 정보 */
+  me: null,
+
+  /* 회원가입 데이터 빈 객체 */
   signUpData: {},
+
+  /* 로그인 데이터 빈 객체 */
   loginData: {},
 }
 
 
-// 로그인 요청, 성공, 실패 액션 내보내기
+// 로그인 액션 : 요청, 성공, 실패 액션 내보내기
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
 
-// 로그아웃 요청, 성공, 실패 액션 내보내기
+// 로그아웃 액션 : 요청, 성공, 실패 액션 내보내기
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
-// 회원가입 요청, 성공, 실패 액션 내보내기
+// 회원가입 액션 : 요청, 성공, 실패 액션 내보내기
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 
-// 사용자 정보 불러오기 요청, 성공, 실패 액션 내보내기
+// 사용자 정보 불러오기 액션 : 요청, 성공, 실패 액션 내보내기
 export const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST';
 export const LOAD_MY_INFO_SUCCESS = 'LOAD_MY_INFO_SUCCESS';
 export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE';
 
-// 닉네임 변경 요청, 성공, 실패 액션 내보내기
+// 닉네임 변경 액션 : 요청, 성공, 실패 액션 내보내기
 export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
 export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
 export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
 
-// 팔로우 요청, 성공, 실패 액션 내보내기
+// 팔로우 액션 : 요청, 성공, 실패 액션 내보내기
 export const FOLLOW_REQUEST = 'FOLLOW_REQUEST';
 export const FOLLOW_SUCCESS = 'FOLLOW_SUCCESS';
 export const FOLLOW_FAILURE = 'FOLLOW_FAILURE';
 
-// 언팔로우 요청, 성공, 실패 액션 내보내기
+// 언팔로우 액션 : 요청, 성공, 실패 액션 내보내기
 export const UNFOLLOW_REQUEST = 'UNFOLLOW_REQUEST';
 export const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS';
 export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
@@ -84,7 +96,7 @@ export const REMOVE_POST_OF_ME = 'REMOVE_POST_OF_ME';
 
 
 
-// 로그인 요청 액션 생성함수(action creator)
+// 로그인 요청 액션 생성함수(action creator) 내보내기
 export const loginRequestAction = (data) => {
   return {
     type: LOG_IN_REQUEST,
@@ -92,7 +104,7 @@ export const loginRequestAction = (data) => {
   }
 }
 
-// 로그아웃 액션 생성함수(action creator)
+// 로그아웃 액션 생성함수(action creator) 내보내기
 export const logoutRequestAction = () => {
   return {
     type: LOG_OUT_REQUEST,

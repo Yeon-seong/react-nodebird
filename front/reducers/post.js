@@ -51,46 +51,46 @@ export const initialState = {
 
 
 
-// 게시글 추가 액션 : 요청, 성공, 실패
+// 게시글 추가 액션 : 요청, 성공, 실패 내보내기
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
-// 게시글 삭제 액션 : 요청, 성공, 실패
+// 게시글 삭제 액션 : 요청, 성공, 실패 내보내기
 export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
 export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
 export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 
-// 게시글 불러오기 액션 : 요청, 성공, 실패
+// 게시글 불러오기 액션 : 요청, 성공, 실패 내보내기
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
 
-// 게시글 좋아요 액션 : 요청, 성공, 실패
+// 게시글 좋아요 액션 : 요청, 성공, 실패 내보내기
 export const LIKE_POST_REQUEST = 'LIKE_POST_REQUEST';
 export const LIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
 export const LIKE_POST_FAILURE = 'LIKE_POST_FAILURE';
 
-// 게시글 좋아요 취소 액션 : 요청, 성공, 실패
+// 게시글 좋아요 취소 액션 : 요청, 성공, 실패 내보내기
 export const UNLIKE_POST_REQUEST = 'UNLIKE_POST_REQUEST';
 export const UNLIKE_POST_SUCCESS = 'UNLIKE_POST_SUCCESS';
 export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
 
-// 답글 추가 액션 : 요청, 성공, 실패
+// 답글 추가 액션 : 요청, 성공, 실패 내보내기
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
 
 
-// 게시글 추가 요청 액션 생성함수(action creator)
+// 게시글 추가 요청 액션 생성함수(action creator) 내보내기
 export const addPost = (data) => ({
   type: ADD_POST_REQUEST,
   data,
 });
 
 
-// 답글 추가 요청 액션 생성함수(action creator)
+// 답글 추가 요청 액션 생성함수(action creator) 내보내기
 export const addComment = (data) => ({
   type: ADD_COMMENT_REQUEST,
   data,
