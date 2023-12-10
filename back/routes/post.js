@@ -100,6 +100,18 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST 
 });
 
 
+// 게시글 좋아요 라우터
+router.patch('/:postId/like', (req, res, next) => { // PATCH /post/게시글 번호/like
+  
+});
+
+
+// 게시글 좋아요 취소 라우터
+router.delete('/:postId/like', (req, res, next) => { // DELETE /post/게시글 번호/like
+  
+});
+
+
 // 게시글 삭제하기 라우터
 router.delete('/', (req, res) => {  // DELETE /post
   res.json({ id: 1 });
