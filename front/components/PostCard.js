@@ -27,8 +27,11 @@ import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
 import FollowButton from './FollowButton';
 
-// 게시글 삭제 요청 액션 불러오기
-import { REMOVE_POST_REQUEST } from '../reducers/post';
+// 게시글 삭제 요청, 게시글 좋아요, 게시글 좋아요 취소 액션 불러오기
+import {
+  REMOVE_POST_REQUEST,
+  LIKE_POST_REQUEST, UNLIKE_POST_REQUEST 
+} from '../reducers/post';
 
 
 
@@ -40,21 +43,33 @@ const PostCard = ({ post }) => {
   const [commentFormOpened, setCommentFormOpened] = useState(false);
 
 
-  /* ---------- '좋아요'와 답글 버튼 토글 ---------- */
-  const onToggleLike = useCallback(() => {
-    setLiked((prev) => !prev);
-  }, []);
-  const onToggleComment = useCallback(() => {
-    setCommentFormOpened((prev) => !prev);
-  }, []);
-
-
   /* ---------- 게시글 삭제 액션 객체 디스패치 ---------- */
   const onRemovePost = useCallback(() => {
     dispatch({
       type: REMOVE_POST_REQUEST,
       data: post.id,
     });
+  }, []);
+
+  /* ---------- 게시글 좋아요 액션 객체 디스패치 ---------- */
+  const onLike = useCallback(() => {
+    dispatch({
+      type: LIKE_POST_REQUEST,   // 게시글 좋아요 요청 액션
+      data: post.id,             // 게시글 아이디
+    }); 
+  }, []);
+
+  /* ---------- 게시글 좋아요 취소 액션 객체 디스패치 ---------- */
+  const onUnlike = useCallback(() => {
+    dispatch({
+      type: UNLIKE_POST_REQUEST, // 게시글 좋아요 취소 요청 액션
+      data: post.id,             // 게시글 아이디
+    });
+  }, []);
+
+  /* ---------- 답글 버튼 토글 ---------- */
+  const onToggleComment = useCallback(() => {
+    setCommentFormOpened((prev) => !prev);
   }, []);
   
 
@@ -73,12 +88,10 @@ const PostCard = ({ post }) => {
           <RetweetOutlined key="retweet" />,
           /* ---------- 좋아요 버튼 ---------- */
           liked
-            // '좋아요'가 눌러진 상태
-            ? <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onToggleLike}
-              />
-            // '좋아요'가 안 눌러진 상태
-            : <HeartOutlined key="heart" onClick={onToggleLike}
-              />,
+            // 좋아요를 누른 상태
+            ? <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onUnlike} />
+            // 좋아요를 취소한 상태
+            : <HeartOutlined key="heart" onClick={onLike} />,
           /* ---------- 답글 버튼 ---------- */
           <MessageOutlined key="comment" onClick={onToggleComment}
           />,
