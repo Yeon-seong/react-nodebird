@@ -21,31 +21,6 @@ import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
 
 
 
-// loadPosts 실행 시 서버에 loadPostsAPI 요청
-function loadPostsAPI(data) {
-  return axios.get('/posts', data);
-}
-// LOAD_POSTS_SUCCESS 액션이 실행되면 loadPosts 함수 실행
-function* loadPosts(action) {
-  /* ---------- 요청 성공 시 LOAD_POSTS_SUCCESS 액션 디스패치 ---------- */
-  try {
-    const result = yield call(loadPostsAPI, action.data);
-    yield put({
-      type: LOAD_POSTS_SUCCESS,
-      data: result.data,        // 성공 결과 : 실제 게시글 배열이 들어있다.
-    });
-
-  /* ---------- 요청 실패 시 LOAD_POSTS_FAILURE 액션 디스패치 ---------- */
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: LOAD_POSTS_FAILURE,
-      error: err.response.data, // 실패 결과
-    });
-  }
-}
-
-
 // addPost 실행 시 서버에 addPostAPI 요청
 function addPostAPI(data) {
   return axios.post('/post', { content: data });
@@ -109,6 +84,31 @@ function* removePost(action) {
 }
 
 
+// loadPosts 실행 시 서버에 loadPostsAPI 요청
+function loadPostsAPI(data) {
+  return axios.get('/posts', data);
+}
+// LOAD_POSTS_SUCCESS 액션이 실행되면 loadPosts 함수 실행
+function* loadPosts(action) {
+  /* ---------- 요청 성공 시 LOAD_POSTS_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(loadPostsAPI, action.data);
+    yield put({
+      type: LOAD_POSTS_SUCCESS,
+      data: result.data,        // 성공 결과 : 실제 게시글 배열이 들어있다.
+    });
+
+  /* ---------- 요청 실패 시 LOAD_POSTS_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_POSTS_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
 // addComment 실행 시 서버에 addCommentAPI 요청
 function addCommentAPI(data) {
   return axios.post(`/post/${data.postId}/comment`, data); // POST /post/동적 히든/comment
@@ -134,11 +134,6 @@ function* addComment(action) {
 }
 
 
-// 게시글 불러오기 액션
-function* watchLoadPosts() {
-  yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
-}
-
 // 게시글 추가 액션
 function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost);
@@ -147,6 +142,11 @@ function* watchAddPost() {
 // 게시글 삭제 액션
 function* watchRemovePost() {
   yield takeLatest(REMOVE_POST_REQUEST, removePost);
+}
+
+// 게시글 불러오기 액션
+function* watchLoadPosts() {
+  yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
 
 // 답글 추가 액션
@@ -160,9 +160,9 @@ function* watchAddComment() {
 export default function* postSaga() {
   /* all 배열 안의 코드 동시 실행 */
   yield all([
-    fork(watchLoadPosts),
     fork(watchAddPost),
     fork(watchRemovePost),
+    fork(watchLoadPosts),
     fork(watchAddComment),
   ]);
 }
