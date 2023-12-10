@@ -11,8 +11,10 @@ import produce from 'immer';
 export const initialState = {
   /* 메인 게시글 더미데이터 */
   mainPosts: [],
+
   /* 이미지 업로드 시 경로 저장 */
   imagePaths: [],
+  
   /* 게시글 데이터 무조건 가져오기 */
   hasMorePosts: true,
 
@@ -25,11 +27,21 @@ export const initialState = {
   removePostLoading: false,
   removePostDone: false,
   removePostError: null,
-  
+
   /* 게시글 불러오기 시도 중, 완료, 에러 */
   loadPostsLoading: false,
   loadPostsDone: false,
   loadPostsError: null,
+
+  /* 게시글 좋아요 시도 중, 완료, 에러 */
+  likePostLoading: false,
+  likePostDone: false,
+  likePostError: null,
+
+  /* 게시글 좋아요 취소 시도 중, 완료, 에러 */
+  unlikePostLoading: false,
+  unlikePostDone: false,
+  unlikePostError: null,
 
   /* 답글 추가 시도 중, 완료, 에러 */
   addCommentLoading: false,
@@ -53,6 +65,16 @@ export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
+
+// 게시글 좋아요 액션 : 요청, 성공, 실패
+export const LIKE_POST_REQUEST = 'LIKE_POST_REQUEST';
+export const LIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
+export const LIKE_POST_FAILURE = 'LIKE_POST_FAILURE';
+
+// 게시글 좋아요 취소 액션 : 요청, 성공, 실패
+export const UNLIKE_POST_REQUEST = 'UNLIKE_POST_REQUEST';
+export const UNLIKE_POST_SUCCESS = 'UNLIKE_POST_SUCCESS';
+export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
 
 // 답글 추가 액션 : 요청, 성공, 실패
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
@@ -141,6 +163,42 @@ const reducer = (state = initialState, action) => {
       case LOAD_POSTS_FAILURE:
         draft.loadPostsLoading = false;
         draft.loadPostsError = action.error;  // 게시글 불러오기 실패 확인
+        break;
+      
+      
+      /* ---------- 게시글 좋아요 요청 리듀서 ---------- */
+      case LIKE_POST_REQUEST:
+        draft.likePostLoading = true;
+        draft.likePostDone = false;
+        draft.likePostError = null;
+        break;
+      /* ---------- 게시글 좋아요 성공 리듀서 ---------- */
+      case LIKE_POST_SUCCESS:
+        draft.likePostLoading = false;
+        draft.likePostDone = true;
+        break;
+      /* ---------- 게시글 좋아요 실패 리듀서 ---------- */
+      case LIKE_POST_FAILURE:
+        draft.likePostLoading = false;
+        draft.likePostError = action.error;  // 게시글 좋아요 실패 확인
+        break;
+
+      
+      /* ---------- 게시글 좋아요 취소 요청 리듀서 ---------- */
+      case UNLIKE_POST_REQUEST:
+        draft.likePostLoading = true;
+        draft.likePostDone = false;
+        draft.likePostError = null;
+        break;
+      /* ---------- 게시글 좋아요 취소 성공 리듀서 ---------- */
+      case UNLIKE_POST_SUCCESS:
+        draft.likePostLoading = false;
+        draft.likePostDone = true;
+        break;
+      /* ---------- 게시글 좋아요 취소 실패 리듀서 ---------- */
+      case UNLIKE_POST_FAILURE:
+        draft.likePostLoading = false;
+        draft.likePostError = action.error;  // 게시글 좋아요 취소 실패 확인
         break;
       
 
