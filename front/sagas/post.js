@@ -10,9 +10,11 @@ import axios from 'axios';
 
 // 게시글 불러오기, 게시글 추가, 답글 추가, 게시글 삭제 액션 불러오기
 import {
-  LOAD_POSTS_REQUEST, LOAD_POSTS_SUCCESS, LOAD_POSTS_FAILURE,
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
   REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE,
+  LOAD_POSTS_REQUEST, LOAD_POSTS_SUCCESS, LOAD_POSTS_FAILURE,
+  LIKE_POST_REQUEST, LIKE_POST_SUCCESS, LIKE_POST_FAILURE,
+  UNLIKE_POST_REQUEST, UNLIKE_POST_SUCCESS, UNLIKE_POST_FAILURE,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE
 } from '../reducers/post';
 
@@ -109,6 +111,58 @@ function* loadPosts(action) {
 }
 
 
+// likePost 실행 시 서버에 likePostAPI 요청
+function likePostAPI(data) {
+  /* patch(`post/post.id/like`) : 몇 번째 게시글의 좋아요(like) 변경 */
+  return axios.patch(`/post/${data}/like`);
+}
+// LIKE_POST_SUCCESS 액션이 실행되면 likePost 함수 실행
+function* likePost(action) {
+  /* ---------- 요청 성공 시 LIKE_POST_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(likePostAPI, action.data);
+    yield put({
+      type: LIKE_POST_SUCCESS,
+      data: result.data,        // 성공 결과 : 실제 게시글 배열이 들어있다.
+    });
+
+  /* ---------- 요청 실패 시 LIKE_POST_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LIKE_POST_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
+// unlikePost 실행 시 서버에 unlikePostAPI 요청
+function unlikePostAPI(data) {
+  /* delete(`post/post.id/like`) : 몇 번째 게시글의 좋아요(like) 삭제 */
+  return axios.delete(`/post/${data}/like`);
+}
+// UNLIKE_POST_SUCCESS 액션이 실행되면 unlikePost 함수 실행
+function* unlikePost(action) {
+  /* ---------- 요청 성공 시 UNLIKE_POST_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(unlikePostAPI, action.data);
+    yield put({
+      type: UNLIKE_POST_SUCCESS,
+      data: result.data,        // 성공 결과 : 실제 게시글 배열이 들어있다.
+    });
+
+  /* ---------- 요청 실패 시 UNLIKE_POST_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: UNLIKE_POST_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
 // addComment 실행 시 서버에 addCommentAPI 요청
 function addCommentAPI(data) {
   return axios.post(`/post/${data.postId}/comment`, data); // POST /post/동적 히든/comment
@@ -149,6 +203,16 @@ function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
 
+// 게시글 좋아요 액션
+function* watchLikePost() {
+  yield throttle(5000, LIKE_POST_REQUEST, likePost);
+}
+
+// 게시글 좋아요 취소 액션
+function* watchUnlikePost() {
+  yield throttle(5000, UNLIKE_POST_REQUEST, unlikePost);
+}
+
 // 답글 추가 액션
 function* watchAddComment() {
   yield takeLatest(ADD_COMMENT_REQUEST, addComment);
@@ -163,6 +227,8 @@ export default function* postSaga() {
     fork(watchAddPost),
     fork(watchRemovePost),
     fork(watchLoadPosts),
+    fork(watchLikePost),
+    fork(watchUnlikePost),
     fork(watchAddComment),
   ]);
 }
