@@ -32,6 +32,11 @@ router.get('/', async (req, res, next) => { // GET /posts
         model: User,
         attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
       }, {
+        /* ---------- 게시글 좋아요 누른 사람들 ---------- */
+        model: User,
+        as: 'Likers',
+        attributes: ['id'], // id 데이터만 가져오기
+      }, {
         /* ---------- 게시글 이미지 ---------- */
         model: Image,
       }, {
