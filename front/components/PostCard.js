@@ -39,7 +39,6 @@ import {
 const PostCard = ({ post }) => {
   const dispatch = useDispatch();
   const { removePostLoading } = useSelector((state) => state.post);
-  const [liked, setLiked] = useState(false);
   const [commentFormOpened, setCommentFormOpened] = useState(false);
 
 
@@ -76,6 +75,9 @@ const PostCard = ({ post }) => {
   /* 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용 */
   const id = useSelector((state) => state.user.me?.id);
 
+  /* 게시글 좋아요 누른 사람 중에 내(id)가 있는지 찾기 */
+  const liked = post.Likers.find((v) => v.id === id);
+
 
   return (
     <div style={{ marginBottom: '20px' }}>
@@ -88,9 +90,9 @@ const PostCard = ({ post }) => {
           <RetweetOutlined key="retweet" />,
           /* ---------- 좋아요 버튼 ---------- */
           liked
-            // 좋아요를 누른 상태
+            // 좋아요를 누른 상태 : 좋아요 취소 버튼 보여주기
             ? <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onUnlike} />
-            // 좋아요를 취소한 상태
+            // 좋아요를 취소한 상태 : 좋아요 버튼 보여주기
             : <HeartOutlined key="heart" onClick={onLike} />,
           /* ---------- 답글 버튼 ---------- */
           <MessageOutlined key="comment" onClick={onToggleComment}
@@ -178,6 +180,7 @@ PostCard.propTypes = {
     createdAt: PropTypes.string,
     Comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
+    Likers: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
 
