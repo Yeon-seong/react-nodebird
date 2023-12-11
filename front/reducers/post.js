@@ -132,8 +132,7 @@ const reducer = (state = initialState, action) => {
       case REMOVE_POST_SUCCESS:
         draft.removePostLoading = false;
         draft.removePostDone = true;
-        draft.mainPosts = draft.mainPosts.filter((v) =>
-          v.id !== action.data);
+        draft.mainPosts = draft.mainPosts.filter((v) => v.id !== action.data);
         break;
       /* ---------- 게시글 삭제 실패 리듀서 ---------- */
       case REMOVE_POST_FAILURE:
@@ -173,10 +172,15 @@ const reducer = (state = initialState, action) => {
         draft.likePostError = null;
         break;
       /* ---------- 게시글 좋아요 성공 리듀서 ---------- */
-      case LIKE_POST_SUCCESS:
+      case LIKE_POST_SUCCESS: {
+        // id가 action.data.PostId인 게시글을 찾기
+        const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
+        // 게시글에 좋아요를 누른 사람들 이름에 내 아이디(UserId)를 넣어준다.
+        post.Likers.push({ id: action.data.UserId });
         draft.likePostLoading = false;
         draft.likePostDone = true;
         break;
+      }
       /* ---------- 게시글 좋아요 실패 리듀서 ---------- */
       case LIKE_POST_FAILURE:
         draft.likePostLoading = false;
@@ -211,8 +215,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 답글 추가 성공 리듀서 ---------- */
       case ADD_COMMENT_SUCCESS:
         // 메인 게시글 중 원하는 게시글 찾기
-        const post = draft.mainPosts.find((v) =>
-          v.id === action.data.PostId);
+        const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
         post.Comments.unshift(action.data); // 실제 답글 데이터
         // 리듀서
         draft.addCommentLoading = false;

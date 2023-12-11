@@ -123,7 +123,7 @@ function* likePost(action) {
     const result = yield call(likePostAPI, action.data);
     yield put({
       type: LIKE_POST_SUCCESS,
-      data: result.data,        // 성공 결과 : 실제 게시글 배열이 들어있다.
+      data: result.data,        // 성공 결과 : 실제 게시글 배열(post.id, user.id)이 들어있다.
     });
 
   /* ---------- 요청 실패 시 LIKE_POST_FAILURE 액션 디스패치 ---------- */
