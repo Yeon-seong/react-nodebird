@@ -101,14 +101,34 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST 
 
 
 // 게시글 좋아요 라우터
-router.patch('/:postId/like', (req, res, next) => { // PATCH /post/게시글 번호/like
-  
+router.patch('/:postId/like', async (req, res, next) => { // PATCH /post/게시글 번호/like
+  try {
+    /* 게시글이 있는지 검사하는 함수 */
+    const post = await Post.findOne({ where: { id: req.params.postId }});
+    /* 만약 게시글(post)이 없다면 403번 에러로 응답하기 */
+    if (!post) {
+      return res.status(403).send('게시글이 존재하지 않습니다.');
+    } 
+  } catch {
+    console.error(error);
+    next(error);
+  }
 });
 
 
 // 게시글 좋아요 취소 라우터
-router.delete('/:postId/like', (req, res, next) => { // DELETE /post/게시글 번호/like
-  
+router.delete('/:postId/like', async (req, res, next) => { // DELETE /post/게시글 번호/like
+  try {
+    /* 게시글이 있는지 검사하는 함수 */
+    const post = await Post.findOne({ where: { id: req.params.postId }});
+    /* 만약 게시글(post)이 없다면 403번 에러로 응답하기 */
+    if (!post) {
+      return res.status(403).send('게시글이 존재하지 않습니다.');
+    } 
+  } catch {
+    console.error(error);
+    next(error);
+  }
 });
 
 
