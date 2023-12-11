@@ -195,10 +195,15 @@ const reducer = (state = initialState, action) => {
         draft.likePostError = null;
         break;
       /* ---------- 게시글 좋아요 취소 성공 리듀서 ---------- */
-      case UNLIKE_POST_SUCCESS:
+      case UNLIKE_POST_SUCCESS: {
+        // id가 action.data.PostId인 게시글을 찾기
+        const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
+        // 게시글에 좋아요를 취소한 사람들 이름에서 내 아이디(UserId)가 빠진다.
+        post.Likers = post.Likers.filter((v) => v.id !== action.data.UserId);
         draft.likePostLoading = false;
         draft.likePostDone = true;
         break;
+      }
       /* ---------- 게시글 좋아요 취소 실패 리듀서 ---------- */
       case UNLIKE_POST_FAILURE:
         draft.likePostLoading = false;
