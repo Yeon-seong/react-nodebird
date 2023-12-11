@@ -108,7 +108,10 @@ router.patch('/:postId/like', async (req, res, next) => { // PATCH /post/게시�
     /* 만약 게시글(post)이 없다면 403번 에러로 응답하기 */
     if (!post) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
-    } 
+    }
+    /* 시퀄라이즈로 게시글-사용자 테이블 관계 간 게시글 좋아요한 사람 추가 */
+    await post.addLikers(req.user.id);
+    res.json({ PostId: post.id, UserId: req.user.id });
   } catch {
     console.error(error);
     next(error);
@@ -124,7 +127,10 @@ router.delete('/:postId/like', async (req, res, next) => { // DELETE /post/게�
     /* 만약 게시글(post)이 없다면 403번 에러로 응답하기 */
     if (!post) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
-    } 
+    }
+    /* 시퀄라이즈로 게시글-사용자 테이블 관계 간 게시글 좋아요 취소한 사람 삭제 */
+    await post.removeLikers(req.user.id);
+    res.json({ PostId: post.id, UserId: req.user.id });
   } catch {
     console.error(error);
     next(error);

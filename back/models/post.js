@@ -31,24 +31,30 @@ module.exports = (sequelize, DataTypes) => {
   Post.associate = (db) => {
 
     /* (1:N 관계) : 하나의 게시글(Post)은 작성자(User)가 한 명이다. */
+    // 단수 : post.addUser, post.getUser, post.setUser
     db.Post.belongsTo(db.User);
 
     /* (1:N 관계) : 하나의 게시글(Post)은 여러 답글(Comment)을 가질 수 있다. */
+    // 복수 : post.addComments, post.getComments
     db.Post.hasMany(db.Comment);
 
     /* (1:N 관계) : 하나의 게시글(Post)은 여러 이미지(Image)를 가질 수 있다. */
+    // 복수 : post.addImages, post.getImages
     db.Post.hasMany(db.Image);
 
     /* (N:M 관계) : 하나의 게시글(Post)도 여러 해시태그(Hashtag)를 가질 수 있다. */
     // 중간 테이블 이름 : 'PostHash'
+    // 복수 : post.addHashtags
     db.Post.belongsToMany(db.Hashtag, { through: 'PostHash' });
 
     /* (N:M 관계) : 하나의 게시글(Post)도 여러 사용자(User)로부터 좋아요(Likers)를 받을 수 있다. */
     // 중간 테이블 이름 : 'Like', 내가 좋아요를 누른 사용자 별칭 : 'Likers'
+    // 복수 : post.addLikers, post.removeLikers
     db.Post.belongsToMany(db.User, { through: 'Like', as: 'Likers' });
 
     /* (1:N 관계) : 하나의 게시글(Post)은 여러 게시글(Post)이 리트윗(Retweet)을 할 수 있다. */
     // 중간 테이블 이름 : 'Retweet'
+    // 단수 : post.addRetweet
     db.Post.belongsTo(db.Post, { as: 'Retweet' });
 
   };
