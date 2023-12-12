@@ -106,7 +106,7 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST 
 
 
 // 게시글 좋아요 라우터
-router.patch('/:postId/like', async (req, res, next) => { // PATCH /post/게시글 번호/like
+router.patch('/:postId/like', isLoggedIn, async (req, res, next) => { // PATCH /post/게시글 번호/like
   try {
     /* 게시글이 있는지 검사하는 함수 */
     const post = await Post.findOne({ where: { id: req.params.postId }});
@@ -125,7 +125,7 @@ router.patch('/:postId/like', async (req, res, next) => { // PATCH /post/게시�
 
 
 // 게시글 좋아요 취소 라우터
-router.delete('/:postId/like', async (req, res, next) => { // DELETE /post/게시글 번호/like
+router.delete('/:postId/like', isLoggedIn, async (req, res, next) => { // DELETE /post/게시글 번호/like
   try {
     /* 게시글이 있는지 검사하는 함수 */
     const post = await Post.findOne({ where: { id: req.params.postId }});
@@ -144,7 +144,7 @@ router.delete('/:postId/like', async (req, res, next) => { // DELETE /post/게�
 
 
 // 게시글 삭제하기 라우터
-router.delete('/', (req, res) => {  // DELETE /post
+router.delete('/', isLoggedIn, (req, res) => {  // DELETE /post
   res.json({ id: 1 });
 });
 
