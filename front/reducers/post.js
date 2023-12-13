@@ -132,7 +132,8 @@ const reducer = (state = initialState, action) => {
       case REMOVE_POST_SUCCESS:
         draft.removePostLoading = false;
         draft.removePostDone = true;
-        draft.mainPosts = draft.mainPosts.filter((v) => v.id !== action.data);
+        // 게시글 삭제하기
+        draft.mainPosts = draft.mainPosts.filter((v) => v.id !== action.data.PostId);
         break;
       /* ---------- 게시글 삭제 실패 리듀서 ---------- */
       case REMOVE_POST_FAILURE:
