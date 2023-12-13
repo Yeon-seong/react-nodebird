@@ -144,8 +144,21 @@ router.delete('/:postId/like', isLoggedIn, async (req, res, next) => { // DELETE
 
 
 // 게시글 삭제하기 라우터
-router.delete('/', isLoggedIn, (req, res) => {  // DELETE /post
-  res.json({ id: 1 });
+router.delete('/:postId', isLoggedIn, async (req, res, next) => {  // DELETE /post/게시글 번호
+  try {
+    /* 게시글 아이디가 '나'이며, 내가 작성한 게시글만 삭제하는 함수 */
+   await Post.destroy({
+    where: {
+      id: req.params.postId,
+      UserId: req.user.id,
+    },
+   });
+    /* 게시글 삭제 성공 시 parseInt로 게시글 아이디를 숫자로 바꾼 후 프론트로 넘기기 */
+    res.status(200).json({ PostId: parseInt(req.params.postId, 10) });
+  } catch {
+    console.error(error);
+    next(error);
+  }
 });
 
 
