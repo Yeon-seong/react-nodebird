@@ -126,7 +126,7 @@ function* loadMyInfo(action) {
 
 // changeNickname 실행 시 서버에 changeNicknameAPI 요청
 function changeNicknameAPI(data) {
-  return axios.patch('/user/:nickname', {nickname: data});
+  return axios.patch('/user/nickname', { nickname: data });
 }
 // LOG_IN_REQUEST 액션이 실행되면 changeNickname 함수 실행
 function* changeNickname(action) {

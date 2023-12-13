@@ -170,7 +170,7 @@ router.patch('/nickname', isLoggedIn, async (req, res, next) => {
       where: { id: req.user.id },
     });
     /* 프론트에서 제공한 닉네임을 프론트로 넘기기 */
-    res.status(200).json({ nickname: req.boby.nickname });
+    res.status(200).json({ nickname: req.body.nickname });
   } catch {
     console.error(error);
     next(error);
