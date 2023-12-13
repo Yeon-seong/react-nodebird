@@ -158,6 +158,26 @@ router.post('/logout', isLoggedIn, (req, res) => {
 });
 
 
+// 닉네임 라우터
+router.patch('/nickname', isLoggedIn, async (req, res, next) => {
+  try {
+    /* 내 아이디의 닉네임을 프론트에서 받은 닉네임으로 수정하는 함수 */
+    await User.update({
+      /* 첫 번째 객체는 수정 : 프론트에서 제공한 닉네임으로 닉네임 수정 */
+      nickname: req.body.nickname,
+    }, {
+      /* 두 번째 객체는 조건 : 내 아이디 */
+      where: { id: req.user.id },
+    });
+    /* 프론트에서 제공한 닉네임을 프론트로 넘기기 */
+    res.status(200).json({ nickname: req.boby.nickname });
+  } catch {
+    console.error(error);
+    next(error);
+  }
+});
+
+
 
 // 라우터 내보내기
 module.exports = router;
