@@ -50,7 +50,13 @@ const FollowButton = ({ post }) => {
     }
   }, [isFollowing]);
 
-  
+
+  // 게시글 작성자의 아이디가 내 아이디랑 같으면 팔로우, 언팔로우 버튼 안보이기
+  if (post.User.id === me.id) {
+    return null;
+  };
+
+
   // (?) 내가 이미 팔로우 했다면 언팔로우, (:) 팔로우 안했다면 팔로우
   return (
     <Button
