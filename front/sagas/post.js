@@ -56,17 +56,16 @@ function* addPost(action) {
 
 // removePost 실행 시 서버에 removePostAPI 요청
 function removePostAPI(data) {
-  return axios.delete('/api/post', data);
+  return axios.delete(`/post/${data}`); // /post/post.id
 }
 // REMOVE_POST_REQUEST 액션이 실행되면 removePost 함수 실행
 function* removePost(action) {
   /* ---------- 요청 성공 시 REMOVE_POST_SUCCESS 액션 디스패치 ---------- */
   try {
-    // const result = yield call(removePostAPI, action.data);
-    yield delay(1000);          // 가짜 로딩시간
+    const result = yield call(removePostAPI, action.data);
     yield put({
       type: REMOVE_POST_SUCCESS,
-      data: action.data,        // 성공 결과
+      data: result.data,        // 성공 결과 : 실제 게시글 삭제
     }); // post 리듀서 조작 부분
 
     /* ---------- 요청 성공 시 REMOVE_POST_OF_ME 액션 디스패치 ---------- */
