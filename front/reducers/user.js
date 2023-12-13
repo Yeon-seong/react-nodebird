@@ -202,6 +202,8 @@ const reducer = (state = initialState, action) => {
         break;
       /* ---------- 닉네임 변경 성공 리듀서 ---------- */
       case CHANGE_NICKNAME_SUCCESS:
+        // 나의 닉네임을 변경한 닉네임(action.data.nickname)으로 바꿔주기
+        draft.me.nickname = action.data.nickname;
         draft.changeNicknameLoading = false;
         draft.changeNicknameDone = true;
         break;
