@@ -192,8 +192,8 @@ router.patch('/:userId/follow', isLoggedIn, async (req, res, next) => { // PATCH
     }
     /* 팔로워에 나를 추가 */
     await user.addFollowers(req.user.id);
-    /* 나의 팔로잉 : 팔로우한 상대방 아이디를 프론트로 넘기기 */
-    res.status(200).json({ UserId: req.params.userId });
+    /* 나의 팔로잉 : 팔로우한 상대방 아이디를 숫자로 바꿔 프론트로 넘기기 */
+    res.status(200).json({ UserId: parseInt(req.params.userId, 10) });
 
   /* ---------- 에러 캐치 ---------- */
   } catch (error) {
@@ -214,8 +214,8 @@ router.delete('/:userId/follow', isLoggedIn, async (req, res, next) => { // DELE
     }
     /* 팔로워에서 나를 제거 */
     await user.removeFollowers(req.user.id);
-    /* 나의 팔로잉 : 언팔로우한 상대방 아이디를 프론트로 넘기기 */
-    res.status(200).json({ UserId: req.params.userId });
+    /* 나의 팔로잉 : 언팔로우한 상대방 아이디를 숫자로 바꿔 프론트로 넘기기 */
+    res.status(200).json({ UserId: parseInt(req.params.userId, 10) });
 
   /* ---------- 에러 캐치 ---------- */
   } catch (error) {
