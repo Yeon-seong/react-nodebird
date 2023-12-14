@@ -176,7 +176,7 @@ function* follow(action) {
 
 // unfollow 실행 시 서버에 unfollowAPI 요청
 function unfollowAPI(data) {
-  return axios.delete(`/user/${data}/unfollow`); // data에는 사용자 아이디가 들어간다.
+  return axios.delete(`/user/${data}/follow`); // data에는 사용자 아이디가 들어간다.
 }
 // UNFOLLOW_REQUEST 액션이 실행되면 unfollow 함수 실행
 function* unfollow(action) {
