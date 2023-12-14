@@ -117,7 +117,9 @@ router.patch('/:postId/like', isLoggedIn, async (req, res, next) => { // PATCH /
     /* 시퀄라이즈로 게시글-사용자 테이블 관계 간 게시글 좋아요한 사람 추가 */
     await post.addLikers(req.user.id);
     res.json({ PostId: post.id, UserId: req.user.id });
-  } catch {
+
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
     console.error(error);
     next(error);
   }
@@ -136,7 +138,9 @@ router.delete('/:postId/like', isLoggedIn, async (req, res, next) => { // DELETE
     /* 시퀄라이즈로 게시글-사용자 테이블 관계 간 게시글 좋아요 취소한 사람 삭제 */
     await post.removeLikers(req.user.id);
     res.json({ PostId: post.id, UserId: req.user.id });
-  } catch {
+
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
     console.error(error);
     next(error);
   }
@@ -155,7 +159,9 @@ router.delete('/:postId', isLoggedIn, async (req, res, next) => {  // DELETE /po
    });
     /* 게시글 삭제 성공 시 parseInt로 게시글 아이디를 숫자로 바꾼 후 프론트로 넘기기 */
     res.status(200).json({ PostId: parseInt(req.params.postId, 10) });
-  } catch {
+
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
     console.error(error);
     next(error);
   }

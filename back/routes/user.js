@@ -58,7 +58,8 @@ router.get('/', async (req, res, next) => { // GET /user
       res.status(200).json(null);
     }
     
-  } catch(error) {
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
     console.error(error);
     next(error);
   }
@@ -171,7 +172,9 @@ router.patch('/nickname', isLoggedIn, async (req, res, next) => {
     });
     /* 프론트에서 제공한 닉네임을 프론트로 넘기기 */
     res.status(200).json({ nickname: req.body.nickname });
-  } catch {
+
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
     console.error(error);
     next(error);
   }
@@ -191,7 +194,9 @@ router.patch('/:userId/follow', isLoggedIn, async (req, res, next) => { // PATCH
     await user.addFollowers(req.user.id);
     /* 나의 팔로잉 : 팔로우한 상대방 아이디를 프론트로 넘기기 */
     res.status(200).json({ UserId: req.params.userId });
-  } catch {
+
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
     console.error(error);
     next(error);
   }
@@ -211,7 +216,9 @@ router.delete('/:userId/follow', isLoggedIn, async (req, res, next) => { // DELE
     await user.removeFollowers(req.user.id);
     /* 나의 팔로잉 : 언팔로우한 상대방 아이디를 프론트로 넘기기 */
     res.status(200).json({ UserId: req.params.userId });
-  } catch {
+
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
     console.error(error);
     next(error);
   }
