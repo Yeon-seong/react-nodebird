@@ -178,6 +178,18 @@ router.patch('/nickname', isLoggedIn, async (req, res, next) => {
 });
 
 
+// 팔로우 라우터
+router.patch('/:userId/follow', isLoggedIn, async (req, res, next) => { // PATCH /user/사용자 번호/follow
+  
+});
+
+
+// 언팔로우 라우터
+router.delete('/:userId/follow', isLoggedIn, async (req, res, next) => { // DELETE /user/사용자 번호/follow
+  
+});
+
+
 
 // 라우터 내보내기
 module.exports = router;
