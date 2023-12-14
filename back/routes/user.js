@@ -185,7 +185,7 @@ router.patch('/nickname', isLoggedIn, async (req, res, next) => {
 router.patch('/:userId/follow', isLoggedIn, async (req, res, next) => { // PATCH /user/사용자 번호/follow
   try {
     /* 사용자가 실재하는 사용자인지 찾는 함수 */
-    const user = await User.fineOne({ where: { id: req.params.userId }});
+    const user = await User.findOne({ where: { id: req.params.userId }});
     /* ---------- 만약 실재하는 사용자가 아니라면 400번대 에러 출력 ---------- */
     if (!user) {
       res.status(403).send('존재하지 않는 사람을 팔로우 하려고 하시네요?');
@@ -207,7 +207,8 @@ router.patch('/:userId/follow', isLoggedIn, async (req, res, next) => { // PATCH
 router.delete('/:userId/follow', isLoggedIn, async (req, res, next) => { // DELETE /user/사용자 번호/follow
   try {
     /* 사용자가 실재하는 사용자인지 찾는 함수 */
-    const user = await User.fineOne({ where: { id: req.params.userId }});
+    const user = await User.findOne({ where: { id: req.params.userId }});
+    
     /* ---------- 만약 실재하는 사용자가 아니라면 400번대 에러 출력 ---------- */
     if (!user) {
       res.status(403).send('존재하지 않는 사람을 언팔로우 하려고 하시네요?');
