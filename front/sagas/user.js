@@ -151,17 +151,16 @@ function* changeNickname(action) {
 
 // follow 실행 시 서버에 followAPI 요청
 function followAPI(data) {
-  return axios.post('/api/follow', data);
+  return axios.patch(`/user/${data}/follow`); // data에는 사용자 아이디가 들어간다.
 }
 // FOLLOW_REQUEST 액션이 실행되면 follow 함수 실행
 function* follow(action) {
   /* ---------- 요청 성공 시 FOLLOW_SUCCESS 액션 디스패치 ---------- */
   try {
-    // const result = yield call(followAPI, action.data);
-    yield delay(1000);
+    const result = yield call(followAPI, action.data);
     yield put({
       type: FOLLOW_SUCCESS,
-      data: action.data         // 성공 결과
+      data: result.data         // 성공 결과
     });
 
   /* ---------- 요청 실패 시 FOLLOW_FAILURE 액션 디스패치 ---------- */
@@ -177,17 +176,16 @@ function* follow(action) {
 
 // unfollow 실행 시 서버에 unfollowAPI 요청
 function unfollowAPI(data) {
-  return axios.post('/api/unfollow', data);
+  return axios.delete(`/user/${data}/unfollow`); // data에는 사용자 아이디가 들어간다.
 }
 // UNFOLLOW_REQUEST 액션이 실행되면 unfollow 함수 실행
 function* unfollow(action) {
   /* ---------- 요청 성공 시 UNFOLLOW_SUCCESS 액션 디스패치 ---------- */
   try {
-    // const result = yield call(unfollowAPI, action.data);
-    yield delay(1000);
+    const result = yield call(unfollowAPI, action.data);
     yield put({
       type: UNFOLLOW_SUCCESS,
-      data: action.data         // 성공 결과
+      data: result.data         // 성공 결과
     });
     
   /* ---------- 요청 실패 시 UNFOLLOW_FAILURE 액션 디스패치 ---------- */
