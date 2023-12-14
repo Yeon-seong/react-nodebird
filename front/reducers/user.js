@@ -223,8 +223,8 @@ const reducer = (state = initialState, action) => {
       /* ---------- 팔로우 성공 리듀서 ---------- */
       case FOLLOW_SUCCESS:
         draft.followLoading = false;
-        // 내가 팔로잉한 사람의 아이디(action.data)
-        draft.me.Followings.push({ id: action.data });
+        // 내가 팔로잉한 사용자의 아이디(action.data.UserId)
+        draft.me.Followings.push({ id: action.data.UserId });
         draft.followDone = true;
         break;
       /* ---------- 팔로우 실패 리듀서 ---------- */
@@ -242,9 +242,8 @@ const reducer = (state = initialState, action) => {
       /* ---------- 언팔로우 성공 리듀서 ---------- */
       case UNFOLLOW_SUCCESS:
         draft.unfollowLoading = false;
-        // 내가 팔로잉한 사람(action.data) 중에서 팔로우 끊기
-        draft.me.Followings
-        = draft.me.Followings.filter((v) => v.id !== action.data);
+        // 내가 팔로잉한 사용자의 아이디(action.data) 중에서 팔로우 끊기
+        draft.me.Followings = draft.me.Followings.filter((v) => v.id !== action.data.UserId);
         draft.unfollowDone = true;
         break;
       /* ---------- 언팔로우 실패 리듀서 ---------- */
