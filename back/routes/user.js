@@ -200,7 +200,21 @@ router.patch('/:userId/follow', isLoggedIn, async (req, res, next) => { // PATCH
 
 // 언팔로우 라우터
 router.delete('/:userId/follow', isLoggedIn, async (req, res, next) => { // DELETE /user/사용자 번호/follow
-
+  try {
+    /* 사용자가 실재하는 사용자인지 찾는 함수 */
+    const user = await User.fineOne({ where: { id: req.params.userId }});
+    /* ---------- 만약 실재하는 사용자가 아니라면 400번대 에러 출력 ---------- */
+    if (!user) {
+      res.status(403).send('존재하지 않는 사람을 언팔로우 하려고 하시네요?');
+    }
+    /* 팔로워에서 나를 제거 */
+    await user.removeFollowers(req.user.id);
+    /* 나의 팔로잉 : 언팔로우한 상대방 아이디를 프론트로 넘기기 */
+    res.status(200).json({ id: req.params.userId });
+  } catch {
+    console.error(error);
+    next(error);
+  }
 });
 
 
