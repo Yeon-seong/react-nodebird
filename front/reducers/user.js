@@ -9,6 +9,17 @@ import produce from 'immer';
 
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
+  
+  /* 팔로워 불러오기 시도 중, 완료, 에러 */
+  loadFollowersLoading: false,
+  loadFollowersDone: false,
+  loadFollowersError: null,
+
+  /* 팔로잉 불러오기 시도 중, 완료, 에러 */
+  loadFollowingsLoading: false,
+  loadFollowingsDone: false,
+  loadFollowingsError: null,
+
   /* 로그인 시도 중, 완료, 에러 */
   logInLoading: false,
   logInDone: false,
@@ -54,6 +65,16 @@ export const initialState = {
   loginData: {},
 }
 
+
+// 팔로워 불러오기 액션 : 요청, 성공, 실패 액션 내보내기
+export const LOAD_FOLLOWERS_REQUEST = 'LOAD_FOLLOWERS_REQUEST';
+export const LOAD_FOLLOWERS_SUCCESS = 'LOAD_FOLLOWERS_SUCCESS';
+export const LOAD_FOLLOWERS_FAILURE = 'LOAD_FOLLOWERS_FAILURE';
+
+// 팔로잉 불러오기 액션 : 요청, 성공, 실패 액션 내보내기
+export const LOAD_FOLLOWINGS_REQUEST = 'LOAD_FOLLOWINGS_REQUEST';
+export const LOAD_FOLLOWINGS_SUCCESS = 'LOAD_FOLLOWINGS_SUCCESS';
+export const LOAD_FOLLOWINGS_FAILURE = 'LOAD_FOLLOWINGS_FAILURE';
 
 // 로그인 액션 : 요청, 성공, 실패 액션 내보내기
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
@@ -118,6 +139,47 @@ const reducer = (state = initialState, action) => {
   // immer가 draft를 보고, 불변성을 지켜서 다음 상태로 만들어냄
   return produce(state, (draft) => {
     switch (action.type) {
+
+      /* ---------- 팔로워 불러오기 요청 리듀서 ---------- */
+      case LOAD_FOLLOWERS_REQUEST:
+        draft.loadFollowersLoading = true;
+        draft.loadFollowersError = null;
+        draft.loadFollowersDone = false;
+        break;
+      /* ---------- 팔로워 불러오기 성공 리듀서 ---------- */
+      case LOAD_FOLLOWERS_SUCCESS:
+        draft.loadFollowersLoading = false;
+        // 나의 팔로워 불러오기 성공 시 실제 나의 팔로워 데이터, 나의 팔로워가 없으면 Null
+        draft.me.Followers = action.data;
+        draft.loadFollowersDone = true;
+        break;
+      /* ---------- 팔로워 불러오기 실패 리듀서 ---------- */
+      case LOAD_FOLLOWERS_FAILURE:
+        draft.loadFollowersLoading = false;
+        draft.loadFollowersError = action.error; // 팔로워 불러오기 실패 확인
+        break;
+
+
+      /* ---------- 팔로잉 불러오기 요청 리듀서 ---------- */
+      case LOAD_FOLLOWINGS_REQUEST:
+        draft.loadFollowingsLoading = true;
+        draft.loadFollowingsError = null;
+        draft.loadFollowingsDone = false;
+        break;
+      /* ---------- 팔로잉 불러오기 성공 리듀서 ---------- */
+      case LOAD_FOLLOWINGS_SUCCESS:
+        draft.loadFollowingsLoading = false;
+        // 나의 팔로잉 불러오기 성공 시 실제 나의 팔로잉 데이터, 나의 팔로잉이 없으면 Null
+        draft.me.Followings = action.data;
+        draft.loadFollowingsDone = true;
+        break;
+      /* ---------- 팔로잉 불러오기 실패 리듀서 ---------- */
+      case LOAD_FOLLOWINGS_FAILURE:
+        draft.loadFollowingsLoading = false;
+        draft.loadFollowingsError = action.error; // 팔로잉 불러오기 실패 확인
+        break;
+
+
       /* ---------- 로그인 요청 리듀서 ---------- */
       case LOG_IN_REQUEST:
         draft.logInLoading = true;
