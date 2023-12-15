@@ -2,7 +2,7 @@
 
 
 
-// 리액트 불러오기
+// React 라이브러리 불러오기
 import React from 'react';
 
 // 데이터 유효성 타입 검사

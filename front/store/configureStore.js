@@ -2,7 +2,7 @@
 
 
 
-// 리덕스 불러오기
+// Redux 미들웨어 불러오기
 import { createWrapper } from 'next-redux-wrapper';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -28,7 +28,7 @@ const configureStore = () => {
   : composeWithDevTools(applyMiddleware(...middlewares))
   const store = createStore(reducer, enhancer);
 
-  /* --------- 리덕스 사가(redux-saga) 설정 ---------- */
+  /* --------- Redux Saga 설정 ---------- */
   store.sagaTask = sagaMiddleware.run(rootSaga);
 
   return store;

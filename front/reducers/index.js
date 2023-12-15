@@ -2,7 +2,7 @@
 
 
 
-// 리덕스 불러오기
+// Redux 라이브러리 불러오기
 import { HYDRATE } from 'next-redux-wrapper';
 import { combineReducers } from 'redux';
 
@@ -14,7 +14,7 @@ import post from './post';
 
 // 리듀서(Reducer) : 이전 상태를 액션을 통해 불변성 지키면서 다음 상태로 만들어내는 함수
 const rootReducer = combineReducers ({
-  /* 리덕스 SSR을 위해 index 리듀서 추가 */
+  /* Redux SSR(서버사이드렌더링)을 위해 index 리듀서 추가 */
   index: (state = {}, action) => {
     switch (action.type) {
       case HYDRATE:

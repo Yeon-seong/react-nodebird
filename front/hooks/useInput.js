@@ -9,7 +9,7 @@ import { useState, useCallback } from 'react';
 
 // 커스텀 Hooks로 중복 코드 제거
 export default function useInput(initialValue = null) {
-  /* 컴포넌트 상태 저장 : 리액트 Hooks useState 사용 */
+  /* 컴포넌트 상태 저장 : React Hooks useState 사용 */
   const [value, setValue] = useState(initialValue);
   /* 컴포넌트의 속성(props)으로 넘겨주는 값들은 useCallback 사용 */
   const handler = useCallback((e) => {

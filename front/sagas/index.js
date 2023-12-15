@@ -8,7 +8,7 @@ import { all, fork } from 'redux-saga/effects';
 // Axios 라이브러리 불러오기
 import axios from 'axios';
 
-// 내부 saga 불러오기
+// 내부 Saga 불러오기
 import postSaga from './post';
 import userSaga from './user';
 

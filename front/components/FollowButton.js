@@ -25,7 +25,7 @@ const FollowButton = ({ post }) => {
   const dispatch = useDispatch();
 
 
-  // 리덕스에서 내 정보(me), 팔로우 로딩, 언팔로우 로딩 상태 값 가져오기
+  // Redux 에서 내 정보(me), 팔로우 로딩, 언팔로우 로딩 상태 값 가져오기
   const { me, followLoading, unfollowLoading } = useSelector((state) => state.user);
 
 
