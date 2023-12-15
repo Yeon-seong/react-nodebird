@@ -3,19 +3,44 @@
 
 
 // Saga 이펙트 불러오기
-import { all, fork, call, takeLatest, put, delay, throttle } from 'redux-saga/effects';
+import { all, fork, call, takeLatest, put, throttle } from 'redux-saga/effects';
 
 // Axios 라이브러리 불러오기
 import axios from 'axios';
 
-// 게시글 불러오기, 게시글 추가, 답글 추가, 게시글 삭제 액션 불러오기
+// 게시글 액션 불러오기
 import {
-  ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
-  REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE,
-  LOAD_POSTS_REQUEST, LOAD_POSTS_SUCCESS, LOAD_POSTS_FAILURE,
-  LIKE_POST_REQUEST, LIKE_POST_SUCCESS, LIKE_POST_FAILURE,
-  UNLIKE_POST_REQUEST, UNLIKE_POST_SUCCESS, UNLIKE_POST_FAILURE,
-  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE
+
+  /* ---------- 게시글 추가 액션 : 요청, 성공, 실패 ---------- */
+  ADD_POST_REQUEST,
+  ADD_POST_SUCCESS,
+  ADD_POST_FAILURE,
+
+  /* ---------- 게시글 삭제 액션 : 요청, 성공, 실패 ---------- */
+  REMOVE_POST_REQUEST,
+  REMOVE_POST_SUCCESS,
+  REMOVE_POST_FAILURE,
+
+  /* ---------- 게시글 불러오기 액션 : 요청, 성공, 실패 ---------- */
+  LOAD_POSTS_REQUEST,
+  LOAD_POSTS_SUCCESS,
+  LOAD_POSTS_FAILURE,
+
+  /* ---------- 게시글 좋아요 액션 : 요청, 성공, 실패 ---------- */
+  LIKE_POST_REQUEST,
+  LIKE_POST_SUCCESS,
+  LIKE_POST_FAILURE,
+
+  /* ---------- 게시글 좋아요 취소 액션 : 요청, 성공, 실패 ---------- */
+  UNLIKE_POST_REQUEST,
+  UNLIKE_POST_SUCCESS,
+  UNLIKE_POST_FAILURE,
+
+  /* ---------- 답글 추가 액션 : 요청, 성공, 실패 ---------- */
+  ADD_COMMENT_REQUEST,
+  ADD_COMMENT_SUCCESS,
+  ADD_COMMENT_FAILURE
+
 } from '../reducers/post';
 
 // 내가 작성한 게시글, 내 게시글 삭제 액션 불러오기

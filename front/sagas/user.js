@@ -3,23 +3,49 @@
 
 
 // Saga 이펙트 불러오기
-import {
-  all, fork, call, takeLatest, put, delay
-} from 'redux-saga/effects';
+import { all, fork, call, takeLatest, put, delay } from 'redux-saga/effects';
 
 // Axios 라이브러리 불러오기
 import axios from 'axios';
 
-// 사용자 로그인, 로그아웃, 회원가입,
-// 사용자 정보 불러오기, 닉네임 변경, 팔로우, 언팔로우 액션 불러오기
+// 사용자 액션 불러오기
 import {
-  LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
-  LOG_OUT_REQUEST, LOG_OUT_SUCCESS, LOG_OUT_FAILURE,
-  SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE,
-  LOAD_MY_INFO_REQUEST, LOAD_MY_INFO_SUCCESS, LOAD_MY_INFO_FAILURE,
-  CHANGE_NICKNAME_REQUEST, CHANGE_NICKNAME_SUCCESS, CHANGE_NICKNAME_FAILURE,
-  FOLLOW_REQUEST, FOLLOW_SUCCESS, FOLLOW_FAILURE,
-  UNFOLLOW_REQUEST, UNFOLLOW_SUCCESS, UNFOLLOW_FAILURE
+
+  /* ---------- 로그인 액션 : 요청, 성공, 실패 ---------- */
+  LOG_IN_REQUEST,
+  LOG_IN_SUCCESS,
+  LOG_IN_FAILURE,
+
+  /* ---------- 로그아웃 액션 : 요청, 성공, 실패 ---------- */
+  LOG_OUT_REQUEST,
+  LOG_OUT_SUCCESS,
+  LOG_OUT_FAILURE,
+  
+  /* ---------- 회원가입 액션 : 요청, 성공, 실패 ---------- */
+  SIGN_UP_REQUEST,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAILURE,
+
+  /* ---------- 사용자 정보 불러오기 액션 : 요청, 성공, 실패 ---------- */
+  LOAD_MY_INFO_REQUEST,
+  LOAD_MY_INFO_SUCCESS,
+  LOAD_MY_INFO_FAILURE,
+
+  /* ---------- 닉네임 변경 액션 : 요청, 성공, 실패 ---------- */
+  CHANGE_NICKNAME_REQUEST,
+  CHANGE_NICKNAME_SUCCESS,
+  CHANGE_NICKNAME_FAILURE,
+
+  /* ---------- 팔로우 액션 : 요청, 성공, 실패 ---------- */
+  FOLLOW_REQUEST,
+  FOLLOW_SUCCESS,
+  FOLLOW_FAILURE,
+
+  /* ---------- 언팔로우 액션 : 요청, 성공, 실패 ---------- */
+  UNFOLLOW_REQUEST,
+  UNFOLLOW_SUCCESS,
+  UNFOLLOW_FAILURE
+
 } from '../reducers/user';
 
 
