@@ -9,7 +9,12 @@ import produce from 'immer';
 
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
-  
+
+  /* 사용자 정보 불러오기 시도 중, 완료, 에러 */
+  loadMyInfoLoading: false,
+  loadMyInfoDone: false,
+  loadMyInfoError: null,
+
   /* 팔로워 불러오기 시도 중, 완료, 에러 */
   loadFollowersLoading: false,
   loadFollowersDone: false,
@@ -34,11 +39,6 @@ export const initialState = {
   signUpLoading: false,
   signUpDone: false,
   signUpError: null,
-
-  /* 사용자 정보 가져오기 시도 중, 완료, 에러 */
-  loadMyInfoLoading: false,
-  loadMyInfoDone: false,
-  loadMyInfoError: null,
 
   /* 닉네임 변경 시도 중, 완료, 에러 */
   changeNicknameLoading: false,
@@ -66,6 +66,12 @@ export const initialState = {
 }
 
 
+
+// 사용자 정보 불러오기 액션 : 요청, 성공, 실패 액션 내보내기
+export const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST';
+export const LOAD_MY_INFO_SUCCESS = 'LOAD_MY_INFO_SUCCESS';
+export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE';
+
 // 팔로워 불러오기 액션 : 요청, 성공, 실패 액션 내보내기
 export const LOAD_FOLLOWERS_REQUEST = 'LOAD_FOLLOWERS_REQUEST';
 export const LOAD_FOLLOWERS_SUCCESS = 'LOAD_FOLLOWERS_SUCCESS';
@@ -90,11 +96,6 @@ export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
-
-// 사용자 정보 불러오기 액션 : 요청, 성공, 실패 액션 내보내기
-export const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST';
-export const LOAD_MY_INFO_SUCCESS = 'LOAD_MY_INFO_SUCCESS';
-export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE';
 
 // 닉네임 변경 액션 : 요청, 성공, 실패 액션 내보내기
 export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
@@ -140,6 +141,25 @@ const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
 
+      /* ---------- 사용자 정보 불러오기 요청 리듀서 ---------- */
+      case LOAD_MY_INFO_REQUEST:
+        draft.loadMyInfoLoading = true;
+        draft.loadMyInfoError = null;
+        draft.loadMyInfoDone = false;
+        break;
+      /* ---------- 사용자 정보 불러오기 성공 리듀서 ---------- */
+      case LOAD_MY_INFO_SUCCESS:
+        draft.loadMyInfoLoading = false;
+        // 사용자 정보 불러오기 성공 시 실제 사용자 데이터, 사용자 정보가 없으면 Null
+        draft.me = action.data;
+        draft.loadMyInfoDone = true;
+        break;
+      /* ---------- 사용자 정보 불러오기 실패 리듀서 ---------- */
+      case LOAD_MY_INFO_FAILURE:
+        draft.loadMyInfoLoading = false;
+        draft.loadMyInfoError = action.error; // 사용자 정보 불러오기 실패 확인
+        break;
+      
       /* ---------- 팔로워 불러오기 요청 리듀서 ---------- */
       case LOAD_FOLLOWERS_REQUEST:
         draft.loadFollowersLoading = true;
@@ -234,27 +254,6 @@ const reducer = (state = initialState, action) => {
         draft.signUpLoading = false;
         draft.signUpError = action.error;  // 회원가입 실패 확인
         break;
-
-
-      /* ---------- 사용자 정보 불러오기 요청 리듀서 ---------- */
-      case LOAD_MY_INFO_REQUEST:
-        draft.loadMyInfoLoading = true;
-        draft.loadMyInfoError = null;
-        draft.loadMyInfoDone = false;
-        break;
-      /* ---------- 사용자 정보 불러오기 성공 리듀서 ---------- */
-      case LOAD_MY_INFO_SUCCESS:
-        draft.loadMyInfoLoading = false;
-        // 사용자 정보 불러오기 성공 시 실제 사용자 데이터, 사용자 정보가 없으면 Null
-        draft.me = action.data;
-        draft.loadMyInfoDone = true;
-        break;
-      /* ---------- 사용자 정보 불러오기 실패 리듀서 ---------- */
-      case LOAD_MY_INFO_FAILURE:
-        draft.loadMyInfoLoading = false;
-        draft.loadMyInfoError = action.error; // 사용자 정보 불러오기 실패 확인
-        break;
-
       
       /* ---------- 닉네임 변경 요청 리듀서 ---------- */
       case CHANGE_NICKNAME_REQUEST:

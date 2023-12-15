@@ -11,6 +11,11 @@ import axios from 'axios';
 // 사용자 액션 불러오기
 import {
 
+  /* ---------- 사용자 정보 불러오기 액션 : 요청, 성공, 실패 ---------- */
+  LOAD_MY_INFO_REQUEST,
+  LOAD_MY_INFO_SUCCESS,
+  LOAD_MY_INFO_FAILURE,
+
   /* ---------- 로그인 액션 : 요청, 성공, 실패 ---------- */
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -25,11 +30,6 @@ import {
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE,
-
-  /* ---------- 사용자 정보 불러오기 액션 : 요청, 성공, 실패 ---------- */
-  LOAD_MY_INFO_REQUEST,
-  LOAD_MY_INFO_SUCCESS,
-  LOAD_MY_INFO_FAILURE,
 
   /* ---------- 닉네임 변경 액션 : 요청, 성공, 실패 ---------- */
   CHANGE_NICKNAME_REQUEST,
@@ -48,6 +48,31 @@ import {
 
 } from '../reducers/user';
 
+
+
+// loadMyInfo 실행 시 서버에 loadMyInfoAPI 요청
+function loadMyInfoAPI() {
+  return axios.get('/user');
+}
+// LOG_IN_REQUEST 액션이 실행되면 loadMyInfo 함수 실행
+function* loadMyInfo(action) {
+  /* ---------- 요청 성공 시 LOAD_MY_INFO_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(loadMyInfoAPI, action.data);
+    yield put({
+      type: LOAD_MY_INFO_SUCCESS,
+      data: result.data,         // 성공 결과 : 서버로부터 사용자 정보를 받아옴
+    });
+
+  /* ---------- 요청 실패 시 LOAD_MY_INFO_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_MY_INFO_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
 
 
 // logIn 실행 시 서버에 logInAPI 요청
@@ -119,31 +144,6 @@ function* signUp(action) {
     console.error(err); 
     yield put({
       type: SIGN_UP_FAILURE,
-      error: err.response.data, // 실패 결과
-    });
-  }
-}
-
-
-// loadMyInfo 실행 시 서버에 loadMyInfoAPI 요청
-function loadMyInfoAPI() {
-  return axios.get('/user');
-}
-// LOG_IN_REQUEST 액션이 실행되면 loadMyInfo 함수 실행
-function* loadMyInfo(action) {
-  /* ---------- 요청 성공 시 LOAD_MY_INFO_SUCCESS 액션 디스패치 ---------- */
-  try {
-    const result = yield call(loadMyInfoAPI, action.data);
-    yield put({
-      type: LOAD_MY_INFO_SUCCESS,
-      data: result.data,         // 성공 결과 : 서버로부터 사용자 정보를 받아옴
-    });
-
-  /* ---------- 요청 실패 시 LOAD_MY_INFO_FAILURE 액션 디스패치 ---------- */
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: LOAD_MY_INFO_FAILURE,
       error: err.response.data, // 실패 결과
     });
   }
@@ -226,6 +226,12 @@ function* unfollow(action) {
 
 
 
+// 사용자 정보 불러오기 액션
+function* watchloadMyInfo() {
+  yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo);
+}
+
+
 // 로그인 액션
 function* watchLogin() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
@@ -241,12 +247,6 @@ function* watchLogOut() {
 // 회원가입 액션
 function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
-}
-
-
-// 사용자 정보 불러오기 액션
-function* watchloadMyInfo() {
-  yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo);
 }
 
 
@@ -273,10 +273,10 @@ function* watchUnFollow() {
 export default function* userSaga() {
   /* ---------- all 배열 안의 코드 동시 실행 ---------- */
   yield all([
+    fork(watchloadMyInfo),
     fork(watchLogin),
     fork(watchLogOut),
     fork(watchSignUp),
-    fork(watchloadMyInfo),
     fork(watchChangeNickname),
     fork(watchFollow),
     fork(watchUnFollow),
