@@ -226,6 +226,30 @@ router.delete('/:userId/follow', isLoggedIn, async (req, res, next) => { // DELE
 });
 
 
+// 팔로워 라우터
+router.get('/followers', isLoggedIn, async (req, res, next) => { // GET /user/followers
+  try {
+    // 나를 팔로우한 사람 불러오기
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+
+// 팔로잉 라우터
+router.get('/followings', isLoggedIn, async (req, res, next) => { // GET /user/followings
+  try {
+    // 내가 팔로잉한 사람 불러오기
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+
 
 // 라우터 내보내기
 module.exports = router;
