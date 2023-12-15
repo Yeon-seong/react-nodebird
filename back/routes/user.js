@@ -235,8 +235,8 @@ router.get('/followers', isLoggedIn, async (req, res, next) => { // GET /user/fo
     if (!user) {
       res.status(403).send('없는 사람을 찾으려고 하시네요?');
     }
-    /* 나의 팔로워 목록 가져오기 */
-    const followers = await user.getFollowers(req.user.id);
+    /* 사용자 팔로워 목록 가져오기 */
+    const followers = await user.getFollowers();
     /* 팔로워 목록을 프론트로 넘기기 */
     res.status(200).json(followers);
 
@@ -257,8 +257,8 @@ router.get('/followings', isLoggedIn, async (req, res, next) => { // GET /user/f
     if (!user) {
       res.status(403).send('없는 사람을 찾으려고 하시네요?');
     }
-    /* 나의 팔로잉 목록 가져오기 */
-    const followings = await user.getFollowings(req.user.id);
+    /* 사용자 팔로잉 목록 가져오기 */
+    const followings = await user.getFollowings();
     /* 팔로잉 목록을 프론트로 넘기기 */
     res.status(200).json(followings);
     
