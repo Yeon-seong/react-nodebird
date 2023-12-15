@@ -229,7 +229,17 @@ router.delete('/:userId/follow', isLoggedIn, async (req, res, next) => { // DELE
 // 팔로워 라우터
 router.get('/followers', isLoggedIn, async (req, res, next) => { // GET /user/followers
   try {
-    // 나를 팔로우한 사람 불러오기
+    /* 나를 찾는 함수 */
+    const user = await User.findOne({ where: { id: req.user.id }});
+    /* ---------- 만약 내가 없다면 400번대 에러 출력 ---------- */
+    if (!user) {
+      res.status(403).send('없는 사람을 찾으려고 하시네요?');
+    }
+    /* 나의 팔로워 목록 가져오기 */
+    const followers = await user.getFollowers(req.user.id);
+    /* 팔로워 목록을 프론트로 넘기기 */
+    res.status(200).json(followers);
+
   /* ---------- 에러 캐치 ---------- */
   } catch (error) {
     console.error(error);
