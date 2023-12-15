@@ -6,7 +6,7 @@
 import React, { useEffect } from 'react';
 
 // Redux 라이브러리 불러오기
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // 외부 컴포넌트 불러오기
 import Head from 'next/head';
@@ -18,11 +18,26 @@ import AppLayout from '../components/AppLayout';
 import NicknameEditForm from '../components/NicknameEditForm';
 import FollowList from '../components/FollowList';
 
+// 팔로워, 팔로잉 불러오기 요청 액션 생성함수 불러오기
+import { LOAD_FOLLOWERS_REQUEST, LOAD_FOLLOWINGS_REQUEST } from '../reducers/user';
+
 
 
 // 프로필 컴포넌트(사용자 정의 태그)
 const Profile = () => {
+  const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
+
+  
+  // 프로필 페이지로 가면 사용자의 팔로워, 팔로잉 불러오기 요청 디스패치
+  useEffect(() => {
+    dispatch({
+      type: LOAD_FOLLOWERS_REQUEST,
+    })
+    dispatch({
+      type: LOAD_FOLLOWINGS_REQUEST,
+    })
+  }, []);
 
 
   // 프로필 페이지에서 로그아웃한 상태일(me가 없을 때)때 메인 페이지로 이동
