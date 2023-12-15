@@ -16,6 +16,16 @@ import {
   LOAD_MY_INFO_SUCCESS,
   LOAD_MY_INFO_FAILURE,
 
+  /* ---------- 팔로워 불러오기 액션 : 요청, 성공, 실패 ---------- */
+  LOAD_FOLLOWERS_REQUEST,
+  LOAD_FOLLOWERS_SUCCESS,
+  LOAD_FOLLOWERS_FAILURE,
+
+  /* ---------- 팔로잉 불러오기 액션 : 요청, 성공, 실패 ---------- */
+  LOAD_FOLLOWINGS_REQUEST,
+  LOAD_FOLLOWINGS_SUCCESS,
+  LOAD_FOLLOWINGS_FAILURE,
+
   /* ---------- 로그인 액션 : 요청, 성공, 실패 ---------- */
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -54,7 +64,7 @@ import {
 function loadMyInfoAPI() {
   return axios.get('/user');
 }
-// LOG_IN_REQUEST 액션이 실행되면 loadMyInfo 함수 실행
+// LOAD_MY_INFO 액션이 실행되면 loadMyInfo 함수 실행
 function* loadMyInfo(action) {
   /* ---------- 요청 성공 시 LOAD_MY_INFO_SUCCESS 액션 디스패치 ---------- */
   try {
@@ -69,6 +79,56 @@ function* loadMyInfo(action) {
     console.error(err);
     yield put({
       type: LOAD_MY_INFO_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
+// loadFollowers 실행 시 서버에 loadFollowersAPI 요청
+function loadFollowersAPI(data) {
+  return axios.get('/user/followers', data);
+}
+// LOAD_FOLLOWERS 액션이 실행되면 loadFollowers 함수 실행
+function* loadFollowers(action) {
+  /* ---------- 요청 성공 시 LOAD_FOLLOWERS_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(loadFollowersAPI, action.data);
+    yield put({
+      type: LOAD_FOLLOWERS_SUCCESS,
+      data: result.data,         // 성공 결과
+    });
+
+  /* ---------- 요청 실패 시 LOAD_FOLLOWERS_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_FOLLOWERS_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
+// loadFollowings 실행 시 서버에 loadFollowingsAPI 요청
+function loadFollowingsAPI(data) {
+  return axios.get('/user/followings', data);
+}
+// LOAD_FOLLOWINGS 액션이 실행되면 loadFollowings 함수 실행
+function* loadFollowings(action) {
+  /* ---------- 요청 성공 시 LOAD_FOLLOWINGS_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(loadFollowingsAPI, action.data);
+    yield put({
+      type: LOAD_FOLLOWINGS_SUCCESS,
+      data: result.data,         // 성공 결과
+    });
+
+  /* ---------- 요청 실패 시 LOAD_FOLLOWINGS_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_FOLLOWINGS_FAILURE,
       error: err.response.data, // 실패 결과
     });
   }
@@ -154,7 +214,7 @@ function* signUp(action) {
 function changeNicknameAPI(data) {
   return axios.patch('/user/nickname', { nickname: data });
 }
-// LOG_IN_REQUEST 액션이 실행되면 changeNickname 함수 실행
+// CHANGE_NICKNAME_REQUEST 액션이 실행되면 changeNickname 함수 실행
 function* changeNickname(action) {
   /* ---------- 요청 성공 시 CHANGE_NICKNAME_SUCCESS 액션 디스패치 ---------- */
   try {
@@ -232,6 +292,18 @@ function* watchloadMyInfo() {
 }
 
 
+// 팔로워 불러오기 액션
+function* watchLoadFollowers() {
+  yield takeLatest(LOAD_FOLLOWERS_REQUEST, loadFollowers);
+}
+
+
+// 팔로잉 불러오기 액션
+function* watchLoadFollowings() {
+  yield takeLatest(LOAD_FOLLOWINGS_REQUEST, loadFollowings);
+}
+
+
 // 로그인 액션
 function* watchLogin() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
@@ -274,6 +346,8 @@ export default function* userSaga() {
   /* ---------- all 배열 안의 코드 동시 실행 ---------- */
   yield all([
     fork(watchloadMyInfo),
+    fork(watchLoadFollowers),
+    fork(watchLoadFollowings),
     fork(watchLogin),
     fork(watchLogOut),
     fork(watchSignUp),
