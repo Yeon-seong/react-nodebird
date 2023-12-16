@@ -226,6 +226,29 @@ router.delete('/:userId/follow', isLoggedIn, async (req, res, next) => { // DELE
 });
 
 
+// 팔로워 제거 라우터
+router.delete('/follower/:userId', isLoggedIn, async (req, res, next) => { // DELETE /user/follower/사용자 번호
+  try {
+    /* 사용자가 실재하는 사용자인지 찾는 함수 */
+    const user = await User.findOne({ where: { id: req.params.userId }});
+    
+    /* ---------- 만약 실재하는 사용자가 아니라면 400번대 에러 출력 ---------- */
+    if (!user) {
+      res.status(403).send('존재하지 않는 사용자는 차단할 수 없습니다.');
+    }
+    /* 내가 상대방을 차단(제거) */
+    await user.removeFollowings(req.user.id);
+    /* 제거한 상대방 아이디를 숫자로 바꿔 프론트로 넘기기 */
+    res.status(200).json({ UserId: parseInt(req.params.userId, 10) });
+
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+
 // 팔로워 라우터
 router.get('/followers', isLoggedIn, async (req, res, next) => { // GET /user/followers
   try {
