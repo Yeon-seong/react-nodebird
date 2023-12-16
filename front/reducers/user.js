@@ -55,6 +55,11 @@ export const initialState = {
   unfollowDone: false,
   unfollowError: null,
 
+  /* 팔로워 제거 시도 중, 완료, 에러 */
+  removeFollowerLoading: false,
+  removeFollowerDone: false,
+  removeFollowerError: null,
+
   /* 로그인한 사용자 정보 */
   me: null,
 
@@ -111,6 +116,11 @@ export const FOLLOW_FAILURE = 'FOLLOW_FAILURE';
 export const UNFOLLOW_REQUEST = 'UNFOLLOW_REQUEST';
 export const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS';
 export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
+
+// 팔로워 제거 액션 : 요청, 성공, 실패 액션 내보내기
+export const REMOVE_FOLLOWER_REQUEST = 'REMOVE_FOLLOWER_REQUEST';
+export const REMOVE_FOLLOWER_SUCCESS = 'REMOVE_FOLLOWER_SUCCESS';
+export const REMOVE_FOLLOWER_FAILURE = 'REMOVE_FOLLOWER_FAILURE';
 
 // 내가 작성한 게시글, 내 게시글 삭제 액션 내보내기
 export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
@@ -284,7 +294,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 팔로우 성공 리듀서 ---------- */
       case FOLLOW_SUCCESS:
         draft.followLoading = false;
-        // 내가 팔로잉한 사용자의 아이디(action.data.UserId)
+        // 내가 팔로잉한 사용자의 아이디 팔로우 하기
         draft.me.Followings.push({ id: action.data.UserId });
         draft.followDone = true;
         break;
@@ -303,7 +313,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 언팔로우 성공 리듀서 ---------- */
       case UNFOLLOW_SUCCESS:
         draft.unfollowLoading = false;
-        // 내가 팔로잉한 사용자의 아이디(action.data) 중에서 팔로우 끊기
+        // 내가 팔로잉한 사용자의 아이디 중에서 팔로우 끊기
         draft.me.Followings = draft.me.Followings.filter((v) => v.id !== action.data.UserId);
         draft.unfollowDone = true;
         break;
@@ -312,6 +322,25 @@ const reducer = (state = initialState, action) => {
         draft.unfollowLoading = false;
         draft.unfollowError = action.error; // 언팔로우 실패 확인
 
+      
+      /* ---------- 팔로워 제거 요청 리듀서 ---------- */
+      case REMOVE_FOLLOWER_REQUEST:
+        draft.removeFollowerLoading = true;
+        draft.removeFollowerError = null;
+        draft.removeFollowerDone = false;
+        break;
+      /* ---------- 팔로워 제거 성공 리듀서 ---------- */
+      case REMOVE_FOLLOWER_SUCCESS:
+        draft.removeFollowerLoading = false;
+        // 내가 팔로잉한 사용자의 아이디 중에서 팔로워 제거하기
+        draft.me.Followers = draft.me.Followers.filter((v) => v.id !== action.data.UserId);
+        draft.removeFollowerDone = true;
+        break;
+      /* ---------- 팔로워 제거 실패 리듀서 ---------- */
+      case REMOVE_FOLLOWER_FAILURE:
+        draft.removeFollowerLoading = false;
+        draft.removeFollowerError = action.error; // 팔로워 제거 실패 확인
+      
 
       /* ---------- 내가 작성한 게시글 리듀서 ---------- */
       case ADD_POST_TO_ME:
