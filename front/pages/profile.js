@@ -65,13 +65,13 @@ const Profile = () => {
         
         {/* ---------- 팔로잉 목록 ---------- */}
         <FollowList
-          header="팔로잉 목록"
+          header="팔로잉"
           data={me.Followings}
         />
 
         {/* ---------- 팔로워 목록 ---------- */}
         <FollowList
-          header="팔로워 목록"
+          header="팔로워"
           data={me.Followers}
         />
       </AppLayout>
