@@ -2,8 +2,11 @@
 
 
 
-// 리액트 불러오기
+// React 라이브러리 불러오기
 import React from 'react';
+
+// Redux 라이브러리 불러오기
+import { useDispatch } from 'react-redux';
 
 // 데이터 유효성 타입 검사
 import PropTypes from 'prop-types';
@@ -12,11 +15,30 @@ import PropTypes from 'prop-types';
 import { List, Button, Card } from 'antd';
 import { StopOutlined } from '@ant-design/icons';
 
+// 언팔로우 요청, 팔로워 제거 요청 액션 생성함수 불러오기
+import { UNFOLLOW_REQUEST, REMOVE_FOLLOWER_REQUEST } from '../reducers/user';
+
 
 
 // 팔로우 리스트 컴포넌트(사용자 정의 태그)
 const FollowList = ({ header, data }) => {
-  
+
+  // onCancel : item에 대한 데이터를 보내기 위한 고차함수 사용
+  const dispatch = useDispatch();
+  const onCancel = (id) => () => {  // id는 반복문에 대한 데이터
+    /* header가 팔로잉이면 언팔로우 요청, 팔로워면 팔로워 제거 요청 액션 디스패치 */
+    if (header === '팔로잉') {
+      dispatch({
+        type: UNFOLLOW_REQUEST,
+        data: id, // item.id
+      }); 
+    }
+    dispatch({
+      type: REMOVE_FOLLOWER_REQUEST,
+      data: id,   // item.id
+    }); 
+  };
+
   return (
     <List
       style={{ marginBottom: '20px' }}
@@ -38,9 +60,7 @@ const FollowList = ({ header, data }) => {
       dataSource={data}
       renderItem={(item) => {
         <List.Item style={{ marginTop: '20px' }}>
-          <Card actions={[
-            <StopOutlined key="stop" onClick={(item.id)} />
-          ]}>
+          <Card actions={[<StopOutlined key="stop" onClick={onCancel(item.id)} />]}>
             <Card.Meta description={item.nickname} />
           </Card>
         </List.Item>
