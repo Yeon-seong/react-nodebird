@@ -3,7 +3,7 @@
 
 
 // Saga 이펙트 불러오기
-import { all, fork, call, takeLatest, put, delay } from 'redux-saga/effects';
+import { all, fork, call, takeLatest, put } from 'redux-saga/effects';
 
 // Axios 라이브러리 불러오기
 import axios from 'axios';
@@ -173,8 +173,7 @@ function logOutAPI() {
 function* logOut() {
   /* ---------- 요청 성공 시 LOG_OUT_SUCCESS 액션 디스패치 ---------- */
   try {
-    // const result = yield call(logOutAPI);
-    yield delay(1000);
+    yield call(logOutAPI);
     yield put({
       type: LOG_OUT_SUCCESS,    // 성공 결과
     });
