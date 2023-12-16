@@ -54,7 +54,12 @@ import {
   /* ---------- 언팔로우 액션 : 요청, 성공, 실패 ---------- */
   UNFOLLOW_REQUEST,
   UNFOLLOW_SUCCESS,
-  UNFOLLOW_FAILURE
+  UNFOLLOW_FAILURE,
+
+  /* ---------- 팔로워 제거 액션 : 요청, 성공, 실패 ---------- */
+  REMOVE_FOLLOWER_REQUEST,
+  REMOVE_FOLLOWER_SUCCESS,
+  REMOVE_FOLLOWER_FAILURE
 
 } from '../reducers/user';
 
@@ -285,6 +290,31 @@ function* unfollow(action) {
 }
 
 
+// removeFollower 실행 시 서버에 removeFollowerAPI 요청
+function removeFollowerAPI(data) {
+  return axios.delete(`/user/follower/${data}`); // 사용자의 팔로워 data를 제거
+}
+// REMOVE_FOLLOWER_REQUEST 액션이 실행되면 removeFollower 함수 실행
+function* removeFollower(action) {
+  /* ---------- 요청 성공 시 REMOVE_FOLLOWER_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(removeFollowerAPI, action.data);
+    yield put({
+      type: REMOVE_FOLLOWER_SUCCESS,
+      data: result.data         // 성공 결과
+    });
+
+  /* ---------- 요청 실패 시 REMOVE_FOLLOWER_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: REMOVE_FOLLOWER_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
 
 // 사용자 정보 불러오기 액션
 function* watchloadMyInfo() {
@@ -340,6 +370,12 @@ function* watchUnFollow() {
 }
 
 
+// 팔로워 제거 액션
+function* watchRemoveFollower() {
+  yield takeLatest(REMOVE_FOLLOWER_REQUEST, removeFollower);
+}
+
+
 
 // 사용자 Saga 액션 등록
 export default function* userSaga() {
@@ -354,5 +390,6 @@ export default function* userSaga() {
     fork(watchChangeNickname),
     fork(watchFollow),
     fork(watchUnFollow),
+    fork(watchRemoveFollower),
   ]);
 }
