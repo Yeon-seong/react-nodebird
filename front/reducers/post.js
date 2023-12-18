@@ -47,6 +47,11 @@ export const initialState = {
   addCommentLoading: false,
   addCommentDone: false,
   addCommentError: null,
+
+  /* 이미지 업로드 시도 중, 완료, 에러 */
+  uploadImagesLoading: false,
+  uploadImagesDone: false,
+  uploadImagesError: null,
 };
 
 
@@ -80,6 +85,11 @@ export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+
+// 이미지 업로드 액션 : 요청, 성공, 실패 내보내기
+export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
+export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
+export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 
 
 
@@ -232,6 +242,26 @@ const reducer = (state = initialState, action) => {
       case ADD_COMMENT_FAILURE:
         draft.addCommentLoading = false;
         draft.addCommentError = action.error; // 답글 추가 실패 확인
+        break;
+
+
+      /* ---------- 이미지 업로드 요청 리듀서 ---------- */
+      case UPLOAD_IMAGES_REQUEST:
+        draft.uploadImagesLoading = true;
+        draft.uploadImagesDone = false;
+        draft.uploadImagesError = null;
+        break;
+      /* ---------- 이미지 업로드 성공 리듀서 ---------- */
+      case UPLOAD_IMAGES_SUCCESS:
+        // 이미지 업로드 라우터에서 보낸 파일명(filename) 데이터를 imagePaths에 저장
+        draft.imagePaths = action.data;
+        draft.uploadImagesLoading = false;
+        draft.uploadImagesDone = true;
+        break;
+      /* ---------- 이미지 업로드 실패 리듀서 ---------- */
+      case UPLOAD_IMAGES_FAILURE:
+        draft.uploadImagesLoading = false;
+        draft.uploadImagesError = action.error;  // 이미지 업로드 실패 확인
         break;
 
       default:
