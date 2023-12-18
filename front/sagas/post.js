@@ -39,7 +39,12 @@ import {
   /* ---------- 답글 추가 액션 : 요청, 성공, 실패 ---------- */
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_SUCCESS,
-  ADD_COMMENT_FAILURE
+  ADD_COMMENT_FAILURE,
+
+  /* ---------- 이미지 업로드 액션 : 요청, 성공, 실패 ---------- */
+  UPLOAD_IMAGES_REQUEST,
+  UPLOAD_IMAGES_SUCCESS,
+  UPLOAD_IMAGES_FAILURE,
 
 } from '../reducers/post';
 
@@ -212,6 +217,32 @@ function* addComment(action) {
 }
 
 
+// uploadImages 실행 시 서버에 uploadImagesAPI 요청
+function uploadImagesAPI(data) {
+  return axios.post(`/post/images`, data);
+}
+// UPLOAD_IMAGES_SUCCESS 액션이 실행되면 uploadImages 함수 실행
+function* uploadImages(action) {
+  /* ---------- 요청 성공 시 UPLOAD_IMAGES_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(uploadImagesAPI, action.data); // action.data = 이미지 폼 데이터
+    yield put({
+      type: UPLOAD_IMAGES_SUCCESS,
+      data: result.data,        // 성공 결과
+    });
+
+  /* ---------- 요청 실패 시 UPLOAD_IMAGES_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: UPLOAD_IMAGES_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
+
 // 게시글 불러오기 액션
 function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
@@ -242,6 +273,11 @@ function* watchAddComment() {
   yield takeLatest(ADD_COMMENT_REQUEST, addComment);
 }
 
+// 이미지 업로드 액션
+function* watchUploadImages() {
+  yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
+}
+
 
 
 // 루트 게시글 Saga 액션 등록
@@ -254,5 +290,6 @@ export default function* postSaga() {
     fork(watchLikePost),
     fork(watchUnlikePost),
     fork(watchAddComment),
+    fork(watchUploadImages),
   ]);
 }
