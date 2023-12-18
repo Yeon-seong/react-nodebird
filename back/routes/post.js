@@ -5,6 +5,12 @@
 // Express 모듈 호출
 const express = require('express');
 
+// Multer 모듈 호출
+const multer = require('multer');
+
+// Path 모듈 호출
+const path = require('path');
+
 // 게시글, 사용자, 이미지, 답글 모델 불러오기
 const { Post, User, Image, Comment } = require('../models');
 
@@ -62,9 +68,27 @@ router.post('/', isLoggedIn, async (req, res, next) => {  // POST /post
 });
 
 
+// 이미지 업로드 옵션
+const upload = multer({
+  /* 저장 위치 : 디스크 스토리지(컴퓨터 하드디스크)에 저장 */
+  storage: multer.diskStorage({
+    /* 저장 폴더 : uploads라는 폴더에 저장 */
+    destination(req, file, done) {
+      done(null, 'uploads');
+    },
+    /* ---------- 저장 파일이름 ---------- */
+    filename(req, file, done) { // 파일이름.png
+      const ext = path.extname(file.originalname); // 확장자 추출(.png)
+      const bassname = path.bassname(file.originalname, ext); // 파일이름
+      done(null, bassname + new Date().getTime + ext); // 파일이름+시간초+확장자
+    },
+  }),
+  /* ---------- 파일 업로드 크기 제한 ---------- */
+  limits: { fileSize: 20 * 1024 * 1024 } // 20MB(20메가바이트)로 제한
+});
 // 이미지 업로드 라우터
-router.post('/images' , isLoggedIn, async (req, res, next) => {  // POST /post/images
-   
+router.post('/images', async (req, res, next) => {  // POST /post/images
+  
 });
 
 
