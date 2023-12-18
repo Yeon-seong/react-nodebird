@@ -16,7 +16,7 @@ const router = express.Router();
 
 
 
-// 게시글 작성하기 라우터
+// 게시글 작성 라우터
 router.post('/', isLoggedIn, async (req, res, next) => {  // POST /post
   try {
     /* 게시글 기본 정보를 가져오는 함수 */
@@ -62,7 +62,13 @@ router.post('/', isLoggedIn, async (req, res, next) => {  // POST /post
 });
 
 
-// 답글 작성하기 라우터
+// 이미지 업로드 라우터
+router.post('/images' , isLoggedIn, async (req, res, next) => {  // POST /post/images
+   
+});
+
+
+// 답글 작성 라우터
 router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST /post/동적 히든/comment
   try {
     /* 존재하지 않는 게시글이 있는지 검사하는 함수 */
@@ -110,7 +116,7 @@ router.patch('/:postId/like', isLoggedIn, async (req, res, next) => { // PATCH /
   try {
     /* 게시글이 있는지 검사하는 함수 */
     const post = await Post.findOne({ where: { id: req.params.postId }});
-    /* 만약 게시글(post)이 없다면 403번 에러로 응답하기 */
+    /* 만약 게시글(post)이 없다면 403번 에러로 응답 */
     if (!post) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
     }
@@ -131,7 +137,7 @@ router.delete('/:postId/like', isLoggedIn, async (req, res, next) => { // DELETE
   try {
     /* 게시글이 있는지 검사하는 함수 */
     const post = await Post.findOne({ where: { id: req.params.postId }});
-    /* 만약 게시글(post)이 없다면 403번 에러로 응답하기 */
+    /* 만약 게시글(post)이 없다면 403번 에러로 응답 */
     if (!post) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
     }
@@ -147,7 +153,7 @@ router.delete('/:postId/like', isLoggedIn, async (req, res, next) => { // DELETE
 });
 
 
-// 게시글 삭제하기 라우터
+// 게시글 삭제 라우터
 router.delete('/:postId', isLoggedIn, async (req, res, next) => {  // DELETE /post/게시글 번호
   try {
     /* 게시글 아이디가 '나'이며, 내가 작성한 게시글만 삭제하는 함수 */
