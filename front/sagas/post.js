@@ -219,7 +219,7 @@ function* addComment(action) {
 
 // uploadImages 실행 시 서버에 uploadImagesAPI 요청
 function uploadImagesAPI(data) {
-  return axios.post(`/post/images`, data);
+  return axios.post(`/post/images`, data); // 폼 데이터는 그대로 data에 들어간다.
 }
 // UPLOAD_IMAGES_SUCCESS 액션이 실행되면 uploadImages 함수 실행
 function* uploadImages(action) {

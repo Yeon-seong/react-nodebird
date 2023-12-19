@@ -15,7 +15,7 @@ import { Form, Input, Button } from 'antd';
 import useInput from '../hooks/useInput';
 
 // 게시글 추가 요청 액션 생성함수 불러오기
-import { addPost } from '../reducers/post';
+import { UPLOAD_IMAGES_REQUEST, addPost } from '../reducers/post';
 
 
 
@@ -34,18 +34,38 @@ const PostForm = () => {
   }, [addPostDone]);
 
 
-  /* ---------- 게시글 폼 제출 시 게시글 카드 추가 ---------- */
+  /* ---------- 게시글 폼 제출 시 게시글 카드 추가 콜백 함수 ---------- */
   const onSubmitForm = useCallback(() => {
     dispatch(addPost(postText));
   }, [postText]);
 
 
-  /* ---------- 이미지 업로드 버튼 클릭 시 파일 업로드 창 띄우기 ---------- */
+  /* ---------- 이미지 업로드 버튼 클릭 시 파일 업로드 창 띄우기 콜백 함수 ---------- */
   const imageInput = useRef();
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
   }, [imageInput.current]);
   
+  
+  /* ---------- 이미지 업로드 정보 콜백 함수 ---------- */
+  const onChangeImages = useCallback((e) => {
+    // e.target.files : 사용자가 선택했던 이미지에 대한 정보
+    console.log("images", e.target.files);
+    // FormData : 선택했던 이미지 정보를 multipart 형식으로 서버로 보내기
+    const imageFormData = new FormData();
+    // [].forEach.call : 유사배열 e.target.files의 원소 가져오기
+    [].forEach.call(e.target.files, (f) => {
+      // 이미지 업로드 라우터의 'image'와 key 값이 일치해야 받아올 수 있다.
+      imageFormData.append('image', f); 
+    });
+    /* 이미지 업로드 요청 액션객체 디스패치 */
+    dispatch({
+      type: UPLOAD_IMAGES_REQUEST,
+      data: imageFormData,
+    });
+  });
+
+
 
   return (
     <Form
@@ -66,9 +86,11 @@ const PostForm = () => {
         {/* ---------- 파일 업로드 인풋 ---------- */}
         <input
           id="file-upload"
+          name="image"
           type="file"
           multiple hidden
           ref={imageInput}
+          onChange={onChangeImages} // 이미지 선택 확인을 누르면 해당 이벤트 실행
         />
 
         {/* ---------- 이미지 업로드 버튼 ---------- */}

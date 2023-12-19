@@ -86,9 +86,12 @@ const upload = multer({
   /* ---------- 파일 업로드 크기 제한 ---------- */
   limits: { fileSize: 20 * 1024 * 1024 } // 20MB(20메가바이트)로 제한
 });
-// 이미지 업로드 라우터
-router.post('/images', async (req, res, next) => {  // POST /post/images
-  
+// (여러 파일을 업로드하는) 이미지 업로드 라우터 : 이미지 업로드 후에 실행
+router.post('/images', upload.array('image'), async (req, res, next) => {  // POST /post/images
+  /* req files : 업로드한 이미지에 대한 정보 */
+  console.log(req.files);
+  /* 어디로 업로드 됐는지에 대한 파일명을 프론트로 보내기 */
+  res.json(req.files.map((v) => v.filename));
 });
 
 
