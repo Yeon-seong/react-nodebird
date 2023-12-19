@@ -20,12 +20,12 @@ import ImagesZoom from './ImagesZoom';
 const PostImages = ({ images }) => {
   const [showImagesZoom, setShowImagesZoom] = useState(false);
 
-  /* 이미지 클릭 시 onZoom이 실행되면 이미지 확대 보이기 */
+  /* 이미지 클릭 시 onZoom이 실행되면 이미지 확대 보이기 콜백 함수 */
   const onZoom = useCallback(() => {
     setShowImagesZoom(true);
   }, []);
 
-  /* 이미지 클릭 시 onClose이 실행되면 이미지 확대 */
+  /* 이미지 클릭 시 onClose이 실행되면 이미지 확대 콜백 함수 */
   const onClose = useCallback(() => {
     setShowImagesZoom(false);
   }, []);

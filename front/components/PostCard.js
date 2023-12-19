@@ -42,7 +42,7 @@ const PostCard = ({ post }) => {
   const [commentFormOpened, setCommentFormOpened] = useState(false);
 
 
-  /* ---------- 게시글 삭제 액션 객체 디스패치 ---------- */
+  /* ---------- 게시글 삭제 액션 객체 디스패치 콜백 함수 ---------- */
   const onRemovePost = useCallback(() => {
     dispatch({
       type: REMOVE_POST_REQUEST,
@@ -50,7 +50,7 @@ const PostCard = ({ post }) => {
     });
   }, []);
 
-  /* ---------- 게시글 좋아요 액션 객체 디스패치 ---------- */
+  /* ---------- 게시글 좋아요 액션 객체 디스패치 콜백 함수 ---------- */
   const onLike = useCallback(() => {
     dispatch({
       type: LIKE_POST_REQUEST,   // 게시글 좋아요 요청 액션
@@ -58,7 +58,7 @@ const PostCard = ({ post }) => {
     }); 
   }, []);
 
-  /* ---------- 게시글 좋아요 취소 액션 객체 디스패치 ---------- */
+  /* ---------- 게시글 좋아요 취소 액션 객체 디스패치 콜백 함수 ---------- */
   const onUnlike = useCallback(() => {
     dispatch({
       type: UNLIKE_POST_REQUEST, // 게시글 좋아요 취소 요청 액션
@@ -66,7 +66,7 @@ const PostCard = ({ post }) => {
     });
   }, []);
 
-  /* ---------- 답글 버튼 토글 ---------- */
+  /* ---------- 답글 버튼 토글 콜백 함수 ---------- */
   const onToggleComment = useCallback(() => {
     setCommentFormOpened((prev) => !prev);
   }, []);

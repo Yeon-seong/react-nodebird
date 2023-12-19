@@ -11,7 +11,7 @@ import { useState, useCallback } from 'react';
 export default function useInput(initialValue = null) {
   /* 컴포넌트 상태 저장 : React Hooks useState 사용 */
   const [value, setValue] = useState(initialValue);
-  /* 컴포넌트의 속성(props)으로 넘겨주는 값들은 useCallback 사용 */
+  /* 컴포넌트의 속성(props)으로 넘겨주는 값들은 콜백 함수(useCallback) 사용 */
   const handler = useCallback((e) => {
     setValue(e.target.value);
   }, []);

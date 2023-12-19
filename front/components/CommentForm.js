@@ -39,7 +39,7 @@ const CommentForm = ({ post }) => {
   }, [addCommentDone]);
 
 
-  /* ---------- 답글 폼 제출 시 답글 요청 액션 객체 디스패치 ---------- */
+  /* ---------- 답글 폼 제출 시 답글 요청 액션 객체 디스패치 콜백 함수 ---------- */
   const onSubmitComment = useCallback(() => {
     dispatch({
       type: ADD_COMMENT_REQUEST,

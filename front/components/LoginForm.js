@@ -48,7 +48,7 @@ const LoginForm = () => {
   }, [logInError]);
 
 
-  // 사용자 로그인
+  // 사용자 로그인 콜백 함수
   const onSubmitForm = useCallback(() => {
     console.log(email, password);
     dispatch(loginRequestAction({ email, password }));

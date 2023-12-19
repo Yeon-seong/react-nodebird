@@ -25,7 +25,7 @@ const NicknameEditForm = () => {
   const [nickname, onChangeNickname] = useInput(me?.nickname || '');
   const dispatch = useDispatch();
 
-  /* 닉네임 변경 폼 제출 시 닉네임 변경 요청 액션 객체 디스패치 */
+  /* 닉네임 변경 폼 제출 시 닉네임 변경 요청 액션 객체 디스패치 콜백 함수 */
   const onSubmit = useCallback(() => {
     dispatch({
       type: CHANGE_NICKNAME_REQUEST,
