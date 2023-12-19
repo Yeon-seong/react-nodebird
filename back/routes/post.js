@@ -11,6 +11,9 @@ const multer = require('multer');
 // Path 모듈 호출
 const path = require('path');
 
+// fs 모듈 호출
+const fs = require('fs');
+
 // 게시글, 사용자, 이미지, 답글 모델 불러오기
 const { Post, User, Image, Comment } = require('../models');
 
@@ -20,6 +23,15 @@ const { isLoggedIn } = require('./middlewares');
 // 라우팅 모듈 호출
 const router = express.Router();
 
+
+
+// uploads 폴더가 있는지 검사 및 생성
+try {
+  fs.accessSync('uploads');
+} catch (error) {
+  console.log('uploads 폴더가 없음으로 생성합니다.');
+  fs.mkdirSync('uploads');
+}
 
 
 // 게시글 작성 라우터
