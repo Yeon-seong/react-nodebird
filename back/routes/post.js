@@ -79,8 +79,8 @@ const upload = multer({
     /* ---------- 저장 파일이름 ---------- */
     filename(req, file, done) { // 파일이름.png
       const ext = path.extname(file.originalname); // 확장자 추출(.png)
-      const bassname = path.bassname(file.originalname, ext); // 파일이름
-      done(null, bassname + new Date().getTime + ext); // 파일이름+시간초+확장자
+      const basename = path.basename(file.originalname, ext); // 파일이름
+      done(null, basename + new Date().getTime + ext); // 파일이름+시간초+확장자
     },
   }),
   /* ---------- 파일 업로드 크기 제한 ---------- */
