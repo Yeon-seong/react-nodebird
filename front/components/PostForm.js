@@ -14,8 +14,19 @@ import { Form, Input, Button } from 'antd';
 // 커스텀 Hooks 불러오기
 import useInput from '../hooks/useInput';
 
-// 게시글 추가 요청 액션 생성함수 불러오기
-import { UPLOAD_IMAGES_REQUEST, addPost } from '../reducers/post';
+// 게시글 액션 불러오기
+import {
+
+  /* ---------- 게시글 추가 요청 액션 생성함수 ---------- */
+  addPost,
+  
+  /* ---------- 이미지 업로드 요청 액션 ---------- */
+  UPLOAD_IMAGES_REQUEST,
+
+  /* ---------- 이미지 제거 동기 액션 ---------- */
+  REMOVE_IMAGE,
+
+} from '../reducers/post';
 
 
 
@@ -66,6 +77,17 @@ const PostForm = () => {
   });
 
 
+  /* ---------- 이미지 제거 콜백 함수 ---------- */
+  // map 안에 index라는 데이터를 넣기 위해 콜백 함수를 고차함수로 만든다.
+  const onRemoveImage = useCallback((index) => () => {
+    // 이미지 제거 동기 액션객체 디스패치
+    dispatch({
+      type: REMOVE_IMAGE,
+      data: index,
+    });
+  });
+
+
 
   return (
     <Form
@@ -112,7 +134,7 @@ const PostForm = () => {
 
       <div>
         {/* ---------- 이미지 업로드 시 미리보기 ---------- */}
-        {imagePaths?.map((v) => {
+        {imagePaths?.map((v, i) => {
           <div key={v} style={{ display: 'inline-block' }}>
             {/* 이미지 미리보기 주소(경로) : 백엔드 서버 주소 */}
             <img src={`http://localhost:3065/${v}`}
@@ -120,7 +142,8 @@ const PostForm = () => {
               alt={v}
             />
             <div>
-              <Button>제거</Button>
+              {/* ---------- 이미지 제거 버튼 ---------- */}
+              <Button onClick={onRemoveImage(i)}>제거</Button>
             </div>
           </div>
         })}
