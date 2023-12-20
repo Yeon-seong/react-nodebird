@@ -89,10 +89,14 @@ const upload = multer({
       done(null, 'uploads');
     },
     /* ---------- 저장 파일이름 ---------- */
-    filename(req, file, done) { // 파일이름.png
-      const ext = path.extname(file.originalname); // 확장자 추출(.png)
-      const basename = path.basename(file.originalname, ext); // 파일이름
-      done(null, basename + new Date().getTime + ext); // 파일이름+시간초+확장자
+    // 파일이름.png
+    filename(req, file, done) {
+      // 확장자 추출(.png)
+      const ext = path.extname(file.originalname);
+      // 파일이름(basename)
+      const basename = path.basename(file.originalname, ext);
+      // 파일이름+'_'+날짜+확장자 : 이름_20230619.png
+      done(null, basename + '_' + new Date().getTime + ext);
     },
   }),
   /* ---------- 파일 업로드 크기 제한 ---------- */
