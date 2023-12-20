@@ -16,7 +16,7 @@ import styled from 'styled-components';
 // 내부 컴포넌트 불러오기
 import useInput from '../hooks/useInput';
 
-// 사용자 추가 요청 액션 생성함수 불러오기
+// 로그인 요청 액션 생성함수 불러오기
 import { loginRequestAction } from '../reducers/user';
 
 

@@ -15,8 +15,16 @@ import PropTypes from 'prop-types';
 import { List, Button, Card } from 'antd';
 import { StopOutlined } from '@ant-design/icons';
 
-// 언팔로우 요청, 팔로워 제거 요청 액션 생성함수 불러오기
-import { UNFOLLOW_REQUEST, REMOVE_FOLLOWER_REQUEST } from '../reducers/user';
+// 사용자 액션 불러오기
+import {
+  
+  /* ---------- 언팔로우 요청 액션 ---------- */
+  UNFOLLOW_REQUEST,
+
+  /* ---------- 팔로워 제거 요청 액션 ---------- */
+  REMOVE_FOLLOWER_REQUEST,
+
+} from '../reducers/user';
 
 
 

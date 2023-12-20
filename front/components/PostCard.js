@@ -27,10 +27,18 @@ import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
 import FollowButton from './FollowButton';
 
-// 게시글 삭제 요청, 게시글 좋아요, 게시글 좋아요 취소 액션 불러오기
+// 게시글 액션 불러오기
 import {
+
+  /* ---------- 게시글 삭제 요청 액션 ---------- */
   REMOVE_POST_REQUEST,
-  LIKE_POST_REQUEST, UNLIKE_POST_REQUEST 
+
+  /* ---------- 게시글 좋아요 요청 액션 ---------- */
+  LIKE_POST_REQUEST,
+
+  /* ---------- 게시글 좋아요 취소 요청 액션 ---------- */
+  UNLIKE_POST_REQUEST,
+
 } from '../reducers/post';
 
 

@@ -14,7 +14,7 @@ import { Form, Input } from 'antd';
 // 내부 컴포넌트 불러오기
 import useInput from '../hooks/useInput';
 
-// 닉네임 변경 요청 액션 생성함수 불러오기
+// 닉네임 변경 요청 액션 불러오기
 import { CHANGE_NICKNAME_REQUEST } from '../reducers/user';
 
 

@@ -18,8 +18,16 @@ import AppLayout from '../components/AppLayout';
 import NicknameEditForm from '../components/NicknameEditForm';
 import FollowList from '../components/FollowList';
 
-// 팔로워, 팔로잉 불러오기 요청 액션 생성함수 불러오기
-import { LOAD_FOLLOWERS_REQUEST, LOAD_FOLLOWINGS_REQUEST } from '../reducers/user';
+// 사용자 액션 불러오기
+import {
+  
+  /* ---------- 팔로워 불러오기 요청 액션 ---------- */
+  LOAD_FOLLOWERS_REQUEST,
+  
+  /* ---------- 팔로잉 불러오기 요청 액션 ---------- */
+  LOAD_FOLLOWINGS_REQUEST,
+
+} from '../reducers/user';
 
 
 

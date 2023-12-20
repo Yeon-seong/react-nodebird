@@ -14,8 +14,16 @@ import PropTypes from 'prop-types';
 // 외부 컴포넌트 불러오기
 import { Button } from 'antd';
 
-// 팔로우, 언팔로우 요청 액션 불러오기
-import { FOLLOW_REQUEST, UNFOLLOW_REQUEST } from '../reducers/user';
+// 사용자 액션 불러오기
+import {
+
+  /* ---------- 팔로우 요청 액션 ---------- */
+  FOLLOW_REQUEST,
+
+  /* ---------- 언팔로우 요청 액션 ---------- */
+  UNFOLLOW_REQUEST,
+
+} from '../reducers/user';
 
 
 
