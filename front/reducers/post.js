@@ -92,6 +92,9 @@ export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
 export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 
 
+// 이미지 제거 동기 액션 내보내기
+export const REMOVE_IMAGE = 'REMOVE_IMAGE';
+
 
 // 게시글 추가 요청 액션 생성함수(action creator) 내보내기
 export const addPost = (data) => ({
@@ -264,6 +267,13 @@ const reducer = (state = initialState, action) => {
         draft.uploadImagesError = action.error;  // 이미지 업로드 실패 확인
         break;
 
+      
+      /* ---------- 이미지 제거 리듀서 ---------- */
+      case REMOVE_IMAGE:
+        // 사용자가 제거를 눌렀던 이미지만 imagePaths(이미지 업로드 저장 경로)에서 제거되서 사라진다.
+        draft.imagePaths = draft.imagePaths.filter((v, i) => i== action.data);
+        break;
+      
       default:
         break;
     }
