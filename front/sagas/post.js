@@ -88,7 +88,7 @@ function* loadPosts(action) {
 
 // addPost 실행 시 서버에 addPostAPI 요청
 function addPostAPI(data) {
-  return axios.post('/post', { content: data });
+  return axios.post('/post', data); // formData는 바로 data에 넣어줘야 한다.
 }
 // ADD_POST_REQUEST 액션이 실행되면 addPost 함수 실행
 function* addPost(action) {

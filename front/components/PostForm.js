@@ -16,10 +16,10 @@ import useInput from '../hooks/useInput';
 
 // 게시글 액션 불러오기
 import {
-
-  /* ---------- 게시글 추가 요청 액션 생성함수 ---------- */
-  addPost,
   
+  /* ---------- 게시글 추가 요청 액션 ---------- */
+  ADD_POST_REQUEST,
+
   /* ---------- 이미지 업로드 요청 액션 ---------- */
   UPLOAD_IMAGES_REQUEST,
 
@@ -37,7 +37,7 @@ const PostForm = () => {
   const { imagePaths, addPostLoading, addPostDone } = useSelector((state) => state.post);
 
 
-  /* ---------- 게시글 추가 완료 시 게시글 폼 글자 지우기 ---------- */
+  // 게시글 추가 완료 시 게시글 폼 글자 지우기
   useEffect(() => {
     if (addPostDone) {
       setPostText('');
@@ -45,20 +45,34 @@ const PostForm = () => {
   }, [addPostDone]);
 
 
-  /* ---------- 게시글 폼 제출 시 게시글 카드 추가 콜백 함수 ---------- */
+  // 게시글 폼 제출 콜백 함수
   const onSubmitForm = useCallback(() => {
-    dispatch(addPost(postText));
-  }, [postText]);
+    /* 만약 게시글을 안 쓰면 alert 띄우기 */
+    if (!postText || !postText.trim()) {
+      return alert('게시글을 작성하세요.');
+    }
+    /* 폼 데이터 : 'upload.none' 미들웨어를 써보기 위한 연습 */
+    const formData = new FormData(); 
+    imagePaths.forEach((p) => {
+      formData.append('image', p);
+    });
+    formData.append('content', postText);
+    // 게시글 폼 제출 시 게시글 추가 요청 액션객체 디스패치
+    dispatch({
+      type: ADD_POST_REQUEST,
+      data: formData, // formData를 게시글 추가 요청 액션에 전달
+    });
+  }, [postText, imagePaths]);
 
 
-  /* ---------- 이미지 업로드 버튼 클릭 시 파일 업로드 창 띄우기 콜백 함수 ---------- */
+  // 이미지 업로드 버튼 클릭 시 파일 업로드 창 띄우기 콜백 함수
   const imageInput = useRef();
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
   }, [imageInput.current]);
   
   
-  /* ---------- 이미지 업로드 정보 콜백 함수 ---------- */
+  // 이미지 업로드 정보 콜백 함수
   const onChangeImages = useCallback((e) => {
     // e.target.files : 사용자가 선택했던 이미지에 대한 정보
     console.log("images", e.target.files);
@@ -77,7 +91,7 @@ const PostForm = () => {
   });
 
 
-  /* ---------- 이미지 제거 콜백 함수 ---------- */
+  // 이미지 제거 콜백 함수
   // map 안에 index라는 데이터를 넣기 위해 콜백 함수를 고차함수로 만든다.
   const onRemoveImage = useCallback((index) => () => {
     // 이미지 제거 동기 액션객체 디스패치

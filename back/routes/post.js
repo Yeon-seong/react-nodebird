@@ -35,7 +35,7 @@ try {
 
 
 // 게시글 작성 라우터
-router.post('/', isLoggedIn, async (req, res, next) => {  // POST /post
+router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {  // POST /post
   try {
     /* 게시글 기본 정보를 가져오는 함수 */
     const post = await Post.create({
