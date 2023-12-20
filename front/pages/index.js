@@ -29,12 +29,12 @@ const Home = () => {
 
 
   useEffect(() => {
-    /* 처음에 화면을 로딩하면 사용자 정보 불러오기 요청 액션 호출 */
+    /* 처음에 화면을 로딩하면 사용자 정보 불러오기 요청 액션 객체 디스패치 */
     dispatch({
       type: LOAD_MY_INFO_REQUEST,
     });
 
-    /* 처음에 화면을 로딩하면 게시글 불러오기 요청 액션 호출 */
+    /* 처음에 화면을 로딩하면 게시글 불러오기 요청 액션 객체 디스패치 */
     dispatch({
       type: LOAD_POSTS_REQUEST,
     });
@@ -50,9 +50,8 @@ const Home = () => {
         document.documentElement.scrollHeight
       );
       /* 전체 스크롤 길이에서 위로 300 픽셀만큼 올라간 것보다 스크롤을 더 내렸을 때 */
-      if (window.scrollY + document.documentElement.clientHeight
-      > document.documentElement.scrollHeight - 300) {
-        /* 로딩이 아닐 때만 게시글 불러오기 액션 디스패치 실행 
+      if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300) {
+        /* 로딩이 아닐 때만 게시글 불러오기 액션 객체 디스패치 실행 
            이미 게시글을 다 불러온 상태에서 게시글을 불러오는 중이면 액션 제한 */
         if (hasMorePosts && !loadPostsLoading) {
           dispatch({
@@ -61,13 +60,14 @@ const Home = () => {
         }
       }
     }
-    /* 스크롤 이벤트 리스너 */
+    /* ---------- 스크롤 이벤트 리스너 ---------- */
     window.addEventListener('scroll', onScroll);
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
   }, [hasMorePosts, loadPostsLoading]);
-  
+
+
 
   return (
     <AppLayout>

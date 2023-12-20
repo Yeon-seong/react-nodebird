@@ -37,11 +37,12 @@ const Profile = () => {
   const { me } = useSelector((state) => state.user);
 
   
-  // 프로필 페이지로 가면 사용자의 팔로워, 팔로잉 불러오기 요청 디스패치
   useEffect(() => {
+    // 프로필 페이지로 가면 사용자의 팔로워 불러오기 요청 액션 객체 디스패치
     dispatch({
       type: LOAD_FOLLOWERS_REQUEST,
     })
+    // 프로필 페이지로 가면 사용자의 팔로잉 불러오기 요청 액션 객체 디스패치
     dispatch({
       type: LOAD_FOLLOWINGS_REQUEST,
     })
@@ -59,6 +60,7 @@ const Profile = () => {
   if (!me) {
     return null;
   };
+
 
 
   return (

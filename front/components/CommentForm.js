@@ -31,7 +31,7 @@ const CommentForm = ({ post }) => {
   const [commentText, onChangeCommentText, setCommentText] = useInput('');
 
 
-  /* ---------- 답글 추가 완료 시 답글 폼 글자 지우기 ---------- */
+  // 답글 추가 완료 시 답글 폼 글자 지우기
   useEffect(() => {
     if (addCommentDone) {
       setCommentText('');
@@ -39,13 +39,15 @@ const CommentForm = ({ post }) => {
   }, [addCommentDone]);
 
 
-  /* ---------- 답글 폼 제출 시 답글 요청 액션 객체 디스패치 콜백 함수 ---------- */
+  // 답글 폼 제출 콜백 함수
   const onSubmitComment = useCallback(() => {
+    // 답글 폼 제출 시 답글 추가 요청 액션 객체 디스패치
     dispatch({
       type: ADD_COMMENT_REQUEST,
       data: { content: commentText, postId: post.id, userId: id },
     });
   }, [commentText, id]);
+
 
 
   return (

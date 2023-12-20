@@ -50,41 +50,48 @@ const PostCard = ({ post }) => {
   const [commentFormOpened, setCommentFormOpened] = useState(false);
 
 
-  /* ---------- 게시글 삭제 액션 객체 디스패치 콜백 함수 ---------- */
+  // 게시글 삭제 콜백 함수
   const onRemovePost = useCallback(() => {
+    /* 게시글 삭제 시 게시글 삭제 요청 액션 객체 디스패치 */
     dispatch({
       type: REMOVE_POST_REQUEST,
       data: post.id,
     });
   }, []);
 
-  /* ---------- 게시글 좋아요 액션 객체 디스패치 콜백 함수 ---------- */
+
+  // 게시글 좋아요 콜백 함수
   const onLike = useCallback(() => {
+    /* 게시글 좋아요 시 게시글 좋아요 요청 액션 객체 디스패치 */
     dispatch({
       type: LIKE_POST_REQUEST,   // 게시글 좋아요 요청 액션
       data: post.id,             // 게시글 아이디
     }); 
   }, []);
 
-  /* ---------- 게시글 좋아요 취소 액션 객체 디스패치 콜백 함수 ---------- */
+
+  // 게시글 좋아요 취소 콜백 함수
   const onUnlike = useCallback(() => {
+    /* 게시글 좋아요 취소 액션 객체 디스패치 */
     dispatch({
       type: UNLIKE_POST_REQUEST, // 게시글 좋아요 취소 요청 액션
       data: post.id,             // 게시글 아이디
     });
   }, []);
 
-  /* ---------- 답글 버튼 토글 콜백 함수 ---------- */
+
+  // 답글 버튼 토글 콜백 함수
   const onToggleComment = useCallback(() => {
     setCommentFormOpened((prev) => !prev);
   }, []);
-  
 
-  /* 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용 */
+
+  // 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용
   const id = useSelector((state) => state.user.me?.id);
 
-  /* 게시글 좋아요 누른 사람 중에 내(id)가 있는지 찾기 */
+  // 게시글 좋아요 누른 사람 중에 내(id)가 있는지 찾기
   const liked = post.Likers.find((v) => v.id === id);
+
 
 
   return (

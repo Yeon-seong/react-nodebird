@@ -43,13 +43,13 @@ const FollowButton = ({ post }) => {
 
   // 팔로우, 언팔로우 버튼 : 액션 실행 시 게시글 작성자 아이디 정보 보내기 콜백 함수
   const onClickButton = useCallback(() => {
-    /* 내가 팔로우 하고 있을 때, 버튼을 누르면 언팔로우 요청 액션 */
+    /* 내가 팔로우 하고 있을 때, 버튼을 누르면 언팔로우 요청 액션 객체 디스패치 */
     if (isFollowing) {
       dispatch({
         type: UNFOLLOW_REQUEST,
         data: post.User.id,
       });
-    /* 내가 팔로우 안하고 있을 때, 버튼을 누르면 팔로우 요청 액션 */
+    /* 내가 팔로우 안하고 있을 때, 버튼을 누르면 팔로우 요청 액션 객체 디스패치 */
     } else {
       dispatch({
         type: FOLLOW_REQUEST,
@@ -63,6 +63,7 @@ const FollowButton = ({ post }) => {
   if (post.User.id === me.id) {
     return null;
   };
+
 
 
   // (?) 내가 이미 팔로우 했다면 언팔로우, (:) 팔로우 안했다면 팔로우

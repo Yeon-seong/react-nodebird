@@ -12,9 +12,15 @@ import Slick from 'react-slick';
 import PropTypes from 'prop-types';
 
 // 내부 스타일 컴포넌트 불러오기
-import { Overlay, Global, Header, CloseButton,
-         SlickWrapper, ImgWrapper, Indicator }
-         from './styles'
+import {
+  Overlay,
+  Global,
+  Header,
+  CloseButton,
+  SlickWrapper,
+  ImgWrapper,
+  Indicator
+} from './styles'
 
 
 
@@ -22,6 +28,8 @@ import { Overlay, Global, Header, CloseButton,
 const ImagesZoom = ({ images, onClose }) => {
   /* ---------- 현재 슬라이드 상태 저장 ---------- */
   const [currentSlide, setCurrentSlide] = useState(0);
+
+
 
   return (
     <Overlay>

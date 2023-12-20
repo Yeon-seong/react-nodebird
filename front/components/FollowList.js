@@ -34,18 +34,21 @@ const FollowList = ({ header, data }) => {
   // onCancel : item에 대한 데이터를 보내기 위한 고차함수 사용
   const dispatch = useDispatch();
   const onCancel = (id) => () => {  // id는 반복문에 대한 데이터
-    /* header가 팔로잉이면 언팔로우 요청, 팔로워면 팔로워 제거 요청 액션 디스패치 */
+    /* header가 팔로잉이면 언팔로우 요청 액션 객체 디스패치 */
     if (header === '팔로잉') {
       dispatch({
         type: UNFOLLOW_REQUEST,
         data: id, // item.id
       }); 
     }
+    /* header가 팔로워면 팔로워 제거 요청 액션 객체 디스패치 */
     dispatch({
       type: REMOVE_FOLLOWER_REQUEST,
       data: id,   // item.id
     }); 
   };
+
+
 
   return (
     <List

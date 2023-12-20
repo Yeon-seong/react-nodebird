@@ -51,7 +51,9 @@ const AppLayout = ({ children }) => {
 	
 	/* useSelector로 중앙 데이터 저장소 user 데이터의 로그인 한 사용자 정보 받아오기  */
 	const { me } = useSelector((state) => state.user);
-	
+
+
+
   return (
     <div>
 			<Global />

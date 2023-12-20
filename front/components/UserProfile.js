@@ -22,10 +22,11 @@ const UserProfile = () => {
   const { me, logOutLoading } = useSelector((state) => state.user);
 
 
-  /* ---------- 더미데이터 로그아웃 콜백 함수 ---------- */
+  // 더미데이터 로그아웃 콜백 함수
   const onLogOut = useCallback(() => {
     dispatch(logoutRequestAction());
   }, []);
+
 
 
   return (

@@ -20,15 +20,19 @@ import ImagesZoom from './ImagesZoom';
 const PostImages = ({ images }) => {
   const [showImagesZoom, setShowImagesZoom] = useState(false);
 
-  /* 이미지 클릭 시 onZoom이 실행되면 이미지 확대 보이기 콜백 함수 */
+
+  // 이미지 클릭 시 onZoom이 실행되면 이미지 확대 보이기 콜백 함수
   const onZoom = useCallback(() => {
     setShowImagesZoom(true);
   }, []);
 
-  /* 이미지 클릭 시 onClose이 실행되면 이미지 확대 콜백 함수 */
+
+  // 이미지 클릭 시 onClose이 실행되면 이미지 확대 콜백 함수
   const onClose = useCallback(() => {
     setShowImagesZoom(false);
   }, []);
+
+
 
   /* ---------- 이미지가 1개라면 화면 100% 차지 ---------- */
   if (images.length === 1) {
@@ -48,7 +52,8 @@ const PostImages = ({ images }) => {
       </>
     );
   };
-  
+
+
   /* ---------- 이미지가 2개라면 화면 50% 차지 ---------- */
   if (images.length === 2) {
     return (
@@ -71,7 +76,8 @@ const PostImages = ({ images }) => {
       </>
     );
   };
-  
+
+
   /* ---------- 이미지가 3개 이상이라면 첫 번째 이미지와 더보기 버튼 ---------- */
   if (images.length >= 3) {
     return (
@@ -106,6 +112,8 @@ const PostImages = ({ images }) => {
       </>
     );
   };
+
+
 
   return (
     <div>이미지 구현중...</div>

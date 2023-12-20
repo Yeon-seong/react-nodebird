@@ -85,26 +85,27 @@ const Signup = () => {
   }, []);
 
 
-  /* 제출 시 체크 콜백 함수 */
+  // 회원가입 제출 시 체크 콜백 함수
   const onSubmit = useCallback(() => {
 
-    // 만약에 비밀번호랑 비밀번호 체크랑 같지 않으면 에러 표시
+    /* 만약에 비밀번호랑 비밀번호 체크랑 같지 않으면 에러 표시 */
     if (password !== passwordCheck) {
       return setPasswordError(true);
     };
 
-    // 만약에 약관 동의에 체크하지 않으면 에러 표시
+    /* 만약에 약관 동의에 체크하지 않으면 에러 표시 */
     if (!term) {
       return setTermError(true);
     };
     console.log(email, nickname, password, term);
     
-    // 가입하기 완료 시 회원가입 요청 액션 객체 디스패치
+    /* 가입하기 완료 시 회원가입 요청 액션 객체 디스패치 */
     dispatch({
       type: SIGN_UP_REQUEST,
       data: { email, password, nickname },
     });
   }, [email, password, passwordCheck, term]);
+
 
 
   return (
