@@ -34,6 +34,30 @@ try {
 }
 
 
+// 파일 업로드 옵션
+const upload = multer({
+  /* 저장 위치 : 디스크 스토리지(컴퓨터 하드디스크)에 저장 */
+  storage: multer.diskStorage({
+    /* 저장 폴더 : uploads라는 폴더에 저장 */
+    destination(req, file, done) {
+      done(null, 'uploads');
+    },
+    /* ---------- 저장 파일이름 ---------- */
+    // 파일이름.png
+    filename(req, file, done) {
+      // 확장자 추출(.png)
+      const ext = path.extname(file.originalname);
+      // 파일이름(basename)
+      const basename = path.basename(file.originalname, ext);
+      // 파일이름+'_'+날짜+확장자 : 이름_20230619.png
+      done(null, basename + '_' + new Date().getTime + ext);
+    },
+  }),
+  /* ---------- 파일 업로드 크기 제한 ---------- */
+  limits: { fileSize: 20 * 1024 * 1024 } // 20MB(20메가바이트)로 제한
+});
+
+
 // 게시글 작성 라우터
 router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {  // POST /post
   try {
@@ -80,28 +104,6 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {  // POST
 });
 
 
-// 이미지 업로드 옵션
-const upload = multer({
-  /* 저장 위치 : 디스크 스토리지(컴퓨터 하드디스크)에 저장 */
-  storage: multer.diskStorage({
-    /* 저장 폴더 : uploads라는 폴더에 저장 */
-    destination(req, file, done) {
-      done(null, 'uploads');
-    },
-    /* ---------- 저장 파일이름 ---------- */
-    // 파일이름.png
-    filename(req, file, done) {
-      // 확장자 추출(.png)
-      const ext = path.extname(file.originalname);
-      // 파일이름(basename)
-      const basename = path.basename(file.originalname, ext);
-      // 파일이름+'_'+날짜+확장자 : 이름_20230619.png
-      done(null, basename + '_' + new Date().getTime + ext);
-    },
-  }),
-  /* ---------- 파일 업로드 크기 제한 ---------- */
-  limits: { fileSize: 20 * 1024 * 1024 } // 20MB(20메가바이트)로 제한
-});
 // (여러 파일을 업로드하는) 이미지 업로드 라우터 : 이미지 업로드 후에 실행
 router.post('/images', upload.array('image'), async (req, res, next) => {  // POST /post/images
   /* req files : 업로드한 이미지에 대한 정보 */
