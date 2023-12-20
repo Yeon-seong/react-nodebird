@@ -114,7 +114,11 @@ const PostForm = () => {
         {/* ---------- 이미지 업로드 시 미리보기 ---------- */}
         {imagePaths?.map((v) => {
           <div key={v} style={{ display: 'inline-block' }}>
-            <img src={v} style={{ width: '200px' }} alt={v} />
+            {/* 이미지 미리보기 주소(경로) : 백엔드 서버 주소 */}
+            <img src={`http://localhost:3065/${v}`}
+              style={{ width: '200px' }}
+              alt={v}
+            />
             <div>
               <Button>제거</Button>
             </div>

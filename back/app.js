@@ -23,6 +23,9 @@ const dotenv = require('dotenv');
 // Morgan 미들웨어 호출
 const morgan = require('morgan');
 
+// Path 모듈 호출
+const path = require('path');
+
 
 
 // 분리한 router 불러오기
@@ -64,7 +67,10 @@ app.use(cors({
   origin: true,       // 요청을 보낸 주소의 요청만 허용
   credentials: true,  // 사용자 인증이 필요한 쿠키 전달 허용
 }));
+
 // 프론트에서 백엔드로 데이터 보내기
+/* uploads 폴더를 프론트에 제공하기 위한 이미지 경로 보내기 */
+app.use('/', express.static(path.join(__dirname, 'uploads')));
 /* 프론트에서 보낸 json 형식의 데이터를 req.body 안에 넣어줌 */
 app.use(express.json());
 /* 폼 제출 시 프론트에서 URL encoded 방식으로 넘어온 데이터를 req.body 안에 넣어줌 */
