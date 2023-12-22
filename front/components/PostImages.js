@@ -8,7 +8,7 @@ import React, { useCallback, useState } from 'react';
 // 데이터 유효성 타입 검사
 import PropTypes from 'prop-types';
 
-// 외부 컴포넌트 불러오기
+// Ant Design 아이콘 불러오기
 import { PlusOutlined } from '@ant-design/icons';
 
 // 내부 컴포넌트 불러오기
@@ -41,10 +41,9 @@ const PostImages = ({ images }) => {
         <img
           role="presentation"
           /* 최대 높이 */
-          style={{
-            maxHeight: '300px'
-          }}
-          src={images[0].src}
+          style={{ maxHeight: '300px' }}
+          /* 게시글 이미지 주소 : 백엔드 서버 주소 */
+          src={`http://localhost:3065/${images[0].src}`}
           alt={images[0].src}
           onClick={onZoom}
         />
@@ -61,14 +60,16 @@ const PostImages = ({ images }) => {
         <img
           role="presentation"
           style={{ width: '50%', display: 'inline-block' }}
-          src={images[0].src}
+          /* 게시글 이미지 주소 : 백엔드 서버 주소 */
+          src={`http://localhost:3065/${images[0].src}`}
           alt={images[0].src}
           onClick={onZoom}
         />
         <img
           role="presentation"
           style={{ width: '50%', display: 'inline-block' }}
-          src={images[1].src}
+          /* 게시글 이미지 주소 : 백엔드 서버 주소 */
+          src={`http://localhost:3065/${images[1].src}`}
           alt={images[1].src}
           onClick={onZoom}
         />
@@ -87,7 +88,8 @@ const PostImages = ({ images }) => {
           <img
             role="presentation"
             style={{ width: '50%' }}
-            src={images[0].src}
+            /* 게시글 이미지 주소 : 백엔드 서버 주소 */
+            src={`http://localhost:3065/${images[0].src}`}
             alt={images[0].src}
             onClick={onZoom}
           />
