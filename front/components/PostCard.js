@@ -12,14 +12,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // 외부 컴포넌트 불러오기
-import {
-  Card, Popover, Space, Button, Avatar, List, Comment
-} from 'antd';
+import { Card, Popover, Space, Button, Avatar, List, Comment } from 'antd';
 
+// Ant Design 아이콘 불러오기
 import {
-  RetweetOutlined, HeartOutlined, HeartTwoTone,
-  MessageOutlined, EllipsisOutlined }
-from '@ant-design/icons';
+  RetweetOutlined,
+  HeartOutlined,
+  HeartTwoTone,
+  MessageOutlined,
+  EllipsisOutlined
+} from '@ant-design/icons';
          
 // 내부 컴포넌트 불러오기
 import PostImages from './PostImages';

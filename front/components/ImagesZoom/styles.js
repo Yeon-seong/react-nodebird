@@ -4,6 +4,8 @@
 
 // 외부 컴포넌트 불러오기
 import styled, { createGlobalStyle } from 'styled-components';
+
+// Ant Design 아이콘 불러오기
 import { CloseOutlined } from '@ant-design/icons';
 
 

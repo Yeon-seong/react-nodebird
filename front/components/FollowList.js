@@ -13,6 +13,8 @@ import PropTypes from 'prop-types';
 
 // 외부 컴포넌트 불러오기
 import { List, Button, Card } from 'antd';
+
+// Ant Design 아이콘 불러오기
 import { StopOutlined } from '@ant-design/icons';
 
 // 사용자 액션 불러오기
