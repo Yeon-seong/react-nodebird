@@ -60,7 +60,11 @@ const ImagesZoom = ({ images, onClose }) => {
             {/* ---------- 이미지 캐러셀 ---------- */}
             {images.map((v) => (
               <ImgWrapper key={v.src}>
-                <img src={v.src} alt={v.src} />
+                {/* 이미지 캐러셀 주소 : 백엔드 서버 주소 */}
+                <img
+                  src={`http://localhost:3065/${v.src}`}
+                  alt={v.src}
+                />
               </ImgWrapper>
             ))}
           </Slick>
