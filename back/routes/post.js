@@ -61,12 +61,31 @@ const upload = multer({
 // 게시글 작성 라우터
 router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {  // POST /post
   try {
-    /* 게시글 기본 정보를 가져오는 함수 */
+    /* ---------- 게시글 기본 정보를 가져오는 함수 ---------- */
     const post = await Post.create({
       content: req.body.content,  // addPost saga의 content: data
       UserId: req.user.id,        // passport.deserializeUser로 사용자 정보 전달
     });
-    /* 게시글 모든 정보를 가져오는 함수 */
+    
+    /* ---------- 게시글에 이미지를 올릴 때 이미지 개수에 따른 설정 ---------- */
+    if (req.body.image) {
+      // 이미지를 여러 개 올린 경우 req.body.image가 배열로 올라간다.
+      // => image: [파일이름1.png, 파일이름2.png]
+      if (Array.isArray(req.body.image)) {
+        // 이미지 주소 배열을 시퀄라이즈(DB)에 넣어 저장(파일 자체 저장x)
+        const images = await Promise.all(req.body.image.map((image) =>
+        Image.create({ src: image }))); // promise의 배열
+        await post.addImages(images);   // 게시글 생성 시 이미지들이 알아서 추가된다.
+
+      // 이미지를 하나만 올린 경우 req.body.image가 주소로 나온다.
+      // => image: 파일이름1.png
+      } else {
+        const image = await Image.create({ src: req.body.image });
+        await post.addImages(image);    // 게시글 생성 시 이미지가 알아서 추가된다.
+      }
+    }
+
+    /* ---------- 게시글 모든 정보를 가져오는 함수 ---------- */
     const fullPost = await Post.findOne({
       where: { id: post.id },
       // 모델 가져오기

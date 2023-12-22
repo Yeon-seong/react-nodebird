@@ -54,11 +54,13 @@ const PostForm = () => {
     /* 폼 데이터 : 'upload.none' 미들웨어를 써보기 위한 연습 */
     const formData = new FormData(); 
     imagePaths.forEach((p) => {
+      // key인 'image'는 백엔드로 데이터 전달 시 req.body.image가 된다.
       formData.append('image', p);
     });
+    // key인 'content'는 백엔드로 데이터 전달 시 req.body.content가 된다.
     formData.append('content', postText);
     // 게시글 폼 제출 시 게시글 추가 요청 액션객체 디스패치
-    dispatch({
+    return dispatch({
       type: ADD_POST_REQUEST,
       data: formData, // formData를 게시글 추가 요청 액션에 전달
     });
