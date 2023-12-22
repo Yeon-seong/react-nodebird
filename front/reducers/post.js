@@ -152,6 +152,7 @@ const reducer = (state = initialState, action) => {
         draft.addPostLoading = false;
         draft.addPostDone = true;
         draft.mainPosts.unshift(action.data); // 실제 게시글 데이터
+        draft.imagePaths = []; // imagePaths 초기화
         break;
       /* ---------- 게시글 추가 실패 리듀서 ---------- */
       case ADD_POST_FAILURE:
