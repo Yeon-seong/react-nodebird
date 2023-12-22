@@ -15,7 +15,7 @@ const path = require('path');
 const fs = require('fs');
 
 // 게시글, 사용자, 이미지, 답글 모델 불러오기
-const { Post, User, Image, Comment } = require('../models');
+const { Post, User, Image, Comment, Hashtag } = require('../models');
 
 // 로그인 유무를 검사하는 커스텀 미들웨어 불러오기
 const { isLoggedIn } = require('./middlewares');
@@ -61,13 +61,30 @@ const upload = multer({
 // 게시글 작성 라우터
 router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {  // POST /post
   try {
+    /* ---------- req.body.content에서 해시태그 꺼내오기 ---------- */
+    const hashtags = req.body.content.match(/#[^\s#]+/g);
+
     /* ---------- 게시글 기본 정보를 가져오는 함수 ---------- */
     const post = await Post.create({
       content: req.body.content,  // addPost saga의 content: data
       UserId: req.user.id,        // passport.deserializeUser로 사용자 정보 전달
     });
+
+    /* 해시태그 등록하기
+       해시태그가 없을 때만 DB에 새로 등록되고, 있을 때는 DB에서 해시태그 가져오기 */
+    if (hashtags) {
+      const result = await Promise.all(hashtags.map((tag) => 
+        Hashtag.findOrCreate({ // 해시태그 중복 방지를 위해 create 대신 findOrCreate 사용
+          where: { name: tag.slice(1).toLowerCase() }
+        })
+      ));
+      // result 결과 모양 : [[노드, true], [리액트, true]]
+      // 배열에서 첫 번째 자리인 '노드', '리액트'만 가져오기
+      await post.addHashtags(result.map((v) => v[0]));
+    }
     
-    /* ---------- 게시글에 이미지를 올릴 때 이미지 개수에 따른 설정 ---------- */
+    /* 이미지 등록하기
+       게시글에 이미지를 올릴 때 이미지 개수에 따른 이미지 주소 설정 */
     if (req.body.image) {
       // 이미지를 여러 개 올린 경우 req.body.image가 배열로 올라간다.
       // => image: [파일이름1.png, 파일이름2.png]
