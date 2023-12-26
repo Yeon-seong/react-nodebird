@@ -192,6 +192,31 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // POST 
 });
 
 
+// 리트윗 라우터
+router.post('/:postId/retweet', isLoggedIn, async (req, res, next) => { // POST /post/동적 히든/retweet
+  try {
+    /* 존재하지 않는 게시글이 있는지 검사하는 함수 */
+    const post = await Post.findOne({
+      where: { id: req.params.postId },
+      // 모델 가져오기
+      include: [{
+        model: Post,
+        as: 'Retweet'
+      }],
+    });
+    /* ---------- 만약 존재하지 않는 게시글이 있다면 400번대 에러 출력 ---------- */
+    if (!post) {
+      return res.status(403).send('존재하지 않는 게시글입니다.');
+    };
+
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+
 // 게시글 좋아요 라우터
 router.patch('/:postId/like', isLoggedIn, async (req, res, next) => { // PATCH /post/게시글 번호/like
   try {
