@@ -48,6 +48,11 @@ export const initialState = {
   addCommentDone: false,
   addCommentError: null,
 
+  /* 리트윗 시도 중, 완료, 에러 */
+  retweetLoading: false,
+  retweetDone: false,
+  retweetError: null,
+  
   /* 이미지 업로드 시도 중, 완료, 에러 */
   uploadImagesLoading: false,
   uploadImagesDone: false,
@@ -85,6 +90,11 @@ export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+
+// 리트윗 액션 : 요청, 성공, 실패 내보내기
+export const RETWEET_REQUEST = 'RETWEET_REQUEST';
+export const RETWEET_SUCCESS = 'RETWEET_SUCCESS';
+export const RETWEET_FAILURE = 'RETWEET_FAILURE';
 
 // 이미지 업로드 액션 : 요청, 성공, 실패 내보내기
 export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
@@ -246,6 +256,24 @@ const reducer = (state = initialState, action) => {
       case ADD_COMMENT_FAILURE:
         draft.addCommentLoading = false;
         draft.addCommentError = action.error; // 답글 추가 실패 확인
+        break;
+
+
+      /* ---------- 리트윗 요청 리듀서 ---------- */
+      case RETWEET_REQUEST:
+        draft.retweetLoading = true;
+        draft.retweetDone = false;
+        draft.retweetError = null;
+        break;
+      /* ---------- 리트윗 성공 리듀서 ---------- */
+      case RETWEET_SUCCESS:
+        draft.retweetLoading = false;
+        draft.retweetDone = true;
+        break;
+      /* ---------- 리트윗 실패 리듀서 ---------- */
+      case RETWEET_FAILURE:
+        draft.retweetLoading = false;
+        draft.retweetError = action.error; // 리트윗 실패 확인
         break;
 
 
