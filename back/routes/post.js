@@ -201,13 +201,17 @@ router.post('/:postId/retweet', isLoggedIn, async (req, res, next) => { // POST 
       // 모델 가져오기
       include: [{
         model: Post,
-        as: 'Retweet'
+        as: 'Retweet' // as: 'Retweet'으로 include를 해주면 post.retweet이 생긴다.
       }],
     });
     /* ---------- 만약 존재하지 않는 게시글이 있다면 400번대 에러 출력 ---------- */
     if (!post) {
       return res.status(403).send('존재하지 않는 게시글입니다.');
-    };
+    }
+    /* 자기 게시글을 리트윗하기, 자기 게시글을 리트윗한 다른 게시글을 다시 자기가 리트윗하기 막기 */
+    if (req.user.id === post.UserId || (post.Retweet && post.Retweet.UserId === req.user.id)) {
+      return res.status(403).send('자신의 글은 리트윗할 수 없습니다.'); 
+    }
 
   /* ---------- 에러 캐치 ---------- */
   } catch (error) {
