@@ -51,6 +51,9 @@ const PostCard = ({ post }) => {
   const { removePostLoading } = useSelector((state) => state.post);
   const [commentFormOpened, setCommentFormOpened] = useState(false);
 
+  // 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용
+  const id = useSelector((state) => state.user.me?.id);
+  
 
   // 게시글 삭제 콜백 함수
   const onRemovePost = useCallback(() => {
@@ -87,9 +90,6 @@ const PostCard = ({ post }) => {
     setCommentFormOpened((prev) => !prev);
   }, []);
 
-
-  // 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용
-  const id = useSelector((state) => state.user.me?.id);
 
   // 게시글 좋아요 누른 사람 중에 내(id)가 있는지 찾기
   const liked = post.Likers.find((v) => v.id === id);
