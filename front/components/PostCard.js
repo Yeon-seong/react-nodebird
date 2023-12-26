@@ -53,36 +53,48 @@ const PostCard = ({ post }) => {
 
   // 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용
   const id = useSelector((state) => state.user.me?.id);
-  
+
 
   // 게시글 삭제 콜백 함수
   const onRemovePost = useCallback(() => {
+    /* 로그인 안했을 때 게시글 삭제 시 '로그인이 필요합니다.' alert 창 띄우기 */
+    if (!id) {
+      return alert('로그인이 필요합니다.');
+    }
     /* 게시글 삭제 시 게시글 삭제 요청 액션 객체 디스패치 */
     dispatch({
       type: REMOVE_POST_REQUEST,
       data: post.id,
     });
-  }, []);
+  }, [id]);
 
 
   // 게시글 좋아요 콜백 함수
   const onLike = useCallback(() => {
+    /* 로그인 안했을 때 게시글 좋아요 시 '로그인이 필요합니다.' alert 창 띄우기 */
+    if (!id) {
+      return alert('로그인이 필요합니다.');
+    }
     /* 게시글 좋아요 시 게시글 좋아요 요청 액션 객체 디스패치 */
     dispatch({
       type: LIKE_POST_REQUEST,   // 게시글 좋아요 요청 액션
       data: post.id,             // 게시글 아이디
     }); 
-  }, []);
+  }, [id]);
 
 
   // 게시글 좋아요 취소 콜백 함수
   const onUnlike = useCallback(() => {
+    /* 로그인 안했을 때 게시글 좋아요 취소 시 '로그인이 필요합니다.' alert 창 띄우기 */
+    if (!id) {
+      return alert('로그인이 필요합니다.');
+    }
     /* 게시글 좋아요 취소 액션 객체 디스패치 */
     dispatch({
       type: UNLIKE_POST_REQUEST, // 게시글 좋아요 취소 요청 액션
       data: post.id,             // 게시글 아이디
     });
-  }, []);
+  }, [id]);
 
 
   // 답글 버튼 토글 콜백 함수

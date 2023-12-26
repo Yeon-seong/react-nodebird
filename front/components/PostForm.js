@@ -47,7 +47,7 @@ const PostForm = () => {
 
   // 게시글 폼 제출 콜백 함수
   const onSubmitForm = useCallback(() => {
-    /* 만약 게시글을 안 쓰면 alert 띄우기 */
+    /* 만약 게시글을 안 쓰면 '게시글을 작성하세요.' alert 창 띄우기 */
     if (!postText || !postText.trim()) {
       return alert('게시글을 작성하세요.');
     }
