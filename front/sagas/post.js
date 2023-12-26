@@ -40,6 +40,11 @@ import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_SUCCESS,
   ADD_COMMENT_FAILURE,
+  
+  /* ---------- 리트윗 액션 : 요청, 성공, 실패 ---------- */
+  RETWEET_REQUEST,
+  RETWEET_SUCCESS,
+  RETWEET_FAILURE,
 
   /* ---------- 이미지 업로드 액션 : 요청, 성공, 실패 ---------- */
   UPLOAD_IMAGES_REQUEST,
@@ -211,7 +216,7 @@ function* addComment(action) {
     const result = yield call(addCommentAPI, action.data);
     yield put({
       type: ADD_COMMENT_SUCCESS,
-      data: result.data,      // 실제로 사용자가 작성한 답글이 들어있다.
+      data: result.data,        // 실제로 사용자가 작성한 답글이 들어있다.
     });
     
   /* ---------- 요청 실패 시 ADD_COMMENT_FAILURE 액션 디스패치 ---------- */
@@ -219,6 +224,31 @@ function* addComment(action) {
     console.error(err);
     yield put({
       type: ADD_COMMENT_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
+// retweet 실행 시 서버에 retweetAPI 요청
+function retweetAPI(data) {
+  return axios.post(`/post/${data}/retweet`); // POST /post/동적 히든/retweet
+}
+// RETWEET_REQUEST 액션이 실행되면 retweet 함수 실행
+function* retweet(action) {
+  /* ---------- 요청 성공 시 RETWEET_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(retweetAPI, action.data);
+    yield put({
+      type: RETWEET_SUCCESS,
+      data: result.data,        // 실제 사용자의 리트윗이 들어있다.
+    });
+    
+  /* ---------- 요청 실패 시 RETWEET_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: RETWEET_FAILURE,
       error: err.response.data, // 실패 결과
     });
   }
@@ -281,6 +311,11 @@ function* watchAddComment() {
   yield takeLatest(ADD_COMMENT_REQUEST, addComment);
 }
 
+// 리트윗 액션
+function* watchRetweet() {
+  takeLatest(RETWEET_REQUEST, retweet);
+}
+
 // 이미지 업로드 액션
 function* watchUploadImages() {
   yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
@@ -298,6 +333,7 @@ export default function* postSaga() {
     fork(watchLikePost),
     fork(watchUnlikePost),
     fork(watchAddComment),
+    fork(watchRetweet),
     fork(watchUploadImages),
   ]);
 }
