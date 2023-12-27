@@ -176,6 +176,13 @@ const PostCard = ({ post }) => {
             <EllipsisOutlined />
           </Popover>,
         ]}
+        /* 카드 제목 */
+        title={post.RetweetId
+          // 리트윗 게시글이라면 `${게시글 사용자 닉네임}님이 리트윗 하셨습니다.` 제목 써주기 
+          ? `${post.User.nickname}님이 리트윗 하셨습니다.`
+          // 일반 게시글이라면 제목 안 써주기
+          : null
+        }
         /* 로그인했을 때만 팔로우 버튼 보여주기 */
         extra={id && <FollowButton post={post} />}
       >
