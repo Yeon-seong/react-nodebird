@@ -229,6 +229,56 @@ router.post('/:postId/retweet', isLoggedIn, async (req, res, next) => { // POST 
       return res.status(403).send('이미 리트윗한 게시글입니다.');
     }
 
+    /* await : 실제로 데이터가 들어감, create : 테이블 안에 데이터를 넣음 */
+    const retweet = await Post.create({
+      UserId: req.user.id,
+      RetweetId: retweetTargetId,
+      content: 'retweet',
+    // 게시글 모델에서 allowNull을 false로 설정했기 때문에 게시글 콘텐츠가 필수다.
+    });
+    /* ---------- 내가 어떤 게시글을 리트윗했는지 찾는 함수 ---------- */
+    const retweetWithPrevPost = await Post.findOne({
+      where: { id: retweet.id },
+      // 모델 가져오기
+      include: [{
+        /* ---------- 리트윗한 게시글 ---------- */
+        model: Post,
+        as: 'Retweet', // 리트윗한 게시글이 post.Retweet으로 담긴다.
+        // 모델 가져오기
+        include: [{
+          /* ---------- 리트윗한 게시글의 작성자 ---------- */
+          model: User,
+          attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+        }, {
+          /* ---------- 리트윗한 게시글의 이미지 ---------- */
+          model: Image,
+        }]
+      }, {
+        /* ---------- 게시글 작성자 ---------- */
+        model: User,
+        attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+      }, {
+        /* ---------- 게시글 좋아요 누른 사람들 ---------- */
+        model: User,
+        as: 'Likers',
+        attributes: ['id'], // id 데이터만 가져오기
+      }, {
+        /* ---------- 게시글 이미지 ---------- */
+        model: Image,
+      }, {
+        /* ---------- 게시글 답글 ---------- */
+        model: Comment,
+        // 모델 가져오기
+        include: [{
+          /* ---------- 게시글 답글의 작성자 ---------- */
+          model: User,
+          attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+        }],
+      }],
+    });
+    /* 게시글 작성 성공 시 어떤 게시글을 리트윗 했는지에 대한 정보를 프론트로 돌려주기 */
+    res.status(201).json(retweetWithPrevPost);
+
   /* ---------- 에러 캐치 ---------- */
   } catch (error) {
     console.error(error);
