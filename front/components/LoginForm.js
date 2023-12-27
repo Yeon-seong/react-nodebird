@@ -40,12 +40,13 @@ const LoginForm = () => {
   const [password, onChangePassword] = useInput('');
 
 
-  // 로그인 실패 시 에러 메시지 전달
+  // 로그인 실패 시 에러메시지 전달 및 alert 창 띄우기
   useEffect(() => {
     if (logInError) {
       alert(logInError);
     }
   }, [logInError]);
+
 
 
   // 사용자 로그인 콜백 함수

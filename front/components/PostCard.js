@@ -3,7 +3,7 @@
 
 
 // React 라이브러리 훅 불러오기
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 // Redux 라이브러리 불러오기
 import { useSelector, useDispatch } from 'react-redux';
@@ -51,11 +51,19 @@ import {
 // 게시글 카드 컴포넌트(사용자 정의 태그)
 const PostCard = ({ post }) => {
   const dispatch = useDispatch();
-  const { removePostLoading } = useSelector((state) => state.post);
+  const { removePostLoading, retweetError } = useSelector((state) => state.post);
   const [commentFormOpened, setCommentFormOpened] = useState(false);
 
   // 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용
   const id = useSelector((state) => state.user.me?.id);
+
+
+  // 리트윗 실패 시 리트윗 에러 alert 창 띄우기
+  useEffect(() => {
+    if (retweetError) {
+      alert(retweetError);
+    }
+  }, [retweetError]);
 
 
   // 게시글 삭제 콜백 함수
