@@ -41,6 +41,9 @@ import {
   /* ---------- 게시글 좋아요 취소 요청 액션 ---------- */
   UNLIKE_POST_REQUEST,
 
+  /* ---------- 리트윗 요청 액션 ---------- */
+  RETWEET_REQUEST,
+
 } from '../reducers/post';
 
 
@@ -76,7 +79,7 @@ const PostCard = ({ post }) => {
       return alert('로그인이 필요합니다.');
     }
     /* 게시글 좋아요 시 게시글 좋아요 요청 액션 객체 디스패치 */
-    dispatch({
+    return dispatch({
       type: LIKE_POST_REQUEST,   // 게시글 좋아요 요청 액션
       data: post.id,             // 게시글 아이디
     }); 
@@ -89,8 +92,8 @@ const PostCard = ({ post }) => {
     if (!id) {
       return alert('로그인이 필요합니다.');
     }
-    /* 게시글 좋아요 취소 액션 객체 디스패치 */
-    dispatch({
+    /* 게시글 좋아요 취소 요청 액션 객체 디스패치 */
+    return dispatch({
       type: UNLIKE_POST_REQUEST, // 게시글 좋아요 취소 요청 액션
       data: post.id,             // 게시글 아이디
     });
@@ -101,6 +104,20 @@ const PostCard = ({ post }) => {
   const onToggleComment = useCallback(() => {
     setCommentFormOpened((prev) => !prev);
   }, []);
+
+  
+  // 리트윗 버튼 콜백 함수
+  const onRetweet = useCallback(() => {
+    // 로그인을 안했을 때 '로그인이 필요합니다.' alert 창 띄우기
+    if (!id) {
+      return alert('로그인이 필요합니다.');
+    }
+    /* 리트윗 요청 액션 객체 디스패치 */
+    return dispatch({
+      type: RETWEET_REQUEST, // 리트윗 요청 액션
+      data: post.id,         // 게시글 아이디
+    });
+  }, [id]);
 
 
   // 게시글 좋아요 누른 사람 중에 내(id)가 있는지 찾기
@@ -116,7 +133,7 @@ const PostCard = ({ post }) => {
         /* ---------- 액션 버튼 ---------- */
         actions={[
           /* ---------- 리트윗 버튼 ---------- */
-          <RetweetOutlined key="retweet" />,
+          <RetweetOutlined key="retweet" onClick={onRetweet} />,
           /* ---------- 좋아요 버튼 ---------- */
           liked
             // 좋아요를 누른 상태 : 좋아요 취소 버튼 보여주기
