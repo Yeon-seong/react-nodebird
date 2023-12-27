@@ -161,7 +161,8 @@ const reducer = (state = initialState, action) => {
       case ADD_POST_SUCCESS:
         draft.addPostLoading = false;
         draft.addPostDone = true;
-        draft.mainPosts.unshift(action.data); // 실제 게시글 데이터
+        // 게시글 추가 성공 시 실제 게시글 데이터를 메인 게시글에 추가하기
+        draft.mainPosts.unshift(action.data);
         draft.imagePaths = []; // imagePaths 초기화
         break;
       /* ---------- 게시글 추가 실패 리듀서 ---------- */
@@ -247,7 +248,8 @@ const reducer = (state = initialState, action) => {
       case ADD_COMMENT_SUCCESS:
         // 메인 게시글 중 원하는 게시글 찾기
         const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
-        post.Comments.unshift(action.data); // 실제 답글 데이터
+        // 답글 추가 성공 시 실제 답글 데이터 넣기
+        post.Comments.unshift(action.data);
         // 리듀서
         draft.addCommentLoading = false;
         draft.addCommentDone = true;
@@ -269,6 +271,8 @@ const reducer = (state = initialState, action) => {
       case RETWEET_SUCCESS:
         draft.retweetLoading = false;
         draft.retweetDone = true;
+        // 리트윗 성공 시 실제 리트윗된 게시글 데이터를 메인 게시글에 추가하기
+        draft.mainPosts.unshift(action.data);
         break;
       /* ---------- 리트윗 실패 리듀서 ---------- */
       case RETWEET_FAILURE:
