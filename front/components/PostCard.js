@@ -135,6 +135,7 @@ const PostCard = ({ post }) => {
 
   return (
     <div style={{ marginBottom: '20px' }}>
+      
       <Card
         /* ---------- 이미지 : 이미지는 1개 이상 ---------- */
         cover={post.Images[0] && <PostImages images={post.Images} />}
@@ -178,16 +179,37 @@ const PostCard = ({ post }) => {
         /* 로그인했을 때만 팔로우 버튼 보여주기 */
         extra={id && <FollowButton post={post} />}
       >
-        {/* ---------- 게시글 ---------- */}
-        <Card.Meta
-          // mainPosts 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시
-          avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
-          // mainPosts 게시글 작성자 이름 
-          title={post.User.nickname}
-          // mainPosts 게시글 콘텐츠
-          description={<PostCardContent postData={post.content} />}
-        />
+
+        {/* ---------- 만약 지금 게시글이 리트윗 게시글이라면 ---------- */}
+        {post.RetweetId && post.Retweet
+          ? (
+            <Card
+              /* ---------- 이미지 : 이미지는 1개 이상 ---------- */
+              cover={post.Retweet.Images[0] && <PostImages images={post.Retweet.Images} />}
+            >
+              <Card.Meta
+                // mainPosts 리트윗한 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시
+                avatar={<Avatar>{post.Retweet.User.nickname[0]}</Avatar>}
+                // mainPosts 리트윗한 게시글 작성자 이름 
+                title={post.Retweet.User.nickname}
+                // mainPosts 게시글 콘텐츠
+                description={<PostCardContent postData={post.Retweet.content} />}
+              />
+            </Card>
+          )
+          : (
+            /* ---------- 게시글 ---------- */
+            <Card.Meta
+              // mainPosts 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시
+              avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
+              // mainPosts 게시글 작성자 이름 
+              title={post.User.nickname}
+              // mainPosts 게시글 콘텐츠
+              description={<PostCardContent postData={post.content} />}
+            />
+          )}
       </Card>
+
       {/* ---------- 답글 창 ---------- */}
       {commentFormOpened && (
         <div>
@@ -235,6 +257,8 @@ PostCard.propTypes = {
     Comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
     Likers: PropTypes.arrayOf(PropTypes.object),
+    RetweetId: PropTypes.number,
+    Retweet: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
 };
 
