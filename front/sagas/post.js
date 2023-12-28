@@ -67,14 +67,15 @@ import {
 
 
 // loadPosts 실행 시 서버에 loadPostsAPI 요청
-function loadPostsAPI(data) {
-  return axios.get('/posts', data);
+function loadPostsAPI(lastId) {
+  /* get에서 데이터를 넣기 위해 주소 뒤에 ?를 찍고 `key=값`을 적어준다. */
+  return axios.get(`/posts?lastId=${lastId}`);
 }
 // LOAD_POSTS_SUCCESS 액션이 실행되면 loadPosts 함수 실행
 function* loadPosts(action) {
   /* ---------- 요청 성공 시 LOAD_POSTS_SUCCESS 액션 디스패치 ---------- */
   try {
-    const result = yield call(loadPostsAPI, action.data);
+    const result = yield call(loadPostsAPI, action.lastId);
     yield put({
       type: LOAD_POSTS_SUCCESS,
       data: result.data,        // 성공 결과 : 실제 게시글 배열이 들어있다.
