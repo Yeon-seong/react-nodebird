@@ -50,7 +50,7 @@ const upload = multer({
       // 파일이름(basename)
       const basename = path.basename(file.originalname, ext);
       // 파일이름+'_'+날짜+확장자 : 이름_20230619.png
-      done(null, basename + '_' + new Date().getTime + ext);
+      done(null, basename + '_' + new Date().getTime() + ext);
     },
   }),
   /* ---------- 파일 업로드 크기 제한 ---------- */
