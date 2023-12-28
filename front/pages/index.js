@@ -62,8 +62,9 @@ const Home = () => {
         /* 로딩이 아닐 때만 게시글 불러오기 액션 객체 디스패치 실행 
            이미 게시글을 다 불러온 상태에서 게시글을 불러오는 중이면 액션 제한 */
         if (hasMorePosts && !loadPostsLoading) {
-          /* lastId : 메인 게시글 중 마지막 게시글의 id */
-          const lastId = mainPosts[mainPosts.length - 1].id;
+          /* lastId : 메인 게시글 중 마지막 게시글의 id
+             lastId가 undefined가 되지 않도록 ?을 추가해 보호한다. */
+          const lastId = mainPosts[mainPosts.length - 1]?.id;
           dispatch({
             type: LOAD_POSTS_REQUEST,
             lastId,
