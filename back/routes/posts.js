@@ -16,10 +16,11 @@ const router = express.Router();
 // 여러 개의 게시글을 가져오는 라우터
 router.get('/', async (req, res, next) => { // GET /posts
   try {
-    /* Query String으로 lastId를 보냈으므로 req.query.lastId에 lastId가 들어있다. */
-    req.query.lastId
+    const where = {}; // 초기 로딩일 때
+
     /* Post.findAll : 지금까지 작성한 모든 게시글을 가져오는 함수 */
     const posts = await Post.findAll({
+      where,
       /* 게시글 10개만 가져오기 */
       limit: 10,
       order:
