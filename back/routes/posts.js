@@ -5,6 +5,9 @@
 // Express 모듈 호출
 const express = require('express');
 
+// 시퀄라이즈 Op 연산자 호출
+const { Op } = require('sequelize');
+
 // 게시글, 사용자, 이미지, 답글 모델 불러오기
 const { Post, User, Image, Comment } = require('../models');
 
@@ -17,6 +20,11 @@ const router = express.Router();
 router.get('/', async (req, res, next) => { // GET /posts
   try {
     const where = {}; // 초기 로딩일 때
+    /* Query String으로 lastId를 보냈으므로 req.query.lastId에 lastId가 들어있다.
+       조건 : lastId '보다 작은(Op.lt)' 것 */
+    if (parseInt(req.query.lastId, 10)) { // 초기 로딩이 아닐 때
+      where.id = { [Op.lt]: parseInt(req.query.lastId, 10) }
+    }
 
     /* Post.findAll : 지금까지 작성한 모든 게시글을 가져오는 함수 */
     const posts = await Post.findAll({
