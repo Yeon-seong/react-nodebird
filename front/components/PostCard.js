@@ -102,8 +102,14 @@ const PostCard = ({ post }) => {
 
   // 답글 버튼 토글 콜백 함수
   const onToggleComment = useCallback(() => {
-    setCommentFormOpened((prev) => !prev);
-  }, []);
+    /* 로그인 안했을 때 답글 버튼 클릭 시 '로그인이 필요합니다.' alert 창 띄우기 */
+    if (!id) {
+      return alert('로그인이 필요합니다.');
+    }
+    return (
+      setCommentFormOpened((prev) => !prev)
+    );
+  }, [id]);
 
   
   // 리트윗 버튼 콜백 함수
