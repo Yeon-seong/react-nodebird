@@ -315,7 +315,7 @@ function* watchAddComment() {
 
 // 리트윗 액션
 function* watchRetweet() {
-  takeLatest(RETWEET_REQUEST, retweet);
+  yield takeLatest(RETWEET_REQUEST, retweet);
 }
 
 // 이미지 업로드 액션
