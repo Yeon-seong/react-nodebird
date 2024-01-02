@@ -315,61 +315,61 @@ function* removeFollower(action) {
 
 
 
-// 사용자 정보 불러오기 액션
+// 사용자 정보 불러오기 요청 액션을 호출하는 제너레이터 함수
 function* watchloadMyInfo() {
   yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo);
 }
 
 
-// 팔로워 불러오기 액션
+// 팔로워 불러오기 요청 액션을 호출하는 제너레이터 함수
 function* watchLoadFollowers() {
   yield takeLatest(LOAD_FOLLOWERS_REQUEST, loadFollowers);
 }
 
 
-// 팔로잉 불러오기 액션
+// 팔로잉 불러오기 요청 액션을 호출하는 제너레이터 함수
 function* watchLoadFollowings() {
   yield takeLatest(LOAD_FOLLOWINGS_REQUEST, loadFollowings);
 }
 
 
-// 로그인 액션
+// 로그인 요청 액션을 호출하는 제너레이터 함수
 function* watchLogin() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
 }
 
 
-// 로그아웃 액션
+// 로그아웃 요청 액션을 호출하는 제너레이터 함수
 function* watchLogOut() {
   yield takeLatest(LOG_OUT_REQUEST, logOut);
 }
 
 
-// 회원가입 액션
+// 회원가입 요청 액션을 호출하는 제너레이터 함수
 function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
 
-// 닉네임 변경 액션
+// 닉네임 변경 요청 액션을 호출하는 제너레이터 함수
 function* watchChangeNickname() {
   yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname);
 }
 
 
-// 팔로우 액션
+// 팔로우 요청 액션을 호출하는 제너레이터 함수
 function* watchFollow() {
   yield takeLatest(FOLLOW_REQUEST, follow);
 }
 
 
-// 언팔로우 액션
+// 언팔로우 요청 액션을 호출하는 제너레이터 함수
 function* watchUnFollow() {
   yield takeLatest(UNFOLLOW_REQUEST, unfollow);
 }
 
 
-// 팔로워 제거 액션
+// 팔로워 제거 요청 액션을 호출하는 제너레이터 함수
 function* watchRemoveFollower() {
   yield takeLatest(REMOVE_FOLLOWER_REQUEST, removeFollower);
 }

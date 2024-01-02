@@ -283,42 +283,42 @@ function* uploadImages(action) {
 
 
 
-// 게시글 불러오기 액션
+// 게시글 불러오기 요청 액션을 호출하는 제너레이터 함수
 function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
 
-// 게시글 추가 액션
+// 게시글 추가 요청 액션을 호출하는 제너레이터 함수
 function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost);
 }
 
-// 게시글 삭제 액션
+// 게시글 삭제 요청 액션을 호출하는 제너레이터 함수
 function* watchRemovePost() {
   yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
 
-// 게시글 좋아요 액션
+// 게시글 좋아요 요청 액션을 호출하는 제너레이터 함수
 function* watchLikePost() {
-  yield throttle(5000, LIKE_POST_REQUEST, likePost);
+  yield takeLatest(LIKE_POST_REQUEST, likePost);
 }
 
-// 게시글 좋아요 취소 액션
+// 게시글 좋아요 취소 요청 액션을 호출하는 제너레이터 함수
 function* watchUnlikePost() {
-  yield throttle(5000, UNLIKE_POST_REQUEST, unlikePost);
+  yield takeLatest(UNLIKE_POST_REQUEST, unlikePost);
 }
 
-// 답글 추가 액션
+// 답글 추가 요청 액션을 호출하는 제너레이터 함수
 function* watchAddComment() {
   yield takeLatest(ADD_COMMENT_REQUEST, addComment);
 }
 
-// 리트윗 액션
+// 리트윗 요청 액션을 호출하는 제너레이터 함수
 function* watchRetweet() {
   yield takeLatest(RETWEET_REQUEST, retweet);
 }
 
-// 이미지 업로드 액션
+// 이미지 업로드 요청 액션을 호출하는 제너레이터 함수
 function* watchUploadImages() {
   yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
 }
