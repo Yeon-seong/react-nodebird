@@ -59,7 +59,7 @@ const PostForm = () => {
     });
     // key인 'content'는 백엔드로 데이터 전달 시 req.body.content가 된다.
     formData.append('content', postText);
-    // 게시글 폼 제출 시 게시글 추가 요청 액션객체 디스패치
+    // 게시글 폼 제출 시 게시글 추가 요청 액션 객체 디스패치
     return dispatch({
       type: ADD_POST_REQUEST,
       data: formData, // formData를 게시글 추가 요청 액션에 전달
@@ -77,15 +77,15 @@ const PostForm = () => {
   // 이미지 업로드 정보 콜백 함수
   const onChangeImages = useCallback((e) => {
     // e.target.files : 사용자가 선택했던 이미지에 대한 정보
-    console.log("images", e.target.files);
-    // FormData : 선택했던 이미지 정보를 multipart 형식으로 서버로 보내기
+    console.log('images', e.target.files);
+    // FormData : 선택했던 이미지 정보를 멀티파트(multipart) 형식으로 서버로 보내기
     const imageFormData = new FormData();
     // [].forEach.call : 유사배열 e.target.files의 원소 가져오기
     [].forEach.call(e.target.files, (f) => {
       // 이미지 업로드 라우터의 'image'와 key 값이 일치해야 받아올 수 있다.
       imageFormData.append('image', f); 
     });
-    /* 이미지 업로드 요청 액션객체 디스패치 */
+    /* 이미지 업로드 요청 액션 객체 디스패치 */
     dispatch({
       type: UPLOAD_IMAGES_REQUEST,
       data: imageFormData,
@@ -96,7 +96,7 @@ const PostForm = () => {
   // 이미지 제거 콜백 함수
   // map 안에 index라는 데이터를 넣기 위해 콜백 함수를 고차함수로 만든다.
   const onRemoveImage = useCallback((index) => () => {
-    // 이미지 제거 동기 액션객체 디스패치
+    // 이미지 제거 동기 액션 객체 디스패치
     dispatch({
       type: REMOVE_IMAGE,
       data: index,
@@ -126,15 +126,12 @@ const PostForm = () => {
           id="file-upload"
           name="image"
           type="file"
-          multiple hidden
-          ref={imageInput}
+          multiple hidden ref={imageInput}
           onChange={onChangeImages} // 이미지 선택 확인을 누르면 해당 이벤트 실행
         />
 
         {/* ---------- 이미지 업로드 버튼 ---------- */}
-        <Button onClick={onClickImageUpload}>
-          이미지 업로드
-        </Button>
+        <Button onClick={onClickImageUpload}>이미지 업로드</Button>
 
         {/* ---------- 게시글 작성 버튼 ---------- */}
         <Button
@@ -150,19 +147,19 @@ const PostForm = () => {
 
       <div>
         {/* ---------- 이미지 업로드 시 미리보기 ---------- */}
-        {imagePaths?.map((v, i) => {
+        {imagePaths?.map((v, i) => (
           <div key={v} style={{ display: 'inline-block' }}>
-            {/* 이미지 미리보기 주소(경로) : 백엔드 서버 주소 */}
-            <img src={`http://localhost:3065/${v}`}
-              style={{ width: '200px' }}
-              alt={v}
-            />
-            <div>
-              {/* ---------- 이미지 제거 버튼 ---------- */}
-              <Button onClick={onRemoveImage(i)}>제거</Button>
-            </div>
+          {/* 이미지 미리보기 주소(경로) : 백엔드 서버 주소 */}
+          <img src={`http://localhost:3065/${v}`}
+            style={{ width: '200px' }}
+            alt={v}
+          />
+          <div>
+            {/* ---------- 이미지 제거 버튼 ---------- */}
+            <Button onClick={onRemoveImage(i)}>제거</Button>
           </div>
-        })}
+        </div> 
+        ))}
       </div>
     </Form>
   );
