@@ -201,7 +201,7 @@ router.post('/:postId/retweet', isLoggedIn, async (req, res, next) => { // POST 
       // 모델 가져오기
       include: [{
         model: Post,
-        as: 'Retweet' // as: 'Retweet'으로 include를 해주면 post.retweet이 생긴다.
+        as: 'Retweet', // as: 'Retweet'으로 include를 해주면 post.retweet이 생긴다.
       }],
     });
     
@@ -210,23 +210,25 @@ router.post('/:postId/retweet', isLoggedIn, async (req, res, next) => { // POST 
       return res.status(403).send('존재하지 않는 게시글입니다.');
     }
     
-    /* 자기 게시글을 리트윗하기, 자기 게시글을 리트윗한 다른 게시글을 다시 자기가 리트윗하기 막기 */
-    if (req.user.id === post.UserId || (post.Retweet && post.Retweet.UserId === req.user.id)) {
-      return res.status(403).send('자신의 글은 리트윗할 수 없습니다.'); 
+    /* 자기 게시글을 리트윗하는 경우,
+       or 자기 게시글을 리트윗한 다른 게시글을 다시 자기가 리트윗하는 경우 리트윗 막기 */
+    if (req.user.id === post.UserId
+    || (post.Retweet && post.Retweet.UserId === req.user.id)) {
+      return res.status(403).send('자신의 글은 리트윗할 수 없습니다.');
     }
     
     // 리트윗할 Id : 리트윗한 게시글이면 리트윗 아이디 사용 or 아니면 게시글 아이디 사용
     const retweetTargetId = post.RetweetId || post.id;
-    /* 이미 리트윗한 게시글을 또 리트윗하는지 검사하는 함수 */
+    /* 이미 리트윗한 게시글을 또 리트윗하는지 검사하는 함수(두 번 리트윗 막기) */
     const exPost = await Post.findOne({
       where: {
         UserId: req.user.id,
         RetweetId: retweetTargetId,
-      }
+      },
     });
     /* ---------- 만약 이미 리트윗한 게시글을 또 리트윗한다면 400번대 에러 출력 ---------- */
     if (exPost) {
-      return res.status(403).send('이미 리트윗한 게시글입니다.');
+      return res.status(403).send('이미 리트윗했습니다.');
     }
 
     /* await : 실제로 데이터가 들어감, create : 테이블 안에 데이터를 넣음 */
@@ -236,6 +238,7 @@ router.post('/:postId/retweet', isLoggedIn, async (req, res, next) => { // POST 
       content: 'retweet',
     // 게시글 모델에서 allowNull을 false로 설정했기 때문에 게시글 콘텐츠가 필수다.
     });
+
     /* ---------- 내가 어떤 게시글을 리트윗했는지 찾는 함수 ---------- */
     const retweetWithPrevPost = await Post.findOne({
       where: { id: retweet.id },

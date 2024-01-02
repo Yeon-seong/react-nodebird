@@ -48,6 +48,18 @@ router.get('/', async (req, res, next) => { // GET /posts
         as: 'Likers',
         attributes: ['id'], // id 데이터만 가져오기
       }, {
+        /* ---------- 게시글 이미지 ---------- */
+        model: Image,
+      }, {
+        /* ---------- 게시글 답글 ---------- */
+        model: Comment,
+        // 모델 가져오기
+        include: [{
+          /* ---------- 게시글 답글의 작성자 ---------- */
+          model: User,
+          attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+        }]
+      }, {
         /* ---------- 리트윗한 게시글 ---------- */
         model: Post,
         as: 'Retweet', // 리트윗한 게시글이 post.Retweet으로 담긴다.
@@ -60,21 +72,10 @@ router.get('/', async (req, res, next) => { // GET /posts
           /* ---------- 리트윗한 게시글의 이미지 ---------- */
           model: Image,
         }]
-      }, {
-        /* ---------- 게시글 이미지 ---------- */
-        model: Image,
-      }, {
-        /* ---------- 게시글 답글 ---------- */
-        model: Comment,
-        // 모델 가져오기
-        include: [{
-          /* ---------- 게시글 답글의 작성자 ---------- */
-          model: User,
-          attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
-        }]
       }],
     });
     /* 게시글들 작성 성공 시 게시글들 정보를 프론트로 돌려주기 */
+    console.log(posts);
     res.status(200).json(posts);
 
   /* ---------- 에러 캐치 ---------- */

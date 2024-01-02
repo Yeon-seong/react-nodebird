@@ -233,7 +233,7 @@ function* addComment(action) {
 
 
 // retweet 실행 시 서버에 retweetAPI 요청
-function retweetAPI(data) {
+function retweetAPI(data) { // 해당 주소 게시글 리트윗하기
   return axios.post(`/post/${data}/retweet`); // POST /post/동적 히든/retweet
 }
 // RETWEET_REQUEST 액션이 실행되면 retweet 함수 실행

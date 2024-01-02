@@ -176,16 +176,16 @@ const PostCard = ({ post }) => {
         ]}
         /* 카드 제목 */
         title={post.RetweetId
-          // 리트윗 게시글이라면 `${게시글 사용자 닉네임}님이 리트윗 하셨습니다.` 제목 써주기 
+          // 리트윗 게시글이면 게시글 사용자 닉네임님이 리트윗 하셨습니다. 제목 써주기 
           ? `${post.User.nickname}님이 리트윗 하셨습니다.`
           // 일반 게시글이라면 제목 안 써주기
           : null
         }
         /* 로그인했을 때만 팔로우 버튼 보여주기 */
         extra={id && <FollowButton post={post} />}
-      >
+      > {/* Card 닫기 */}
 
-        {/* ---------- 만약 지금 게시글이 리트윗 게시글이라면 ---------- */}
+        {/* ---------- 리트윗 게시글 ---------- */}
         {post.RetweetId && post.Retweet
           ? (
             <Card
@@ -193,23 +193,23 @@ const PostCard = ({ post }) => {
               cover={post.Retweet.Images[0] && <PostImages images={post.Retweet.Images} />}
             >
               <Card.Meta
-                // mainPosts 리트윗한 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시
+                // 메인 게시글 리트윗한 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시
                 avatar={<Avatar>{post.Retweet.User.nickname[0]}</Avatar>}
-                // mainPosts 리트윗한 게시글 작성자 이름 
+                // 메인 게시글 리트윗한 게시글 작성자 이름 
                 title={post.Retweet.User.nickname}
-                // mainPosts 게시글 콘텐츠
+                // 메인 게시글 게시글 콘텐츠
                 description={<PostCardContent postData={post.Retweet.content} />}
               />
             </Card>
           )
           : (
-            /* ---------- 게시글 ---------- */
+            /* ---------- (리트윗을 하지않은) 일반 게시글 ---------- */
             <Card.Meta
-              // mainPosts 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시
+              // 메인 게시글 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시
               avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
-              // mainPosts 게시글 작성자 이름 
+              // 메인 게시글 작성자 이름 
               title={post.User.nickname}
-              // mainPosts 게시글 콘텐츠
+              // 메인 게시글 콘텐츠
               description={<PostCardContent postData={post.content} />}
             />
           )}
