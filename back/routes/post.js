@@ -228,7 +228,7 @@ router.post('/:postId/retweet', isLoggedIn, async (req, res, next) => { // POST 
     });
     /* ---------- 만약 이미 리트윗한 게시글을 또 리트윗한다면 400번대 에러 출력 ---------- */
     if (exPost) {
-      return res.status(403).send('이미 리트윗했습니다.');
+      return res.status(403).send('이미 리트윗한 게시글입니다.');
     }
 
     /* await : 실제로 데이터가 들어감, create : 테이블 안에 데이터를 넣음 */
