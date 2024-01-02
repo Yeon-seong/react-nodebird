@@ -138,7 +138,7 @@ const reducer = (state = initialState, action) => {
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
         // 메인 게시글(mainPosts) 개수
-        draft.mainPosts = action.data.concat(draft.mainPosts);
+        draft.mainPosts = draft.mainPosts.concat(action.data);
         // 메인 게시글(mainPosts) 개수 콘솔 출력
         console.log('mainPosts.length', action.data.concat(draft.mainPosts).length);
         // 메인 게시글(mainPosts)을 10개보다 적게 불러오면 그만 불러오기(hasMorePosts = false)
