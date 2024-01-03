@@ -8,6 +8,9 @@ import React, { useEffect } from 'react';
 // Redux 라이브러리 불러오기
 import { useDispatch, useSelector } from 'react-redux';
 
+// wrapper 불러오기
+import wrapper from '../store/configureStore';
+
 // 내부 컴포넌트 불러오기
 import AppLayout from '../components/AppLayout';
 import PostForm from '../components/PostForm';
@@ -34,19 +37,6 @@ const Home = () => {
       alert(retweetError);
     }
   }, [retweetError]);
-
-  
-  useEffect(() => {
-    /* 처음에 화면을 로딩하면 사용자 정보 불러오기 요청 액션 객체 디스패치 */
-    dispatch({
-      type: LOAD_MY_INFO_REQUEST,
-    });
-
-    /* 처음에 화면을 로딩하면 게시글 불러오기 요청 액션 객체 디스패치 */
-    dispatch({
-      type: LOAD_POSTS_REQUEST,
-    });
-  }, []);
 
 
   // Y축 스크롤 이동 값 + 현재 보고있는 화면 높이보다 스크롤을 내렸을 때 로딩 후 게시글 불러오기
@@ -95,6 +85,21 @@ const Home = () => {
 };
 
 
+
+// 홈 컴포넌트보다 먼저 실행, 매개변수 context 안에 store가 들어있다.
+export const getServerSideProps = wrapper.getServerSideProps((context) => {
+  console.log(context);
+  
+  /* 처음에 화면을 로딩하면 사용자 정보 불러오기 요청 액션 객체 디스패치 */
+  context.store.dispatch({
+    type: LOAD_MY_INFO_REQUEST,
+  });
+
+  /* 처음에 화면을 로딩하면 게시글 불러오기 요청 액션 객체 디스패치 */
+  context.store.dispatch({
+    type: LOAD_POSTS_REQUEST,
+  });
+});
 
 // 홈 컴포넌트 내보내기
 export default Home;
