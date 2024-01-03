@@ -13,22 +13,30 @@ import post from './post';
 
 
 // 리듀서(Reducer) : 이전 상태를 액션을 통해 불변성 지키면서 다음 상태로 만들어내는 함수
-const rootReducer = combineReducers ({
-  /* Redux SSR(서버사이드렌더링)을 위해 index 리듀서 추가 */
-  index: (state = {}, action) => {
-    switch (action.type) {
-      case HYDRATE:
-        console.log('HYDRATE', action);
-        return { ...state, ...payload };
-      default:
-        return state;
+const rootReducer = (state, action) => {
+  switch (action.type) {
+    case HYDRATE:
+      console.log('HYDRATE', action);
+      return action.payload;
+    default: {
+      /* ---------- user와 post를 합친 리듀서 함수 ---------- */
+      const combineReducer = combineReducers({
+        /* user 안의 사용자 기본 상태(initialState) */
+        user,
+        /* post 안의 게시글 기본 상태(initialState) */
+        post, 
+      });
+      return combineReducer(state, action);
     }
-  },
-  /* user 안의 사용자 initialState */
-  user,
-  /* post) 안의 게시글 initialState */
-  post,
-});
+  }
+};
+/*
+  위 코드는 아래 코드와 똑같다.
+  const rootReducer = combineReducers({
+    user,
+    post, 
+  })
+*/
 
 
 
