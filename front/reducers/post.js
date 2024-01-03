@@ -149,8 +149,8 @@ const reducer = (state = initialState, action) => {
         draft.loadPostsLoading = false;
         draft.loadPostsError = action.error;  // 게시글 불러오기 실패 확인
         break;
-      
-      
+
+
       /* ---------- 게시글 추가 요청 리듀서 ---------- */
       case ADD_POST_REQUEST:
         draft.addPostLoading = true;
@@ -191,7 +191,7 @@ const reducer = (state = initialState, action) => {
         draft.removePostError = action.error; // 게시글 삭제 실패 확인
         break;
 
-      
+
       /* ---------- 게시글 좋아요 요청 리듀서 ---------- */
       case LIKE_POST_REQUEST:
         draft.likePostLoading = true;
@@ -214,7 +214,7 @@ const reducer = (state = initialState, action) => {
         draft.likePostError = action.error;  // 게시글 좋아요 실패 확인
         break;
 
-      
+
       /* ---------- 게시글 좋아요 취소 요청 리듀서 ---------- */
       case UNLIKE_POST_REQUEST:
         draft.likePostLoading = true;
@@ -236,7 +236,7 @@ const reducer = (state = initialState, action) => {
         draft.likePostLoading = false;
         draft.likePostError = action.error;  // 게시글 좋아요 취소 실패 확인
         break;
-      
+
 
       /* ---------- 답글 추가 요청 리듀서 ---------- */
       case ADD_COMMENT_REQUEST:
@@ -300,7 +300,7 @@ const reducer = (state = initialState, action) => {
         draft.uploadImagesError = action.error;  // 이미지 업로드 실패 확인
         break;
 
-      
+
       /* ---------- 이미지 제거 리듀서 ---------- */
       case REMOVE_IMAGE:
         // 사용자가 제거를 눌렀던 이미지만 imagePaths(이미지 업로드 저장 경로)에서 제거되서 사라진다.

@@ -10,10 +10,15 @@ import produce from 'immer';
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
 
-  /* 사용자 정보 불러오기 시도 중, 완료, 에러 */
+  /* 나의 사용자 정보 불러오기 시도 중, 완료, 에러 */
   loadMyInfoLoading: false,
   loadMyInfoDone: false,
   loadMyInfoError: null,
+
+  /* 다른 사용자 정보 불러오기 시도 중, 완료, 에러 */
+  loadUserLoading: false,
+  loadUserDone: false,
+  loadUserError: null,
 
   /* 팔로워 불러오기 시도 중, 완료, 에러 */
   loadFollowersLoading: false,
@@ -62,14 +67,22 @@ export const initialState = {
 
   /* 로그인한 사용자 정보 */
   me: null,
+  
+  /* 다른 사용자 정보 */
+  userInfo: null,
 }
 
 
 
-// 사용자 정보 불러오기 액션 : 요청, 성공, 실패 액션 내보내기
+// 나의 사용자 정보 불러오기 액션 : 요청, 성공, 실패 액션 내보내기
 export const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST';
 export const LOAD_MY_INFO_SUCCESS = 'LOAD_MY_INFO_SUCCESS';
 export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE';
+
+// 다른 사용자 정보 불러오기 액션 : 요청, 성공, 실패 액션 내보내기
+export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
+export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 
 // 팔로워 불러오기 액션 : 요청, 성공, 실패 액션 내보내기
 export const LOAD_FOLLOWERS_REQUEST = 'LOAD_FOLLOWERS_REQUEST';
@@ -145,25 +158,46 @@ const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
 
-      /* ---------- 사용자 정보 불러오기 요청 리듀서 ---------- */
+      /* ---------- 나의 사용자 정보 불러오기 요청 리듀서 ---------- */
       case LOAD_MY_INFO_REQUEST:
         draft.loadMyInfoLoading = true;
         draft.loadMyInfoError = null;
         draft.loadMyInfoDone = false;
         break;
-      /* ---------- 사용자 정보 불러오기 성공 리듀서 ---------- */
+      /* ---------- 나의 사용자 정보 불러오기 성공 리듀서 ---------- */
       case LOAD_MY_INFO_SUCCESS:
         draft.loadMyInfoLoading = false;
-        // 사용자 정보 불러오기 성공 시 실제 사용자 데이터, 사용자 정보가 없으면 Null
+        // 나의 사용자 정보 불러오기 성공 시 실제 사용자 데이터, 사용자 정보가 없으면 Null
         draft.me = action.data;
         draft.loadMyInfoDone = true;
         break;
-      /* ---------- 사용자 정보 불러오기 실패 리듀서 ---------- */
+      /* ---------- 나의 사용자 정보 불러오기 실패 리듀서 ---------- */
       case LOAD_MY_INFO_FAILURE:
         draft.loadMyInfoLoading = false;
-        draft.loadMyInfoError = action.error; // 사용자 정보 불러오기 실패 확인
+        draft.loadMyInfoError = action.error; // 나의 사용자 정보 불러오기 실패 확인
         break;
-      
+
+
+      /* ---------- 다른 사용자 정보 불러오기 요청 리듀서 ---------- */
+      case LOAD_USER_REQUEST:
+        draft.loadUserLoading = true;
+        draft.loadUserError = null;
+        draft.loadUserDone = false;
+        break;
+      /* ---------- 다른 사용자 정보 불러오기 성공 리듀서 ---------- */
+      case LOAD_USER_SUCCESS:
+        draft.loadUserLoading = false;
+        // 다른 사용자 정보 불러오기 성공 시 실제 사용자 데이터, 사용자 정보가 없으면 Null
+        draft.userInfo = action.data;
+        draft.loadUserDone = true;
+        break;
+      /* ---------- 다른 사용자 정보 불러오기 실패 리듀서 ---------- */
+      case LOAD_USER_FAILURE:
+        draft.loadUserLoading = false;
+        draft.loadUserError = action.error; // 다른 사용자 정보 불러오기 실패 확인
+        break;
+
+
       /* ---------- 팔로워 불러오기 요청 리듀서 ---------- */
       case LOAD_FOLLOWERS_REQUEST:
         draft.loadFollowersLoading = true;
@@ -223,7 +257,7 @@ const reducer = (state = initialState, action) => {
         draft.logInError = action.error; // 로그인 실패 확인
         break;
 
-      
+
       /* ---------- 로그아웃 요청 리듀서 ---------- */
       case LOG_OUT_REQUEST:
         draft.logOutLoading = true;
@@ -241,7 +275,8 @@ const reducer = (state = initialState, action) => {
         draft.logOutLoading = false;
         draft.logOutError = action.error;  // 로그아웃 실패 확인
         break;
-     
+
+
       /* ---------- 회원가입 요청 리듀서 ---------- */
       case SIGN_UP_REQUEST:
         draft.signUpLoading = true;
@@ -258,7 +293,8 @@ const reducer = (state = initialState, action) => {
         draft.signUpLoading = false;
         draft.signUpError = action.error;  // 회원가입 실패 확인
         break;
-      
+
+
       /* ---------- 닉네임 변경 요청 리듀서 ---------- */
       case CHANGE_NICKNAME_REQUEST:
         draft.changeNicknameLoading = true;
@@ -316,7 +352,7 @@ const reducer = (state = initialState, action) => {
         draft.unfollowLoading = false;
         draft.unfollowError = action.error; // 언팔로우 실패 확인
 
-      
+
       /* ---------- 팔로워 제거 요청 리듀서 ---------- */
       case REMOVE_FOLLOWER_REQUEST:
         draft.removeFollowerLoading = true;
@@ -334,14 +370,14 @@ const reducer = (state = initialState, action) => {
       case REMOVE_FOLLOWER_FAILURE:
         draft.removeFollowerLoading = false;
         draft.removeFollowerError = action.error; // 팔로워 제거 실패 확인
-      
+
 
       /* ---------- 내가 작성한 게시글 리듀서 ---------- */
       case ADD_POST_TO_ME:
         draft.me.Posts.unshift({ id: action.data });
         break;
 
-        
+
       /* ---------- 내 게시글 삭제 리듀서 ---------- */
       case REMOVE_POST_OF_ME:
         draft.me.Posts
