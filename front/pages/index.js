@@ -8,6 +8,9 @@ import React, { useEffect } from 'react';
 // Redux 라이브러리 불러오기
 import { useDispatch, useSelector } from 'react-redux';
 
+// Axios 라이브러리 불러오기
+import axios from 'axios';
+
 // END 액션 불러오기
 import { END } from 'redux-saga';
 
@@ -91,7 +94,10 @@ const Home = () => {
 
 // 홈 컴포넌트보다 먼저 실행, 매개변수 context 안에 store가 들어있다.
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
-  console.log(context);
+
+  /* 서버로 쿠키 전달하기 */
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = cookie;
 
   /* 처음에 화면을 로딩하면 나의 사용자 정보 불러오기 요청 액션 객체 디스패치 */
   context.store.dispatch({

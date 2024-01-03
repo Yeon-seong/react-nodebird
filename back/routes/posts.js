@@ -75,7 +75,7 @@ router.get('/', async (req, res, next) => { // GET /posts
       }],
     });
     /* 게시글들 작성 성공 시 게시글들 정보를 프론트로 돌려주기 */
-    console.log(posts);
+    // console.log(posts);
     res.status(200).json(posts);
 
   /* ---------- 에러 캐치 ---------- */

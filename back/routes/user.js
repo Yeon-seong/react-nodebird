@@ -25,6 +25,8 @@ const router = express.Router();
 
 // 브라우저 새로고침 시 사용자 정보 복구 라우터
 router.get('/', async (req, res, next) => { // GET /user
+  // req.headers 안에 쿠키가 들어있다.
+  console.log(req.headers, "req.headers 안에는 쿠키가 들어있다.");
   try {
     /* ---------- (로그인해서) 사용자 정보가 있다면 ---------- */
     if(req.user) {
