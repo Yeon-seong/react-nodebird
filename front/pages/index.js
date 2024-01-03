@@ -8,6 +8,9 @@ import React, { useEffect } from 'react';
 // Redux 라이브러리 불러오기
 import { useDispatch, useSelector } from 'react-redux';
 
+// END 액션 불러오기
+import { END } from 'redux-saga';
+
 // wrapper 불러오기
 import wrapper from '../store/configureStore';
 
@@ -87,9 +90,9 @@ const Home = () => {
 
 
 // 홈 컴포넌트보다 먼저 실행, 매개변수 context 안에 store가 들어있다.
-export const getServerSideProps = wrapper.getServerSideProps((context) => {
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
   console.log(context);
-  
+
   /* 처음에 화면을 로딩하면 사용자 정보 불러오기 요청 액션 객체 디스패치 */
   context.store.dispatch({
     type: LOAD_MY_INFO_REQUEST,
@@ -99,6 +102,10 @@ export const getServerSideProps = wrapper.getServerSideProps((context) => {
   context.store.dispatch({
     type: LOAD_POSTS_REQUEST,
   });
+
+  /* 사용자 정보, 게시글 불러오기 요청(REQUEST)이 성공(SUCCESS)으로 바뀔 때까지 기다리기 */
+  context.store.dispatch(END);
+  await context.store.sagaTask.toPromise();
 });
 
 // 홈 컴포넌트 내보내기
