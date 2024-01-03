@@ -95,9 +95,18 @@ const Home = () => {
 // 홈 컴포넌트보다 먼저 실행, 매개변수 context 안에 store가 들어있다.
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
 
-  /* 서버로 쿠키 전달하기 */
+  /* 변수 cookie에 모든 cookie 정보 저장 */
   const cookie = context.req ? context.req.headers.cookie : '';
-  axios.defaults.headers.Cookie = cookie;
+
+  /* 쿠키를 안 써서 요청 보낼 때는 서버에서 공유하고 있는 쿠키를 제거하기 */
+  axios.defaults.headers.Cookie = ''; 
+
+  /* 서버일 때, 그리고 쿠키가 있을 때만 서버로 쿠키 전달하기 */
+  if (context.req && cookie) {
+    // 실제로 쿠키를 써서 요청을 보낼 때만 잠깐 쿠키를 넣어 놓는다.
+    axios.defaults.headers.Cookie = cookie; 
+  }
+
 
   /* 처음에 화면을 로딩하면 나의 사용자 정보 불러오기 요청 액션 객체 디스패치 */
   context.store.dispatch({
@@ -113,6 +122,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   context.store.dispatch(END);
   await context.store.sagaTask.toPromise();
 });
+
+
 
 // 홈 컴포넌트 내보내기
 export default Home;
