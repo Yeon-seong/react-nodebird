@@ -11,10 +11,15 @@ import axios from 'axios';
 // 사용자 액션 불러오기
 import {
 
-  /* ---------- 사용자 정보 불러오기 액션 : 요청, 성공, 실패 ---------- */
+  /* ---------- 나의 사용자 정보 불러오기 액션 : 요청, 성공, 실패 ---------- */
   LOAD_MY_INFO_REQUEST,
   LOAD_MY_INFO_SUCCESS,
   LOAD_MY_INFO_FAILURE,
+
+  /* ---------- 다른 사용자 정보 불러오기 액션 : 요청, 성공, 실패 ---------- */
+  LOAD_USER_REQUEST,
+  LOAD_USER_SUCCESS,
+  LOAD_USER_FAILURE,
 
   /* ---------- 팔로워 불러오기 액션 : 요청, 성공, 실패 ---------- */
   LOAD_FOLLOWERS_REQUEST,
@@ -35,7 +40,7 @@ import {
   LOG_OUT_REQUEST,
   LOG_OUT_SUCCESS,
   LOG_OUT_FAILURE,
-  
+
   /* ---------- 회원가입 액션 : 요청, 성공, 실패 ---------- */
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
@@ -76,7 +81,7 @@ function* loadMyInfo(action) {
     const result = yield call(loadMyInfoAPI, action.data);
     yield put({
       type: LOAD_MY_INFO_SUCCESS,
-      data: result.data,         // 성공 결과 : 서버로부터 사용자 정보를 받아옴
+      data: result.data,         // 성공 결과 : 서버로부터 나의 사용자 정보를 받아옴
     });
 
   /* ---------- 요청 실패 시 LOAD_MY_INFO_FAILURE 액션 디스패치 ---------- */
@@ -84,6 +89,31 @@ function* loadMyInfo(action) {
     console.error(err);
     yield put({
       type: LOAD_MY_INFO_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
+// loadUser 실행 시 서버에 loadUserAPI 요청
+function loadUserAPI(data) {
+  return axios.get(`/user/${data}`);
+}
+// LOAD_USER 액션이 실행되면 loadUser 함수 실행
+function* loadUser(action) {
+  /* ---------- 요청 성공 시 LOAD_USER_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(loadUserAPI, action.data);
+    yield put({
+      type: LOAD_USER_SUCCESS,
+      data: result.data,         // 성공 결과 : 서버로부터 다른 사용자 정보를 받아옴
+    });
+
+  /* ---------- 요청 실패 시 LOAD_USER_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_USER_FAILURE,
       error: err.response.data, // 실패 결과
     });
   }
@@ -315,9 +345,15 @@ function* removeFollower(action) {
 
 
 
-// 사용자 정보 불러오기 요청 액션을 호출하는 제너레이터 함수
-function* watchloadMyInfo() {
+// 나의 사용자 정보 불러오기 요청 액션을 호출하는 제너레이터 함수
+function* watchLoadMyInfo() {
   yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo);
+}
+
+
+// 다른 사용자 정보 불러오기 요청 액션을 호출하는 제너레이터 함수
+function* watchLoadUser() {
+  yield takeLatest(LOAD_USER_REQUEST, loadUser);
 }
 
 
@@ -380,7 +416,8 @@ function* watchRemoveFollower() {
 export default function* userSaga() {
   /* ---------- all 배열 안의 코드 동시 실행 ---------- */
   yield all([
-    fork(watchloadMyInfo),
+    fork(watchLoadMyInfo),
+    fork(watchLoadUser),
     fork(watchLoadFollowers),
     fork(watchLoadFollowings),
     fork(watchLogin),

@@ -22,7 +22,7 @@ import PostCard from '../components/PostCard';
 // 게시글 불러오기 요청 액션 불러오기
 import { LOAD_POSTS_REQUEST } from '../reducers/post';
 
-// 사용자 정보 불러오기 요청 액션 불러오기
+// 나의 사용자 정보 불러오기 요청 액션 불러오기
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
 
 
@@ -93,7 +93,7 @@ const Home = () => {
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
   console.log(context);
 
-  /* 처음에 화면을 로딩하면 사용자 정보 불러오기 요청 액션 객체 디스패치 */
+  /* 처음에 화면을 로딩하면 나의 사용자 정보 불러오기 요청 액션 객체 디스패치 */
   context.store.dispatch({
     type: LOAD_MY_INFO_REQUEST,
   });
