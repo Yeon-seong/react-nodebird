@@ -62,12 +62,6 @@ export const initialState = {
 
   /* 로그인한 사용자 정보 */
   me: null,
-
-  /* 회원가입 데이터 빈 객체 */
-  signUpData: {},
-
-  /* 로그인 데이터 빈 객체 */
-  loginData: {},
 }
 
 
