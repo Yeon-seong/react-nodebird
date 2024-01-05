@@ -112,7 +112,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {  // POST
         attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
       }, {
         /* ---------- 게시글 좋아요 누른 사람들 ---------- */
-        model: User,
+        model: User, // 좋아요 누른 사람
         as: 'Likers',
         attributes: ['id'], // id 데이터만 가져오기
       }, {
@@ -147,7 +147,7 @@ router.get('/:postId', async (req, res, next) => { // GET /post/동적 히든
     const post = await Post.findOne({
       where: { id: req.params.postId },
     });
-
+    
     /* ---------- 만약 존재하지 않는 게시글이 있다면 400번대 에러 출력 ---------- */
     if (!post) {
       return res.status(404).send('존재하지 않는 게시글입니다.');
@@ -176,7 +176,7 @@ router.get('/:postId', async (req, res, next) => { // GET /post/동적 히든
         attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
       }, {
         /* ---------- 게시글 좋아요 누른 사람들 ---------- */
-        model: User,
+        model: User, // 좋아요 누른 사람
         as: 'Likers',
         attributes: ['id'], // id 데이터만 가져오기
       }, {
@@ -202,7 +202,6 @@ router.get('/:postId', async (req, res, next) => { // GET /post/동적 히든
     next(error);
   }
 });
-
 
 // (여러 파일을 업로드하는) 이미지 업로드 라우터 : 이미지 업로드 후에 실행
 router.post('/images', upload.array('image'), async (req, res, next) => {  // POST /post/images
@@ -326,7 +325,7 @@ router.post('/:postId/retweet', isLoggedIn, async (req, res, next) => { // POST 
         attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
       }, {
         /* ---------- 게시글 좋아요 누른 사람들 ---------- */
-        model: User,
+        model: User, // 좋아요 누른 사람
         as: 'Likers',
         attributes: ['id'], // id 데이터만 가져오기
       }, {

@@ -17,6 +17,9 @@ import axios from 'axios';
 // END 액션 불러오기
 import { END } from 'redux-saga';
 
+// 외부 컴포넌트 불러오기
+import Head from 'next/head';
+
 // 내부 컴포넌트 불러오기
 import AppLayout from '../../components/AppLayout';
 import PostCard from '../../components/PostCard';
@@ -48,6 +51,33 @@ const Post = () => {
 
   return (
     <AppLayout>
+      <Head>
+        {/* 게시글 제목 : '누구 님의 글입니다.' */}
+        <title>{singlePost.User.nickname}님의 글</title>
+
+        {/* 게시글 설명 */}
+        <meta name="description" content={singlePost.content} />
+
+        {/* 게시글 제목 미리보기*/}
+        <meta property="og:title" content={`${singlePost.User.nickname}님의 게시글`} />
+
+        {/* 게시글 설명 미리보기*/}
+        <meta property="og:description" content={singlePost.content} />
+        
+        {/* 게시글 이미지 미리보기
+            ? 이미지가 없는 게시글을 공유하면 페비콘이 화면에 뜨게 하고,
+            : 이미지가 있는 게시글을 공유하면 첫 번째 이미지를 공유 화면에 띄우기 */}
+        <meta property="og:image"
+          content={singlePost.Images[0]
+            ? singlePost.Images[0].src
+            : 'https://nodebird.com/favicon.ico'
+          }
+        />
+        {/* 링크 주소 미리보기 */}
+        <meta property="og:url" content={`https://nodebird.com/post/${id}`} />
+      </Head>
+
+      {/* 게시글 카드 */}
       <PostCard post={singlePost} />
     </AppLayout>
   );
