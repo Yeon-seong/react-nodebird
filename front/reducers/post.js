@@ -12,6 +12,9 @@ export const initialState = {
   /* 메인 게시글 */
   mainPosts: [],
 
+  /* 단일 게시글 */
+  singlePost: null,
+
   /* 이미지 업로드 시 경로 저장 */
   imagePaths: [],
   
@@ -147,6 +150,8 @@ const reducer = (state = initialState, action) => {
       case LOAD_POST_SUCCESS:
         draft.loadPostLoading = false;
         draft.loadPostDone = true;
+        // 단일 게시글 데이터를 singlePost에 저장
+        draft.singlePost = action.data;
         break;
       /* ---------- 단일 게시글 불러오기 실패 리듀서 ---------- */
       case LOAD_POST_FAILURE:
