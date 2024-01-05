@@ -11,7 +11,7 @@ import axios from 'axios';
 // 게시글 액션 불러오기
 import {
 
-  /* ---------- 게시글 불러오기 액션 : 요청, 성공, 실패 ---------- */
+  /* ---------- 여러 게시글 불러오기 액션 : 요청, 성공, 실패 ---------- */
   LOAD_POSTS_REQUEST,
   LOAD_POSTS_SUCCESS,
   LOAD_POSTS_FAILURE,
@@ -79,7 +79,7 @@ function* loadPosts(action) {
     const result = yield call(loadPostsAPI, action.lastId);
     yield put({
       type: LOAD_POSTS_SUCCESS,
-      data: result.data,        // 성공 결과 : 실제 게시글 배열이 들어있다.
+      data: result.data,        // 성공 결과 : 실제 여러 게시글 배열이 들어있다.
     });
 
   /* ---------- 요청 실패 시 LOAD_POSTS_FAILURE 액션 디스패치 ---------- */
@@ -283,7 +283,7 @@ function* uploadImages(action) {
 
 
 
-// 게시글 불러오기 요청 액션을 호출하는 제너레이터 함수
+// 여러 게시글 불러오기 요청 액션을 호출하는 제너레이터 함수
 function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
