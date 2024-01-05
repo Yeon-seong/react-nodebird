@@ -146,7 +146,7 @@ router.post('/', isNotLoggedIn, async (req, res, next) => {  // POST /user/
   /* ---------- 에러 캐치 ---------- */
   } catch (error) {
     console.error(error); // 콘솔 창을 통한 에러 메시지 출력
-    next(error);  // status 500 : express next를 통한 에러 처리 미들웨어로 에러 보내기
+    next(error); // status 500 : express next를 통한 에러 처리 미들웨어로 에러 보내기
   }
 });
 

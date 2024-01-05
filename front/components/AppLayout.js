@@ -5,7 +5,7 @@
 // React 라이브러리 불러오기
 import React from 'react';
 
-// Redux 라이브러리 불러오기
+// Redux 라이브러리 Hook 불러오기
 import { useSelector } from 'react-redux';
 
 // 데이터 유효성 타입 검사
@@ -49,7 +49,7 @@ const SearchInput = styled(Input.Search)`
 // 앱 레이아웃 컴포넌트(사용자 정의 태그)
 const AppLayout = ({ children }) => {
 	
-	/* useSelector로 중앙 데이터 저장소 user 데이터의 로그인 한 사용자 정보 받아오기  */
+  /* 중앙 데이터 저장소에서 상태 값 가져오기 */
 	const { me } = useSelector((state) => state.user);
 
 

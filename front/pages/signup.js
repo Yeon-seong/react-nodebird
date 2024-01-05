@@ -2,10 +2,10 @@
 
 
 
-// React 라이브러리 훅 불러오기
+// React 라이브러리 Hook 불러오기
 import React, { useCallback, useEffect, useState, } from 'react';
 
-// Redux 라이브러리 불러오기
+// Redux 라이브러리 Hook 불러오기
 import { useDispatch, useSelector } from 'react-redux';
 
 // 외부 컴포넌트 불러오기
@@ -36,9 +36,14 @@ const SubmitButton = styled.div`
 
 // 회원가입 컴포넌트(사용자 정의 태그)
 const Signup = () => {
+
+  /* dispatch = useDispatch 함수라고 선언 */
   const dispatch = useDispatch();
+
+  /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { signUpLoading, signUpDone, signUpError, loginDone } = useSelector((state) => state.user);
-  
+
+
   // 로그인 완료 시 메인 페이지로 나가기 및 이전 페이지 기록 삭제
   useEffect(() => {
     if (loginDone) {
@@ -62,27 +67,40 @@ const Signup = () => {
 
   
   /* ---------- 중복 체크 ---------- */
+  
+  // 이메일, 닉네임, 비밀번호 인풋 창에 값을 입력했을 때 상태 변경
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
   const [password, onChangePassword] = useInput('');
 
 
+
   /* ---------- 비밀번호와 비밀번호 확인의 일치 여부 체크 ---------- */
+
+  // 현재 비밀번호 체크, 비밀번호 에러 상태 저장
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
+
+  // 컴포넌트의 속성(props)으로 비밀번호 체크와 에러 정보를 넘기는 콜백 함수
   const onChangePasswordCheck = useCallback((e) => {
     setPasswordCheck(e.target.value);
     setPasswordError(e.target.value !== password);
   }, [password]);
 
 
-  /* ---------- 약관 동의 체크 ---------- */
+
+  /* ---------- 약관동의 체크 ---------- */
+
+  // 현재 약관동의 상태, 약관동의 에러 상태 저장
   const [term, setTerm] = useState('');
   const [termError, setTermError] = useState(false);
+
+  // 컴포넌트의 속성(props)으로 약관동의와 에러 정보를 넘기는 콜백 함수
   const onChangeTerm = useCallback((e) => {
     setTerm(e.target.checked);
     setTermError(false);
   }, []);
+
 
 
   // 회원가입 제출 시 체크 콜백 함수
@@ -93,7 +111,7 @@ const Signup = () => {
       return setPasswordError(true);
     };
 
-    /* 만약에 약관 동의에 체크하지 않으면 에러 표시 */
+    /* 만약에 약관동의에 체크하지 않으면 에러 표시 */
     if (!term) {
       return setTermError(true);
     };

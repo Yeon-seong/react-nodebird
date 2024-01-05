@@ -2,7 +2,7 @@
 
 
 
-// React 라이브러리 훅 불러오기
+// React 라이브러리 Hook 불러오기
 import React, { useState } from 'react';
 
 // React Slick 라이브러리 불러오기
@@ -26,7 +26,8 @@ import {
 
 // 이미지 줌 컴포넌트(사용자 정의 태그)
 const ImagesZoom = ({ images, onClose }) => {
-  /* ---------- 현재 슬라이드 상태 저장 ---------- */
+
+  /* 현재 슬라이드 상태 저장 */
   const [currentSlide, setCurrentSlide] = useState(0);
 
 

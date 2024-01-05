@@ -2,7 +2,7 @@
 
 
 
-// React 라이브러리 훅 불러오기
+// React 라이브러리 Hook 불러오기
 import React, { useCallback, useState } from 'react';
 
 // 데이터 유효성 타입 검사
@@ -18,6 +18,8 @@ import ImagesZoom from './ImagesZoom';
 
 // 게시글 이미지 컴포넌트(사용자 정의 태그)
 const PostImages = ({ images }) => {
+
+  /* 현재 이미지 줌 보이기 상태 저장 */
   const [showImagesZoom, setShowImagesZoom] = useState(false);
 
 

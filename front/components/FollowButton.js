@@ -2,10 +2,10 @@
 
 
 
-// React 라이브러리 훅 불러오기
+// React 라이브러리 Hook 불러오기
 import React, { useCallback } from 'react';
 
-// Redux 라이브러리 불러오기
+// Redux 라이브러리 Hook 불러오기
 import { useDispatch, useSelector } from 'react-redux';
 
 // 데이터 유효성 타입 검사
@@ -30,25 +30,28 @@ import {
 
 // 팔로우 버튼 컴포넌트(사용자 정의 태그)
 const FollowButton = ({ post }) => {
+
+  /* dispatch = useDispatch 함수라고 선언 */
   const dispatch = useDispatch();
 
-
-  // Redux 에서 내 정보(me), 팔로우 로딩, 언팔로우 로딩 상태 값 가져오기
+  /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { me, followLoading, unfollowLoading } = useSelector((state) => state.user);
-
 
   // 팔로잉 여부 : 내가 팔로잉한 사람들 중에 게시글 작성한 사람의 아이디 찾기
   const isFollowing = me?.Followings.find((v) => v.id === post.User.id);
 
 
+  
   // 팔로우, 언팔로우 버튼 : 액션 실행 시 게시글 작성자 아이디 정보 보내기 콜백 함수
   const onClickButton = useCallback(() => {
+
     /* 내가 팔로우 하고 있을 때, 버튼을 누르면 언팔로우 요청 액션 객체 디스패치 */
     if (isFollowing) {
       dispatch({
         type: UNFOLLOW_REQUEST,
         data: post.User.id,
       });
+
     /* 내가 팔로우 안하고 있을 때, 버튼을 누르면 팔로우 요청 액션 객체 디스패치 */
     } else {
       dispatch({
@@ -57,6 +60,7 @@ const FollowButton = ({ post }) => {
       });
     }
   }, [isFollowing]);
+
 
 
   // 게시글 작성자의 아이디가 내 아이디랑 같으면 팔로우, 언팔로우 버튼 안보이기

@@ -37,7 +37,7 @@ module.exports = () => {
       const result = await bcrypt.compare(password, user.password);
       /* 만약 이메일이 있고, 비밀번호가 일치하면 로그인 성공 */
       if (result) {
-        return done(null, user);  // 성공 시 사용자 정보를 넘김
+        return done(null, user); // 성공 시 사용자 정보를 넘김
       };
       /* ---------- 비밀번호가 일치하지 않으면 클라이언트 실패 ---------- */
       return done(null, false, { reason: '비밀번호가 틀렸습니다.' });

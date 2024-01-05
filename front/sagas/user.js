@@ -235,7 +235,7 @@ function* signUp(action) {
 
   /* ---------- 요청 실패 시 SIGN_UP_FAILURE 액션 디스패치 ---------- */
   } catch (err) {
-    console.error(err); 
+    console.error(err);
     yield put({
       type: SIGN_UP_FAILURE,
       error: err.response.data, // 실패 결과

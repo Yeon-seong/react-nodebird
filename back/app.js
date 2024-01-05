@@ -52,7 +52,7 @@ const app = express();
 // 서버 실행 시 데이터베이스 시퀄라이즈 연결
 db.sequelize.sync()
   .then(() => {
-    console.log('db 연결 성공'); 
+    console.log('db 연결 성공');
   })
   .catch(console.error);
 

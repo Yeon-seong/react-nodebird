@@ -2,10 +2,10 @@
 
 
 
-// React 라이브러리 훅 불러오기
+// React 라이브러리 Hook 불러오기
 import React, { useCallback, useMemo } from 'react';
 
-// Redux 라이브러리 불러오기
+// Redux 라이브러리 Hook 불러오기
 import { useDispatch, useSelector } from 'react-redux';
 
 // 외부 컴포넌트 불러오기
@@ -21,9 +21,17 @@ import { CHANGE_NICKNAME_REQUEST } from '../reducers/user';
 
 // 닉네임 에디터 폼 컴포넌트(사용자 정의 태그)
 const NicknameEditForm = () => {
-  const { me } = useSelector((state) => state.user);
-  const [nickname, onChangeNickname] = useInput(me?.nickname || '');
+
+  /* dispatch = useDispatch 함수라고 선언 */
   const dispatch = useDispatch();
+
+  /* 중앙 데이터 저장소에서 상태 값 가져오기 */
+  const { me } = useSelector((state) => state.user);
+
+  /* 닉네임 인풋 창에 값을 입력했을 때 상태 변경
+     사용자 본인 닉네임을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용 */
+  const [nickname, onChangeNickname] = useInput(me?.nickname || '');
+
 
 
   // 닉네임 변경 폼 제출 시 닉네임 변경 요청 액션 객체 디스패치 콜백 함수
@@ -31,7 +39,7 @@ const NicknameEditForm = () => {
     dispatch({
       type: CHANGE_NICKNAME_REQUEST,
       data: nickname,
-    }); 
+    });
   }, [nickname]);
 
 

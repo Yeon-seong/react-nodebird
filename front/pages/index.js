@@ -2,10 +2,10 @@
 
 
 
-// React 라이브러리 훅 불러오기
+// React 라이브러리 Hook 불러오기
 import React, { useEffect } from 'react';
 
-// Redux 라이브러리 불러오기
+// Redux 라이브러리 Hook 불러오기
 import { useDispatch, useSelector } from 'react-redux';
 
 // Axios 라이브러리 불러오기
@@ -32,7 +32,11 @@ import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
 
 // 홈 컴포넌트(사용자 정의 태그)
 const Home = () => {
+
+  /* dispatch = useDispatch 함수라고 선언 */
   const dispatch = useDispatch();
+
+  /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { me } = useSelector((state) => state.user);
   const { mainPosts, hasMorePosts, loadPostsLoading, retweetError } = useSelector((state) => state.post);
 
@@ -99,12 +103,12 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   const cookie = context.req ? context.req.headers.cookie : '';
 
   /* 쿠키를 안 써서 요청 보낼 때는 서버에서 공유하고 있는 쿠키를 제거하기 */
-  axios.defaults.headers.Cookie = ''; 
+  axios.defaults.headers.Cookie = '';
 
   /* 서버일 때, 그리고 쿠키가 있을 때만 서버로 쿠키 전달하기 */
   if (context.req && cookie) {
     // 실제로 쿠키를 써서 요청을 보낼 때만 잠깐 쿠키를 넣어 놓는다.
-    axios.defaults.headers.Cookie = cookie; 
+    axios.defaults.headers.Cookie = cookie;
   }
 
 

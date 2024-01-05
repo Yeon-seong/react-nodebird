@@ -5,7 +5,7 @@
 // React 라이브러리 불러오기
 import React from 'react';
 
-// Redux 라이브러리 불러오기
+// Redux 라이브러리 Hook 불러오기
 import { useDispatch } from 'react-redux';
 
 // 데이터 유효성 타입 검사
@@ -33,21 +33,23 @@ import {
 // 팔로우 리스트 컴포넌트(사용자 정의 태그)
 const FollowList = ({ header, data }) => {
 
-  // onCancel : item에 대한 데이터를 보내기 위한 고차함수 사용
+  /* dispatch = useDispatch 함수라고 선언 */
   const dispatch = useDispatch();
+
+  // onCancel : item에 대한 데이터를 보내기 위한 고차함수 사용
   const onCancel = (id) => () => {  // id는 반복문에 대한 데이터
     /* header가 팔로잉이면 언팔로우 요청 액션 객체 디스패치 */
     if (header === '팔로잉') {
       dispatch({
         type: UNFOLLOW_REQUEST,
         data: id, // item.id
-      }); 
+      });
     }
     /* header가 팔로워면 팔로워 제거 요청 액션 객체 디스패치 */
     dispatch({
       type: REMOVE_FOLLOWER_REQUEST,
       data: id,   // item.id
-    }); 
+    });
   };
 
 

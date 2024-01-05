@@ -273,7 +273,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 로그아웃 실패 리듀서 ---------- */
       case LOG_OUT_FAILURE:
         draft.logOutLoading = false;
-        draft.logOutError = action.error;  // 로그아웃 실패 확인
+        draft.logOutError = action.error; // 로그아웃 실패 확인
         break;
 
 
@@ -291,7 +291,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 회원가입 실패 리듀서 ---------- */
       case SIGN_UP_FAILURE:
         draft.signUpLoading = false;
-        draft.signUpError = action.error;  // 회원가입 실패 확인
+        draft.signUpError = action.error; // 회원가입 실패 확인
         break;
 
 
@@ -311,7 +311,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 닉네임 변경 실패 리듀서 ---------- */
       case CHANGE_NICKNAME_FAILURE:
         draft.changeNicknameLoading = false;
-        draft.changeNicknameError = action.error;  // 닉네임 변경 실패 확인
+        draft.changeNicknameError = action.error; // 닉네임 변경 실패 확인
         break;
 
 

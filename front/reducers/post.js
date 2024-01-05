@@ -147,7 +147,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 게시글 불러오기 실패 리듀서 ---------- */
       case LOAD_POSTS_FAILURE:
         draft.loadPostsLoading = false;
-        draft.loadPostsError = action.error;  // 게시글 불러오기 실패 확인
+        draft.loadPostsError = action.error; // 게시글 불러오기 실패 확인
         break;
 
 
@@ -168,7 +168,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 게시글 추가 실패 리듀서 ---------- */
       case ADD_POST_FAILURE:
         draft.addPostLoading = false;
-        draft.addPostError = action.error;  // 게시글 추가 실패 확인
+        draft.addPostError = action.error; // 게시글 추가 실패 확인
         break;
 
 
@@ -211,7 +211,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 게시글 좋아요 실패 리듀서 ---------- */
       case LIKE_POST_FAILURE:
         draft.likePostLoading = false;
-        draft.likePostError = action.error;  // 게시글 좋아요 실패 확인
+        draft.likePostError = action.error; // 게시글 좋아요 실패 확인
         break;
 
 
@@ -234,7 +234,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 게시글 좋아요 취소 실패 리듀서 ---------- */
       case UNLIKE_POST_FAILURE:
         draft.likePostLoading = false;
-        draft.likePostError = action.error;  // 게시글 좋아요 취소 실패 확인
+        draft.likePostError = action.error; // 게시글 좋아요 취소 실패 확인
         break;
 
 
@@ -297,7 +297,7 @@ const reducer = (state = initialState, action) => {
       /* ---------- 이미지 업로드 실패 리듀서 ---------- */
       case UPLOAD_IMAGES_FAILURE:
         draft.uploadImagesLoading = false;
-        draft.uploadImagesError = action.error;  // 이미지 업로드 실패 확인
+        draft.uploadImagesError = action.error; // 이미지 업로드 실패 확인
         break;
 
 

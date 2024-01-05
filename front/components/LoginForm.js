@@ -2,14 +2,14 @@
 
 
 
-// React 라이브러리 훅 불러오기
+// React 라이브러리 Hook 불러오기
 import React, { useCallback, useEffect } from 'react';
 
-// Redux 라이브러리 불러오기
+// Redux 라이브러리 Hook 불러오기
 import { useDispatch, useSelector } from 'react-redux';
 
 // 외부 컴포넌트 불러오기
-import Link from 'next/link'; 
+import Link from 'next/link';
 import { Form, Input, Button } from 'antd';
 import styled from 'styled-components';
 
@@ -34,8 +34,14 @@ const FormWrapper = styled(Form)`
 
 // 로그인 폼 컴포넌트(사용자 정의 태그)
 const LoginForm = () => {
+
+  /* dispatch = useDispatch 함수라고 선언 */
   const dispatch = useDispatch();
+
+  /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { logInLoading, logInError } = useSelector((state) => state.user);
+  
+  /* 이메일, 비밀번호 인풋 창에 값을 입력했을 때 상태 변경 */
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
 
