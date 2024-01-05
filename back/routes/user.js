@@ -23,7 +23,7 @@ const router = express.Router();
 
 
 
-// 브라우저 새로고침 시 사용자 정보 복구 라우터
+// 브라우저 새로고침 시 나의 사용자 정보를 복구하는 라우터
 router.get('/', async (req, res, next) => { // GET /user
   // req.headers 안에 쿠키가 들어있다.
   console.log(req.headers, "req.headers 안에는 쿠키가 들어있다.");
@@ -59,7 +59,49 @@ router.get('/', async (req, res, next) => { // GET /user
       // 아무것도 보내지 않기
       res.status(200).json(null);
     }
-    
+
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+
+// 브라우저 새로고침 시 다른 사용자 정보를 복구 라우터
+router.get('/:userId', async (req, res, next) => { // GET /user/사용자 번호
+  try {
+    /* (비밀번호를 제외한) 모든 사용자 정보를 가져오는 함수 */
+    const fullUserWithOutPassword = await User.findOne({
+      where: { id: req.params.userId },
+      attributes: { exclude: ['password'] },
+      // 모델 가져오기
+      include: [{
+        /* ---------- 다른 사용자의 게시글 ---------- */
+        model: Post,
+        attributes: ['id'], // id 데이터만 가져오기
+      }, {
+        /* ---------- 다른 사용자의 팔로잉 ---------- */
+        model: User,
+        as: 'Followings',
+        attributes: ['id'], // id 데이터만 가져오기
+      }, {
+        /* ---------- 다른 사용자의 팔로워 ---------- */
+        model: User,
+        as: 'Followers',
+        attributes: ['id'], // id 데이터만 가져오기
+      }]
+    });
+
+    /* ---------- 만약 다른 사용자 정보를 가져올 때 사용자 정보가 없다면 ---------- */
+    if(fullUserWithOutPassword) {
+      // 200번대 에러 출력
+      res.status(200).json(fullUserWithOutPassword);
+    } else {
+      // 400번대 에러 출력
+      res.status(404).json('존재하지 않는 사용자입니다.');
+    }
+
   /* ---------- 에러 캐치 ---------- */
   } catch (error) {
     console.error(error);
