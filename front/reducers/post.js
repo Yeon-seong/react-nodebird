@@ -9,7 +9,7 @@ import produce from 'immer';
 
 // 중앙 데이터 저장소(기본 state)
 export const initialState = {
-  /* 메인 게시글 더미데이터 */
+  /* 메인 게시글 */
   mainPosts: [],
 
   /* 이미지 업로드 시 경로 저장 */
@@ -17,6 +17,11 @@ export const initialState = {
   
   /* 게시글 데이터 무조건 가져오기 */
   hasMorePosts: true,
+
+  /* 단일 게시글 불러오기 시도 중, 완료, 에러 */
+  loadPostLoading: false,
+  loadPostDone: false,
+  loadPostError: null,
 
   /* 게시글 불러오기 시도 중, 완료, 에러 */
   loadPostsLoading: false,
@@ -60,6 +65,11 @@ export const initialState = {
 };
 
 
+
+// 단일 게시글 불러오기 액션 : 요청, 성공, 실패 내보내기
+export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
+export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
+export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
 
 // 게시글 불러오기 액션 : 요청, 성공, 실패 내보내기
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
@@ -126,6 +136,24 @@ const reducer = (state = initialState, action) => {
   // immer가 draft를 보고, 불변성을 지켜서 다음 상태로 만들어냄.
   return produce(state, (draft) => {
     switch (action.type) {
+
+      /* ---------- 단일 게시글 불러오기 요청 리듀서 ---------- */
+      case LOAD_POST_REQUEST:
+        draft.loadPostLoading = true;
+        draft.loadPostDone = false;
+        draft.loadPostError = null;
+        break;
+      /* ---------- 단일 게시글 불러오기 성공 리듀서 ---------- */
+      case LOAD_POST_SUCCESS:
+        draft.loadPostLoading = false;
+        draft.loadPostDone = true;
+        break;
+      /* ---------- 단일 게시글 불러오기 실패 리듀서 ---------- */
+      case LOAD_POST_FAILURE:
+        draft.loadPostLoading = false;
+        draft.loadPostError = action.error; // 단일 게시글 불러오기 실패 확인
+        break;
+
 
       /* ---------- 게시글 불러오기 요청 리듀서 ---------- */
       case LOAD_POSTS_REQUEST:
