@@ -43,9 +43,9 @@ const About = () => {
         ? (
           <Card
             actions={[
-              <div key="twit">트윗<br />{userInfo.Posts.length}</div>,
-              <div key="following">팔로잉<br />{userInfo.Followings.length}</div>,
-              <div key="follower">팔로워<br />{userInfo.Followers.length}</div>,
+              <div key="twit">트윗<br />{userInfo.Posts}</div>,
+              <div key="following">팔로잉<br />{userInfo.Followings}</div>,
+              <div key="follower">팔로워<br />{userInfo.Followers}</div>,
             ]}
           >
             <Card.Meta

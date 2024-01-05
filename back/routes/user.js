@@ -29,7 +29,7 @@ router.get('/', async (req, res, next) => { // GET /user
   console.log(req.headers, "req.headers 안에는 쿠키가 들어있다.");
   try {
     /* ---------- (로그인해서) 사용자 정보가 있다면 ---------- */
-    if(req.user) {
+    if (req.user) {
       /* (비밀번호를 제외한) 모든 사용자 정보를 가져오는 함수 */
       const fullUserWithOutPassword = await User.findOne({
         where: { id: req.user.id },
@@ -93,12 +93,22 @@ router.get('/:userId', async (req, res, next) => { // GET /user/사용자 번호
       }]
     });
 
-    /* ---------- 만약 다른 사용자 정보를 가져올 때 사용자 정보가 없다면 ---------- */
-    if(fullUserWithOutPassword) {
-      // 200번대 에러 출력
-      res.status(200).json(fullUserWithOutPassword);
+    /* ---------- 만약 다른 사용자 정보를 가져올 때 ---------- */
+    if (fullUserWithOutPassword) {
+
+      // 시퀄라이즈에서 불러온 데이터를 사용할 수 있도록 JSON으로 바꾸기
+      const data = fullUserWithOutPassword.toJSON();
+
+      // 개인정보 침해 예방 : 다른 사용자의 트윗, 팔로잉, 팔로워 데이터를 length로 바꾸기
+      data.Posts = data.Posts.length;
+      data.Followings = data.Followings.length;
+      data.Followers = data.Followers.length;
+
+      // 사용자 정보가 있다면 length로 바꾼 데이터를 프론트로 넘기기
+      res.status(200).json(data);
+
     } else {
-      // 400번대 에러 출력
+      // 사용자 정보가 없다면 400번대 에러 출력
       res.status(404).json('존재하지 않는 사용자입니다.');
     }
 
