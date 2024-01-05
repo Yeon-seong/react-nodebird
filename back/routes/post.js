@@ -58,7 +58,7 @@ const upload = multer({
 });
 
 
-// 게시글 작성 라우터
+// 여러 게시글 작성 라우터
 router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {  // POST /post
   try {
     /* ---------- req.body.content에서 해시태그 꺼내오기 ---------- */
@@ -82,7 +82,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {  // POST
       // 배열에서 첫 번째 자리인 '노드', '리액트'만 가져오기
       await post.addHashtags(result.map((v) => v[0]));
     }
-    
+
     /* 이미지 등록하기
        게시글에 이미지를 올릴 때 이미지 개수에 따른 이미지 주소 설정 */
     if (req.body.image) {
@@ -131,7 +131,71 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {  // POST
     });
     /* 게시글 작성 성공 시 모든 게시글 정보를 완성해서 프론트로 돌려주기 */
     res.status(201).json(fullPost);
-  
+
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+
+// 단일 게시글 불러오기 라우터
+router.get('/:postId', async (req, res, next) => { // GET /post/동적 히든
+  try {
+    /* 존재하지 않는 게시글이 있는지 검사하는 함수 */
+    const post = await Post.findOne({
+      where: { id: req.params.postId },
+    });
+
+    /* ---------- 만약 존재하지 않는 게시글이 있다면 400번대 에러 출력 ---------- */
+    if (!post) {
+      return res.status(404).send('존재하지 않는 게시글입니다.');
+    }
+
+    /* ---------- 게시글 모든 정보를 가져오는 함수 ---------- */
+    const fullPost = await Post.findOne({
+      where: { id: post.id },
+      // 모델 가져오기
+      include: [{
+        /* ---------- 리트윗한 게시글 ---------- */
+        model: Post,
+        as: 'Retweet', // 리트윗한 게시글이 post.Retweet으로 담긴다.
+        // 모델 가져오기
+        include: [{
+          /* ---------- 리트윗한 게시글의 작성자 ---------- */
+          model: User,
+          attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+        }, {
+          /* ---------- 리트윗한 게시글의 이미지 ---------- */
+          model: Image,
+        }]
+      }, {
+        /* ---------- 게시글 작성자 ---------- */
+        model: User,
+        attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+      }, {
+        /* ---------- 게시글 좋아요 누른 사람들 ---------- */
+        model: User,
+        as: 'Likers',
+        attributes: ['id'], // id 데이터만 가져오기
+      }, {
+        /* ---------- 게시글 이미지 ---------- */
+        model: Image,
+      }, {
+        /* ---------- 게시글 답글 ---------- */
+        model: Comment,
+        // 모델 가져오기
+        include: [{
+          /* ---------- 게시글 답글의 작성자 ---------- */
+          model: User,
+          attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+        }],
+      }],
+    });
+    /* 게시글 작성 성공 시 모든 게시글 정보를 완성해서 프론트로 돌려주기 */
+    res.status(200).json(fullPost);
+
   /* ---------- 에러 캐치 ---------- */
   } catch (error) {
     console.error(error);
