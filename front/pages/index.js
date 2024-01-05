@@ -96,7 +96,8 @@ const Home = () => {
 
 
 
-// 홈 컴포넌트보다 먼저 실행, 매개변수 context 안에 store가 들어있다.
+// 서버사이드 렌더링(SSR) : getServerSideProps 사용
+/* 홈 컴포넌트보다 먼저 실행, 매개변수 context 안에 store가 들어있다. */
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
 
   /* 변수 cookie에 모든 cookie 정보 저장 */
@@ -122,7 +123,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     type: LOAD_POSTS_REQUEST,
   });
 
-  /* 사용자 정보, 게시글 불러오기 요청(REQUEST)이 성공(SUCCESS)으로 바뀔 때까지 기다리기 */
+  /* 나의 사용자 정보, 게시글 불러오기 요청(REQUEST)이 성공(SUCCESS)으로 바뀔 때까지 기다리기 */
   context.store.dispatch(END);
   await context.store.sagaTask.toPromise();
 });
