@@ -11,6 +11,11 @@ import axios from 'axios';
 // 게시글 액션 불러오기
 import {
 
+  /* ---------- 단일 게시글 불러오기 액션 : 요청, 성공, 실패 ---------- */
+  LOAD_POST_REQUEST,
+  LOAD_POST_SUCCESS,
+  LOAD_POST_FAILURE,
+
   /* ---------- 여러 게시글 불러오기 액션 : 요청, 성공, 실패 ---------- */
   LOAD_POSTS_REQUEST,
   LOAD_POSTS_SUCCESS,
@@ -63,6 +68,32 @@ import {
   REMOVE_POST_OF_ME,
 
 } from '../reducers/user';
+
+
+
+// loadPost 실행 시 서버에 loadPostAPI 요청
+function loadPostAPI(data) {
+  return axios.get(`/post/${data}`);
+}
+// LOAD_POST_SUCCESS 액션이 실행되면 loadPost 함수 실행
+function* loadPost(action) {
+  /* ---------- 요청 성공 시 LOAD_POST_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(loadPostAPI, action.data);
+    yield put({
+      type: LOAD_POST_SUCCESS,
+      data: result.data,        // 성공 결과 : 실제 게시글 배열이 들어있다.
+    });
+
+  /* ---------- 요청 실패 시 LOAD_POST_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_POST_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
 
 
 
@@ -283,6 +314,11 @@ function* uploadImages(action) {
 
 
 
+// 단일 게시글 불러오기 요청 액션을 호출하는 제너레이터 함수
+function* watchLoadPost() {
+  yield takeLatest(LOAD_POST_REQUEST, loadPost);
+}
+
 // 여러 게시글 불러오기 요청 액션을 호출하는 제너레이터 함수
 function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
@@ -329,6 +365,7 @@ function* watchUploadImages() {
 export default function* postSaga() {
   /* all 배열 안의 코드 동시 실행 */
   yield all([
+    fork(watchLoadPost),
     fork(watchLoadPosts),
     fork(watchAddPost),
     fork(watchRemovePost),
