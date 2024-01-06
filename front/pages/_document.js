@@ -6,7 +6,7 @@
 import React from 'react';
 
 // 외부 컴포넌트 불러오기
-import Document, { Html, Main, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
 
