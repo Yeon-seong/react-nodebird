@@ -47,12 +47,14 @@ export default class MyDocument extends Document {
 
 
   render() {
-    <Html lang="ko">
-      <Head />
-      <body>
-        <Main />
-        <NextScript />
-      </body>
-    </Html> 
+    return (
+      <Html lang="ko">
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }
