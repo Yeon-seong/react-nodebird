@@ -1,4 +1,10 @@
+/* -------------------- 바벨 설정 커스터 마이징 -------------------- */
 {
   "presets": ["next/babel"],
-  "plugins": ["babel-plugin-styled-components"]
+  "plugins": [
+    ["babel-plugin-styled-components", {
+      "ssr": true,
+      "displayName": true // 개발모드 콘솔에서 클래스명을 컴포넌트 이름으로 바꾸기
+    }]
+  ]
 }
