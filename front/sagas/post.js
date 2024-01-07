@@ -16,6 +16,16 @@ import {
   LOAD_POST_SUCCESS,
   LOAD_POST_FAILURE,
 
+  /* ---------- 특정 사용자의 게시글 불러오기 액션 : 요청, 성공, 실패 ---------- */
+  LOAD_USER_POSTS_REQUEST,
+  LOAD_USER_POSTS_SUCCESS,
+  LOAD_USER_POSTS_FAILURE,
+
+  /* ---------- 특정 해시태그를 가진 게시글 불러오기 액션 : 요청, 성공, 실패 ---------- */
+  LOAD_HASHTAG_POSTS_REQUEST,
+  LOAD_HASHTAG_POSTS_SUCCESS,
+  LOAD_HASHTAG_POSTS_FAILURE,
+
   /* ---------- 여러 게시글 불러오기 액션 : 요청, 성공, 실패 ---------- */
   LOAD_POSTS_REQUEST,
   LOAD_POSTS_SUCCESS,
@@ -124,6 +134,63 @@ function* loadPosts(action) {
 }
 
 
+
+// loadUserPosts 실행 시 서버에 loadUserPostsAPI 요청
+function loadUserPostsAPI(data, lastId) { // 인자 2개
+  /* get에서 데이터를 넣기 위해 주소 뒤에 ?를 찍고 `key=값`을 적어준다.
+     lastId가 undefined인 경우 lastId를 0으로 만든다. */
+  return axios.get(`/user/${data}/?lastId=${lastId || 0}`);
+}
+// LOAD_USER_POSTS_SUCCESS 액션이 실행되면 loadUserPosts 함수 실행
+function* loadUserPosts(action) {
+  /* ---------- 요청 성공 시 LOAD_USER_POSTS_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(loadUserPostsAPI, action.data, action.lastId);
+    yield put({
+      type: LOAD_USER_POSTS_SUCCESS,
+      data: result.data,        // 성공 결과 : 실제 특정 사용자의 게시글이 들어있다.
+    });
+
+  /* ---------- 요청 실패 시 LOAD_USER_POSTS_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_USER_POSTS_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
+
+// loadHashtagPosts 실행 시 서버에 loadHashtagPostsAPI 요청
+function loadHashtagPostsAPI(data, lastId) { // 인자 2개
+  /* get에서 데이터를 넣기 위해 주소 뒤에 ?를 찍고 `key=값`을 적어준다.
+     lastId가 undefined인 경우 lastId를 0으로 만든다. */
+  return axios.get(`/hashtag/${data}?lastId=${lastId || 0}`);
+}
+// LOAD_HASHTAG_POSTS_SUCCESS 액션이 실행되면 loadHashtagPosts 함수 실행
+function* loadHashtagPosts(action) {
+  /* ---------- 요청 성공 시 LOAD_HASHTAG_POSTS_SUCCESS 액션 디스패치 ---------- */
+  try {
+    const result = yield call(loadHashtagPostsAPI, action.data, action.lastId);
+    yield put({
+      type: LOAD_HASHTAG_POSTS_SUCCESS,
+      data: result.data,        // 성공 결과 : 실제 특정 해시태그를 가진 게시글이 들어있다.
+    });
+
+  /* ---------- 요청 실패 시 LOAD_HASHTAG_POSTS_FAILURE 액션 디스패치 ---------- */
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_HASHTAG_POSTS_FAILURE,
+      error: err.response.data, // 실패 결과
+    });
+  }
+}
+
+
+
 // addPost 실행 시 서버에 addPostAPI 요청
 function addPostAPI(data) {
   return axios.post('/post', data); // formData는 바로 data에 넣어줘야 한다.
@@ -153,6 +220,7 @@ function* addPost(action) {
     });
   }
 }
+
 
 
 // removePost 실행 시 서버에 removePostAPI 요청
@@ -186,6 +254,7 @@ function* removePost(action) {
 }
 
 
+
 // likePost 실행 시 서버에 likePostAPI 요청
 function likePostAPI(data) {
   /* patch(`post/post.id/like`) : 몇 번째 게시글의 좋아요(like) 변경 */
@@ -210,6 +279,7 @@ function* likePost(action) {
     });
   }
 }
+
 
 
 // unlikePost 실행 시 서버에 unlikePostAPI 요청
@@ -238,6 +308,7 @@ function* unlikePost(action) {
 }
 
 
+
 // addComment 실행 시 서버에 addCommentAPI 요청
 function addCommentAPI(data) {
   return axios.post(`/post/${data.postId}/comment`, data); // POST /post/동적 히든/comment
@@ -263,6 +334,7 @@ function* addComment(action) {
 }
 
 
+
 // retweet 실행 시 서버에 retweetAPI 요청
 function retweetAPI(data) { // 해당 주소 게시글 리트윗하기
   return axios.post(`/post/${data}/retweet`); // POST /post/동적 히든/retweet
@@ -286,6 +358,7 @@ function* retweet(action) {
     });
   }
 }
+
 
 
 // uploadImages 실행 시 서버에 uploadImagesAPI 요청
@@ -317,6 +390,16 @@ function* uploadImages(action) {
 // 단일 게시글 불러오기 요청 액션을 호출하는 제너레이터 함수
 function* watchLoadPost() {
   yield takeLatest(LOAD_POST_REQUEST, loadPost);
+}
+
+// 특정 사용자의 게시글 불러오기 요청 액션을 호출하는 제너레이터 함수
+function* watchLoadUserPosts() {
+  yield throttle(5000, LOAD_USER_POSTS_REQUEST, loadUserPosts);
+}
+
+// 특정 해시태그를 가진 게시글 불러오기 요청 액션을 호출하는 제너레이터 함수
+function* watchLoadHashtagPosts() {
+  yield throttle(5000, LOAD_HASHTAG_POSTS_REQUEST, loadHashtagPosts);
 }
 
 // 여러 게시글 불러오기 요청 액션을 호출하는 제너레이터 함수
@@ -366,6 +449,8 @@ export default function* postSaga() {
   /* all 배열 안의 코드 동시 실행 */
   yield all([
     fork(watchLoadPost),
+    fork(watchLoadUserPosts),
+    fork(watchLoadHashtagPosts),
     fork(watchLoadPosts),
     fork(watchAddPost),
     fork(watchRemovePost),

@@ -95,6 +95,7 @@ function* loadMyInfo(action) {
 }
 
 
+
 // loadUser 실행 시 서버에 loadUserAPI 요청
 function loadUserAPI(data) {
   return axios.get(`/user/${data}`);
@@ -118,6 +119,7 @@ function* loadUser(action) {
     });
   }
 }
+
 
 
 // loadFollowers 실행 시 서버에 loadFollowersAPI 요청
@@ -145,6 +147,7 @@ function* loadFollowers(action) {
 }
 
 
+
 // loadFollowings 실행 시 서버에 loadFollowingsAPI 요청
 function loadFollowingsAPI(data) {
   return axios.get('/user/followings', data);
@@ -168,6 +171,7 @@ function* loadFollowings(action) {
     });
   }
 }
+
 
 
 // logIn 실행 시 서버에 logInAPI 요청
@@ -195,6 +199,7 @@ function* logIn(action) {
 }
 
 
+
 // logOut 실행 시 서버에 logOutAPI 요청
 function logOutAPI() {
   return axios.post('/user/logout');
@@ -217,6 +222,7 @@ function* logOut() {
     });
   }
 }
+
 
 
 // signUp 실행 시 브라우저에서 바로 백엔드 서버로 요청 보내기
@@ -242,6 +248,7 @@ function* signUp(action) {
     });
   }
 }
+
 
 
 // changeNickname 실행 시 서버에 changeNicknameAPI 요청
@@ -294,6 +301,7 @@ function* follow(action) {
 }
 
 
+
 // unfollow 실행 시 서버에 unfollowAPI 요청
 function unfollowAPI(data) {
   return axios.delete(`/user/${data}/follow`); // data에는 사용자 아이디가 들어간다.
@@ -317,6 +325,7 @@ function* unfollow(action) {
     });
   }
 }
+
 
 
 // removeFollower 실행 시 서버에 removeFollowerAPI 요청
