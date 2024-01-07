@@ -8,6 +8,9 @@ const express = require('express');
 // 라우팅 모듈 호출
 const router = express.Router();
 
+// 시퀄라이즈 Op 연산자 호출
+const { Op } = require('sequelize');
+
 // 게시글, 사용자, 이미지, 답글 모델 불러오기
 const { Post, User, Image, Comment, Hashtag } = require('../models');
 
