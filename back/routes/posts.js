@@ -24,7 +24,7 @@ router.get('/', async (req, res, next) => { // GET /posts
        조건 : lastId '보다 작은(Op.lt)' 것 */
     if (parseInt(req.query.lastId, 10)) { // 초기 로딩이 아닐 때
       where.id = { [Op.lt]: parseInt(req.query.lastId, 10) }
-    }
+    } // 페이지네이션
 
     /* Post.findAll : 지금까지 작성한 모든 게시글을 가져오는 함수 */
     const posts = await Post.findAll({
