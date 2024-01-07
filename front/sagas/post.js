@@ -167,7 +167,7 @@ function* loadUserPosts(action) {
 function loadHashtagPostsAPI(data, lastId) { // 인자 2개
   /* get에서 데이터를 넣기 위해 주소 뒤에 ?를 찍고 `key=값`을 적어준다.
      lastId가 undefined인 경우 lastId를 0으로 만든다. */
-  return axios.get(`/hashtag/${data}?lastId=${lastId || 0}`);
+  return axios.get(`/hashtag/${encodeURIComponent(data)}?lastId=${lastId || 0}`);
 }
 // LOAD_HASHTAG_POSTS_SUCCESS 액션이 실행되면 loadHashtagPosts 함수 실행
 function* loadHashtagPosts(action) {

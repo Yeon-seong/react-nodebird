@@ -19,7 +19,7 @@ const { Post, User, Image, Comment, Hashtag } = require('../models');
 // 특정 해시태그를 가진 게시글을 가져오는 라우터
 router.get('/:hashtag', async (req, res, next) => { // GET /hashtag/해시태그이름
   try {
-    const where = { }; // 초기 로딩일 때
+    const where = {}; // 초기 로딩일 때
     /* Query String으로 lastId를 보냈으므로 req.query.lastId에 lastId가 들어있다.
        조건 : lastId '보다 작은(Op.lt)' 것 */
     if (parseInt(req.query.lastId, 10)) { // 초기 로딩이 아닐 때
@@ -43,7 +43,7 @@ router.get('/:hashtag', async (req, res, next) => { // GET /hashtag/해시태그
         /* ---------- 게시글 해시태그 ---------- */
         model: Hashtag,
         // where를 여기다 적어주면 include한 회에서 조건을 적용할 수 있다
-        where: { name: req.params.hashtag },
+        where: { name: decodeURIComponent(req.params.hashtag) },
       }, {
         /* ---------- 게시글 작성자 ---------- */
         model: User,
