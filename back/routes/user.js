@@ -11,6 +11,8 @@ const bcrypt = require('bcrypt');
 // Passport 미들웨어 호출
 const passport = require('passport');
 
+// 시퀄라이즈 Op 연산자 호출
+const { Op } = require('sequelize');
 
 // 사용자, 게시글, 이미지, 답글 모델 불러오기
 const { User, Post, Image, Comment } = require('../models');
