@@ -139,7 +139,7 @@ function* loadPosts(action) {
 function loadUserPostsAPI(data, lastId) { // 인자 2개
   /* get에서 데이터를 넣기 위해 주소 뒤에 ?를 찍고 `key=값`을 적어준다.
      lastId가 undefined인 경우 lastId를 0으로 만든다. */
-  return axios.get(`/user/${data}/posts/?lastId=${lastId || 0}`);
+  return axios.get(`/user/${data}/posts?lastId=${lastId || 0}`);
 }
 // LOAD_USER_POSTS_SUCCESS 액션이 실행되면 loadUserPosts 함수 실행
 function* loadUserPosts(action) {
