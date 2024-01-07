@@ -81,7 +81,7 @@ const User = () => {
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, [mainPosts.length, hasMorePosts, id]);
+  }, [mainPosts.length, hasMorePosts, id, loadPostsLoading]);
 
 
 
