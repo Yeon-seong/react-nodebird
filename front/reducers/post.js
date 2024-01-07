@@ -74,6 +74,16 @@ export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
 export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
 export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
 
+// 특정 사용자의 게시글 불러오기 액션 : 요청, 성공, 실패 내보내기
+export const LOAD_USER_POSTS_REQUEST = 'LOAD_USER_POSTS_REQUEST';
+export const LOAD_USER_POSTS_SUCCESS = 'LOAD_USER_POSTS_SUCCESS';
+export const LOAD_USER_POSTS_FAILURE = 'LOAD_USER_POSTS_FAILURE';
+
+// 특정 해시태그를 가진 게시글 불러오기 액션 : 요청, 성공, 실패 내보내기
+export const LOAD_HASHTAG_POSTS_REQUEST = 'LOAD_HASHTAG_POSTS_REQUEST';
+export const LOAD_HASHTAG_POSTS_SUCCESS = 'LOAD_HASHTAG_POSTS_SUCCESS';
+export const LOAD_HASHTAG_POSTS_FAILURE = 'LOAD_HASHTAG_POSTS_FAILURE';
+
 // 여러 게시글 불러오기 액션 : 요청, 성공, 실패 내보내기
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
@@ -160,13 +170,24 @@ const reducer = (state = initialState, action) => {
         break;
 
 
-      /* ---------- 여러 게시글 불러오기 요청 리듀서 ---------- */
+      /* ---------- 요청 리듀서(REQUEST Reducer) : 상태 재활용 ---------- */
+      // 특정 사용자의 게시글 불러오기 요청 리듀서
+      case LOAD_USER_POSTS_REQUEST:
+      // 특정 해시태그를 가진 게시글 불러오기 요청 리듀서
+      case LOAD_HASHTAG_POSTS_REQUEST:
+      // 여러 게시글 불러오기 요청 리듀서
       case LOAD_POSTS_REQUEST:
         draft.loadPostsLoading = true;
         draft.loadPostsDone = false;
         draft.loadPostsError = null;
         break;
-      /* ---------- 여러 게시글 불러오기 성공 리듀서 ---------- */
+
+      /* ---------- 성공 리듀서(SUCCESS Reducer) : 상태 재활용 ---------- */
+      // 특정 사용자의 게시글 불러오기 성공 리듀서
+      case LOAD_USER_POSTS_SUCCESS:
+      // 특정 해시태그를 가진 게시글 불러오기 성공 리듀서
+      case LOAD_HASHTAG_POSTS_SUCCESS:
+      // 여러 게시글 불러오기 성공 리듀서
       case LOAD_POSTS_SUCCESS:
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
@@ -177,7 +198,13 @@ const reducer = (state = initialState, action) => {
         // 메인 게시글(mainPosts)을 10개보다 적게 불러오면 그만 불러오기(hasMorePosts = false)
         draft.hasMorePosts = action.data.length === 10;
         break;
-      /* ---------- 여러 게시글 불러오기 실패 리듀서 ---------- */
+
+      /* ---------- 실패 리듀서(FAILURE Reducer) : 상태 재활용 ---------- */
+      // 특정 사용자의 게시글 불러오기 실패 리듀서
+      case LOAD_USER_POSTS_FAILURE:
+      // 특정 해시태그를 가진 게시글 불러오기 실패 리듀서
+      case LOAD_HASHTAG_POSTS_FAILURE:
+      // 여러 게시글 불러오기 실패 리듀서
       case LOAD_POSTS_FAILURE:
         draft.loadPostsLoading = false;
         draft.loadPostsError = action.error; // 여러 게시글 불러오기 실패 확인
