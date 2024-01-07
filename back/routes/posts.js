@@ -31,11 +31,11 @@ router.get('/', async (req, res, next) => { // GET /posts
       where,
       /* 게시글 10개만 가져오기 */
       limit: 10,
-      order:
+      order: [
         /* order 첫 번째 요소 : 최신 게시글부터 내림차순으로 가져오기 */
-        [['createdAt', 'DESC'],
+        ['createdAt', 'DESC'],
         /* order 두 번째 요소 : 답글 내림차순 정렬 */
-        [Comment, 'createdAt', 'DESC']
+        [Comment, 'createdAt', 'DESC'],
       ],
       // 모델 가져오기
       include: [{

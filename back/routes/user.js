@@ -12,8 +12,8 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 
 
-// 사용자, 게시글 모델 불러오기
-const { User, Post } = require('../models');
+// 사용자, 게시글, 이미지, 답글 모델 불러오기
+const { User, Post, Image, Comment } = require('../models');
 
 // 로그인 유무를 검사하는 커스텀 미들웨어 불러오기
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
@@ -135,11 +135,11 @@ router.get('/:userId/posts', async (req, res, next) => { // GET /user/사용자 
       where,
       /* 게시글 10개만 가져오기 */
       limit: 10,
-      order:
+      order: [
         /* order 첫 번째 요소 : 최신 게시글부터 내림차순으로 가져오기 */
-        [['createdAt', 'DESC'],
+        ['createdAt', 'DESC'],
         /* order 두 번째 요소 : 답글 내림차순 정렬 */
-        [Comment, 'createdAt', 'DESC']
+        [Comment, 'createdAt', 'DESC'],
       ],
       // 모델 가져오기
       include: [{
