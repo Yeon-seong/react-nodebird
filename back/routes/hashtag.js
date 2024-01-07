@@ -1,0 +1,94 @@
+/* -------------------- 트위터 해시태그 라우터 -------------------- */
+
+
+
+// Express 모듈 호출
+const express = require('express');
+
+// 라우팅 모듈 호출
+const router = express.Router();
+
+// 게시글, 사용자, 이미지, 답글 모델 불러오기
+const { Post, User, Image, Comment, Hashtag } = require('../models');
+
+
+
+// 특정 해시태그를 가진 게시글을 가져오는 라우터
+router.get('/:hashtag', async (req, res, next) => { // GET /hashtag/해시태그이름
+  try {
+    const where = { }; // 초기 로딩일 때
+    /* Query String으로 lastId를 보냈으므로 req.query.lastId에 lastId가 들어있다.
+       조건 : lastId '보다 작은(Op.lt)' 것 */
+    if (parseInt(req.query.lastId, 10)) { // 초기 로딩이 아닐 때
+      where.id = { [Op.lt]: parseInt(req.query.lastId, 10) }
+    } // 페이지네이션
+
+    /* Post.findAll : 지금까지 작성한 모든 게시글을 가져오는 함수 */
+    // 두 개의 where 조건을 동시에 만족하는 게시글만 가져오기
+    const posts = await Post.findAll({
+      where,
+      /* 게시글 10개만 가져오기 */
+      limit: 10,
+      order:
+        /* order 첫 번째 요소 : 최신 게시글부터 내림차순으로 가져오기 */
+        [['createdAt', 'DESC'],
+        /* order 두 번째 요소 : 답글 내림차순 정렬 */
+        [Comment, 'createdAt', 'DESC']
+      ],
+      // 모델 가져오기
+      include: [{
+        /* ---------- 게시글 해시태그 ---------- */
+        model: Hashtag,
+        // where를 여기다 적어주면 include한 회에서 조건을 적용할 수 있다
+        where: { name: req.params.hashtag },
+      }, {
+        /* ---------- 게시글 작성자 ---------- */
+        model: User,
+        attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+      }, {
+        /* ---------- 게시글 좋아요 누른 사람들 ---------- */
+        model: User, // 좋아요 누른 사람
+        as: 'Likers',
+        attributes: ['id'], // id 데이터만 가져오기
+      }, {
+        /* ---------- 게시글 이미지 ---------- */
+        model: Image,
+      }, {
+        /* ---------- 게시글 답글 ---------- */
+        model: Comment,
+        // 모델 가져오기
+        include: [{
+          /* ---------- 게시글 답글의 작성자 ---------- */
+          model: User,
+          attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+        }]
+      }, {
+        /* ---------- 리트윗한 게시글 ---------- */
+        model: Post,
+        as: 'Retweet', // 리트윗한 게시글이 post.Retweet으로 담긴다.
+        // 모델 가져오기
+        include: [{
+          /* ---------- 리트윗한 게시글의 작성자 ---------- */
+          model: User,
+          attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
+        }, {
+          /* ---------- 리트윗한 게시글의 이미지 ---------- */
+          model: Image,
+        }]
+      }],
+    });
+    /* 게시글들 작성 성공 시 게시글들 정보를 프론트로 돌려주기 */
+    // console.log(posts);
+    res.status(200).json(posts);
+
+  /* ---------- 에러 캐치 ---------- */
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+
+
+// 라우터 내보내기
+module.exports = router;
