@@ -43,7 +43,7 @@ const Post = () => {
 
   /* 구조분해로 아이디 받아오기 */
   const { id } = router.query;
-  
+
   /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { singlePost } = useSelector((state) => state.post)
 

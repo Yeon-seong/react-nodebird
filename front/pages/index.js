@@ -41,6 +41,7 @@ const Home = () => {
   const { mainPosts, hasMorePosts, loadPostsLoading, retweetError } = useSelector((state) => state.post);
 
 
+
   // 리트윗 실패 시 리트윗 에러 alert 창 띄우기
   useEffect(() => {
     if (retweetError) {

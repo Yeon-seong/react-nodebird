@@ -41,7 +41,7 @@ const UserProfile = () => {
         <div key="follower">팔로워<br />{me.Followers.length}</div>,
       ]}
     >
-      
+
       <Card.Meta
         /* 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
         avatar={<Avatar>{me.nickname[0]}</Avatar>}
