@@ -85,9 +85,33 @@ const Post = () => {
 
 
 
-// 서버사이드 렌더링(SSR) : getServerSideProps 사용
+// getStaticProps를 통해 게시글 페이지를 미리 빌드해서 html로 만들기
+export async function getStaticPaths() {
+  return {
+    paths: [ /* 파람스 아이디(params id) */
+      { params: { id: '30' } },
+      { params: { id: '31' } },
+      { params: { id: '32' } },
+      { params: { id: '33' } },
+      { params: { id: '34' } },
+      { params: { id: '35' } },
+      { params: { id: '37' } },
+      { params: { id: '38' } },
+      { params: { id: '39' } },
+      { params: { id: '40' } },
+      { params: { id: '41' } },
+      { params: { id: '44' } },
+      { params: { id: '51' } },
+      { params: { id: '52' } },
+      { params: { id: '53' } },
+    ],
+    fallback: false,
+  };
+}
+
+// 서버사이드 렌더링(SSR) : getStaticProps 사용
 /* 게시글 컴포넌트보다 먼저 실행, 매개변수 context 안에 store가 들어있다. */
-export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+export const getStaticProps = wrapper.getStaticProps(async (context) => {
 
   /* 변수 cookie에 모든 cookie 정보 저장 */
   const cookie = context.req ? context.req.headers.cookie : '';
@@ -113,7 +137,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   context.store.dispatch({
     type: LOAD_POST_REQUEST,
     data: context.params.id, // 또는 context.query.id로 useRouter에 접근 가능
-  });
+  }); /* 파람스 아이디(params id) */
 
   /* 나의 사용자 정보, 단일 게시글 불러오기 요청(REQUEST)이 성공(SUCCESS)으로 바뀔 때까지 기다리기 */
   context.store.dispatch(END);
