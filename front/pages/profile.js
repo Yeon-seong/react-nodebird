@@ -6,10 +6,13 @@
 import React, { useEffect } from 'react';
 
 // Redux 라이브러리 Hook 불러오기
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // Axios 라이브러리 불러오기
 import axios from 'axios';
+
+// React Hook SWR 라이브러리 불러오기
+import useSWR from 'swr';
 
 // END 액션 불러오기
 import { END } from 'redux-saga';
@@ -26,42 +29,34 @@ import FollowList from '../components/FollowList';
 // wrapper 불러오기
 import wrapper from '../store/configureStore';
 
-// 사용자 액션 불러오기
-import {
-  
-  /* ---------- 팔로워 불러오기 요청 액션 ---------- */
-  LOAD_FOLLOWERS_REQUEST,
-  
-  /* ---------- 팔로잉 불러오기 요청 액션 ---------- */
-  LOAD_FOLLOWINGS_REQUEST,
+// 나의 사용자 정보 불러오기 요청 액션 불러오기
+import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
 
-  /* ---------- 나의 사용자 정보 불러오기 요청 액션 ---------- */
-  LOAD_MY_INFO_REQUEST,
-  
-} from '../reducers/user';
+
+
+// 실제로 주소 가져오기 : 데이터를 가져오는 API를 호출하는 fetcher 함수
+const fetcher = (url) => 
+  axios.get(url, { withCredentials: true }).then((result) => result.data
+);
 
 
 
 // 프로필 컴포넌트(사용자 정의 태그)
 const Profile = () => {
 
-  /* dispatch = useDispatch 함수라고 선언 */
-  const dispatch = useDispatch();
-
   /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { me } = useSelector((state) => state.user);
 
-  
-  useEffect(() => {
-    // 프로필 페이지로 가면 사용자의 팔로워 불러오기 요청 액션 객체 디스패치
-    dispatch({
-      type: LOAD_FOLLOWERS_REQUEST,
-    })
-    // 프로필 페이지로 가면 사용자의 팔로잉 불러오기 요청 액션 객체 디스패치
-    dispatch({
-      type: LOAD_FOLLOWINGS_REQUEST,
-    })
-  }, []);
+
+  /* 팔로워 불러오기 구조분해 할당 */
+  const { data: followersData, error: followerError } = useSWR(
+    `http://localhost:3065/user/followers`, fetcher
+  );
+
+  /* 팔로잉 불러오기 구조분해 할당 */
+  const { data: followingsData, error: followingError } = useSWR(
+    `http://localhost:3065/user/followings`, fetcher
+  );
 
 
   // 프로필 페이지에서 로그아웃한 상태일(me가 없을 때)때 메인 페이지로 이동
@@ -73,7 +68,7 @@ const Profile = () => {
 
   // 로그인 하지 않은 상태일(me가 없을)때 프로필 페이지로 이동 막기
   if (!me) {
-    return null;
+    return '내 정보 로딩중...';
   };
 
 
@@ -89,10 +84,10 @@ const Profile = () => {
         <NicknameEditForm />
         
         {/* ---------- 팔로잉 목록 ---------- */}
-        <FollowList header="팔로잉" data={me.Followings} />
+        <FollowList header="팔로잉" data={followingsData} />
 
         {/* ---------- 팔로워 목록 ---------- */}
-        <FollowList header="팔로워" data={me.Followers} />
+        <FollowList header="팔로워" data={followersData} />
       </AppLayout>
     </>
   );
