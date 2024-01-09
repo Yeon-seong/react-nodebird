@@ -3,7 +3,7 @@
 
 
 // React 라이브러리 Hook 불러오기
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 // Redux 라이브러리 Hook 불러오기
 import { useSelector } from 'react-redux';
@@ -47,15 +47,18 @@ const Profile = () => {
   /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { me } = useSelector((state) => state.user);
 
+  /* 팔로워 리밋, 팔로잉 리밋 상태 저장 */
+  const [followersLimit, setFollowersLimit] = useState(3);
+  const [followingsLimit, setFollowingsLimit] = useState(3);
 
   /* 팔로워 불러오기 구조분해 할당 */
   const { data: followersData, error: followerError } = useSWR(
-    'http://localhost:3065/user/followers', fetcher
+    `http://localhost:3065/user/followers?limit=${followersLimit}`, fetcher
   );
-  
+
   /* 팔로잉 불러오기 구조분해 할당 */
   const { data: followingsData, error: followingError } = useSWR(
-    'http://localhost:3065/user/followings', fetcher
+    `http://localhost:3065/user/followings?limit=${followingsLimit}`, fetcher
   );
 
 
@@ -65,6 +68,18 @@ const Profile = () => {
       Router.push('/');
     } 
   }, [me && me.id]);
+
+  
+  // 팔로워 목록 더 불러오기 콜백 함수
+  const loadMoreFollowers = useCallback(() => {
+    setFollowersLimit((prev) => prev + 3);  // 기존 limit보다 3 올려주기
+  }, []);
+
+  // 팔로잉 목록 더 불러오기 콜백 함수
+  const loadMoreFollowings = useCallback(() => {
+    setFollowingsLimit((prev) => prev + 3); // 기존 limit보다 3 올려주기
+  }, []);
+
 
   // 로그인 하지 않은 상태일(me가 없을)때 프로필 페이지로 이동 막기
   if (!me) {
@@ -92,10 +107,22 @@ const Profile = () => {
         <NicknameEditForm />
         
         {/* ---------- 팔로잉 목록 ---------- */}
-        <FollowList header="팔로잉" data={followingsData} />
+        <FollowList
+          header="팔로잉"
+          data={followingsData}
+          onClickMore={loadMoreFollowings}
+          // SWR에서의 로딩 : 팔로잉 데이터와 팔로잉 에러가 없을 때
+          loading={!followingsData && !followingError}
+        />
 
         {/* ---------- 팔로워 목록 ---------- */}
-        <FollowList header="팔로워" data={followersData} />
+        <FollowList
+        header="팔로워"
+        data={followersData}
+        onClickMore={loadMoreFollowers}
+        // SWR에서의 로딩 : 팔로워 데이터와 팔로워 에러가 없을 때
+        loading={!followersData && !followerError}
+        />
       </AppLayout>
     </>
   );

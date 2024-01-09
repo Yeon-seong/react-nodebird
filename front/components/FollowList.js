@@ -31,7 +31,7 @@ import {
 
 
 // 팔로우 리스트 컴포넌트(사용자 정의 태그)
-const FollowList = ({ header, data }) => {
+const FollowList = ({ header, data, onClickMore, loading }) => {
 
   /* dispatch = useDispatch 함수라고 선언 */
   const dispatch = useDispatch();
@@ -64,11 +64,11 @@ const FollowList = ({ header, data }) => {
       /* 팔로잉 목록, 팔로워 목록 헤더 */
       header={<div>{header}</div>}
       /* 더보기 버튼 */
-      loadMore={
+      loadMore={(
         <div style={{ textAlign: 'center', margin: '10px 0px' }}>
-          <Button>더 보기</Button>
+          <Button onClick={onClickMore} loading={loading}>더 보기</Button>
         </div>
-      }
+      )}
       /* 팔로잉 목록, 팔로워 목록 전체 테두리 */
       bordered
       /* 목록용 데이터소스 : 팔로잉 목록, 팔로워 목록 더미데이터 배열 전달 */
@@ -86,12 +86,16 @@ const FollowList = ({ header, data }) => {
 
 
 
-// 팔로우 리스트 컴포넌트의 header, data props 데이터 타입 검사
+// 팔로우 리스트 컴포넌트의 header, data, onClickMore, loading props 데이터 타입 검사
 FollowList.propTypes = {
   /* String 객체 필수 검사 */
   header: PropTypes.string.isRequired,
   /* Array 객체 필수 검사 */
   data: PropTypes.array.isRequired,
+  /* PropTypes으로 구성된 함수 필수 검사 */
+  onClickMore: PropTypes.func.isRequired,
+  /* Boolean 객체 필수 검사 */
+  loading: PropTypes.bool.isRequired,
 };
 
 // 팔로우 리스트 컴포넌트 내보내기
