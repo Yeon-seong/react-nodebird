@@ -72,6 +72,14 @@ const Profile = () => {
   };
 
 
+  /* 팔로워 에러 or 팔로잉 에러 둘 중 하나가 에러났을 때 에러 콘솔하기 */
+  // Hook은 항상 모두 다 실행되어야 하기에 return은 Hook보다 위에 위치할 수 없다.
+  if (followerError || followingError) {
+    console.error(followerError || followingError);
+    return <div>팔로워/팔로잉 로딩 중 에러가 발생합니다.</div>;
+  }
+
+
 
   return (
     <>
