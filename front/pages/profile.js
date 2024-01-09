@@ -50,12 +50,12 @@ const Profile = () => {
 
   /* 팔로워 불러오기 구조분해 할당 */
   const { data: followersData, error: followerError } = useSWR(
-    `http://localhost:3065/user/followers`, fetcher
+    'http://localhost:3065/user/followers', fetcher
   );
-
+  
   /* 팔로잉 불러오기 구조분해 할당 */
   const { data: followingsData, error: followingError } = useSWR(
-    `http://localhost:3065/user/followings`, fetcher
+    'http://localhost:3065/user/followings', fetcher
   );
 
 
