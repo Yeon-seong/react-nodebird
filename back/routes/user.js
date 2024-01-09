@@ -80,9 +80,9 @@ router.get('/followers', isLoggedIn, async (req, res, next) => { // GET /user/fo
       res.status(403).send('없는 사람을 찾으려고 하시네요?');
     }
     /* 사용자 팔로워 목록 가져오기 */
-    // 처음에 3명씩 불러오고, 더보기 할 때마다 3명씩 더 불러오기
+    // limit을 올려주면 그 limit만큼 더 가져오도록 하기
     const followers = await user.getFollowers({
-      limit: 3,
+      limit: parseInt(req.query.limit, 10),
     });
     /* 팔로워 목록을 프론트로 넘기기 */
     res.status(200).json(followers);
@@ -105,9 +105,9 @@ router.get('/followings', isLoggedIn, async (req, res, next) => { // GET /user/f
       res.status(403).send('없는 사람을 찾으려고 하시네요?');
     }
     /* 사용자 팔로잉 목록 가져오기 */
-    // 처음에 3명씩 불러오고, 더보기 할 때마다 3명씩 더 불러오기
+    // limit을 올려주면 그 limit만큼 더 가져오도록 하기
     const followings = await user.getFollowings({
-      limit: 3,
+      limit: parseInt(req.query.limit, 10),
     });
     /* 팔로잉 목록을 프론트로 넘기기 */
     res.status(200).json(followings);
