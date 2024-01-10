@@ -22,6 +22,8 @@ import styled from 'styled-components';
 
 // 내부 컴포넌트 불러오기
 import AppLayout from '../components/AppLayout';
+
+// 커스텀 Hooks 불러오기
 import useInput from '../hooks/useInput';
 
 // wrapper 불러오기
@@ -85,7 +87,7 @@ const Signup = () => {
   
   /* ---------- 중복 체크 ---------- */
   
-  // 이메일, 닉네임, 비밀번호 인풋 창에 값을 입력했을 때 상태 변경
+  // 이메일, 닉네임, 비밀번호 입력 창에 값을 입력했을 때 상태 변경
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
   const [password, onChangePassword] = useInput('');
@@ -151,7 +153,7 @@ const Signup = () => {
       </Head>
 
       <Form onFinish={onSubmit}>
-        {/* ---------- 사용자 이메일 인풋 ---------- */}
+        {/* ---------- 사용자 이메일 입력 창 ---------- */}
         <div>
           <label htmlFor="user-sign-email">이메일</label>
           <br />
@@ -166,7 +168,7 @@ const Signup = () => {
         </div>
 
 
-        {/* ---------- 사용자 닉네임 인풋 ---------- */}
+        {/* ---------- 사용자 닉네임 입력 창 ---------- */}
         <div>
           <label htmlFor="user-sign-nickname">닉네임</label>
           <br />
@@ -180,7 +182,7 @@ const Signup = () => {
         </div>
 
 
-        {/* ---------- 사용자 비밀번호 인풋 ---------- */}
+        {/* ---------- 사용자 비밀번호 입력 창 ---------- */}
         <div>
           <label htmlFor="user-sign-password">비밀번호</label>
           <br />
@@ -195,7 +197,7 @@ const Signup = () => {
         </div>
 
 
-        {/* ---------- 사용자 비밀번호 체크 인풋 ---------- */}
+        {/* ---------- 사용자 비밀번호 체크 입력 창 ---------- */}
         <div>
           <label htmlFor="user-sign-password-check">비밀번호 체크</label>
           <br />

@@ -36,7 +36,7 @@ const PostForm = () => {
   /* dispatch = useDispatch 함수라고 선언 */
   const dispatch = useDispatch();
 
-  /* 게시글 인풋 창에 값을 입력했을 때 상태 변경 */
+  /* 게시글 입력 창에 값을 입력했을 때 상태 변경 */
   const [postText, onChangePostText, setPostText] = useInput('');
 
   /* 중앙 데이터 저장소에서 상태 값 가져오기 */
@@ -76,7 +76,7 @@ const PostForm = () => {
 
 
   
-  /* 이미지 인풋 창 = useRef 함수라고 선언 */
+  /* 이미지 입력 창 = useRef 함수라고 선언 */
   const imageInput = useRef();
 
   // 이미지 업로드 버튼 클릭 시 파일 업로드 창 띄우기 콜백 함수
@@ -138,7 +138,7 @@ const PostForm = () => {
       />
 
       <div>
-        {/* ---------- 파일 업로드 인풋 ---------- */}
+        {/* ---------- 파일 업로드 입력 창 ---------- */}
         <input
           id="file-upload"
           name="image"

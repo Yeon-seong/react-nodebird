@@ -203,6 +203,7 @@ router.get('/:postId', async (req, res, next) => { // GET /post/동적 히든
   }
 });
 
+
 // (여러 파일을 업로드하는) 이미지 업로드 라우터 : 이미지 업로드 후에 실행
 router.post('/images', upload.array('image'), async (req, res, next) => {  // POST /post/images
   /* req files : 업로드한 이미지에 대한 정보 */

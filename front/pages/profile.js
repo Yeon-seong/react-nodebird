@@ -101,7 +101,7 @@ const Profile = () => {
       <Head>
         <title>내 프로필 | NodeBird</title>
       </Head>
-      
+
       <AppLayout>
         {/* ---------- 닉네임 수정 폼 ---------- */}
         <NicknameEditForm />
@@ -117,11 +117,11 @@ const Profile = () => {
 
         {/* ---------- 팔로워 목록 ---------- */}
         <FollowList
-        header="팔로워"
-        data={followersData}
-        onClickMore={loadMoreFollowers}
-        // SWR에서의 로딩 : 팔로워 데이터와 팔로워 에러가 없을 때
-        loading={!followersData && !followerError}
+          header="팔로워"
+          data={followersData}
+          onClickMore={loadMoreFollowers}
+          // SWR에서의 로딩 : 팔로워 데이터와 팔로워 에러가 없을 때
+          loading={!followersData && !followerError}
         />
       </AppLayout>
     </>

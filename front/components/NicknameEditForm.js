@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // 외부 컴포넌트 불러오기
 import { Form, Input } from 'antd';
 
-// 내부 컴포넌트 불러오기
+// 커스텀 Hooks 불러오기
 import useInput from '../hooks/useInput';
 
 // 닉네임 변경 요청 액션 불러오기
@@ -28,7 +28,7 @@ const NicknameEditForm = () => {
   /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { me } = useSelector((state) => state.user);
 
-  /* 닉네임 인풋 창에 값을 입력했을 때 상태 변경
+  /* 닉네임 입력 창에 값을 입력했을 때 상태 변경
      사용자 본인 닉네임을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용 */
   const [nickname, onChangeNickname] = useInput(me?.nickname || '');
 

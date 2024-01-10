@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { Form, Input, Button } from 'antd';
 import styled from 'styled-components';
 
-// 내부 컴포넌트 불러오기
+// 커스텀 Hooks 불러오기
 import useInput from '../hooks/useInput';
 
 // 로그인 요청 액션 생성함수 불러오기
@@ -41,7 +41,7 @@ const LoginForm = () => {
   /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { logInLoading, logInError } = useSelector((state) => state.user);
   
-  /* 이메일, 비밀번호 인풋 창에 값을 입력했을 때 상태 변경 */
+  /* 이메일, 비밀번호 입력 창에 값을 입력했을 때 상태 변경 */
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
 
@@ -65,7 +65,7 @@ const LoginForm = () => {
 
   return (
     <FormWrapper onFinish={onSubmitForm}>
-      {/* ---------- 이메일 인풋 ---------- */}
+      {/* ---------- 이메일 입력 창 ---------- */}
       <div>
         <label htmlFor="user-main-email">이메일</label>
         <br />
@@ -79,7 +79,7 @@ const LoginForm = () => {
         />
       </div>
 
-      {/* ---------- 비밀번호 인풋 ---------- */}
+      {/* ---------- 비밀번호 입력 창--------- */}
       <div>
         <label htmlFor="user-main-password">비밀번호</label>
         <br />

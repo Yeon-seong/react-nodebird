@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 // 외부 컴포넌트 불러오기
 import { Form, Input, Button } from 'antd';
 
-// 커스텀 훅 불러오기
+// 커스텀 Hooks 불러오기
 import useInput from '../hooks/useInput';
 
 // 답글 추가 요청 액션 불러오기
@@ -34,7 +34,7 @@ const CommentForm = ({ post }) => {
   /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { addCommentDone, addCommentLoading } = useSelector((state) => state.post);
   
-  /* 답글 인풋 창에 값을 입력했을 때 상태 변경 */
+  /* 답글 입력 창에 값을 입력했을 때 상태 변경 */
   const [commentText, onChangeCommentText, setCommentText] = useInput('');
 
 
