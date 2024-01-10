@@ -9,6 +9,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // 외부 컴포넌트 불러오기
+import Link from 'next/link';
 import { Card, Avatar, Button } from 'antd';
 
 // 로그아웃 액션 생성함수 불러오기
@@ -43,8 +44,13 @@ const UserProfile = () => {
     >
 
       <Card.Meta
-        /* 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
-        avatar={<Avatar>{me.nickname[0]}</Avatar>}
+        avatar={
+          // 나의 사용자 프로필 카드에서 아바타를 누르면 내가 쓴 게시글 페이지로 이동하기
+          <Link href={`/user/${me.id}`}>
+            {/* 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */}
+            <a><Avatar>{me.nickname[0]}</Avatar></a>
+          </Link>
+        }
         title={me.nickname}
       />
       {/* ---------- 로딩 중 버튼 ---------- */}
