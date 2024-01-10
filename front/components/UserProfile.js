@@ -37,9 +37,26 @@ const UserProfile = () => {
   return (
     <Card
       actions={[
-        <div key="twit">트윗<br />{me.Posts.length}</div>,
-        <div key="following">팔로잉<br />{me.Followings.length}</div>,
-        <div key="follower">팔로워<br />{me.Followers.length}</div>,
+        // 트윗을 누르면 내가 쓴 게시글 페이지로 이동하기
+        <div key="twit">
+          <Link href={`/user/${me.id}`}>
+            <a>트윗<br />{me.Posts.length}</a>
+          </Link>
+        </div>,
+
+        // 팔로잉을 누르면 프로필 페이지로 이동하기
+        <div key="following">
+          <Link href="/profile">
+            <a>팔로잉<br />{me.Followings.length}</a>
+          </Link>
+        </div>,
+
+        // 팔로워를 누르면 프로필 페이지로 이동하기
+        <div key="follower">
+          <Link href="/profile">
+            팔로워<br />{me.Followers.length}
+          </Link>
+        </div>,
       ]}
     >
 
