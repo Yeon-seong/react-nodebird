@@ -2,8 +2,8 @@
 
 
 
-// React 라이브러리 불러오기
-import React from 'react';
+// React 라이브러리 Hook 불러오기
+import React, { useCallback } from 'react';
 
 // Redux 라이브러리 Hook 불러오기
 import { useSelector } from 'react-redux';
@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 
 // 외부 컴포넌트 불러오기
 import Link from 'next/link';
+import Router from 'next/router';
 import { Menu, Input, Row, Col } from 'antd';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
@@ -20,6 +21,9 @@ import { createGlobalStyle } from 'styled-components';
 // 내부 컴포넌트 불러오기
 import UserProfile from '../components/UserProfile';
 import LoginForm from '../components/LoginForm';
+
+// 커스텀 Hooks 불러오기
+import useInput from '../hooks/useInput';
 
 
 
@@ -40,7 +44,7 @@ const Global = createGlobalStyle`
 `;
 
 
-// 검색인풋 컴포넌트 : Input.Search 컴포넌트 커스텀 스타일링
+// 검색 창 컴포넌트 : Input.Search 컴포넌트 커스텀 스타일링
 const SearchInput = styled(Input.Search)`
 	vertical-align: middle;
 `;
@@ -48,9 +52,17 @@ const SearchInput = styled(Input.Search)`
 
 // 앱 레이아웃 컴포넌트(사용자 정의 태그)
 const AppLayout = ({ children }) => {
-	
+
+	/* 검색 창에 상태 변경 */
+	const [searchInput, onChangeSearchInput] = useInput('');
+
   /* 중앙 데이터 저장소에서 상태 값 가져오기 */
 	const { me } = useSelector((state) => state.user);
+
+	/* 해시태그 검색 시 해당 해시태그 페이지(동적 라우팅 주소)로 이동하기 */
+	const onSearch = useCallback(() => {
+		Router.push(`/hashtag/${searchInput}`);
+	}, [searchInput]);
 
 
 
@@ -59,27 +71,30 @@ const AppLayout = ({ children }) => {
 			<Global />
       <Menu mode="horizontal">
 
-				{/* 노드버드 메인 페이지 링크 */}
+				{/* ---------- 노드버드 메인 페이지 링크 ---------- */}
 				<Menu.Item>
 					<Link href="/"><a>노드버드</a></Link>
 				</Menu.Item>
         
-				{/* 프로필 페이지 링크 */}
+				{/* ---------- 프로필 페이지 링크 ---------- */}
 				<Menu.Item>
 					<Link href="/profile"><a>프로필</a></Link>
 				</Menu.Item>
 
-				{/* 검색 창 */}
+				{/* ---------- 검색 창 ---------- */}
 				<Menu.Item>
 					<SearchInput
 						enterButton
+						value={searchInput}
+						onChange={onChangeSearchInput}
+						onSearch={onSearch}
 						type="text"
 						name="메인 검색 창"
 						placeholder="검색"
 					/>
 				</Menu.Item>
 
-				{/* 회원가입 페이지 링크 */}
+				{/* ---------- 회원가입 페이지 링크 ---------- */}
 				<Menu.Item>
 					<Link href="/signup"><a>회원가입</a></Link>
 				</Menu.Item>
