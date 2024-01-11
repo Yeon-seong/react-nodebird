@@ -19,7 +19,7 @@ export default class MyDocument extends Document {
 
     /* ---------- React 렌더링 로직을 동기적으로 실행 ---------- */
     try {
-      ctx.renderPage = () =>originalRenderPage({
+      ctx.renderPage = () => originalRenderPage({
         /* enhanceApp으로 원래 app기능에 document 기능에다가
            stylesheet가 styled-component들을 서버사이드 렌더링할 수 있게 해준다. */
         enhanceApp: (App) => (props) => sheet.collectStyles(<App { ...props } />)
