@@ -22,7 +22,10 @@ import {
   MessageOutlined,
   EllipsisOutlined
 } from '@ant-design/icons';
-         
+
+// 외부 컴포넌트 불러오기
+import Link from 'next/link';
+
 // 내부 컴포넌트 불러오기
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
@@ -199,8 +202,13 @@ const PostCard = ({ post }) => {
               cover={post.Retweet.Images[0] && <PostImages images={post.Retweet.Images} />}
             >
               <Card.Meta
-                // 메인 게시글 리트윗한 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시
-                avatar={<Avatar>{post.Retweet.User.nickname[0]}</Avatar>}
+                /* 리트윗 게시글 카드에서 아바타를 누르면 그 사용자가 쓴 게시글 페이지로 이동하기
+                   메인 게시글을 리트윗한 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
+                avatar={
+                  <Link href={`/user/${post.Retweet.User.id}`}>
+                    <a><Avatar>{post.Retweet.User.nickname[0]}</Avatar></a>
+                  </Link>
+                }
                 // 메인 게시글 리트윗한 게시글 작성자 이름 
                 title={post.Retweet.User.nickname}
                 // 메인 게시글 게시글 콘텐츠
@@ -211,8 +219,13 @@ const PostCard = ({ post }) => {
           : (
             /* ---------- (리트윗을 하지않은) 일반 게시글 ---------- */
             <Card.Meta
-              // 메인 게시글 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시
-              avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
+              /* 일반 게시글 카드에서 아바타를 누르면 그 사용자가 쓴 게시글 페이지로 이동하기
+                 메인 게시글 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
+              avatar={
+                <Link href={`/user/${post.User.id}`}>
+                  <a><Avatar>{post.User.nickname[0]}</Avatar></a>
+                </Link>
+              }
               // 메인 게시글 작성자 이름 
               title={post.User.nickname}
               // 메인 게시글 콘텐츠
@@ -239,8 +252,13 @@ const PostCard = ({ post }) => {
                 <Comment
                   /* ---------- 답글 작성자 ---------- */
                   author={item.User.nickname}
-                  /* 답글 작성자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
-                  avatar={<Avatar>{item.User.nickname[0]}</Avatar>}
+                  avatar={(
+                    /* 답글 작성자의 아바타를 누르면 그 사용자가 쓴 게시글 페이지로 이동하기
+                       답글 작성자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
+                    <Link href={`/user/${item.User.id}`}>
+                      <a><Avatar>{item.User.nickname[0]}</Avatar></a>
+                    </Link>
+                  )}
                   content={item.content}
                 />
               </li>
