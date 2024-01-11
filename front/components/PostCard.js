@@ -213,7 +213,7 @@ const PostCard = ({ post }) => {
             >
               {/* ---------- 리트윗 게시글의 생성일 날짜 표시 ---------- */}
               <div style={{ float: 'right' }}>
-                {moment(post.createdAt).format('YYYY.MM.DD')}
+                {moment(post.createdAt).startOf('day').fromNow()}
               </div>
               <Card.Meta
                 /* 리트윗 게시글 카드에서 아바타를 누르면 그 사용자가 쓴 게시글 페이지로 이동하기
@@ -234,7 +234,7 @@ const PostCard = ({ post }) => {
             <>
               {/* ---------- (리트윗을 하지않은) 일반 게시글의 생성일 날짜 표시 ---------- */}
               <div style={{ float: 'right' }}>
-                {moment(post.createdAt).format('YYYY.MM.DD')}
+                {moment(post.createdAt).startOf('day').fromNow()}
               </div>
             
               {/* ---------- (리트윗을 하지않은) 일반 게시글 ---------- */}
