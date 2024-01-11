@@ -93,11 +93,6 @@ const AppLayout = ({ children }) => {
 						placeholder="검색"
 					/>
 				</Menu.Item>
-
-				{/* ---------- 회원가입 페이지 링크 ---------- */}
-				<Menu.Item>
-					<Link href="/signup"><a>회원가입</a></Link>
-				</Menu.Item>
       </Menu>
 
 			{/* ---------- 반응형 화면 분할 ---------- */}
