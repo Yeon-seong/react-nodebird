@@ -23,6 +23,9 @@ import {
   EllipsisOutlined
 } from '@ant-design/icons';
 
+// Moment 날짜 라이브러리 불러오기
+import moment from 'moment';
+
 // 외부 컴포넌트 불러오기
 import Link from 'next/link';
 
@@ -51,6 +54,11 @@ import {
 
 
 
+// moment 날짜 표시 한글로 바꿔주기
+moment.locale('ko');
+
+
+
 // 게시글 카드 컴포넌트(사용자 정의 태그)
 const PostCard = ({ post }) => {
 
@@ -65,6 +73,7 @@ const PostCard = ({ post }) => {
 
   /* 사용자 본인 글을 알아보기 위해 옵셔널 체이닝(?.) 연산자 사용 */
   const id = useSelector((state) => state.user.me?.id);
+
 
 
   // 게시글 삭제 콜백 함수
@@ -135,6 +144,7 @@ const PostCard = ({ post }) => {
   }, [id]);
 
 
+
   // 게시글 좋아요 누른 사람 중에 내(id)가 있는지 찾기
   const liked = post.Likers.find((v) => v.id === id);
 
@@ -201,6 +211,10 @@ const PostCard = ({ post }) => {
               /* ---------- 이미지 : 이미지는 1개 이상 ---------- */
               cover={post.Retweet.Images[0] && <PostImages images={post.Retweet.Images} />}
             >
+              {/* ---------- 리트윗 게시글의 생성일 날짜 표시 ---------- */}
+              <div style={{ float: 'right' }}>
+                {moment(post.createdAt).format('YYYY.MM.DD')}
+              </div>
               <Card.Meta
                 /* 리트윗 게시글 카드에서 아바타를 누르면 그 사용자가 쓴 게시글 페이지로 이동하기
                    메인 게시글을 리트윗한 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
@@ -217,20 +231,27 @@ const PostCard = ({ post }) => {
             </Card>
           )
           : (
-            /* ---------- (리트윗을 하지않은) 일반 게시글 ---------- */
-            <Card.Meta
-              /* 일반 게시글 카드에서 아바타를 누르면 그 사용자가 쓴 게시글 페이지로 이동하기
-                 메인 게시글 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
-              avatar={
-                <Link href={`/user/${post.User.id}`}>
-                  <a><Avatar>{post.User.nickname[0]}</Avatar></a>
-                </Link>
-              }
-              // 메인 게시글 작성자 이름 
-              title={post.User.nickname}
-              // 메인 게시글 콘텐츠
-              description={<PostCardContent postData={post.content} />}
-            />
+            <>
+              {/* ---------- (리트윗을 하지않은) 일반 게시글의 생성일 날짜 표시 ---------- */}
+              <div style={{ float: 'right' }}>
+                {moment(post.createdAt).format('YYYY.MM.DD')}
+              </div>
+            
+              {/* ---------- (리트윗을 하지않은) 일반 게시글 ---------- */}
+              <Card.Meta
+                /* 일반 게시글 카드에서 아바타를 누르면 그 사용자가 쓴 게시글 페이지로 이동하기
+                   메인 게시글 사용자 닉네임의 첫 번째 글자를 아바타 아이콘으로 표시 */
+                avatar={
+                  <Link href={`/user/${post.User.id}`}>
+                    <a><Avatar>{post.User.nickname[0]}</Avatar></a>
+                  </Link>
+                }
+                // 메인 게시글 작성자 이름 
+                title={post.User.nickname}
+                // 메인 게시글 콘텐츠
+                description={<PostCardContent postData={post.content} />}
+              />
+            </>
           )}
       </Card>
 
