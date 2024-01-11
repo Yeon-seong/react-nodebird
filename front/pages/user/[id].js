@@ -57,6 +57,7 @@ const User = () => {
   /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
   const { userInfo } = useSelector((state) => state.user);
+  console.log(userInfo);
 
 
 
@@ -87,24 +88,27 @@ const User = () => {
 
   return (
     <AppLayout>
-      <Head>
-        {/* 게시글 제목 : '누구 님의 글입니다.' */}
-        <title>{userInfo.nickname}님의 글</title>
+      {userInfo && (
+        <Head>
+          {/* 게시글 제목 : '누구 님의 글입니다.' */}
+          <title>{userInfo.nickname}님의 글</title>
 
-        {/* 게시글 설명 */}
-        <meta name="description" content={`${userInfo.nickname}님의 게시글`} />
+          {/* 게시글 설명 */}
+          <meta name="description" content={`${userInfo.nickname}님의 게시글`} />
 
-        {/* 게시글 제목 미리보기*/}
-        <meta property="og:title" content={`${userInfo.nickname}님의 게시글`} />
+          {/* 게시글 제목 미리보기*/}
+          <meta property="og:title" content={`${userInfo.nickname}님의 게시글`} />
 
-        {/* 게시글 설명 미리보기*/}
-        <meta property="og:description" content={`${userInfo.nickname}님의 게시글`} />
-        
-        {/* 게시글 이미지 미리보기 : 이미지는 파비콘(favicon)으로 설정하기 */}
-        <meta property="og:image" content="https://nodebird.com/favicon.ico" />
-        {/* 링크 주소 미리보기 */}
-        <meta property="og:url" content={`https://nodebird.com/user/${id}`} />
-      </Head>
+          {/* 게시글 설명 미리보기*/}
+          <meta property="og:description" content={`${userInfo.nickname}님의 게시글`} />
+          
+          {/* 게시글 이미지 미리보기 : 이미지는 파비콘(favicon)으로 설정하기 */}
+          <meta property="og:image" content="https://nodebird.com/favicon.ico" />
+          {/* 링크 주소 미리보기 */}
+          <meta property="og:url" content={`https://nodebird.com/user/${id}`} />
+        </Head>
+      )}
+
 
 
       {/* ---------- 다른 사람의 정보 카드 ---------- */}
