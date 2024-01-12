@@ -8,13 +8,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 module.exports = withBundleAnalyzer({
-
   // 컴프레스 플러그인 대체
   compress: true,
 
   webpack(config, { webpack }) {
     const prod = process.env.NODE_ENV === 'production';
-    const plugins = [...config.plugins];
 
     return {
       ...config,
@@ -25,9 +23,11 @@ module.exports = withBundleAnalyzer({
       // 배포 환경에서 소스 코드 숨기기, 개발일 때는 eval로 개발
       devtool: prod ? 'hidden-source-map' : 'eval',
 
-      // 웹팩 플러그인
-      plugins,
+      // 웹팩 플러그인 설정 : 한국어를 제외한 moment 외국어 번역 제거하기
+      plugins: [
+        ...config.plugins,
+        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /^\.\/ko$/),
+      ],
     };
   },
-
 });
