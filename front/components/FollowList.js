@@ -73,13 +73,14 @@ const FollowList = ({ header, data, onClickMore, loading }) => {
       bordered
       /* 목록용 데이터소스 : 팔로잉 목록, 팔로워 목록 더미데이터 배열 전달 */
       dataSource={data}
-      renderItem={(item) => {
+
+      renderItem={(item) => (
         <List.Item style={{ marginTop: '20px' }}>
           <Card actions={[<StopOutlined key="stop" onClick={onCancel(item.id)} />]}>
             <Card.Meta description={item.nickname} />
           </Card>
         </List.Item>
-      }}
+      )}
     />/* List 닫음 */
   );
 };

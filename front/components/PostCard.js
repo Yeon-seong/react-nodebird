@@ -152,7 +152,7 @@ const PostCard = ({ post }) => {
 
   return (
     <div style={{ marginBottom: '20px' }}>
-      
+
       <Card
         /* ---------- 이미지 : 이미지는 1개 이상 ---------- */
         cover={post.Images[0] && <PostImages images={post.Images} />}

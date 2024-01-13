@@ -245,6 +245,7 @@ const Signup = () => {
           </SubmitButton>
         </div>
       </Form>
+
     </AppLayout>
   );
 };

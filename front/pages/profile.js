@@ -66,7 +66,7 @@ const Profile = () => {
   useEffect(() => {
     if (!(me && me.id)) {
       Router.push('/');
-    } 
+    }
   }, [me && me.id]);
 
   
@@ -105,7 +105,7 @@ const Profile = () => {
       <AppLayout>
         {/* ---------- 닉네임 수정 폼 ---------- */}
         <NicknameEditForm />
-        
+
         {/* ---------- 팔로잉 목록 ---------- */}
         <FollowList
           header="팔로잉"
