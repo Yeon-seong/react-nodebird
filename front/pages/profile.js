@@ -47,19 +47,20 @@ const Profile = () => {
   /* 중앙 데이터 저장소에서 상태 값 가져오기 */
   const { me } = useSelector((state) => state.user);
 
-  /* 팔로워 리밋, 팔로잉 리밋 상태 저장 */
-  const [followersLimit, setFollowersLimit] = useState(3);
+  /* 팔로잉 리밋, 팔로워 리밋 상태 저장 */
   const [followingsLimit, setFollowingsLimit] = useState(3);
+  const [followersLimit, setFollowersLimit] = useState(3);
+
+  /* 팔로잉 불러오기 구조분해 할당 */
+  const { data: followingsData, error: followingError } = useSWR(
+    `http://localhost:3065/user/followings?limit=${followingsLimit}`, fetcher
+  );
 
   /* 팔로워 불러오기 구조분해 할당 */
   const { data: followersData, error: followerError } = useSWR(
     `http://localhost:3065/user/followers?limit=${followersLimit}`, fetcher
   );
 
-  /* 팔로잉 불러오기 구조분해 할당 */
-  const { data: followingsData, error: followingError } = useSWR(
-    `http://localhost:3065/user/followings?limit=${followingsLimit}`, fetcher
-  );
 
 
   // 프로필 페이지에서 로그아웃한 상태일(me가 없을 때)때 메인 페이지로 이동
@@ -69,16 +70,18 @@ const Profile = () => {
     }
   }, [me && me.id]);
 
-  
-  // 팔로워 목록 더 불러오기 콜백 함수
-  const loadMoreFollowers = useCallback(() => {
-    setFollowersLimit((prev) => prev + 3);  // 기존 limit보다 3 올려주기
-  }, []);
+
 
   // 팔로잉 목록 더 불러오기 콜백 함수
   const loadMoreFollowings = useCallback(() => {
     setFollowingsLimit((prev) => prev + 3); // 기존 limit보다 3 올려주기
   }, []);
+
+  // 팔로워 목록 더 불러오기 콜백 함수
+  const loadMoreFollowers = useCallback(() => {
+    setFollowersLimit((prev) => prev + 3);  // 기존 limit보다 3 올려주기
+  }, []);
+
 
 
   // 로그인 하지 않은 상태일(me가 없을)때 프로필 페이지로 이동 막기
