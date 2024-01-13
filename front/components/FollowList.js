@@ -57,23 +57,25 @@ const FollowList = ({ header, data, onClickMore, loading }) => {
   return (
     <List
       style={{ marginBottom: '20px' }}
-      /* 격자 모양 */
-      grid={{ gutter: 4, xs: 2, md: 3 }}
-      /* 목록 크기 */
+      /* 팔로잉 목록, 팔로워 목록 격자 모양 */
+      grid={{ gutter: 4, xs: 2, md: 3, column: 3 }}
+      /* 팔로잉 목록, 팔로워 목록 크기 */
       size="small"
       /* 팔로잉 목록, 팔로워 목록 헤더 */
       header={<div>{header}</div>}
-      /* 더보기 버튼 */
+
+      /* 팔로잉 목록, 팔로워 목록 더보기 버튼 */
       loadMore={(
         <div style={{ textAlign: 'center', margin: '10px 0px' }}>
           <Button onClick={onClickMore} loading={loading}>더 보기</Button>
         </div>
       )}
+
       /* 팔로잉 목록, 팔로워 목록 전체 테두리 */
       bordered
       /* 목록용 데이터소스 : 팔로잉 목록, 팔로워 목록 더미데이터 배열 전달 */
       dataSource={data}
-
+      /* 사용할 때 목록 항목을 사용자 정의 */
       renderItem={(item) => (
         <List.Item style={{ marginTop: '20px' }}>
           <Card actions={[<StopOutlined key="stop" onClick={onCancel(item.id)} />]}>
