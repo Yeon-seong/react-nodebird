@@ -2,40 +2,57 @@
 
 
 
+// 데이터 타입스 = 시퀄라이즈
+const DataTypes = require('sequelize');
+
+// 데이터 타입스 안의 모델 객체 사용을 위한 구조분해 할당
+const { Model } = DataTypes;
+
+
+
 // module.exports 객체
-module.exports = (sequelize, DataTypes) => {
-  // 사용자 모델(테이블)
-  const User = sequelize.define('User', { // MySQL에는 users 테이블 생성
+module.exports = class User extends Model {
 
+  // 사용자 모델(사용자 테이블) 설정
+  static init(sequelize) {
+    return super.init({
 
-    /* ---------- 사용자 모델 정보 ---------- */
-    // id: {},    // id가 기본적으로 들어있음.
-    // 이메일 칼럼
-    email: {
-      type: DataTypes.STRING(30),   // 30글자 이내의 문자열
-      allowNull: false,             // 사용자 이메일 필수
-      unique: true,                 // 고유한 값(중복 X)
-    },
-    // 닉네임 칼럼
-    nickname: {
-      type: DataTypes.STRING(30),   // 30글자 이내의 문자열
-      allowNull: false,             // 사용자 닉네임 필수
-    },
-    // 비밀번호 칼럼
-    password: {
-      type: DataTypes.STRING(300),  // 300글자 이내의 문자열
-      allowNull: false,             // 사용자 비밀번호 필수
-    },
-    
-  }, {
-    /* ---------- 사용자 모델 세팅 ---------- */
-    charset: 'utf8',              // MySQL에서 한글 사용 가능
-    collate: 'utf8_general_ci',   // 한글 저장
-  });
+      /* ---------- Model init의 첫 번째 인수 ---------- */
+      /* 사용자 모델 정보 */
+      // id: {},    // id가 기본적으로 들어있음.
+      // 이메일 칼럼
+      email: {
+        type: DataTypes.STRING(30),    // 30글자 이내의 문자열
+        allowNull: false,              // 사용자 이메일 필수
+        unique: true,                  // 고유한 값(중복 X)
+      },
+      // 닉네임 칼럼
+      nickname: {
+        type: DataTypes.STRING(30),    // 30글자 이내의 문자열
+        allowNull: false,              // 사용자 닉네임 필수
+      },
+      // 비밀번호 칼럼
+      password: {
+        type: DataTypes.STRING(300),   // 300글자 이내의 문자열
+        allowNull: false,              // 사용자 비밀번호 필수
+      },
+
+    }, {
+
+      /* ---------- Model init의 두 번째 인수 ---------- */
+      /* 사용자 모델 세팅 */
+      modelName: 'User',          // 모델 이름 : User
+      tableName: 'users',         // MySQL 테이블 이름 : users(소문자 복수)
+      charset: 'utf8',            // MySQL에서 한글 사용 가능
+      collate: 'utf8_general_ci', // 한글 저장
+      sequelize,                  // 연결 객체를 클래스로 보내주기 위해 넣어준다.
+
+    });
+  }
 
 
   // 사용자 모델 관계 설정
-  User.associate = (db) => {
+  static associate(db) {
 
     /* (1:N 관계) : 한 명의 사용자(User)는 여러 게시글(Post)을 가질 수 있다. */
     db.User.hasMany(db.Post);
@@ -57,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
     db.User.belongsToMany(
       db.User, { through: 'Follow', as: 'Followings', foreignKey: 'FollowerId' }
     );
-    
-  };
-  return User;
+
+  }
+
 };
