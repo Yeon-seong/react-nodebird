@@ -2,8 +2,8 @@
 
 
 
-// Immer 라이브러리 불러오기
-import produce from 'immer';
+// 인터넷 익스플로러에서 Immer를 사용하기 위해 produce 함수 불러오기
+import produce from '../util/produce';
 
 
 
