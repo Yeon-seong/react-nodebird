@@ -139,3 +139,4 @@ react-nodebird.pem
 node_modules
 .env
 .next
+config.txt
