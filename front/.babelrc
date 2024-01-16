@@ -2,9 +2,12 @@
 {
   "presets": ["next/babel"],
   "plugins": [
-    ["babel-plugin-styled-components", {
-      "ssr": true,
-      "displayName": true // 개발모드 콘솔에서 클래스명을 컴포넌트 이름으로 바꾸기
-    }]
+    [
+      "babel-plugin-styled-components", {
+        "ssr": true,
+        "displayName": true, // 개발모드 콘솔에서 클래스명을 컴포넌트 이름으로 바꾸기
+        "fileName": true     // 코드가 포함된 파일명을 알려주기
+      }
+    ]
   ]
 }
