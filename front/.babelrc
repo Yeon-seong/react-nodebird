@@ -6,7 +6,8 @@
       "babel-plugin-styled-components", {
         "ssr": true,
         "displayName": true, // 개발모드 콘솔에서 클래스명을 컴포넌트 이름으로 바꾸기
-        "fileName": true     // 코드가 포함된 파일명을 알려주기
+        "fileName": true,    // 코드가 포함된 파일명을 알려주기
+        "pure": true         // 사용하지 않은 속성 제거하기
       }
     ]
   ]
