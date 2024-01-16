@@ -96,16 +96,9 @@ const Post = () => {
 // export async function getStaticPaths() {
 //   return {
 //     paths: [ /* 파람스 아이디(params id) */
-//       { params: { id: '30' } },
-//       { params: { id: '31' } },
-//       { params: { id: '32' } },
-//       { params: { id: '33' } },
 //       { params: { id: '34' } },
-//       { params: { id: '35' } },
-//       { params: { id: '37' } },
 //       { params: { id: '38' } },
 //       { params: { id: '39' } },
-//       { params: { id: '40' } },
 //       { params: { id: '41' } },
 //       { params: { id: '44' } },
 //       { params: { id: '51' } },
