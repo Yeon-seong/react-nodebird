@@ -48,6 +48,11 @@ const passportConfig = require('./passport');
 
 
 
+// '로컬 프론트 서버', 'nodebird.com' 주소의 요청만 허용
+const corsOkUrl = ['http://localhost:3000', 'nodebird.com'];
+
+
+
 // .env 파일 안에 있는 정보 불러오기
 dotenv.config();
 
@@ -82,11 +87,18 @@ if (process.env.NODE_ENV === 'production') {
   app.use(morgan('dev'));
 };
 
+
+
 // 미들웨어 연결
 app.use(cors({
-  origin: true,       // 요청을 보낸 주소의 요청만 허용
-  credentials: true,  // 사용자 인증이 필요한 쿠키 전달 허용
+  /* 특정 url에서 요청했을 때만 cors 허용 */
+  origin: corsOkUrl,
+
+  /* 사용자 인증이 필요한 쿠키 전달 허용 */
+  credentials: true,
 }));
+
+
 
 // 프론트에서 백엔드로 데이터 보내기
 /* uploads 폴더를 프론트에 제공하기 위한 이미지 경로 보내기 */
