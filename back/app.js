@@ -26,6 +26,12 @@ const morgan = require('morgan');
 // Path 모듈 호출
 const path = require('path');
 
+// hpp(HTTP Parameter Pollution) 모듈
+const hpp = require('hpp');
+
+// helmet 모듈
+const helmet = require('helmet');
+
 
 
 // 분리한 router 불러오기
@@ -60,8 +66,23 @@ passportConfig();
 
 
 
+// 모건(morgan) : 요청과 응답에 대한 정보를 콘솔에 기록하는 모듈
+/* ---------- 배포 모드일 환경일 때 설정 ---------- */
+if (process.env.NODE_ENV === 'production') {
+  // combined : 로그가 자세해져서 실제 해당 접속자의 IP를 알 수 있다.
+  app.use(morgan('combined'));
+  // hpp : Express의 중복 이름 파라미터 공격을 방어한다.
+  app.use(hpp());
+  // helmet : HTTP 헤더를 자동 설정을 통해 외부 공격으로부터 보호한다.
+  app.use(helmet());
+
+/* ---------- 개발 모드 환경일 때 설정 ---------- */
+} else {
+  // dev : 백엔드 디버깅
+  app.use(morgan('dev'));
+};
+
 // 미들웨어 연결
-app.use(morgan('dev')); // 백엔드 디버깅
 app.use(cors({
   origin: true,       // 요청을 보낸 주소의 요청만 허용
   credentials: true,  // 사용자 인증이 필요한 쿠키 전달 허용
