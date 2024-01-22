@@ -12,11 +12,14 @@ import axios from 'axios';
 import postSaga from './post';
 import userSaga from './user';
 
+// 백엔드 서버 URL IP 주소 가져오기
+import { backUrl } from '../config/config';
+
 
 
 // saga에서 보내는 모든 axios 요청에 적용될 공통 설정
-/* 기본 URL */
-axios.defaults.baseURL = 'http://localhost:3065';
+/* 기본 URL을 백엔드 서버 URL IP 주소로 설정 */
+axios.defaults.baseURL = backUrl;
 /* 쿠키 정보 공유 */
 axios.defaults.withCredentials = true;
 

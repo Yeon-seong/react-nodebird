@@ -22,6 +22,9 @@ import {
   Indicator
 } from './styles'
 
+// 백엔드 서버 URL IP 주소 가져오기
+import { backUrl } from '../config/config';
+
 
 
 // 이미지 줌 컴포넌트(사용자 정의 태그)
@@ -61,11 +64,8 @@ const ImagesZoom = ({ images, onClose }) => {
             {/* ---------- 이미지 캐러셀 ---------- */}
             {images.map((v) => (
               <ImgWrapper key={v.src}>
-                {/* 이미지 캐러셀 주소 : 백엔드 서버 주소 */}
-                <img
-                  src={`http://localhost:3065/${v.src}`}
-                  alt={v.src}
-                />
+                {/* 이미지 캐러셀 주소를 백엔드 서버 URL IP 주소로 설정 */}
+                <img src={`${backUrl}/${v.src}`} alt={v.src} />
               </ImgWrapper>
             ))}
           </Slick>
