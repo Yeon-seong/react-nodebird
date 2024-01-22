@@ -158,7 +158,7 @@ app.use('/hashtag', hashRouter);
 
 
 
-// http://localhost:3065 : 3065번 포트로 서버실행
-app.listen(3065, () => {
-  console.log('서버 실행 중');
+// http://54.180.201.249 : 실제 백엔드 서버 URL IP 주소인 80번 포트로 서버 실행
+app.listen(80, () => {
+  console.log('서버 실행 중!');
 });
