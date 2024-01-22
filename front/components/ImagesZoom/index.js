@@ -23,7 +23,7 @@ import {
 } from './styles'
 
 // 실제 백엔드 서버 URL IP 주소 가져오기
-import { backUrl } from '../config/config';
+import { backUrl } from '../../config/config';
 
 
 
