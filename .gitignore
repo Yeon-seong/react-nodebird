@@ -138,7 +138,6 @@ typings/
 react-nodebird.pem
 node_modules
 .env
-.next
 
 # 키파일 권한 설정 파일
 config.txt
