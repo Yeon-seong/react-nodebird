@@ -135,8 +135,14 @@ typings/
 # Serverless directories
 .serverless
 /front/build/
+
+# 리액트 노드버드 보안 인증서 파일
 react-nodebird.pem
+
+# 노드모듈 폴더
 node_modules
+
+# 트위터 클론 비밀키 파일
 .env
 
 # 키파일 권한 설정 파일
