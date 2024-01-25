@@ -14,7 +14,7 @@ import { PlusOutlined } from '@ant-design/icons';
 // 내부 컴포넌트 불러오기
 import ImagesZoom from './ImagesZoom';
 
-// 실제 백엔드 서버 URL IP 주소 가져오기
+// 실제 백엔드 서버 주소 가져오기
 import { backUrl } from '../config/config';
 
 
@@ -47,7 +47,7 @@ const PostImages = ({ images }) => {
           role="presentation"
           /* 최대 높이 */
           style={{ maxHeight: '300px' }}
-          /* 게시글 이미지 주소를 실제 백엔드 서버 URL IP 주소로 설정  */
+          /* 게시글 이미지 주소를 실제 백엔드 서버 주소로 설정  */
           src={`${backUrl}/${images[0].src}`}
           alt={images[0].src}
           onClick={onZoom}
@@ -65,7 +65,7 @@ const PostImages = ({ images }) => {
         <img
           role="presentation"
           style={{ width: '50%', display: 'inline-block' }}
-          /* 게시글 이미지 주소를 실제 백엔드 서버 URL IP 주소로 설정 */
+          /* 게시글 이미지 주소를 실제 백엔드 서버 주소로 설정 */
           src={`${backUrl}/${images[0].src}`}
           alt={images[0].src}
           onClick={onZoom}
@@ -73,7 +73,7 @@ const PostImages = ({ images }) => {
         <img
           role="presentation"
           style={{ width: '50%', display: 'inline-block' }}
-          /* 게시글 이미지 주소를 실제 백엔드 서버 URL IP 주소로 설정 */
+          /* 게시글 이미지 주소를 실제 백엔드 서버 주소로 설정 */
           src={`${backUrl}/${images[1].src}`}
           alt={images[1].src}
           onClick={onZoom}
@@ -93,7 +93,7 @@ const PostImages = ({ images }) => {
           <img
             role="presentation"
             style={{ width: '50%' }}
-            /* 게시글 이미지 주소를 실제 백엔드 서버 URL IP 주소로 설정 */
+            /* 게시글 이미지 주소를 실제 백엔드 서버 주소로 설정 */
             src={`${backUrl}/${images[0].src}`}
             alt={images[0].src}
             onClick={onZoom}

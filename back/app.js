@@ -48,7 +48,7 @@ const passportConfig = require('./passport');
 
 
 
-// 로컬 프론트 서버, 실제 프론트 서버 URL IP 주소 요청만 허용하기
+// 로컬 프론트 서버, 실제 프론트 서버 주소 요청만 허용하기
 const corsOkUrl = ['http://localhost:3000', 'http://nodebird.xyz'];
 
 
@@ -165,7 +165,7 @@ app.use('/hashtag', hashRouter);
 
 
 
-// http://54.180.201.249 : 실제 백엔드 서버 URL IP 주소인 80번 포트로 서버 실행
+// http://54.180.201.249 : 실제 백엔드 서버 주소인 80번 포트로 서버 실행
 app.listen(80, () => {
   console.log('서버 실행 중!');
 });

@@ -28,7 +28,7 @@ import {
 
 } from '../reducers/post';
 
-// 실제 백엔드 서버 URL IP 주소 가져오기
+// 실제 백엔드 서버 주소 가져오기
 import { backUrl } from '../config/config';
 
 
@@ -169,7 +169,7 @@ const PostForm = () => {
         {/* ---------- 이미지 업로드 시 미리보기 ---------- */}
         {imagePaths?.map((v, i) => (
           <div key={v} style={{ display: 'inline-block' }}>
-          {/* 이미지 미리보기 주소(경로)를 실제 백엔드 서버 URL IP 주소로 설정 */}
+          {/* 이미지 미리보기 주소(경로)를 실제 백엔드 서버 주소로 설정 */}
           <img src={`${backUrl}/${v}`} style={{ width: '200px' }} alt={v} />
           <div>
             {/* ---------- 이미지 제거 버튼 ---------- */}
