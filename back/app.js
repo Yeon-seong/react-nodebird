@@ -48,11 +48,6 @@ const passportConfig = require('./passport');
 
 
 
-// 로컬 프론트 서버, 실제 프론트 서버 주소 요청만 허용하기
-const corsOkUrl = ['http://localhost:3000', 'http://nodebird.xyz'];
-
-
-
 // .env 파일 안에 있는 정보 불러오기
 dotenv.config();
 
@@ -80,23 +75,26 @@ if (process.env.NODE_ENV === 'production') {
   app.use(hpp());
   // helmet : HTTP 헤더를 자동 설정을 통해 외부 공격으로부터 보호한다.
   app.use(helmet());
+  // 미들웨어 연결
+  app.use(cors({
+    /* 배포용에서는 실제 프론트 주소인 'nodebird.xyz'에서 요청했을 때만 CORS 허용하기 */
+    origin: 'http://nodebird.xyz',
+    /* 사용자 인증이 필요한 쿠키 전달 허용하기 */
+    credentials: true,
+  }));
 
 /* ---------- 개발 모드 환경일 때 설정 ---------- */
 } else {
   // dev : 백엔드 디버깅
   app.use(morgan('dev'));
+  // 미들웨어 연결
+  app.use(cors({
+    /* 개발용에서는 요청을 보낸 주소의 요청만 CORS 허용하기 */
+    origin: true,
+    /* 사용자 인증이 필요한 쿠키 전달 허용하기 */
+    credentials: true,
+  }));
 };
-
-
-
-// 미들웨어 연결
-app.use(cors({
-  /* 특정 url에서 요청했을 때만 cors 허용 */
-  origin: corsOkUrl,
-
-  /* 사용자 인증이 필요한 쿠키 전달 허용 */
-  credentials: true,
-}));
 
 
 
