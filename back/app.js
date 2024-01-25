@@ -119,6 +119,7 @@ app.use(session({
   /* ---------- 쿠키 옵션(Cookie Option) ---------- */
   cookie: {
     httpOnly: true, // true로 설정 시 JS로 쿠키에 접근하지 못하도록 막는다.
+    secure: false,  // https 적용 시 true로 설정할 예정
   }
 }));
 app.use(passport.initialize());
