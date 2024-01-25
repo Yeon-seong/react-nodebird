@@ -48,8 +48,8 @@ const passportConfig = require('./passport');
 
 
 
-// 로컬 프론트 서버, 노드버드 닷컴, 실제 프론트 서버 URL IP 주소 요청만 허용
-const corsOkUrl = ['http://localhost:3000', 'nodebird.com', 'http://52.79.86.100' ];
+// 로컬 프론트 서버, 실제 프론트 서버 URL IP 주소 요청만 허용하기
+const corsOkUrl = ['http://localhost:3000', 'http://nodebird.xyz'];
 
 
 
