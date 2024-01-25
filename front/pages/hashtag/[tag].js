@@ -101,7 +101,6 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     axios.defaults.headers.Cookie = cookie;
   }
 
-
   /* 처음에 화면을 로딩하면 나의 사용자 정보 불러오기 요청 액션 객체 디스패치 */
   context.store.dispatch({
     type: LOAD_MY_INFO_REQUEST,

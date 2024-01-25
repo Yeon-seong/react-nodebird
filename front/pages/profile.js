@@ -29,6 +29,9 @@ import FollowList from '../components/FollowList';
 // wrapper 불러오기
 import wrapper from '../store/configureStore';
 
+// 실제 백엔드 서버 주소 가져오기
+import { backUrl } from '../config/config';
+
 // 나의 사용자 정보 불러오기 요청 액션 불러오기
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
 
@@ -53,12 +56,12 @@ const Profile = () => {
 
   /* 팔로잉 불러오기 구조분해 할당 */
   const { data: followingsData, error: followingError } = useSWR(
-    `http://localhost:3065/user/followings?limit=${followingsLimit}`, fetcher
+    `${backUrl}/user/followings?limit=${followingsLimit}`, fetcher
   );
 
   /* 팔로워 불러오기 구조분해 할당 */
   const { data: followersData, error: followerError } = useSWR(
-    `http://localhost:3065/user/followers?limit=${followersLimit}`, fetcher
+    `${backUrl}/user/followers?limit=${followersLimit}`, fetcher
   );
 
 
@@ -151,7 +154,6 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     // 실제로 쿠키를 써서 요청을 보낼 때만 잠깐 쿠키를 넣어 놓는다.
     axios.defaults.headers.Cookie = cookie;
   }
-
 
   /* 처음에 화면을 로딩하면 나의 사용자 정보 불러오기 요청 액션 객체 디스패치 */
   context.store.dispatch({
