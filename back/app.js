@@ -120,6 +120,8 @@ app.use(session({
   cookie: {
     httpOnly: true, // true로 설정 시 JS로 쿠키에 접근하지 못하도록 막는다.
     secure: false,  // https 적용 시 true로 설정할 예정
+    /* 쿠키의 도메인이 배포 환경이면 도메인 앞에 '.'을 붙이기 */
+    domain: process.env.NODE_ENV === 'production' && '.nodebird.xyz'
   }
 }));
 app.use(passport.initialize());
