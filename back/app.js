@@ -78,7 +78,7 @@ if (process.env.NODE_ENV === 'production') {
   // 미들웨어 연결
   app.use(cors({
     /* 배포용에서는 실제 프론트 주소에서 요청했을 때만 CORS 허용하기 */
-    origin: 'http://52.78.52.73',
+    origin: 'http://nodebird.xyz',
     /* 사용자 인증이 필요한 쿠키 전달 허용하기 */
     credentials: true,
   }));
@@ -109,18 +109,19 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // 쿠키와 세션 미들웨어 연결
-app.use(cookieParser(process.env.COOKIE_SECRET)); // 환경변수 사용
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   saveUninitialized: false,
   resave: false,
-  secret: process.env.COOKIE_SECRET,              // 환경변수 사용
+  secret: process.env.COOKIE_SECRET,
   /* ---------- 쿠키 옵션(Cookie Option) ---------- */
   cookie: {
     httpOnly: true, // true로 설정 시 JS로 쿠키에 접근하지 못하도록 막는다.
     secure: false,  // https 적용 시 true로 설정할 예정
     /* 쿠키의 도메인이 배포 환경이면 도메인 앞에 '.'을 붙이기 */
-    domain: process.env.NODE_ENV === 'production' && '.52.78.52.73'
-  }
+    // 점을 붙이면 api.nodebird.xyz와 nodebird.xyz 사이에서 쿠키 공유가 된다.
+    domain: process.env.NODE_ENV === 'production' && '.nodebird.xyz'
+  },
 }));
 app.use(passport.initialize());
 app.use(passport.session());
