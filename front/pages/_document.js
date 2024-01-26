@@ -37,7 +37,7 @@ export default class MyDocument extends Document {
       };
     /* ---------- 에러 캐치 ---------- */
     } catch (error) {
-      console.log(error);
+      console.error(error);
     /* ---------- try 블록이 종료되면 무조건 실행 ---------- */
     } finally {
       sheet.seal();
