@@ -77,8 +77,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use(helmet());
   // 미들웨어 연결
   app.use(cors({
-    /* 배포용에서는 실제 프론트 주소인 'nodebird.xyz'에서 요청했을 때만 CORS 허용하기 */
-    origin: 'http://nodebird.xyz',
+    /* 배포용에서는 실제 프론트 주소에서 요청했을 때만 CORS 허용하기 */
+    origin: 'http://52.78.52.73',
     /* 사용자 인증이 필요한 쿠키 전달 허용하기 */
     credentials: true,
   }));
@@ -119,7 +119,7 @@ app.use(session({
     httpOnly: true, // true로 설정 시 JS로 쿠키에 접근하지 못하도록 막는다.
     secure: false,  // https 적용 시 true로 설정할 예정
     /* 쿠키의 도메인이 배포 환경이면 도메인 앞에 '.'을 붙이기 */
-    domain: process.env.NODE_ENV === 'production' && '.nodebird.xyz'
+    domain: process.env.NODE_ENV === 'production' && '.52.78.52.73'
   }
 }));
 app.use(passport.initialize());
@@ -163,7 +163,7 @@ app.use('/hashtag', hashRouter);
 
 
 
-// http://54.180.201.249 : 실제 백엔드 서버 주소인 80번 포트로 서버 실행
+// 80번 포트로 서버 실행
 app.listen(80, () => {
   console.log('서버 실행 중!');
 });
