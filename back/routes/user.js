@@ -33,7 +33,7 @@ router.get('/', async (req, res, next) => { // GET /user
     /* ---------- (로그인해서) 사용자 정보가 있다면 ---------- */
     if (req.user) {
       /* (비밀번호를 제외한) 모든 사용자 정보를 가져오는 함수 */
-      const fullUserWithOutPassword = await User.findOne({
+      const fullUserWithoutPassword = await User.findOne({
         where: { id: req.user.id },
         attributes: { exclude: ['password'] },
         // 모델 가져오기
@@ -54,7 +54,7 @@ router.get('/', async (req, res, next) => { // GET /user
         }]
       });
       // 200번대 에러 출력
-      res.status(200).json(fullUserWithOutPassword);
+      res.status(200).json(fullUserWithoutPassword);
       
     /* ---------- (로그아웃해서) 사용자 정보가 없다면 ---------- */
     } else {
@@ -125,7 +125,7 @@ router.get('/followings', isLoggedIn, async (req, res, next) => { // GET /user/f
 router.get('/:userId', async (req, res, next) => { // GET /user/사용자 번호
   try {
     /* (비밀번호를 제외한) 모든 사용자 정보를 가져오는 함수 */
-    const fullUserWithOutPassword = await User.findOne({
+    const fullUserWithoutPassword = await User.findOne({
       where: { id: req.params.userId },
       attributes: { exclude: ['password'] },
       // 모델 가져오기
@@ -147,10 +147,10 @@ router.get('/:userId', async (req, res, next) => { // GET /user/사용자 번호
     });
 
     /* ---------- 만약 다른 사용자 정보를 가져올 때 ---------- */
-    if (fullUserWithOutPassword) {
+    if (fullUserWithoutPassword) {
 
       // 시퀄라이즈에서 불러온 데이터를 사용할 수 있도록 JSON으로 바꾸기
-      const data = fullUserWithOutPassword.toJSON();
+      const data = fullUserWithoutPassword.toJSON();
 
       // 개인정보 침해 예방 : 다른 사용자의 트윗, 팔로잉, 팔로워 데이터를 length로 바꾸기
       data.Posts = data.Posts.length;
@@ -266,7 +266,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       }
 
       /* (비밀번호를 제외한) 모든 사용자 정보를 가져오는 함수 */
-      const fullUserWithOutPassword = await User.findOne({
+      const fullUserWithoutPassword = await User.findOne({
         where: { id: user.id },
         attributes: { exclude: ['password'] }, // 전체 데이터에서 비밀번호만 제외
         // 모델 가져오기
@@ -287,7 +287,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
         }]
       });
       /* (비밀번호를 제외한) 모든 사용자 정보를 프론트로 넘기기 */
-      return res.status(200).json(fullUserWithOutPassword);
+      return res.status(200).json(fullUserWithoutPassword);
     });
   })(req, res, next); // 미들웨어 커스터마이징
 });
