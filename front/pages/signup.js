@@ -60,22 +60,24 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   /* 중앙 데이터 저장소에서 상태 값 가져오기 */
-  const { signUpLoading, signUpDone, signUpError, loginDone } = useSelector((state) => state.user);
+  const { me, signUpLoading, signUpDone, signUpError } = useSelector((state) => state.user);
 
 
-  // 로그인 완료 시 메인 페이지로 나가기 및 이전 페이지 기록 삭제
+  // 로그인에 성공해서 나의 정보가 생기면 현재 페이지를 메인 페이지로 바꾸기
   useEffect(() => {
-    if (loginDone) {
+    if (me && me.id) {
       Router.replace('/');
     } 
-  }, [loginDone]);
+  }, [me && me.id]);
 
-  // 회원가입 완료 시 메인 페이지로 나가기 및 이전 페이지 기록 삭제
+
+  // 회원가입 완료 시 현재 페이지를 메인 페이지로 바꾸기
   useEffect(() => {
     if (signUpDone) {
       Router.replace('/');
     }
   }, [signUpDone]);
+
 
   // 회원가입 실패 시 '이미 사용중인 아이디입니다.' alert 창 띄우기
   useEffect(() => {
@@ -84,7 +86,8 @@ const Signup = () => {
     }
   }, [signUpError]);
 
-  
+
+
   /* ---------- 중복 체크 ---------- */
   
   // 이메일, 닉네임, 비밀번호 입력 창에 값을 입력했을 때 상태 변경
