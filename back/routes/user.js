@@ -107,6 +107,7 @@ router.get('/followings', isLoggedIn, async (req, res, next) => { // GET /user/f
     /* 사용자 팔로잉 목록 가져오기 */
     // limit을 올려주면 그 limit만큼 더 가져오도록 하기
     const followings = await user.getFollowings({
+      attributes: ['id', 'nickname'], // id, nickname 데이터만 가져오기
       limit: parseInt(req.query.limit, 10),
     });
     /* 팔로잉 목록을 프론트로 넘기기 */
@@ -310,7 +311,7 @@ router.post('/', isNotLoggedIn, async (req, res, next) => {  // POST /user/
     /* await : 실제로 데이터가 들어감, create : 테이블 안에 데이터를 넣음 */
     await User.create({
       email: req.body.email,
-      nickname:req.body.nickname,
+      nickname: req.body.nickname,
       password: hashedPassword, // 암호화 된 비밀번호 저장
     });
     /* User.create() 비동기 함수가 실행되고 난 다음에 실행 */
