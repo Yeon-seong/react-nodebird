@@ -150,3 +150,6 @@ config.txt
 
 # MySQL 비밀번호 초기화 파일
 mysql_init.txt
+
+# S3 루트 엑세스 키, 비밀 엑세스 키 파일
+rootkey.csv
