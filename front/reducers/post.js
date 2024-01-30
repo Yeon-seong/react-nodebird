@@ -349,8 +349,8 @@ const reducer = (state = initialState, action) => {
         break;
       /* ---------- 이미지 업로드 성공 리듀서 ---------- */
       case UPLOAD_IMAGES_SUCCESS:
-        // 이미지 업로드 라우터에서 보낸 파일명(filename) 데이터를 imagePaths에 저장
-        draft.imagePaths = action.data;
+        // 이미지 업로드 라우터에서 보낸 이미지 업로드 위치 데이터를 imagePaths에 저장
+        draft.imagePaths = draft.imagePaths.concat(action.data);
         draft.uploadImagesLoading = false;
         draft.uploadImagesDone = true;
         break;
