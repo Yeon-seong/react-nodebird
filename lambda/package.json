@@ -9,6 +9,7 @@
   "author": "YeonSeong",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.710.0"
+    "aws-sdk": "^2.710.0",
+    "sharp": "^0.25.4"
   }
 }
