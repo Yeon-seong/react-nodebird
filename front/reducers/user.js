@@ -380,8 +380,7 @@ const reducer = (state = initialState, action) => {
 
       /* ---------- 내 게시글 삭제 리듀서 ---------- */
       case REMOVE_POST_OF_ME:
-        draft.me.Posts
-        = draft.me.Posts.filter((v) => v.id !== action.data);
+        draft.me.Posts = draft.me.Posts.filter((v) => v.id !== action.data);
         break;
 
       default:
