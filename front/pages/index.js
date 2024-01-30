@@ -101,6 +101,9 @@ const Home = () => {
 /* 홈 컴포넌트보다 먼저 실행, 매개변수 context 안에 store가 들어있다. */
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
 
+  console.log('getServerSideProps start');
+  console.log(context.req.headers);
+
   /* 변수 cookie에 모든 cookie 정보 저장 */
   const cookie = context.req ? context.req.headers.cookie : '';
 
@@ -122,6 +125,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   context.store.dispatch({
     type: LOAD_POSTS_REQUEST,
   });
+
+  context.store.dispatch(END);
 
   /* 나의 사용자 정보, 여러 게시글 불러오기 요청(REQUEST)이 성공(SUCCESS)으로 바뀔 때까지 기다리기 */
   context.store.dispatch(END);
