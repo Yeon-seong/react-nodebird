@@ -40,6 +40,12 @@ try {
 }
 
 
+// AWS Region 및 자격증명 설정
+AWS.config.update({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  region: 'ap-northeast-2',
+});
 // 파일 업로드 옵션
 const upload = multer({
   /* ---------- 저장 위치 : multerS3에 저장 ---------- */
