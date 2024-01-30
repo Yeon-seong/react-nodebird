@@ -28,9 +28,6 @@ import {
 
 } from '../reducers/post';
 
-// 실제 백엔드 서버 주소 가져오기
-import { backUrl } from '../config/config';
-
 
 
 // 게시글 폼 컴포넌트(사용자 정의 태그)
@@ -169,8 +166,8 @@ const PostForm = () => {
         {/* ---------- 이미지 업로드 시 미리보기 ---------- */}
         {imagePaths?.map((v, i) => (
           <div key={v} style={{ display: 'inline-block' }}>
-          {/* 이미지 미리보기 주소(경로)를 실제 백엔드 서버 주소로 설정 */}
-          <img src={`${backUrl}/${v}`} style={{ width: '200px' }} alt={v} />
+          {/* 이미지 미리보기 주소를 S3 위치(location)로 설정 */}
+          <img src={v} style={{ width: '200px' }} alt={v} />
           <div>
             {/* ---------- 이미지 제거 버튼 ---------- */}
             <Button onClick={onRemoveImage(i)}>제거</Button>
