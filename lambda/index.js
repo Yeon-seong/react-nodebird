@@ -31,8 +31,8 @@ exports.handler = async (event, context, callback) => {
      확장자 스타일을 소문자 통일하기 위해 toLowerCase 함수 사용 */
   const ext = Key.split('.')[Key.split('.').length - 1].toLowerCase();
 
-  /* 이미지 확장자가 JPG인 경우에는 확장자를 JPEG로 하기 */
-  const requiredFormat = ext === 'jpg' ? 'JPEG ' : ext;
+  /* 이미지 확장자가 jpg인 경우에는 확장자를 jpeg로 하기 */
+  const requiredFormat = ext === 'jpg' ? 'jpeg' : ext;
   console.log('filename', filename, 'ext', ext);
 
 
@@ -49,7 +49,7 @@ exports.handler = async (event, context, callback) => {
       /* jpg만 jpeg로 바꾸기, png는 그대로 png 사용하기 */
       .toFormat(requiredFormat)
       /* 리사이징된 결과물이 Buffer로 나온다. */
-      .toButter();
+      .toBuffer();
 
     /* putObject : s3로 부터 이미지를 넣기 */
     await s3.putObject({
