@@ -214,8 +214,8 @@ router.get('/:postId', async (req, res, next) => { // GET /post/동적 히든
 router.post('/images', upload.array('image'), async (req, res, next) => {  // POST /post/images
   /* req files : 업로드한 이미지에 대한 정보 */
   console.log(req.files);
-  /* 이미지 업로드 위치(location)를 프론트로 보내기 */
-  res.json(req.files.map((v) => v.location));
+  /* 이미지 업로드 시 원본 이미지(original)를 리사이징된 이미지(thumb)로 바꿔 프론트 주소로 보내기 */
+  res.json(req.files.map((v) => v.location.replace(/\/original\//, '/thumb/')));
 });
 
 
