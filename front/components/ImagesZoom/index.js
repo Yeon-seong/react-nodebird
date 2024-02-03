@@ -1,4 +1,4 @@
-/* -------------------- 트위터 이미지 확대 화면 -------------------- */
+/* -------------------- 트위터 이미지 상세보기 화면 -------------------- */
 
 
 
@@ -61,8 +61,8 @@ const ImagesZoom = ({ images, onClose }) => {
             {/* ---------- 이미지 캐러셀 ---------- */}
             {images.map((v) => (
               <ImgWrapper key={v.src}>
-                {/* 이미지 캐러셀 주소를 S3 위치(location)로 설정 */}
-                <img src={`${v.src}`} alt={v.src} />
+                {/* 이미지 상세보기 시 리사이징된 이미지(thumb)를 원본 이미지(original)로 바꾸기 */}
+                <img src={`${v.src.replace(/\/thumb\//, '/original/')}`} alt={v.src} />
               </ImgWrapper>
             ))}
           </Slick>
