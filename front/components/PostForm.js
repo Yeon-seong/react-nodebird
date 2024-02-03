@@ -163,11 +163,11 @@ const PostForm = () => {
 
 
       <div>
-        {/* ---------- 이미지 업로드 시 미리보기 ---------- */}
+        {/* ---------- 이미지 미리보기 ---------- */}
         {imagePaths?.map((v, i) => (
           <div key={v} style={{ display: 'inline-block' }}>
-          {/* 이미지 미리보기 주소를 S3 위치(location)로 설정 */}
-          <img src={v} style={{ width: '200px' }} alt={v} />
+          {/* 이미지 미리보기 시 리사이징된 이미지(thumb)를 원본 이미지(original)로 바꾸기 */}
+          <img src={v.src.replace(/\/thumb\//, '/original/')} style={{ width: '200px' }} alt={v} />
           <div>
             {/* ---------- 이미지 제거 버튼 ---------- */}
             <Button onClick={onRemoveImage(i)}>제거</Button>
