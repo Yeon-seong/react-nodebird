@@ -76,11 +76,11 @@ const Post = () => {
         <meta property="og:image"
           content={singlePost.Images[0]
             ? singlePost.Images[0].src
-            : 'https://nodebird.com/favicon.ico'
+            : 'http://nodebird.xyz/favicon.ico'
           }
         />
         {/* 링크 주소 미리보기 */}
-        <meta property="og:url" content={`https://nodebird.com/post/${id}`} />
+        <meta property="og:url" content={`http://nodebird.xyz/post/${id}`} />
       </Head>
 
       {/* 게시글 카드 */}

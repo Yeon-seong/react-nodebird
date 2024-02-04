@@ -103,9 +103,10 @@ const User = () => {
           <meta property="og:description" content={`${userInfo.nickname}님의 게시글`} />
           
           {/* 게시글 이미지 미리보기 : 이미지는 파비콘(favicon)으로 설정하기 */}
-          <meta property="og:image" content="https://nodebird.com/favicon.ico" />
+          <meta property="og:image" content="http://nodebird.xyz/favicon.ico" />
+
           {/* 링크 주소 미리보기 */}
-          <meta property="og:url" content={`https://nodebird.com/user/${id}`} />
+          <meta property="og:url" content={`http://nodebird.xyz/user/${id}`} />
         </Head>
       )}
 
