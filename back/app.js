@@ -55,10 +55,8 @@ dotenv.config();
 const app = express();
 
 // 서버 실행 시 데이터베이스 시퀄라이즈 연결
-db.sequelize.sync({
-  force: true, // 테이블이 존재하지 않을 경우 테이블을 생성, 존재할 경우 테이블을 삭제
-  alter: true  // 테이블이 존재하지 않을 경우 테이블을 생성, 존재할 경우 Model과 테이블이 같도록 테이블을 변경
-})
+/* force: true는 테이블이 존재하지 않을 경우 테이블을 생성, 존재할 경우 테이블을 삭제하기 */
+db.sequelize.sync({ force: true })
   .then(() => {
     console.log('db 연결 성공');
   })
