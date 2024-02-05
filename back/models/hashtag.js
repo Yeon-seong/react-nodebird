@@ -22,7 +22,7 @@ module.exports = class Hashtag extends Model {
       // id: {},    // id가 기본적으로 들어있음
       // 이름 칼럼
       name: {
-        type: DataTypes.STRING(30), // 30글자 이내의 문자열
+        type: DataTypes.STRING(50), // 50글자 이내의 문자열
         allowNull: false,           // 해시태그 이름 필수
       },
 
