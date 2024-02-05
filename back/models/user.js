@@ -22,18 +22,18 @@ module.exports = class User extends Model {
       // id: {},    // id가 기본적으로 들어있음.
       // 이메일 칼럼
       email: {
-        type: DataTypes.STRING(30),    // 30글자 이내의 문자열
+        type: DataTypes.STRING(50),    // 50글자 이내의 문자열
         allowNull: false,              // 사용자 이메일 필수
         unique: true,                  // 고유한 값(중복 X)
       },
       // 닉네임 칼럼
       nickname: {
-        type: DataTypes.STRING(30),    // 30글자 이내의 문자열
+        type: DataTypes.STRING(50),    // 50글자 이내의 문자열
         allowNull: false,              // 사용자 닉네임 필수
       },
       // 비밀번호 칼럼
       password: {
-        type: DataTypes.STRING(300),   // 300글자 이내의 문자열
+        type: DataTypes.STRING(500),   // 500글자 이내의 문자열
         allowNull: false,              // 사용자 비밀번호 필수
       },
 
