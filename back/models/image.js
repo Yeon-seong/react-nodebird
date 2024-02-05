@@ -22,8 +22,8 @@ module.exports = class Image extends Model {
       // id: {},    // id가 기본적으로 들어있음.
       // 경로 소스 칼럼
       src: {
-        type: DataTypes.STRING(300), // 300글자 이내의 문자열
-        allowNull: false,            // 이미지 경로 소스 필수
+        type: DataTypes.STRING(1000), // 1000글자 이내의 문자열
+        allowNull: false,             // 이미지 경로 소스 필수
       },
 
       /* belongsTo 메서드가 실제 칼럼 제작 */
