@@ -33,11 +33,11 @@ module.exports = class Image extends Model {
 
       /* ---------- Model init의 두 번째 인수 ---------- */
       /* 이미지 모델 세팅 */
-      modelName: 'Image',         // 모델 이름 : Image
-      tableName: 'images',        // MySQL 테이블 이름 : images(소문자 복수)
-      charset: 'utf8mb4',         // MySQL에서 한글, 이모티콘 사용 가능
-      collate: 'utf8_general_ci', // 한글 저장
-      sequelize,                  // 연결 객체를 클래스로 보내주기 위해 넣어준다.
+      modelName: 'Image',            // 모델 이름 : Image
+      tableName: 'images',           // MySQL 테이블 이름 : images(소문자 복수)
+      charset: 'utf8mb4',            // MySQL에서 한글, 이모티콘 사용 가능
+      collate: 'utf8mb4_general_ci', // 한글, 이모티콘 저장
+      sequelize,                     // 연결 객체를 클래스로 보내주기 위해 넣어준다.
 
     });
   }
