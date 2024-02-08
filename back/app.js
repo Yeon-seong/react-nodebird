@@ -95,7 +95,7 @@ if (process.env.NODE_ENV === 'production') {
     /* 사용자 인증이 필요한 쿠키 전달 허용하기 */
     credentials: true,
   }));
-};
+}
 
 
 

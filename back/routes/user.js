@@ -253,7 +253,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       console.error(err); // 콘솔 창을 통한 에러 메시지 출력
       return next(err);   // 에러 처리 미들웨어로 이동
     }
-    /* 클라이언트 에러 : 로그인하다 에러나면 클라이언트로 응답 보내기 */
+    /* 클라이언트 에러 : 로그인하다 에러가 나면 클라이언트로 응답 보내기 */
     if (info) {
       return res.status(401).send(info.reason);
     }
@@ -294,7 +294,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
 
 
 // 회원가입 라우터
-router.post('/', isNotLoggedIn, async (req, res, next) => {  // POST /user/
+router.post('/', isNotLoggedIn, async (req, res, next) => { // POST /user/
   try {
     /* 프론트에서 보낸 이메일과 같은 이메일을 쓰는 사용자가 있다면 exUser에 저장하는 함수 */
     const exUser = await User.findOne({
