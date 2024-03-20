@@ -16,7 +16,7 @@
 * React (v16)
 * JavaScript ES6
 * CSS3
-* HTML5, CSS
+* HTML5
 #### Back-end
 * Node.js (v14.3.0)
   * 브라우저 밖에서 자바스크립트를 실행 환경을 만들어주기 위해 사용
@@ -38,4 +38,3 @@
 * Styled-Component
 * React-Hooks
 * prop-types
-* Axios
