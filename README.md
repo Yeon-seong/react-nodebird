@@ -2,8 +2,8 @@
 > React와 Node.js, Node.js를 사용한 트위터 클론 프로젝트입니다!
 <br>
 
-## 프로젝트 배포
-> [🌐 트위터 클론 배포 사이트 링크 🌐](http://nodebird.xyz/)
+## 사이트 링크
+> [🌐 배포 완료](http://nodebird.xyz/)
 <br>
 
 ## 🛠 개발 기간
@@ -30,7 +30,6 @@
   <!-- Next.js 스킬 아이콘 -->
   <img src="https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=fff&style=for-the-badge"/>
  </p>
-<br>
 
 ### Back-end
 > * Node.js 14버전, MySQL 8버전을 사용하였습니다.
@@ -43,7 +42,6 @@
   <!-- AWS 스킬 아이콘 -->
   <img src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white"/>
  </p>
-<br>
 
 ### DevOps
   <p>
