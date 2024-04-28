@@ -33,11 +33,11 @@
 <br>
 
 ### Back-end
-> Node.js 14버전, MySQL 8버전을 사용하였습니다.
+> * Node.js 14버전, MySQL 8버전을 사용하였습니다.
+> * Node.js는 브라우저 밖에서 자바스크립트를 실행 환경을 만들어주기 위해 사용하였습니다.
  <p>
   <!-- Node.js 스킬 아이콘 -->
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"/>
-  * 브라우저 밖에서 자바스크립트를 실행 환경을 만들어주기 위해 사용
   <!-- MySQL 스킬 아이콘 -->
   <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white"/>
   <!-- AWS 스킬 아이콘 -->
@@ -53,15 +53,16 @@
 <br>
 
 ## 🛠 사용 패키지
-> npm 패키지 관리자를 사용하였습니다.
-* Ant Design, Antd Icons (v4)
+> * npm 패키지 관리자를 사용하였습니다.
+> * Ant Design과 Antd Icons는 4버전, react-dom은 16버전을 사용하였습니다.
+* Ant Design, Antd Icons
 * Styled-Component
 * react-dom (v16)
 * prop-types
 * Axios
 <br>
 
-> 🛠 개발용으로 설치하였습니다.
+> 아래 패키지는 개발용으로 설치하였습니다.
 * ESLint, ESLint Plugin
 * Styled-Component
 * React-Hooks
