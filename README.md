@@ -2,7 +2,7 @@
 > React와 Node.js, Node.js를 사용한 트위터 클론 프로젝트입니다!
 <br>
 
-## 배포 사이트
+## 프로젝트 배포
 > [🌐 트위터 클론 배포 사이트 링크 🌐](http://nodebird.xyz/)
 <br>
 
