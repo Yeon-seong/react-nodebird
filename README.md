@@ -1,8 +1,9 @@
-# 🕊 트위터 클론
+# 🕊 트위터 클론 🕊
 > React와 Node.js, Node.js를 사용한 트위터 클론 프로젝트입니다!
 <br>
 
-[🌐 배포 사이트 🌐](http://nodebird.xyz/)
+## 배포 사이트
+> [🌐 트위터 클론 배포 사이트 링크 🌐](http://nodebird.xyz/)
 <br>
 
 ## 🛠 개발 기간
@@ -16,6 +17,7 @@
 
 ## 🛠 사용 스택
 ### Front-end
+> JavaScript ES6 문법, React 16버전, Next.js 9버전을 사용하였습니다.
  <p>
   <!-- HTML5 스킬 아이콘 -->
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
@@ -24,19 +26,20 @@
   <!-- JavaScript 스킬 아이콘 -->
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/>
   <!-- React 스킬 아이콘 -->
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/> (v16)
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/>
   <!-- Next.js 스킬 아이콘 -->
-  <img src="https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=fff&style=for-the-badge"/> (v9)
+  <img src="https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=fff&style=for-the-badge"/>
  </p>
 <br>
 
 ### Back-end
+> Node.js 14버전, MySQL 8버전을 사용하였습니다.
  <p>
   <!-- Node.js 스킬 아이콘 -->
-  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"/> (v14)
+  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"/>
   * 브라우저 밖에서 자바스크립트를 실행 환경을 만들어주기 위해 사용
   <!-- MySQL 스킬 아이콘 -->
-  <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white"/> (v8.0)
+  <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white"/>
   <!-- AWS 스킬 아이콘 -->
   <img src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white"/>
  </p>
