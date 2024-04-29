@@ -2,20 +2,24 @@
 > React와 Node.js, Node.js를 사용한 트위터 클론 프로젝트입니다!
 <br>
 
-## 🛠 사이트 링크
-> [🌐 배포 완료](http://nodebird.xyz/)
+## 🌐 사이트 링크
+> [👉 배포 사이트 👈](http://nodebird.xyz/)
 <br>
 
-## 🛠 개발 기간
+## ⏱ 개발 기간
 > 2023년 09월 15일 ~ 2024년 02월 08일
 <br>
 
-## 🛠 개발 환경
+## 🙋🏻‍♀️ 개발 인원
+> 1명
+<br>
+
+## 👩🏻‍💻 개발 환경
 > * Windows 10, 64bit
 > * VSCode, GitHub
 <br>
 
-## 🛠 사용 스택
+## 🛠 사용 기술
 ### Front-end
 > JavaScript ES6 문법, React 16버전, Next.js 9버전을 사용하였습니다.
  <p>
@@ -50,7 +54,7 @@
   </p>
 <br>
 
-## 🛠 사용 패키지
+## 📦 사용 패키지
 > * npm 패키지 관리자를 사용하였습니다.
 > * Ant Design과 Antd Icons는 4버전, react-dom은 16버전을 사용하였습니다.
 * Ant Design, Antd Icons
@@ -67,7 +71,7 @@
 * prop-types
 <br>
 
-## 🛠 구현 기능
+## 🌐 구현 기능
 ### 
 * 내용
 <br>
