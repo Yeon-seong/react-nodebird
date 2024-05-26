@@ -21,7 +21,7 @@
 
 ## 🛠 사용 기술
 ### Front-end
-> JavaScript ES6 문법, React 16버전, Next.js 9버전을 사용하였습니다.
+> * JavaScript ES6 문법, React 16버전, Next.js 9버전을 사용하였습니다.
  <p>
   <!-- HTML5 스킬 아이콘 -->
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
